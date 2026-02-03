@@ -3,6 +3,8 @@
 	import { onMount } from 'svelte';
 	import { unitMotorApi } from '$lib/api';
 	import type { UnitMotor } from '$lib/types';
+	import Input from '$lib/components/ui/Input.svelte';
+	import Select from '$lib/components/ui/Select.svelte';
 
 	let motors: UnitMotor[] = [];
 	let brands: { id: string; merk: string }[] = [];
@@ -89,37 +91,25 @@
 				class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 mb-12 grid grid-cols-1 md:grid-cols-3 gap-6"
 			>
 				<!-- Search -->
-				<div>
-					<label
-						for="search-motor"
-						class="block text-sm text-gray-400 mb-2 uppercase tracking-wider">Cari Motor</label
-					>
-					<input
-						id="search-motor"
-						type="text"
-						bind:value={searchQuery}
-						placeholder="Ketik nama motor..."
-						class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
-					/>
-				</div>
+				<Input
+					id="search-motor"
+					label="Cari Motor"
+					bind:value={searchQuery}
+					placeholder="Ketik nama motor..."
+					icon="search"
+				/>
 
 				<!-- Brand Filter -->
-				<div>
-					<label
-						for="brand-filter"
-						class="block text-sm text-gray-400 mb-2 uppercase tracking-wider">Merek</label
-					>
-					<select
-						id="brand-filter"
-						bind:value={selectedBrand}
-						class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
-					>
-						<option value="">Semua Merek</option>
-						{#each brands as brand}
-							<option value={brand.merk}>{brand.merk}</option>
-						{/each}
-					</select>
-				</div>
+				<Select
+					id="brand-filter"
+					label="Merek"
+					bind:value={selectedBrand}
+					options={[
+						{ value: '', label: 'Semua Merek' },
+						...brands.map((b) => ({ value: b.merk, label: b.merk }))
+					]}
+					placeholder="Pilih Merek"
+				/>
 
 				<!-- Price Range Display -->
 				<div>
@@ -127,21 +117,9 @@
 						>Rentang Harga</label
 					>
 					<div class="flex items-center gap-4">
-						<input
-							id="price-min"
-							type="number"
-							bind:value={priceRange.min}
-							placeholder="Min"
-							class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
-						/>
+						<Input id="price-min" type="number" bind:value={priceRange.min} placeholder="Min" />
 						<span class="text-gray-500">-</span>
-						<input
-							id="price-max"
-							type="number"
-							bind:value={priceRange.max}
-							placeholder="Max"
-							class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
-						/>
+						<Input id="price-max" type="number" bind:value={priceRange.max} placeholder="Max" />
 					</div>
 				</div>
 			</div>
@@ -281,10 +259,3 @@
 		<p>&copy; 2024 Rosantibike Motorent. All Rights Reserved.</p>
 	</footer>
 </div>
-
-<style>
-	select option {
-		background-color: #1a1a1a;
-		color: white;
-	}
-</style>

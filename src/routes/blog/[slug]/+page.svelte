@@ -5,6 +5,7 @@
 	import { blogApi } from '$lib/api';
 	import type { BlogPost } from '$lib/types';
 	import { browser } from '$app/environment';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	let post: BlogPost | null = null;
 	let loading = true;
@@ -217,12 +218,7 @@
 					<p class="text-gray-400 mb-6 max-w-md mx-auto">
 						Jelajahi Malang dengan motor berkualitas dari Rosantibike. Booking sekarang!
 					</p>
-					<a
-						href="/fleet"
-						class="inline-block px-8 py-4 bg-white text-black font-bold text-lg uppercase tracking-wider rounded-2xl hover:bg-gray-200 transition-colors"
-					>
-						Lihat Armada Kami
-					</a>
+					<Button href="/fleet" variant="primary" size="lg">Lihat Armada Kami</Button>
 				</div>
 			</div>
 		</article>

@@ -3,10 +3,11 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { unitMotorApi } from '$lib/api';
-	import type { UnitMotor } from '$lib/types';
+	import { jenisMotorApi } from '$lib/api';
+	import type { UnitMotor, JenisMotor } from '$lib/types';
+	import Button from '$lib/components/ui/Button.svelte';
 
-	let motor: UnitMotor | null = null;
+	let motor: (UnitMotor & { jenis?: JenisMotor }) | null = null;
 	let loading = true;
 	let error = '';
 
@@ -20,7 +21,20 @@
 		}
 
 		try {
-			motor = await unitMotorApi.getBySlug(slug);
+			const jenisData = (await jenisMotorApi.getBySlug(slug)) as any;
+			if (jenisData && jenisData.unitMotor && jenisData.unitMotor.length > 0) {
+				// Cari unit yang tersedia, jika tidak ada ambil yang pertama
+				const units = jenisData.unitMotor as UnitMotor[];
+				const availableUnit = units.find((u) => u.status === 'TERSEDIA') || units[0];
+
+				// Gabungkan data agar UI yang lama tetap bekerja
+				motor = {
+					...availableUnit,
+					jenis: jenisData
+				};
+			} else {
+				error = 'Tidak ada unit tersedia untuk model ini';
+			}
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Motor tidak ditemukan';
 		} finally {
@@ -216,19 +230,11 @@
 							</div>
 
 							{#if motor.status === 'TERSEDIA'}
-								<button
-									on:click={handleBooking}
-									class="w-full py-4 bg-white text-black font-bold text-lg uppercase tracking-wider rounded-2xl hover:bg-gray-200 transition-colors"
-								>
-									Booking Sekarang
-								</button>
+								<Button on:click={handleBooking} fullWidth size="lg">Booking Sekarang</Button>
 							{:else}
-								<button
-									disabled
-									class="w-full py-4 bg-gray-700 text-gray-400 font-bold text-lg uppercase tracking-wider rounded-2xl cursor-not-allowed"
-								>
+								<Button disabled fullWidth size="lg" variant="secondary">
 									{motor.status === 'DISEWA' ? 'Sedang Disewa' : 'Dalam Maintenance'}
-								</button>
+								</Button>
 							{/if}
 
 							<p class="text-center text-gray-500 text-sm mt-4">

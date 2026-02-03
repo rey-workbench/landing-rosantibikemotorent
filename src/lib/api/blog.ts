@@ -19,7 +19,7 @@ export const blogApi = {
         return data.data || data;
     },
     getBySlug: async (slug: string): Promise<BlogPost> => {
-        const { data } = await api.get(`/blog/slug/${slug}`);
+        const { data } = await api.get(`/blog/by-slug/${slug}`);
         return data.data || data;
     },
     getTags: async (): Promise<BlogTag[]> => {

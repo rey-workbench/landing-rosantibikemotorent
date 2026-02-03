@@ -5,6 +5,9 @@
 	import { goto } from '$app/navigation';
 	import { transaksiApi, unitMotorApi } from '$lib/api';
 	import type { UnitMotor, PriceCalculation } from '$lib/types';
+	import Button from '$lib/components/ui/Button.svelte';
+	import Input from '$lib/components/ui/Input.svelte';
+	import Select from '$lib/components/ui/Select.svelte';
 
 	// State
 	let availableMotors: UnitMotor[] = [];
@@ -43,21 +46,43 @@
 		const urlUnitId = $page.url.searchParams.get('unitId');
 
 		try {
-			// Fetch available motors
+			// Fetch available motors for the dropdown
 			const motorsResponse = await unitMotorApi.getAll({ status: 'TERSEDIA' });
 			availableMotors = motorsResponse.data || [];
 
 			// If unitId in URL, preselect it
 			if (urlUnitId) {
 				formData.unitId = urlUnitId;
+
+				// Try to find in available list first
 				selectedUnit = availableMotors.find((m) => m.id === urlUnitId) || null;
-				if (selectedUnit) {
-					await handleCalculatePrice();
+
+				// Handle specific unit logic in background if not found
+				if (!selectedUnit) {
+					unitMotorApi
+						.getById(urlUnitId)
+						.then((unit) => {
+							if (unit) {
+								selectedUnit = unit;
+								if (!availableMotors.find((m) => m.id === unit.id)) {
+									availableMotors = [unit, ...availableMotors];
+								}
+								handleCalculatePrice();
+							}
+						})
+						.catch((e) => {
+							console.error('Failed to fetch specific unit:', e);
+						});
+				} else {
+					// Found in available list, calculate price
+					handleCalculatePrice();
 				}
 			}
 		} catch (err) {
+			console.error('Initial load error:', err);
 			error = err instanceof Error ? err.message : 'Gagal memuat data';
 		} finally {
+			// Ensure loading is set to false regardless of deep results
 			loading = false;
 		}
 	});
@@ -67,21 +92,27 @@
 			return;
 		}
 
+		// Prevent concurrent calculations if unnecessary, but ensure state is clean
+		if (isCalculating) return;
+
 		isCalculating = true;
 		formError = '';
 
 		try {
-			priceBreakdown = await transaksiApi.calculatePrice({
+			const result = await transaksiApi.calculatePrice({
 				unitId: formData.unitId,
 				tanggalMulai: formData.tanggalMulai,
 				tanggalSelesai: formData.tanggalSelesai,
 				jamMulai: formData.jamMulai,
 				jamSelesai: formData.jamSelesai,
-				jasHujan: formData.jasHujan,
-				helm: formData.helm
+				jasHujan: Number(formData.jasHujan),
+				helm: Number(formData.helm)
 			});
+			priceBreakdown = result;
 		} catch (err) {
+			console.error('Price calculation failed:', err);
 			formError = err instanceof Error ? err.message : 'Gagal menghitung harga';
+			priceBreakdown = null;
 		} finally {
 			isCalculating = false;
 		}
@@ -208,37 +239,24 @@
 							</h3>
 
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-								<div>
-									<label
-										for="nama-penyewa"
-										class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-										>Nama Lengkap *</label
-									>
-									<input
-										id="nama-penyewa"
-										type="text"
-										bind:value={formData.namaPenyewa}
-										required
-										placeholder="Nama sesuai KTP"
-										class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
-									/>
-								</div>
+								<Input
+									id="nama-penyewa"
+									label="Nama Lengkap"
+									bind:value={formData.namaPenyewa}
+									required
+									placeholder="Nama sesuai KTP"
+									icon="user"
+								/>
 
-								<div>
-									<label
-										for="no-whatsapp"
-										class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-										>No. WhatsApp *</label
-									>
-									<input
-										id="no-whatsapp"
-										type="tel"
-										bind:value={formData.noWhatsapp}
-										required
-										placeholder="08xxxxxxxxxx"
-										class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
-									/>
-								</div>
+								<Input
+									id="no-whatsapp"
+									label="No. WhatsApp"
+									type="tel"
+									bind:value={formData.noWhatsapp}
+									required
+									placeholder="08xxxxxxxxxx"
+									icon="phone"
+								/>
 							</div>
 						</div>
 
@@ -253,26 +271,21 @@
 							</h3>
 
 							<div>
-								<label
-									for="unit-motor"
-									class="block text-sm text-gray-400 mb-2 uppercase tracking-wider">Motor *</label
-								>
-								<select
+								<Select
 									id="unit-motor"
+									label="Motor"
 									bind:value={formData.unitId}
 									required
+									options={availableMotors.map((m) => {
+										const jenis = m.jenis || m.jenisMotor;
+										return {
+											value: m.id,
+											label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(m.hargaSewa)}/hari`
+										};
+									})}
+									placeholder="Pilih Motor"
 									on:change={handleUnitChange}
-									class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
-								>
-									<option value="">Pilih Motor</option>
-									{#each availableMotors as motor}
-										{@const jenis = motor.jenis || motor.jenisMotor}
-										<option value={motor.id}>
-											{jenis?.merk}
-											{jenis?.model} - {formatPrice(motor.hargaSewa)}/hari
-										</option>
-									{/each}
-								</select>
+								/>
 							</div>
 
 							{#if selectedUnit}
@@ -309,69 +322,43 @@
 							</h3>
 
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-								<div>
-									<label
-										for="tanggal-mulai"
-										class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-										>Tanggal Mulai *</label
-									>
-									<input
-										id="tanggal-mulai"
-										type="date"
-										bind:value={formData.tanggalMulai}
-										required
-										on:change={handleCalculatePrice}
-										class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-									/>
-								</div>
+								<Input
+									id="tanggal-mulai"
+									label="Tanggal Mulai"
+									type="date"
+									bind:value={formData.tanggalMulai}
+									required
+									icon="calendar"
+									on:input={() => setTimeout(handleCalculatePrice, 100)}
+								/>
 
-								<div>
-									<label
-										for="jam-mulai"
-										class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-										>Jam Mulai *</label
-									>
-									<input
-										id="jam-mulai"
-										type="time"
-										bind:value={formData.jamMulai}
-										required
-										on:change={handleCalculatePrice}
-										class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-									/>
-								</div>
+								<Input
+									id="jam-mulai"
+									label="Jam Mulai"
+									type="time"
+									bind:value={formData.jamMulai}
+									required
+									on:input={() => setTimeout(handleCalculatePrice, 100)}
+								/>
 
-								<div>
-									<label
-										for="tanggal-selesai"
-										class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-										>Tanggal Selesai *</label
-									>
-									<input
-										id="tanggal-selesai"
-										type="date"
-										bind:value={formData.tanggalSelesai}
-										required
-										on:change={handleCalculatePrice}
-										class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-									/>
-								</div>
+								<Input
+									id="tanggal-selesai"
+									label="Tanggal Selesai"
+									type="date"
+									bind:value={formData.tanggalSelesai}
+									required
+									icon="calendar"
+									on:input={() => setTimeout(handleCalculatePrice, 100)}
+								/>
 
-								<div>
-									<label
-										for="jam-selesai"
-										class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-										>Jam Selesai *</label
-									>
-									<input
-										id="jam-selesai"
-										type="time"
-										bind:value={formData.jamSelesai}
-										required
-										on:change={handleCalculatePrice}
-										class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-									/>
-								</div>
+								<Input
+									id="jam-selesai"
+									label="Jam Selesai"
+									type="time"
+									bind:value={formData.jamSelesai}
+									required
+									on:input={() => setTimeout(handleCalculatePrice, 100)}
+								/>
 							</div>
 						</div>
 
@@ -386,41 +373,31 @@
 							</h3>
 
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-								<div>
-									<label
-										for="jas-hujan"
-										class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-										>Jas Hujan (maks 2)</label
-									>
-									<select
-										id="jas-hujan"
-										bind:value={formData.jasHujan}
-										on:change={handleCalculatePrice}
-										class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
-									>
-										<option value={0}>Tidak perlu</option>
-										<option value={1}>1 buah</option>
-										<option value={2}>2 buah</option>
-									</select>
-								</div>
+								<Select
+									id="jas-hujan"
+									label="Jas Hujan (maks 2)"
+									bind:value={formData.jasHujan}
+									options={[
+										{ value: 0, label: 'Tidak perlu' },
+										{ value: 1, label: '1 buah' },
+										{ value: 2, label: '2 buah' }
+									]}
+									placeholder="Pilih Jas Hujan"
+									on:change={handleCalculatePrice}
+								/>
 
-								<div>
-									<label
-										for="helm"
-										class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-										>Helm Tambahan (maks 2)</label
-									>
-									<select
-										id="helm"
-										bind:value={formData.helm}
-										on:change={handleCalculatePrice}
-										class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
-									>
-										<option value={0}>Tidak perlu</option>
-										<option value={1}>1 buah</option>
-										<option value={2}>2 buah</option>
-									</select>
-								</div>
+								<Select
+									id="helm"
+									label="Helm Tambahan (maks 2)"
+									bind:value={formData.helm}
+									options={[
+										{ value: 0, label: 'Tidak perlu' },
+										{ value: 1, label: '1 buah' },
+										{ value: 2, label: '2 buah' }
+									]}
+									placeholder="Pilih Helm Tambahan"
+									on:change={handleCalculatePrice}
+								/>
 							</div>
 						</div>
 
@@ -435,16 +412,16 @@
 										<span>Sewa ({priceBreakdown.rincian.jumlahHari} hari)</span>
 										<span>{formatPrice(priceBreakdown.rincian.hargaSewa)}</span>
 									</div>
-									{#if priceBreakdown.rincian.jasHujan > 0}
+									{#if formData.jasHujan > 0}
 										<div class="flex justify-between">
-											<span>Jas Hujan</span>
-											<span>{formatPrice(priceBreakdown.rincian.jasHujan)}</span>
+											<span>Jas Hujan ({formData.jasHujan})</span>
+											<span class="text-green-400 font-bold">Gratis</span>
 										</div>
 									{/if}
-									{#if priceBreakdown.rincian.helm > 0}
+									{#if formData.helm > 0}
 										<div class="flex justify-between">
-											<span>Helm Tambahan</span>
-											<span>{formatPrice(priceBreakdown.rincian.helm)}</span>
+											<span>Helm Tambahan ({formData.helm})</span>
+											<span class="text-green-400 font-bold">Gratis</span>
 										</div>
 									{/if}
 									<div class="border-t border-white/10 pt-2 mt-2">
@@ -458,13 +435,15 @@
 						{/if}
 
 						<!-- Submit Button -->
-						<button
+						<Button
 							type="submit"
+							fullWidth
+							size="lg"
+							loading={isSubmitting || isCalculating}
 							disabled={isSubmitting || isCalculating}
-							class="w-full py-4 bg-white text-black font-bold text-lg uppercase tracking-wider rounded-2xl hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{isSubmitting ? 'Memproses...' : 'Konfirmasi Booking'}
-						</button>
+						</Button>
 					</form>
 				</div>
 			{/if}
@@ -476,15 +455,3 @@
 		<p>&copy; 2024 Rosantibike Motorent. All Rights Reserved.</p>
 	</footer>
 </div>
-
-<style>
-	select option {
-		background-color: #1a1a1a;
-		color: white;
-	}
-
-	input[type='date']::-webkit-calendar-picker-indicator,
-	input[type='time']::-webkit-calendar-picker-indicator {
-		filter: invert(1);
-	}
-</style>

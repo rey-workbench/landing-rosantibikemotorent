@@ -5,6 +5,8 @@
 	import { goto } from '$app/navigation';
 	import { blogApi } from '$lib/api';
 	import type { BlogPost, BlogTag } from '$lib/types';
+	import Input from '$lib/components/ui/Input.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	let posts: BlogPost[] = [];
 	let tags: BlogTag[] = [];
@@ -95,27 +97,12 @@
 			<!-- Search -->
 			<div class="flex flex-col md:flex-row gap-4 mb-12">
 				<form on:submit|preventDefault={handleSearch} class="flex-1">
-					<div class="relative">
-						<input
-							type="text"
-							bind:value={searchQuery}
-							placeholder="Cari artikel..."
-							class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
-						/>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
-						>
-							<circle cx="11" cy="11" r="8" />
-							<path d="m21 21-4.3-4.3" />
-						</svg>
-					</div>
+					<Input
+						bind:value={searchQuery}
+						placeholder="Cari artikel..."
+						icon="search"
+						className="rounded-xl"
+					/>
 				</form>
 
 				<!-- Tags -->
@@ -216,18 +203,17 @@
 				{#if totalPages > 1}
 					<div class="flex justify-center gap-2 mt-12">
 						{#each Array(totalPages) as _, i}
-							<button
+							<Button
 								on:click={() => {
 									currentPage = i + 1;
 									loadPosts();
 								}}
-								class="w-10 h-10 flex items-center justify-center rounded-full transition-colors {currentPage ===
-								i + 1
-									? 'bg-blue-500 text-white'
-									: 'bg-white/5 text-gray-400 hover:bg-white/10'}"
+								variant={currentPage === i + 1 ? 'primary' : 'outline'}
+								size="icon"
+								className="rounded-full w-10 h-10"
 							>
 								{i + 1}
-							</button>
+							</Button>
 						{/each}
 					</div>
 				{/if}
