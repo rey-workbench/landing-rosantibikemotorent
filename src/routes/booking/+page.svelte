@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Navbar from '$lib/components/layout/Navbar.svelte';
+	import Preloader from '$lib/components/ui/Preloader.svelte';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
@@ -11,15 +12,37 @@
 
 	// State
 	let availableMotors: UnitMotor[] = [];
+	let uniqueMotors: UnitMotor[] = [];
 	let selectedUnit: UnitMotor | null = null;
 	let loading = true;
 	let error = '';
+
+	$: {
+		const seen = new Set();
+		uniqueMotors = availableMotors.filter((m) => {
+			const key = `${m.jenisId}-${m.hargaSewa}`;
+			if (seen.has(key)) return false;
+			seen.add(key);
+			return true;
+		});
+	}
+
+	$: {
+		if (formData.jenisId) {
+			selectedUnit = availableMotors.find((m) => m.jenisId === formData.jenisId) || null;
+		} else if (formData.unitId) {
+			selectedUnit = availableMotors.find((m) => m.id === formData.unitId) || null;
+		} else {
+			selectedUnit = null;
+		}
+	}
 
 	// Form State
 	let formData = {
 		namaPenyewa: '',
 		noWhatsapp: '',
 		unitId: '',
+		jenisId: '',
 		tanggalMulai: '',
 		tanggalSelesai: '',
 		jamMulai: '08:00',
@@ -50,31 +73,25 @@
 			const motorsResponse = await unitMotorApi.getAll({ status: 'TERSEDIA' });
 			availableMotors = motorsResponse.data || [];
 
-			// If unitId in URL, preselect it
-			if (urlUnitId) {
-				formData.unitId = urlUnitId;
-
-				// Try to find in available list first
-				selectedUnit = availableMotors.find((m) => m.id === urlUnitId) || null;
-
-				// Handle specific unit logic in background if not found
-				if (!selectedUnit) {
-					unitMotorApi
-						.getById(urlUnitId)
-						.then((unit) => {
-							if (unit) {
-								selectedUnit = unit;
-								if (!availableMotors.find((m) => m.id === unit.id)) {
-									availableMotors = [unit, ...availableMotors];
-								}
-								handleCalculatePrice();
+			if (urlUnitId && !availableMotors.find((m) => m.id === urlUnitId)) {
+				unitMotorApi
+					.getById(urlUnitId)
+					.then((unit) => {
+						if (unit) {
+							if (!availableMotors.find((m) => m.id === unit.id)) {
+								availableMotors = [unit, ...availableMotors];
 							}
-						})
-						.catch((e) => {
-							console.error('Failed to fetch specific unit:', e);
-						});
-				} else {
-					// Found in available list, calculate price
+							formData.jenisId = unit.jenisId;
+							handleCalculatePrice();
+						}
+					})
+					.catch((e) => {
+						console.error('Failed to fetch specific unit:', e);
+					});
+			} else {
+				const unit = availableMotors.find((m) => m.id === urlUnitId);
+				if (unit) {
+					formData.jenisId = unit.jenisId;
 					handleCalculatePrice();
 				}
 			}
@@ -100,7 +117,8 @@
 
 		try {
 			const result = await transaksiApi.calculatePrice({
-				unitId: formData.unitId,
+				unitId: formData.unitId || undefined,
+				jenisId: formData.jenisId || undefined,
 				tanggalMulai: formData.tanggalMulai,
 				tanggalSelesai: formData.tanggalSelesai,
 				jamMulai: formData.jamMulai,
@@ -131,7 +149,8 @@
 			const response = await transaksiApi.create({
 				namaPenyewa: formData.namaPenyewa,
 				noWhatsapp: formData.noWhatsapp,
-				unitId: formData.unitId,
+				unitId: formData.unitId || undefined,
+				jenisId: formData.jenisId || undefined,
 				tanggalMulai: formData.tanggalMulai,
 				tanggalSelesai: formData.tanggalSelesai,
 				jamMulai: formData.jamMulai,
@@ -161,7 +180,11 @@
 	}
 
 	function handleUnitChange() {
-		selectedUnit = availableMotors.find((m) => m.id === formData.unitId) || null;
+		handleCalculatePrice();
+	}
+
+	function handleMotorChange() {
+		formData.unitId = ''; // Clear specific unitId to allow backend selection
 		handleCalculatePrice();
 	}
 </script>
@@ -174,26 +197,31 @@
 	/>
 </svelte:head>
 
+<Preloader />
+
 <div class="min-h-screen bg-brand-dark text-white">
 	<Navbar />
 
 	<section class="pt-32 pb-20 px-4 md:px-10">
-		<div class="max-w-4xl mx-auto">
+		<div class="max-w-6xl mx-auto">
 			<!-- Header -->
-			<div class="mb-12 text-center">
+			<div class="mb-12">
 				<h2
-					class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center justify-center gap-2"
+					class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
 				>
 					<span class="w-8 h-[1px] bg-blue-500"></span>
 					Booking
-					<span class="w-8 h-[1px] bg-blue-500"></span>
 				</h2>
 				<h1
-					class="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter"
+					class="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none"
 				>
-					Pesan Motormu
+					Pesan <br />
+					<span
+						class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
+						>Motormu.</span
+					>
 				</h1>
-				<p class="text-gray-400 mt-4 max-w-xl mx-auto">
+				<p class="text-gray-400 mt-6 max-w-xl text-lg">
 					Isi formulir di bawah untuk memesan motor. Kami akan menghubungi Anda via WhatsApp untuk
 					konfirmasi.
 				</p>
@@ -274,17 +302,17 @@
 								<Select
 									id="unit-motor"
 									label="Motor"
-									bind:value={formData.unitId}
+									bind:value={formData.jenisId}
 									required
-									options={availableMotors.map((m) => {
+									options={uniqueMotors.map((m) => {
 										const jenis = m.jenis || m.jenisMotor;
 										return {
-											value: m.id,
+											value: m.jenisId,
 											label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(m.hargaSewa)}/hari`
 										};
 									})}
 									placeholder="Pilih Motor"
-									on:change={handleUnitChange}
+									on:change={handleMotorChange}
 								/>
 							</div>
 
@@ -378,9 +406,9 @@
 									label="Jas Hujan (maks 2)"
 									bind:value={formData.jasHujan}
 									options={[
-										{ value: 0, label: 'Tidak perlu' },
-										{ value: 1, label: '1 buah' },
-										{ value: 2, label: '2 buah' }
+										{ value: '0', label: 'Tidak perlu' },
+										{ value: '1', label: '1 buah' },
+										{ value: '2', label: '2 buah' }
 									]}
 									placeholder="Pilih Jas Hujan"
 									on:change={handleCalculatePrice}
@@ -391,9 +419,9 @@
 									label="Helm Tambahan (maks 2)"
 									bind:value={formData.helm}
 									options={[
-										{ value: 0, label: 'Tidak perlu' },
-										{ value: 1, label: '1 buah' },
-										{ value: 2, label: '2 buah' }
+										{ value: '0', label: 'Tidak perlu' },
+										{ value: '1', label: '1 buah' },
+										{ value: '2', label: '2 buah' }
 									]}
 									placeholder="Pilih Helm Tambahan"
 									on:change={handleCalculatePrice}

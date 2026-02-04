@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { getCachedImage, setCachedImage } from '$lib/stores/imageCache';
 
 	let canvas: HTMLCanvasElement;
 	let context: CanvasRenderingContext2D | null;
@@ -41,20 +42,34 @@
 		if (canvas) context = canvas.getContext('2d');
 		resize();
 
-		// Preload images
+		// Preload images with caching
 		const updateProgress = () => {
 			imagesLoaded++;
 			if (imagesLoaded === 1) render(0);
 		};
 
 		for (let i = 1; i <= frameCount; i++) {
+			const frameIndex = i.toString().padStart(5, '0');
+			const src = `/sequence/whychooseus/${frameIndex}.png`;
+
+			// Check cache first
+			const cached = getCachedImage(src);
+			if (cached && cached.complete) {
+				images.push(cached);
+				updateProgress();
+				continue;
+			}
+
+			// Load new image and cache it
 			const img = new Image();
-			const frameIndex = i.toString().padStart(5, '0'); // 5 digits: 00001
-			img.src = `/sequence/whychooseus/${frameIndex}.png`;
-			img.onload = updateProgress;
+			img.src = src;
+			img.onload = () => {
+				setCachedImage(src, img);
+				updateProgress();
+			};
 			img.onerror = () => {
 				console.warn(`Failed to load frame: ${frameIndex}`);
-				updateProgress(); // Keep going
+				updateProgress();
 			};
 			images.push(img);
 		}

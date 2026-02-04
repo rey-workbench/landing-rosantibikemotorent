@@ -1,12 +1,13 @@
 <script lang="ts">
 	import Navbar from '$lib/components/layout/Navbar.svelte';
+	import Preloader from '$lib/components/ui/Preloader.svelte';
 	import { onMount } from 'svelte';
-	import { unitMotorApi } from '$lib/api';
-	import type { UnitMotor } from '$lib/types';
+	import { jenisMotorApi } from '$lib/api';
+	import type { JenisMotor } from '$lib/types';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
 
-	let motors: UnitMotor[] = [];
+	let jenisMotors: JenisMotor[] = [];
 	let brands: { id: string; merk: string }[] = [];
 	let loading = true;
 	let error = '';
@@ -15,13 +16,33 @@
 	let selectedBrand = '';
 	let priceRange = { min: 0, max: 500000 };
 
+	// Helper to get minimum price from units
+	function getMinPrice(jenis: JenisMotor): number {
+		if (!jenis.unitMotor || jenis.unitMotor.length === 0) return 0;
+		const availableUnits = jenis.unitMotor.filter((u) => u.status === 'TERSEDIA');
+		if (availableUnits.length === 0) return Math.min(...jenis.unitMotor.map((u) => u.hargaSewa));
+		return Math.min(...availableUnits.map((u) => u.hargaSewa));
+	}
+
+	// Helper to check if any unit is available
+	function hasAvailableUnit(jenis: JenisMotor): boolean {
+		if (!jenis.unitMotor || jenis.unitMotor.length === 0) return false;
+		return jenis.unitMotor.some((u) => u.status === 'TERSEDIA');
+	}
+
+	// Helper to get available unit count
+	function getAvailableCount(jenis: JenisMotor): number {
+		if (!jenis.unitMotor) return 0;
+		return jenis.unitMotor.filter((u) => u.status === 'TERSEDIA').length;
+	}
+
 	onMount(async () => {
 		try {
-			const [motorsResponse, brandsResponse] = await Promise.all([
-				unitMotorApi.getAll({ status: 'TERSEDIA' }),
-				unitMotorApi.getBrands()
+			const [jenisResponse, brandsResponse] = await Promise.all([
+				jenisMotorApi.getAll({ limit: 100 }),
+				jenisMotorApi.getBrands()
 			]);
-			motors = motorsResponse.data || [];
+			jenisMotors = jenisResponse.data || [];
 			brands = brandsResponse || [];
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Gagal memuat data';
@@ -30,14 +51,13 @@
 		}
 	});
 
-	$: filteredMotors = motors.filter((motor) => {
-		const jenis = motor.jenis || motor.jenisMotor;
-		if (!jenis) return false;
+	$: filteredMotors = jenisMotors.filter((jenis) => {
 		const matchesSearch =
 			jenis.merk.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			jenis.model.toLowerCase().includes(searchQuery.toLowerCase());
 		const matchesBrand = !selectedBrand || jenis.merk === selectedBrand;
-		const matchesPrice = motor.hargaSewa >= priceRange.min && motor.hargaSewa <= priceRange.max;
+		const minPrice = getMinPrice(jenis);
+		const matchesPrice = minPrice >= priceRange.min && minPrice <= priceRange.max;
 		return matchesSearch && matchesBrand && matchesPrice;
 	});
 
@@ -57,6 +77,8 @@
 		content="Jelajahi koleksi motor premium kami. Berbagai pilihan motor berkualitas dengan harga terjangkau di Malang."
 	/>
 </svelte:head>
+
+<Preloader />
 
 <div class="min-h-screen bg-brand-dark text-white">
 	<Navbar />
@@ -141,106 +163,106 @@
 				<!-- Results Count -->
 				<div class="flex items-center justify-between mb-8">
 					<p class="text-gray-400">
-						Menampilkan <span class="text-white font-bold">{filteredMotors.length}</span> motor
+						Menampilkan <span class="text-white font-bold">{filteredMotors.length}</span> tipe motor
 					</p>
 				</div>
 
 				<!-- Motor Grid -->
 				{#if filteredMotors.length > 0}
 					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-						{#each filteredMotors as motor}
-							{@const jenis = motor.jenis || motor.jenisMotor}
-							{#if jenis}
-								<a
-									href="/fleet/{jenis.slug}"
-									class="group relative bg-gray-900 rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-500 hover:-translate-y-2"
-								>
-									<!-- Image -->
-									<div class="aspect-[4/3] overflow-hidden bg-gray-800">
-										{#if jenis.gambar}
-											<img
-												src={jenis.gambar}
-												alt={`${jenis.merk} ${jenis.model}`}
-												class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-											/>
-										{:else}
-											<div class="w-full h-full flex items-center justify-center text-gray-600">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													width="64"
-													height="64"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="1"
-													><rect x="3" y="3" width="18" height="18" rx="2" /><circle
-														cx="8.5"
-														cy="8.5"
-														r="1.5"
-													/><path d="m21 15-5-5L5 21" /></svg
-												>
-											</div>
-										{/if}
-										<div
-											class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"
-										></div>
-									</div>
-
-									<!-- Content -->
-									<div class="p-6">
-										<div class="flex items-start justify-between mb-2">
-											<div>
-												<p class="text-xs text-blue-500 font-mono uppercase tracking-wider">
-													{jenis.merk}
-												</p>
-												<h3 class="text-xl font-bold text-white">
-													{jenis.model}
-												</h3>
-											</div>
-											<span
-												class="text-xs px-2 py-1 rounded-full {motor.status === 'TERSEDIA'
-													? 'bg-green-500/20 text-green-400'
-													: motor.status === 'DISEWA'
-														? 'bg-yellow-500/20 text-yellow-400'
-														: 'bg-red-500/20 text-red-400'}"
-											>
-												{motor.status}
-											</span>
-										</div>
-
-										<div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
-											<span>{jenis.cc} CC</span>
-											<span>•</span>
-											<span>{motor.tahunPembuatan || '-'}</span>
-										</div>
-
-										<div class="flex items-end justify-between">
-											<div>
-												<p class="text-2xl font-bold text-white">
-													{formatPrice(motor.hargaSewa)}
-												</p>
-												<p class="text-xs text-gray-500">per hari</p>
-											</div>
-											<span
-												class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl transition-colors"
-											>
-												Detail
-											</span>
-										</div>
-									</div>
-
-									<!-- Status Badge -->
-									{#if motor.status !== 'TERSEDIA'}
-										<div
-											class="absolute top-4 left-4 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full"
-										>
-											<span class="text-xs font-bold text-white uppercase tracking-wider"
-												>{motor.status === 'DISEWA' ? 'Sedang Disewa' : 'Maintenance'}</span
+						{#each filteredMotors as jenis}
+							{@const minPrice = getMinPrice(jenis)}
+							{@const isAvailable = hasAvailableUnit(jenis)}
+							{@const availableCount = getAvailableCount(jenis)}
+							<a
+								href="/fleet/{jenis.slug}"
+								class="group relative bg-gray-900 rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-500 hover:-translate-y-2"
+							>
+								<!-- Image -->
+								<div class="aspect-[4/3] overflow-hidden bg-gray-800">
+									{#if jenis.gambar}
+										<img
+											src={jenis.gambar}
+											alt={`${jenis.merk} ${jenis.model}`}
+											class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+										/>
+									{:else}
+										<div class="w-full h-full flex items-center justify-center text-gray-600">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="64"
+												height="64"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="1"
+												><rect x="3" y="3" width="18" height="18" rx="2" /><circle
+													cx="8.5"
+													cy="8.5"
+													r="1.5"
+												/><path d="m21 15-5-5L5 21" /></svg
 											>
 										</div>
 									{/if}
-								</a>
-							{/if}
+									<div
+										class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"
+									></div>
+								</div>
+
+								<!-- Content -->
+								<div class="p-6">
+									<div class="flex items-start justify-between mb-2">
+										<div>
+											<p class="text-xs text-blue-500 font-mono uppercase tracking-wider">
+												{jenis.merk}
+											</p>
+											<h3 class="text-xl font-bold text-white">
+												{jenis.model}
+											</h3>
+										</div>
+										<span
+											class="text-xs px-2 py-1 rounded-full {isAvailable
+												? 'bg-green-500/20 text-green-400'
+												: 'bg-red-500/20 text-red-400'}"
+										>
+											{isAvailable ? `${availableCount} Tersedia` : 'Habis'}
+										</span>
+									</div>
+
+									<div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+										<span>{jenis.cc} CC</span>
+									</div>
+
+									<div class="flex items-end justify-between">
+										<div>
+											{#if minPrice > 0}
+												<p class="text-2xl font-bold text-white">
+													{formatPrice(minPrice)}
+												</p>
+												<p class="text-xs text-gray-500">mulai dari / hari</p>
+											{:else}
+												<p class="text-lg text-gray-500">Hubungi kami</p>
+											{/if}
+										</div>
+										<span
+											class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl transition-colors"
+										>
+											Detail
+										</span>
+									</div>
+								</div>
+
+								<!-- Status Badge -->
+								{#if !isAvailable}
+									<div
+										class="absolute top-4 left-4 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full"
+									>
+										<span class="text-xs font-bold text-white uppercase tracking-wider"
+											>Stok Habis</span
+										>
+									</div>
+								{/if}
+							</a>
 						{/each}
 					</div>
 				{:else}

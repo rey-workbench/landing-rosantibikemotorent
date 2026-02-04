@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Navbar from '$lib/components/layout/Navbar.svelte';
+	import Preloader from '$lib/components/ui/Preloader.svelte';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
@@ -65,6 +66,8 @@
 		content="Baca artikel terbaru seputar tips berkendara, destinasi wisata Malang, dan berita seputar motor dari Rosantibike Motorent."
 	/>
 </svelte:head>
+
+<Preloader />
 
 <div class="min-h-screen bg-brand-dark text-white">
 	<Navbar />
@@ -238,6 +241,7 @@
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
+		line-clamp: 2;
 		overflow: hidden;
 	}
 
@@ -245,6 +249,7 @@
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
+		line-clamp: 3;
 		overflow: hidden;
 	}
 </style>

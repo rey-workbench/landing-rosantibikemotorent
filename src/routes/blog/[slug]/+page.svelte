@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Navbar from '$lib/components/layout/Navbar.svelte';
+	import Preloader from '$lib/components/ui/Preloader.svelte';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { blogApi } from '$lib/api';
@@ -62,6 +63,8 @@
 		<title>Artikel - Rosantibike Motorent</title>
 	{/if}
 </svelte:head>
+
+<Preloader />
 
 <div class="min-h-screen bg-brand-dark text-white">
 	<Navbar />

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { loadingProgress, isLoaded } from '$lib/stores/loading';
+	import { getCachedImage, setCachedImage } from '$lib/stores/imageCache';
 	import TextOverlay from './HeroOverlay.svelte';
 
 	let canvas: HTMLCanvasElement;
@@ -10,13 +11,14 @@
 	let imagesLoaded = 0;
 	let scrollProgress = 0;
 	const path = '/sequence/hero/';
+
 	onMount(() => {
 		// Safe context access
 		if (canvas) context = canvas.getContext('2d');
 
 		resize();
 
-		// Preload images
+		// Preload images with caching
 		const updateProgress = () => {
 			imagesLoaded++;
 			loadingProgress.set((imagesLoaded / frameCount) * 100);
@@ -31,12 +33,25 @@
 		};
 
 		for (let i = 1; i <= frameCount; i++) {
-			const img = new Image();
 			const frameIndex = i.toString().padStart(3, '0');
-			img.src = `${path}ezgif-frame-${frameIndex}.png`;
+			const src = `${path}ezgif-frame-${frameIndex}.png`;
 
-			// Handle both success and error cases to ensure progress finishes
-			img.onload = updateProgress;
+			// Check cache first
+			const cached = getCachedImage(src);
+			if (cached && cached.complete) {
+				images.push(cached);
+				updateProgress();
+				continue;
+			}
+
+			// Load new image and cache it
+			const img = new Image();
+			img.src = src;
+
+			img.onload = () => {
+				setCachedImage(src, img);
+				updateProgress();
+			};
 			img.onerror = () => {
 				console.warn(`Failed to load frame: ${frameIndex}`);
 				updateProgress();

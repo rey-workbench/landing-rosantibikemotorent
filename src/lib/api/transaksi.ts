@@ -4,7 +4,8 @@ import type { Transaksi, PaginationMeta, PriceCalculation } from '$lib/types';
 export interface CreateTransaksiDto {
     namaPenyewa: string;
     noWhatsapp: string;
-    unitId: string;
+    unitId?: string;
+    jenisId?: string;
     tanggalMulai: string;
     tanggalSelesai: string;
     jamMulai: string;
@@ -14,7 +15,8 @@ export interface CreateTransaksiDto {
 }
 
 export interface CalculatePriceDto {
-    unitId: string;
+    unitId?: string;
+    jenisId?: string;
     tanggalMulai: string;
     tanggalSelesai: string;
     jamMulai: string;

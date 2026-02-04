@@ -21,6 +21,8 @@ export interface JenisMotor {
     cc: number;
     gambar?: string;
     slug: string;
+    hargaSewa?: number; // Derived from units
+    unitMotor?: { id: string; hargaSewa: number; status: string }[]; // Minimal unit info
     createdAt: string;
     updatedAt: string;
 }

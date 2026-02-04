@@ -14,8 +14,6 @@
 	const dispatch = createEventDispatcher();
 
 	function handleChange(e: Event) {
-		const target = e.target as HTMLSelectElement;
-		value = target.value;
 		dispatch('change', e);
 	}
 </script>
@@ -31,7 +29,7 @@
 	<div class="relative group">
 		<select
 			{id}
-			{value}
+			bind:value
 			{required}
 			{disabled}
 			on:change={handleChange}
