@@ -15,7 +15,6 @@
 
 		try {
 			const response = await jenisMotorApi.getAll({ limit: 4 });
-			// The API already processed the data and mapped it
 			jenisMotors = (response.data || []).filter((j: any) => j.computed.hasAvailable);
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Gagal memuat data';
@@ -30,18 +29,18 @@
 	}
 </script>
 
-<section id="fleet" class="py-32 bg-brand-dark px-4 md:px-10 overflow-hidden">
-	<div class="max-w-7xl mx-auto mb-16 flex flex-col md:flex-row items-end justify-between gap-8">
+<section id="fleet" class="py-20 md:py-32 bg-brand-dark px-4 md:px-10 overflow-hidden">
+	<div class="max-w-7xl mx-auto mb-10 md:mb-16 flex flex-col items-start gap-6">
 		<div>
 			<h2
-				class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
+				class="text-[10px] md:text-sm font-bold text-blue-500 tracking-[0.2em] mb-2 md:mb-4 uppercase flex items-center gap-2"
 			>
-				<span class="w-8 h-[1px] bg-blue-500"></span>
+				<span class="w-6 md:w-8 h-[1px] bg-blue-500"></span>
 				Armada Kami
-				<span class="w-8 h-[1px] bg-blue-500"></span>
+				<span class="w-6 md:w-8 h-[1px] bg-blue-500"></span>
 			</h2>
 			<h3
-				class="text-4xl md:text-5xl lg:text-7xl font-black text-white mt-2 mb-6 leading-[0.9] uppercase tracking-tighter"
+				class="text-4xl md:text-5xl lg:text-7xl font-black text-white mt-2 mb-2 md:mb-6 leading-[0.9] uppercase tracking-tighter"
 			>
 				Pilih Motor <br />
 				<span
@@ -52,16 +51,18 @@
 		</div>
 		<a
 			href="/fleet"
-			class="text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors"
+			class="text-xs md:text-base text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors"
 		>
 			Lihat Semua Unit →
 		</a>
 	</div>
 
 	{#if loading}
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
 			{#each [1, 2, 3, 4] as _}
-				<div class="h-[450px] rounded-3xl bg-gray-800 animate-pulse"></div>
+				<div
+					class="h-[250px] md:h-[450px] rounded-2xl md:rounded-3xl bg-gray-800 animate-pulse"
+				></div>
 			{/each}
 		</div>
 	{:else if error}
@@ -69,14 +70,15 @@
 			<p class="text-gray-400">{error}</p>
 		</div>
 	{:else if jenisMotors.length > 0}
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+		<!-- Mobile: 2 Columns, Desktop: 4 Columns -->
+		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
 			{#each jenisMotors as jenis}
 				<a
 					href="/fleet/{jenis.slug}"
-					class="group relative h-[450px] overflow-hidden rounded-3xl bg-gray-900 cursor-pointer border border-white/5 hover:border-white/20 transition-all duration-500"
+					class="group relative h-[280px] md:h-[450px] flex flex-col glass-surface rounded-2xl md:rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-white/5 hover:border-white/20"
 				>
-					<!-- Image -->
-					<div class="absolute inset-0 z-0">
+					<!-- Image Container -->
+					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-gray-900">
 						{#if jenis.gambar}
 							<img
 								src={jenis.gambar}
@@ -87,8 +89,8 @@
 							<div class="w-full h-full bg-gray-800 flex items-center justify-center">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									width="64"
-									height="64"
+									width="40"
+									height="40"
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
@@ -102,62 +104,74 @@
 							</div>
 						{/if}
 						<div
-							class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-70"
+							class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"
 						></div>
-					</div>
 
-					<!-- Content -->
-					<div class="relative z-10 h-full flex flex-col justify-end p-6">
-						<div
-							class="transform transition-transform duration-500 translate-y-4 group-hover:translate-y-0"
-						>
-							<div class="mb-4">
-								<p class="text-xs text-gray-400 font-mono uppercase tracking-wider mb-1">
-									{jenis.merk}
-								</p>
-								<h3 class="text-2xl font-bold text-white mb-1 leading-tight">
-									{jenis.model}
-								</h3>
-								<p class="text-gray-400 font-mono text-lg">
-									{#if jenis.computed.minPrice > 0}
-										{formatPrice(jenis.computed.minPrice)}
-										<span class="text-xs text-gray-400">/ hari</span>
-									{:else}
-										<span class="text-gray-400">Hubungi kami</span>
-									{/if}
-								</p>
-							</div>
-
-							<!-- Features -->
-							<div
-								class="flex flex-wrap gap-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 h-0 group-hover:h-auto"
-							>
+						<!-- Status Badge (Simplified for Component) -->
+						<div class="absolute top-2 left-2 md:top-4 md:left-4">
+							{#if !jenis.computed.hasAvailable}
 								<span
-									class="px-2 py-1 bg-white/10 backdrop-blur-sm text-[10px] uppercase tracking-wider rounded text-white border border-white/10"
+									class="px-2 py-0.5 bg-red-500/80 text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
 								>
-									{jenis.cc} CC
+									Habis
 								</span>
+							{:else}
 								<span
-									class="px-2 py-1 bg-green-500/20 text-[10px] uppercase tracking-wider rounded text-green-400 border border-green-500/20"
+									class="px-2 py-0.5 bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
 								>
 									Tersedia
 								</span>
-							</div>
-
-							<!-- Action Button -->
-							<span
-								class="block w-full py-3 bg-white text-black font-bold rounded-xl text-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200 hover:bg-gray-200"
-							>
-								Pesan Sekarang
-							</span>
+							{/if}
 						</div>
 					</div>
 
-					<!-- Tag -->
-					<div
-						class="absolute top-4 right-4 z-20 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full border border-white/10"
-					>
-						<span class="text-xs font-bold text-white uppercase tracking-wider">Premium</span>
+					<!-- Content -->
+					<div class="flex-1 p-3 md:p-6 flex flex-col justify-between bg-brand-surface">
+						<div>
+							<p
+								class="text-[8px] md:text-xs text-blue-500 font-black uppercase tracking-widest mb-0.5 md:mb-1"
+							>
+								{jenis.merk}
+							</p>
+							<h3
+								class="text-sm md:text-2xl font-black text-white leading-tight uppercase line-clamp-1 md:line-clamp-none"
+							>
+								{jenis.model}
+							</h3>
+						</div>
+
+						<div class="flex items-end justify-between mt-2">
+							<div>
+								{#if jenis.computed.minPrice > 0}
+									<p class="text-sm md:text-2xl font-black text-white">
+										{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
+									</p>
+									<p class="text-[8px] md:text-xs text-gray-500 font-bold uppercase tracking-wider">
+										/ Hari
+									</p>
+								{:else}
+									<span class="text-xs text-gray-400 font-bold uppercase">Hubungi Kami</span>
+								{/if}
+							</div>
+
+							<!-- Hide button on mobile, show icon on desktop -->
+							<div
+								class="hidden md:flex items-center gap-2 text-white font-black text-[10px] uppercase tracking-widest group-hover:gap-3 transition-all"
+							>
+								<span>Pesan</span>
+								<svg
+									width="12"
+									height="12"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="3"
+									><line x1="5" y1="12" x2="19" y2="12"></line><polyline
+										points="12 5 19 12 12 19"
+									/></svg
+								>
+							</div>
+						</div>
 					</div>
 				</a>
 			{/each}
@@ -165,12 +179,15 @@
 	{:else}
 		<div class="text-center py-12">
 			<p class="text-gray-400">Tidak ada motor tersedia saat ini.</p>
-			<a
-				href="/fleet"
-				class="text-white border-b border-white hover:border-gray-400 transition-colors mt-2 inline-block"
-			>
-				Lihat semua katalog
-			</a>
 		</div>
 	{/if}
 </section>
+
+<style>
+	.line-clamp-1 {
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+</style>
