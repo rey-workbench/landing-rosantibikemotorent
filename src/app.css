@@ -2,8 +2,27 @@
 
 @theme {
     --font-sans: 'Outfit', sans-serif;
-    --color-brand-dark: #0a0a0a;
-    --color-brand-gray: #1a1a1a;
+    --color-brand-dark: #050505;
+    --color-brand-surface: #121212;
+    --color-brand-border: #262626;
+    --color-brand-accent: #ffffff;
+}
+
+:root {
+    --brand-dark: #050505;
+    --brand-surface: #121212;
+    --brand-border: #262626;
+    --brand-accent: #ffffff;
+}
+
+@layer utilities {
+
+    .glass-effect,
+    .glass-surface {
+        background: #121212;
+        border: 1px solid #262626;
+        backdrop-filter: none !important;
+    }
 }
 
 @layer base {

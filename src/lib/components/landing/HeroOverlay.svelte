@@ -10,7 +10,7 @@
 			progressStart: 0,
 			progressEnd: 0.15,
 			text: 'Rosantibike Motorent',
-			sub: 'Premium Motorbike Rental in Malang',
+			sub: 'Sewa Motor Premium di Malang',
 			align: 'center',
 			id: 'hero'
 		},
@@ -34,7 +34,7 @@
 			progressStart: 0.6, // Shifted to be safe
 			progressEnd: 0.75, // End before overlap covers center
 			text: 'Mulai Petualangan',
-			sub: 'Booking motor impianmu sekarang',
+			sub: 'Sewa motor impianmu sekarang',
 			align: 'center',
 			id: 'cta'
 		}
@@ -85,13 +85,13 @@
 	<!-- Vertical Progress Hub -->
 	<div class="absolute right-10 top-1/2 -translate-y-1/2 h-64 w-[2px] bg-white/10 hidden md:block">
 		<div
-			class="absolute top-0 left-0 w-full bg-blue-500 transition-all duration-300"
+			class="absolute top-0 left-0 w-full bg-white transition-all duration-300"
 			style="height: {scrollProgress * 100}%"
 		></div>
 		{#each texts as t, i}
 			<div
 				class="absolute h-1 w-4 -left-1 bg-white/20 transition-all duration-500"
-				class:bg-blue-500={i === activeIndex}
+				class:bg-white={i === activeIndex}
 				class:w-6={i === activeIndex}
 				style="top: {t.progressStart * 100}%"
 			>
@@ -143,8 +143,7 @@
 					out:fly={{ y: -20, duration: 600 }}
 					class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 font-mono tracking-wider sm:tracking-widest max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl uppercase mt-2 sm:mt-4"
 				>
-					<span class="inline-block w-3 sm:w-4 h-[1px] bg-blue-500 mr-2 sm:mr-4 align-middle"
-					></span>
+					<span class="inline-block w-3 sm:w-4 h-[1px] bg-white mr-2 sm:mr-4 align-middle"></span>
 					{t.sub}
 				</p>
 
@@ -154,20 +153,20 @@
 						class="mt-6 sm:mt-8 md:mt-12 flex flex-col items-center gap-3 sm:gap-4"
 					>
 						<button
-							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full shadow-[0_0_30px_rgba(59,130,246,0.2)] sm:shadow-[0_0_50px_rgba(59,130,246,0.2)] overflow-hidden"
+							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full shadow-[0_0_30px_rgba(255,255,255,0.2)] sm:shadow-[0_0_50px_rgba(255,255,255,0.2)] overflow-hidden"
 						>
-							<span class="relative z-10">Book via WhatsApp</span>
+							<span class="relative z-10">Pesan via WhatsApp</span>
 							<div
-								class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"
+								class="absolute inset-0 bg-gradient-to-r from-gray-200 to-gray-400 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"
 							></div>
 							<span
 								class="absolute inset-0 flex items-center justify-center z-10 group-hover:text-white transition-colors duration-500 opacity-0 group-hover:opacity-100"
-								>Book via WhatsApp</span
+								>Pesan via WhatsApp</span
 							>
 						</button>
 						<span
 							class="text-[8px] sm:text-[10px] font-mono text-white/30 tracking-[0.2em] sm:tracking-[0.4em]"
-							>Official Rental Partner of Malang</span
+							>Mitra Rental Resmi Malang</span
 						>
 					</div>
 				{/if}
@@ -183,7 +182,7 @@
 		>
 			<span
 				class="text-[8px] sm:text-[10px] font-mono tracking-[0.3em] sm:tracking-[0.4em] opacity-40 uppercase"
-				>Scroll</span
+				>Gulir</span
 			>
 			<div class="w-[1px] h-8 sm:h-12 bg-gradient-to-b from-white to-transparent"></div>
 		</div>

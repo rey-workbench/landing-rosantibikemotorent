@@ -19,7 +19,7 @@
 		primary: 'bg-white text-black hover:bg-gray-200 border border-transparent',
 		secondary: 'bg-gray-800 text-white hover:bg-gray-700 border border-transparent',
 		outline: 'bg-transparent text-white border border-white/30 hover:bg-white/10',
-		ghost: 'bg-transparent text-white hover:text-blue-400 hover:bg-white/5',
+		ghost: 'bg-transparent text-white hover:text-gray-300 hover:bg-white/5',
 		glass: 'bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20'
 	};
 

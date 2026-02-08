@@ -27,7 +27,7 @@
 
 		<!-- Footer -->
 		<footer class="py-12 bg-black text-center text-gray-600 border-t border-gray-900">
-			<p>&copy; 2024 Rosantibike Motorent. All Rights Reserved.</p>
+			<p>&copy; 2024 Rosantibike Motorent. Hak Cipta Dilindungi.</p>
 		</footer>
 	</div>
 </div>

@@ -1,186 +1,69 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
-	import { getCachedImage, setCachedImage } from '$lib/stores/imageCache';
 
 	let scrollProgress = 0;
 	let containerRef: HTMLElement;
-	let hasStartedLoading = false;
-
-	// Configuration per source
-	const sources = {
-		hero: {
-			path: '/sequence/hero',
-			count: 153,
-			images: [] as HTMLImageElement[],
-			getFileName: (i: number) => `ezgif-frame-${i.toString().padStart(3, '0')}.png`
-		},
-		whychooseus: {
-			path: '/sequence/whychooseus',
-			count: 52,
-			images: [] as HTMLImageElement[],
-			getFileName: (i: number) => `${i.toString().padStart(5, '0')}.png`
-		}
-	};
+	let activePanelIndex = 0;
 
 	const panels = [
 		{
 			id: 'nature',
-			title: 'Wild Nature',
-			subtitle: 'Escape the Ordinary',
+			title: 'Wisata Alam',
+			subtitle: 'Lupakan Rutinitas',
 			description:
-				'Ride through lush forests and breathtaking mountain trails. Feel the wind, embrace the wild.',
-			source: 'hero',
-			frameStart: 0,
-			frameEnd: 75,
+				'Berkendara melintasi hutan dan jalur pegunungan yang menakjubkan. Rasakan angin, rengkuh alam liar.',
+			video: '/video/ts.mp4',
 			accentColor: '#4ade80',
-			gradientFrom: 'from-emerald-900/90',
-			clipPath: 'polygon(0 0, 100% 0, 85% 100%, 0% 100%)'
+			gradientFrom: 'from-emerald-900/60'
 		},
 		{
 			id: 'city',
-			title: 'Urban Pulse',
-			subtitle: 'City Lights & Nights',
+			title: 'Denyut Kota',
+			subtitle: 'Cahaya & Malam Kota',
 			description:
-				'Navigate the vibrant streets and discover hidden gems in every corner of the city.',
-			source: 'whychooseus',
-			frameStart: 0,
-			frameEnd: 51,
+				'Jelajahi jalanan yang hidup dan temukan permata tersembunyi di setiap sudut kota.',
+			video: '/video/mbd.mp4',
 			accentColor: '#60a5fa',
-			gradientFrom: 'from-blue-900/90',
-			clipPath: 'polygon(15% 0, 100% 0, 85% 100%, 0% 100%)'
+			gradientFrom: 'from-blue-900/60'
 		},
 		{
 			id: 'coast',
-			title: 'Coastal Vibes',
-			subtitle: 'Sun, Sand, & Ride',
-			description: 'Chase the horizon along stunning coastlines. Where the road meets the sea.',
-			source: 'hero',
-			frameStart: 76,
-			frameEnd: 152,
+			title: 'Suasana Pantai',
+			subtitle: 'Mentari, Pasir & Motor',
+			description:
+				'Kejar cakrawala di sepanjang garis pantai yang memukau. Dimana jalan bertemu dengan laut.',
+			video: '/video/ptb.mp4',
 			accentColor: '#fb923c',
-			gradientFrom: 'from-orange-900/90',
-			clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)'
+			gradientFrom: 'from-orange-900/60'
 		}
 	];
 
-	// Canvas refs
-	let canvasRefs: HTMLCanvasElement[] = [];
+	// Video refs
+	let videoRefs: HTMLVideoElement[] = [];
 
-	// Lazy load images using shared cache
-	const preloadImages = () => {
-		if (hasStartedLoading) return;
-		hasStartedLoading = true;
+	// Update active panel and handle video playback
+	$: {
+		activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
 
-		(Object.keys(sources) as Array<keyof typeof sources>).forEach((key) => {
-			const config = sources[key];
-			for (let i = 1; i <= config.count; i++) {
-				const src = `${config.path}/${config.getFileName(i)}`;
-
-				// Check cache first - reuse from HeroSequence/WhyChooseUs
-				const cached = getCachedImage(src);
-				if (cached && cached.complete) {
-					config.images.push(cached);
-					continue;
-				}
-
-				// Load new image and cache it
-				const img = new Image();
-				img.src = src;
-				img.onload = () => {
-					setCachedImage(src, img);
-				};
-				config.images.push(img);
-			}
-		});
-		// Trigger initial render
-		setTimeout(() => {
-			panels.forEach((_, idx) => renderPanel(idx, 0));
-		}, 100);
-	};
-
-	const renderPanel = (panelIndex: number, progress: number) => {
-		const canvas = canvasRefs[panelIndex];
-		if (!canvas) return;
-
-		const ctx = canvas.getContext('2d');
-		if (!ctx) return;
-
-		const panel = panels[panelIndex];
-		const sourceConfig = sources[panel.source as keyof typeof sources];
-
-		// Sequential Logic
-		const segmentSize = 1 / 3;
-		const start = panelIndex * segmentSize;
-
-		let localProgress = (progress - start) / segmentSize;
-		localProgress = Math.max(0, Math.min(1, localProgress));
-
-		const totalPanelFrames = panel.frameEnd - panel.frameStart;
-		const localFrameIndex = Math.floor(localProgress * totalPanelFrames);
-
-		const targetFrameIndex = Math.min(
-			panel.frameEnd,
-			Math.max(panel.frameStart, panel.frameStart + localFrameIndex)
-		);
-
-		const img = sourceConfig.images[targetFrameIndex];
-
-		if (img && img.complete) {
-			const w = canvas.width;
-			const h = canvas.height;
-			const imgRatio = img.width / img.height;
-			const canvasRatio = w / h;
-
-			let drawW, drawH, x, y;
-			if (imgRatio > canvasRatio) {
-				drawH = h;
-				drawW = img.width * (h / img.height);
-				x = (w - drawW) / 2;
-				y = 0;
-			} else {
-				drawW = w;
-				drawH = img.height * (w / img.width);
-				x = 0;
-				y = (h - drawH) / 2;
-			}
-
-			ctx.clearRect(0, 0, w, h);
-			ctx.drawImage(img, x, y, drawW, drawH);
-		}
-	};
-
-	// Helper to determine active state for UI
-	$: activePanelIndex = Math.min(2, Math.floor(scrollProgress * 3));
-
-	onMount(() => {
-		// Lazy loading: only start loading when section is near viewport
-		const lazyObserver = new IntersectionObserver(
-			(entries) => {
-				if (entries[0].isIntersecting) {
-					preloadImages();
-					lazyObserver.disconnect();
-				}
-			},
-			{ rootMargin: '500px' } // Start loading 500px before section is visible
-		);
-
-		if (containerRef) {
-			lazyObserver.observe(containerRef);
-		}
-
-		const resize = () => {
-			canvasRefs.forEach((c) => {
-				if (c) {
-					c.width = c.parentElement?.clientWidth || window.innerWidth / 3;
-					c.height = window.innerHeight;
+		if (typeof window !== 'undefined') {
+			videoRefs.forEach((video, idx) => {
+				if (video) {
+					if (idx === activePanelIndex) {
+						if (video.paused) {
+							video.play().catch((err) => console.log('Video play failed:', err));
+						}
+					} else {
+						if (!video.paused) {
+							video.pause();
+						}
+					}
 				}
 			});
-			panels.forEach((_, i) => renderPanel(i, scrollProgress));
-		};
-		window.addEventListener('resize', resize);
-		setTimeout(resize, 100);
+		}
+	}
 
+	onMount(() => {
 		const handleScroll = () => {
 			if (!containerRef) return;
 			const rect = containerRef.getBoundingClientRect();
@@ -189,17 +72,13 @@
 
 			const raw = -rect.top / totalHeight;
 			scrollProgress = Math.max(0, Math.min(0.999, raw));
-
-			requestAnimationFrame(() => {
-				panels.forEach((_, i) => renderPanel(i, scrollProgress));
-			});
 		};
 
 		window.addEventListener('scroll', handleScroll);
+		handleScroll(); // Initial check
+
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
-			window.removeEventListener('resize', resize);
-			lazyObserver.disconnect();
 		};
 	});
 </script>
@@ -209,11 +88,24 @@
 	<div class="h-[500vh] relative">
 		<!-- Section Header -->
 		<div class="sticky top-0 z-10 pointer-events-none">
-			<div class="absolute top-8 left-1/2 -translate-x-1/2 text-center">
-				<p class="text-white/40 font-mono text-xs tracking-[0.5em] uppercase mb-2">
-					Choose Your Adventure
-				</p>
-				<h2 class="text-white text-2xl md:text-4xl font-bold">Three Paths, One Journey</h2>
+			<div class="absolute top-8 left-1/2 -translate-x-1/2 text-center w-full px-4">
+				<h2
+					class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center justify-center gap-2"
+				>
+					<span class="w-8 h-[1px] bg-blue-500"></span>
+					Pilih Petualanganmu
+					<span class="w-8 h-[1px] bg-blue-500"></span>
+				</h2>
+				<h3
+					class="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[0.9] uppercase tracking-tighter"
+				>
+					Tiga Jalur, <br />
+					<span
+						class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
+					>
+						Satu Perjalanan.
+					</span>
+				</h3>
 			</div>
 		</div>
 
@@ -224,121 +116,31 @@
 		>
 			{#each panels as panel, i}
 				<div
-					class="panel relative w-full md:w-auto md:h-full transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden"
+					class="panel relative w-full md:w-auto md:h-full transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden border-r border-white/10 last:border-r-0"
 					style="
-						clip-path: {typeof window !== 'undefined' && window.innerWidth >= 768 ? panel.clipPath : 'none'};
-						margin-left: {typeof window !== 'undefined' && window.innerWidth >= 768 && i > 0 ? '-10%' : '0'};
-						margin-top: {typeof window !== 'undefined' && window.innerWidth < 768 && i > 0 ? '-20px' : '0'};
 						z-index: {i === activePanelIndex ? 10 : i};
-						flex: {i === activePanelIndex ? '2.5' : '0.8'};
+						flex: {i === activePanelIndex ? '3' : '1'};
 						filter: {typeof window !== 'undefined' && window.innerWidth >= 768
 						? i === activePanelIndex
 							? 'saturate(1.2) contrast(1.05)'
 							: 'saturate(0.3) brightness(0.6)'
 						: 'none'};
-						box-shadow: {typeof window !== 'undefined' && window.innerWidth >= 768 && i === activePanelIndex
-						? '0 0 100px rgba(0,0,0,0.5)'
-						: 'none'};
 					"
 				>
-					<!-- Dynamic Edge Separators -->
-					{#if typeof window !== 'undefined'}
-						<svg
-							class="absolute inset-0 w-full h-full pointer-events-none z-50 overflow-visible"
-							viewBox="0 0 100 100"
-							preserveAspectRatio="none"
-						>
-							<defs>
-								<filter id="glow-line-{i}" x="-50%" y="-50%" width="200%" height="200%">
-									<feGaussianBlur stdDeviation="1" result="blur" />
-									<feComposite in="SourceGraphic" in2="blur" operator="over" />
-								</filter>
-							</defs>
-
-							{#if window.innerWidth >= 768}
-								<!-- DESKTOP SLANTED DIVIDERS -->
-								{#if i < 2}
-									<line
-										x1="100"
-										y1="0"
-										x2="85"
-										y2="100"
-										stroke={panel.accentColor}
-										stroke-width="3"
-										stroke-opacity="0.3"
-										filter="url(#glow-line-{i})"
-										vector-effect="non-scaling-stroke"
-									/>
-									<line
-										x1="100"
-										y1="0"
-										x2="85"
-										y2="100"
-										stroke="white"
-										stroke-width="1"
-										stroke-opacity="0.8"
-										vector-effect="non-scaling-stroke"
-									/>
-								{/if}
-
-								{#if i > 0}
-									<line
-										x1="15"
-										y1="0"
-										x2="0"
-										y2="100"
-										stroke={panel.accentColor}
-										stroke-width="3"
-										stroke-opacity="0.3"
-										filter="url(#glow-line-{i})"
-										vector-effect="non-scaling-stroke"
-									/>
-									<line
-										x1="15"
-										y1="0"
-										x2="0"
-										y2="100"
-										stroke="white"
-										stroke-width="1"
-										stroke-opacity="0.8"
-										vector-effect="non-scaling-stroke"
-									/>
-								{/if}
-							{:else}
-								<!-- MOBILE HORIZONTAL DIVIDERS -->
-								{#if i > 0}
-									<!-- Top Edge Divider for current panel -->
-									<line
-										x1="0"
-										y1="0"
-										x2="100"
-										y2="0"
-										stroke={panel.accentColor}
-										stroke-width="2"
-										stroke-opacity="0.5"
-										filter="url(#glow-line-{i})"
-										vector-effect="non-scaling-stroke"
-									/>
-									<line
-										x1="0"
-										y1="0"
-										x2="100"
-										y2="0"
-										stroke="white"
-										stroke-width="1"
-										vector-effect="non-scaling-stroke"
-									/>
-								{/if}
-							{/if}
-						</svg>
-					{/if}
-
-					<!-- Canvas Layer with Zoom -->
+					<!-- Video Layer with Zoom -->
 					<div
 						class="absolute inset-0 w-full h-full transition-transform duration-[1.5s] ease-out"
 						style="transform: scale({i === activePanelIndex ? 1.0 : 1.2})"
 					>
-						<canvas bind:this={canvasRefs[i]} class="w-full h-full object-cover"></canvas>
+						<video
+							bind:this={videoRefs[i]}
+							src={panel.video}
+							class="w-full h-full object-cover"
+							muted
+							loop
+							playsinline
+						></video>
+						<div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
 					</div>
 
 					<!-- Color Overlay -->
@@ -352,7 +154,7 @@
 
 					<!-- Gradient Overlay -->
 					<div
-						class="absolute inset-0 bg-gradient-to-t {panel.gradientFrom} via-black/20 to-black/60"
+						class="absolute inset-0 bg-gradient-to-t {panel.gradientFrom} via-transparent to-black/20"
 					></div>
 
 					<!-- Animated Lines -->
@@ -445,7 +247,7 @@
 										color: {panel.accentColor};
 									"
 								>
-									<span class="relative z-10">Explore</span>
+									<span class="relative z-10">Jelajahi</span>
 									<div
 										class="absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"
 										style="background: {panel.accentColor}20"
@@ -508,9 +310,7 @@
 			<div
 				class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none"
 			>
-				<p class="text-white/40 font-mono text-[10px] tracking-widest uppercase">
-					Scroll to Explore
-				</p>
+				<p class="text-white/40 font-mono text-[10px] tracking-widest uppercase">Gulir ke Bawah</p>
 				<div
 					class="w-6 h-10 rounded-full border border-white/20 flex items-start justify-center p-2"
 				>

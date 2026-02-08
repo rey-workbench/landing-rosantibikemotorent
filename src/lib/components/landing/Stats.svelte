@@ -4,9 +4,9 @@
 	import { derived } from 'svelte/store';
 
 	const stats = [
-		{ label: 'Happy Riders', value: 1500, suffix: '+' },
-		{ label: 'Bikes Available', value: 50, suffix: '' },
-		{ label: 'Years Experience', value: 5, suffix: '+' }
+		{ label: 'Pelanggan Puas', value: 1500, suffix: '+' },
+		{ label: 'Unit Tersedia', value: 50, suffix: '' },
+		{ label: 'Tahun Pengalaman', value: 5, suffix: '+' }
 	];
 
 	let visible = false;

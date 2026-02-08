@@ -50,20 +50,24 @@
 				class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
 			>
 				<span class="w-8 h-[1px] bg-blue-500"></span>
-				Our Fleet
+				Armada Kami
+				<span class="w-8 h-[1px] bg-blue-500"></span>
 			</h2>
-			<h3 class="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter leading-none">
-				Choose Your <br />
-				<span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-700"
-					>Ride.</span
+			<h3
+				class="text-4xl md:text-5xl lg:text-7xl font-black text-white mt-2 mb-6 leading-[0.9] uppercase tracking-tighter"
+			>
+				Pilih Motor <br />
+				<span
+					class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
+					>Impianmu.</span
 				>
 			</h3>
 		</div>
 		<a
 			href="/fleet"
-			class="text-white border-b border-white pb-1 hover:text-blue-500 hover:border-blue-500 transition-colors"
+			class="text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors"
 		>
-			View Full Inventory →
+			Lihat Semua Unit →
 		</a>
 	</div>
 
@@ -122,16 +126,16 @@
 							class="transform transition-transform duration-500 translate-y-4 group-hover:translate-y-0"
 						>
 							<div class="mb-4">
-								<p class="text-xs text-blue-500 font-mono uppercase tracking-wider mb-1">
+								<p class="text-xs text-gray-400 font-mono uppercase tracking-wider mb-1">
 									{jenis.merk}
 								</p>
 								<h3 class="text-2xl font-bold text-white mb-1 leading-tight">
 									{jenis.model}
 								</h3>
-								<p class="text-blue-400 font-mono text-lg">
+								<p class="text-gray-400 font-mono text-lg">
 									{#if minPrice > 0}
 										{formatPrice(minPrice)}
-										<span class="text-xs text-gray-400">/ day</span>
+										<span class="text-xs text-gray-400">/ hari</span>
 									{:else}
 										<span class="text-gray-400">Hubungi kami</span>
 									{/if}
@@ -158,7 +162,7 @@
 							<span
 								class="block w-full py-3 bg-white text-black font-bold rounded-xl text-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200 hover:bg-gray-200"
 							>
-								Book Now
+								Pesan Sekarang
 							</span>
 						</div>
 					</div>
@@ -175,7 +179,10 @@
 	{:else}
 		<div class="text-center py-12">
 			<p class="text-gray-400">Tidak ada motor tersedia saat ini.</p>
-			<a href="/fleet" class="text-blue-500 hover:underline mt-2 inline-block">
+			<a
+				href="/fleet"
+				class="text-white border-b border-white hover:border-gray-400 transition-colors mt-2 inline-block"
+			>
 				Lihat semua katalog
 			</a>
 		</div>

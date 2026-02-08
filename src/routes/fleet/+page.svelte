@@ -5,7 +5,6 @@
 	import { jenisMotorApi } from '$lib/api';
 	import type { JenisMotor } from '$lib/types';
 	import Input from '$lib/components/ui/Input.svelte';
-	import Select from '$lib/components/ui/Select.svelte';
 
 	let jenisMotors: JenisMotor[] = [];
 	let brands: { id: string; merk: string }[] = [];
@@ -91,15 +90,16 @@
 					class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
 				>
 					<span class="w-8 h-[1px] bg-blue-500"></span>
-					Our Fleet
+					Armada Kami
+					<span class="w-8 h-[1px] bg-blue-500"></span>
 				</h2>
 				<h1
 					class="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none"
 				>
-					Choose Your <br />
+					Pilih Motor <br />
 					<span
 						class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
-						>Ride.</span
+						>Impianmu.</span
 					>
 				</h1>
 				<p class="text-gray-400 mt-6 max-w-xl text-lg">
@@ -110,7 +110,7 @@
 
 			<!-- Filter Section -->
 			<div
-				class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 mb-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+				class="relative z-20 glass-surface rounded-2xl p-6 mb-12 grid grid-cols-1 md:grid-cols-3 gap-6"
 			>
 				<!-- Search -->
 				<Input
@@ -122,8 +122,9 @@
 				/>
 
 				<!-- Brand Filter -->
-				<Select
+				<Input
 					id="brand-filter"
+					type="dropdown"
 					label="Merek"
 					bind:value={selectedBrand}
 					options={[
@@ -150,7 +151,7 @@
 			{#if loading}
 				<div class="flex justify-center py-20">
 					<div
-						class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
+						class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"
 					></div>
 				</div>
 			{:else if error}
@@ -176,7 +177,7 @@
 							{@const availableCount = getAvailableCount(jenis)}
 							<a
 								href="/fleet/{jenis.slug}"
-								class="group relative bg-gray-900 rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-500 hover:-translate-y-2"
+								class="group relative glass-surface rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-2"
 							>
 								<!-- Image -->
 								<div class="aspect-[4/3] overflow-hidden bg-gray-800">
@@ -213,7 +214,7 @@
 								<div class="p-6">
 									<div class="flex items-start justify-between mb-2">
 										<div>
-											<p class="text-xs text-blue-500 font-mono uppercase tracking-wider">
+											<p class="text-xs text-gray-400 font-mono uppercase tracking-wider">
 												{jenis.merk}
 											</p>
 											<h3 class="text-xl font-bold text-white">
@@ -245,7 +246,7 @@
 											{/if}
 										</div>
 										<span
-											class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl transition-colors"
+											class="px-4 py-2 bg-white hover:bg-gray-200 text-black text-sm font-bold rounded-xl transition-colors"
 										>
 											Detail
 										</span>

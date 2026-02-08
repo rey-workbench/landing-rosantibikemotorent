@@ -8,7 +8,6 @@
 	import type { UnitMotor, PriceCalculation } from '$lib/types';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
-	import Select from '$lib/components/ui/Select.svelte';
 
 	// State
 	let availableMotors: UnitMotor[] = [];
@@ -211,6 +210,7 @@
 				>
 					<span class="w-8 h-[1px] bg-blue-500"></span>
 					Booking
+					<span class="w-8 h-[1px] bg-blue-500"></span>
 				</h2>
 				<h1
 					class="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none"
@@ -230,7 +230,7 @@
 			{#if loading}
 				<div class="flex justify-center py-20">
 					<div
-						class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
+						class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"
 					></div>
 				</div>
 			{:else if error}
@@ -248,7 +248,7 @@
 				</div>
 			{:else}
 				<!-- Booking Form -->
-				<div class="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12">
+				<div class="glass-surface rounded-3xl p-8 md:p-12">
 					{#if formError}
 						<div class="bg-red-500/20 border border-red-500/30 rounded-xl p-4 mb-6">
 							<p class="text-red-400">{formError}</p>
@@ -260,7 +260,7 @@
 						<div class="space-y-6">
 							<h3 class="text-xl font-bold text-white flex items-center gap-3">
 								<span
-									class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm"
+									class="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center text-sm font-bold"
 									>1</span
 								>
 								Data Penyewa
@@ -292,15 +292,16 @@
 						<div class="space-y-6">
 							<h3 class="text-xl font-bold text-white flex items-center gap-3">
 								<span
-									class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm"
+									class="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center text-sm font-bold"
 									>2</span
 								>
 								Pilih Motor
 							</h3>
 
 							<div>
-								<Select
+								<Input
 									id="unit-motor"
+									type="dropdown"
 									label="Motor"
 									bind:value={formData.jenisId}
 									required
@@ -319,7 +320,7 @@
 							{#if selectedUnit}
 								{@const jenis = selectedUnit.jenis || selectedUnit.jenisMotor}
 								<div
-									class="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 flex items-center gap-4"
+									class="bg-white/10 border border-white/20 rounded-xl p-4 flex items-center gap-4"
 								>
 									{#if jenis?.gambar}
 										<img
@@ -329,7 +330,7 @@
 										/>
 									{/if}
 									<div>
-										<p class="text-blue-400 text-sm">{jenis?.merk}</p>
+										<p class="text-gray-400 text-sm">{jenis?.merk}</p>
 										<p class="text-white font-bold">{jenis?.model}</p>
 										<p class="text-gray-400 text-sm">
 											{formatPrice(selectedUnit.hargaSewa)} / hari
@@ -343,7 +344,7 @@
 						<div class="space-y-6">
 							<h3 class="text-xl font-bold text-white flex items-center gap-3">
 								<span
-									class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm"
+									class="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center text-sm font-bold"
 									>3</span
 								>
 								Waktu Sewa
@@ -356,8 +357,7 @@
 									type="date"
 									bind:value={formData.tanggalMulai}
 									required
-									icon="calendar"
-									on:input={() => setTimeout(handleCalculatePrice, 100)}
+									on:change={handleCalculatePrice}
 								/>
 
 								<Input
@@ -366,7 +366,7 @@
 									type="time"
 									bind:value={formData.jamMulai}
 									required
-									on:input={() => setTimeout(handleCalculatePrice, 100)}
+									on:change={handleCalculatePrice}
 								/>
 
 								<Input
@@ -375,8 +375,7 @@
 									type="date"
 									bind:value={formData.tanggalSelesai}
 									required
-									icon="calendar"
-									on:input={() => setTimeout(handleCalculatePrice, 100)}
+									on:change={handleCalculatePrice}
 								/>
 
 								<Input
@@ -385,7 +384,7 @@
 									type="time"
 									bind:value={formData.jamSelesai}
 									required
-									on:input={() => setTimeout(handleCalculatePrice, 100)}
+									on:change={handleCalculatePrice}
 								/>
 							</div>
 						</div>
@@ -394,15 +393,16 @@
 						<div class="space-y-6">
 							<h3 class="text-xl font-bold text-white flex items-center gap-3">
 								<span
-									class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm"
+									class="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center text-sm font-bold"
 									>4</span
 								>
 								Aksesori Tambahan
 							</h3>
 
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-								<Select
+								<Input
 									id="jas-hujan"
+									type="dropdown"
 									label="Jas Hujan (maks 2)"
 									bind:value={formData.jasHujan}
 									options={[
@@ -414,8 +414,9 @@
 									on:change={handleCalculatePrice}
 								/>
 
-								<Select
+								<Input
 									id="helm"
+									type="dropdown"
 									label="Helm Tambahan (maks 2)"
 									bind:value={formData.helm}
 									options={[
@@ -431,9 +432,7 @@
 
 						<!-- Price Summary -->
 						{#if priceBreakdown}
-							<div
-								class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-6"
-							>
+							<div class="bg-white/10 border border-white/20 rounded-2xl p-6">
 								<h3 class="text-lg font-bold text-white mb-4">Rincian Biaya</h3>
 								<div class="space-y-2 text-gray-300">
 									<div class="flex justify-between">

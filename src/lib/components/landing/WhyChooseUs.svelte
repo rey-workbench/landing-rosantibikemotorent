@@ -151,17 +151,18 @@
 							class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
 						>
 							<span class="w-8 h-[1px] bg-blue-500"></span>
-							The Rosanti Difference
+							Keunggulan Rosanti
+							<span class="w-8 h-[1px] bg-blue-500"></span>
 						</h2>
 						<!-- Heading consistent with Fleet -->
 						<h3
 							class="text-4xl md:text-5xl lg:text-7xl font-black text-white mt-2 mb-6 leading-[0.9] uppercase tracking-tighter"
 						>
-							Designed for <br />
+							Dirancang untuk <br />
 							<span
 								class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
 							>
-								Perfection.
+								Kesempurnaan.
 							</span>
 						</h3>
 						<p
