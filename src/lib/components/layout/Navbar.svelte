@@ -1,6 +1,7 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
+	import { siteConfig } from '$lib/config';
 
 	let isOpen = false;
 	let isScrolled = false;
@@ -29,7 +30,7 @@
 		href="/"
 		class="text-2xl font-bold tracking-tighter uppercase text-white flex items-center gap-2"
 	>
-		Rosantibike
+		{siteConfig.shortName}
 	</a>
 
 	<div class="flex items-center gap-8">

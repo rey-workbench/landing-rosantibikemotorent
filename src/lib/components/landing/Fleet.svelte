@@ -1,31 +1,22 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
-	import type { JenisMotor } from '$lib/types';
+	import { formatCurrency } from '$lib/utils/format';
 
-	let jenisMotors: JenisMotor[] = [];
-	let loading = true;
+	export let jenisMotors: any[] = [];
+	let loading = jenisMotors.length === 0;
 	let error = '';
 
-	// Helper to get minimum price from units
-	function getMinPrice(jenis: JenisMotor): number {
-		if (!jenis.unitMotor || jenis.unitMotor.length === 0) return 0;
-		const availableUnits = jenis.unitMotor.filter((u) => u.status === 'TERSEDIA');
-		if (availableUnits.length === 0) return Math.min(...jenis.unitMotor.map((u) => u.hargaSewa));
-		return Math.min(...availableUnits.map((u) => u.hargaSewa));
-	}
-
-	// Helper to check if any unit is available
-	function hasAvailableUnit(jenis: JenisMotor): boolean {
-		if (!jenis.unitMotor || jenis.unitMotor.length === 0) return false;
-		return jenis.unitMotor.some((u) => u.status === 'TERSEDIA');
-	}
-
 	onMount(async () => {
+		if (jenisMotors.length > 0) {
+			loading = false;
+			return;
+		}
+
 		try {
 			const response = await jenisMotorApi.getAll({ limit: 4 });
-			// Filter to only show jenis with available units
-			jenisMotors = (response.data || []).filter((j) => hasAvailableUnit(j));
+			// The API already processed the data and mapped it
+			jenisMotors = (response.data || []).filter((j: any) => j.computed.hasAvailable);
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Gagal memuat data';
 			console.error('Failed to load fleet:', err);
@@ -35,11 +26,7 @@
 	});
 
 	function formatPrice(price: number): string {
-		return new Intl.NumberFormat('id-ID', {
-			style: 'currency',
-			currency: 'IDR',
-			minimumFractionDigits: 0
-		}).format(price);
+		return formatCurrency(price);
 	}
 </script>
 
@@ -84,7 +71,6 @@
 	{:else if jenisMotors.length > 0}
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 			{#each jenisMotors as jenis}
-				{@const minPrice = getMinPrice(jenis)}
 				<a
 					href="/fleet/{jenis.slug}"
 					class="group relative h-[450px] overflow-hidden rounded-3xl bg-gray-900 cursor-pointer border border-white/5 hover:border-white/20 transition-all duration-500"
@@ -133,8 +119,8 @@
 									{jenis.model}
 								</h3>
 								<p class="text-gray-400 font-mono text-lg">
-									{#if minPrice > 0}
-										{formatPrice(minPrice)}
+									{#if jenis.computed.minPrice > 0}
+										{formatPrice(jenis.computed.minPrice)}
 										<span class="text-xs text-gray-400">/ hari</span>
 									{:else}
 										<span class="text-gray-400">Hubungi kami</span>

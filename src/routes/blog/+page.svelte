@@ -1,39 +1,44 @@
 <script lang="ts">
-	import Navbar from '$lib/components/layout/Navbar.svelte';
-	import Preloader from '$lib/components/ui/Preloader.svelte';
-	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
 	import { blogApi } from '$lib/api';
-	import type { BlogPost, BlogTag } from '$lib/types';
+	import type { BlogTag } from '$lib/types';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import { fade, fly } from 'svelte/transition';
 
-	let posts: BlogPost[] = [];
-	let tags: BlogTag[] = [];
-	let loading = true;
+	export let data;
+
+	let posts: any[] = data.initialPosts;
+	let tags: BlogTag[] = data.tags;
+	let loading = false;
 	let error = '';
 	let searchQuery = '';
+	let selectedTagId = '';
 	let currentPage = 1;
-	let totalPages = 1;
-
-	onMount(async () => {
-		await loadPosts();
-	});
+	let totalPages = data.initialMeta?.totalPages || 1;
 
 	async function loadPosts() {
 		loading = true;
 		error = '';
 
 		try {
-			const [postsResponse, tagsResponse] = await Promise.all([
-				blogApi.getAll({ page: currentPage, limit: 9, search: searchQuery }),
-				blogApi.getTags()
-			]);
+			const response = await blogApi.getAll({
+				page: currentPage,
+				limit: 9,
+				search: searchQuery,
+				tagId: selectedTagId || undefined
+			});
 
-			posts = postsResponse.data || [];
-			tags = tagsResponse || [];
-			totalPages = postsResponse.meta?.totalPages || 1;
+			// Pre-process for new posts
+			posts = (response.data || []).map((post: any) => ({
+				...post,
+				excerpt: post.konten ? post.konten.replace(/<[^>]*>/g, '').substring(0, 120) + '...' : '',
+				formattedDate: new Date(post.createdAt).toLocaleDateString('id-ID', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				})
+			}));
+			totalPages = response.meta?.totalPages || 1;
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Gagal memuat artikel';
 		} finally {
@@ -46,202 +51,288 @@
 		loadPosts();
 	}
 
-	function formatDate(dateString: string): string {
-		return new Date(dateString).toLocaleDateString('id-ID', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		});
-	}
-
-	function stripHtml(html: string): string {
-		return html.replace(/<[^>]*>/g, '').substring(0, 150) + '...';
+	function selectTag(id: string) {
+		selectedTagId = selectedTagId === id ? '' : id;
+		currentPage = 1;
+		loadPosts();
 	}
 </script>
 
 <svelte:head>
-	<title>Blog - Rosantibike Motorent</title>
+	<title>Blog & Artikel | Rosantibike Motorent</title>
 	<meta
 		name="description"
 		content="Baca artikel terbaru seputar tips berkendara, destinasi wisata Malang, dan berita seputar motor dari Rosantibike Motorent."
 	/>
 </svelte:head>
 
-<Preloader />
-
-<div class="min-h-screen bg-brand-dark text-white">
-	<Navbar />
-
-	<section class="pt-32 pb-20 px-4 md:px-10">
-		<div class="max-w-6xl mx-auto">
-			<!-- Header -->
-			<div class="mb-12">
-				<h2
-					class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
+<!-- Hero Section -->
+<section class="pt-32 pb-16 px-4 md:px-10">
+	<div class="max-w-7xl mx-auto">
+		<!-- Header -->
+		<div class="mb-12">
+			<h2
+				class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
+			>
+				<span class="w-8 h-[1px] bg-blue-500"></span>
+				Journal
+				<span class="w-8 h-[1px] bg-blue-500"></span>
+			</h2>
+			<h1
+				class="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none"
+			>
+				Explorer <br />
+				<span
+					class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
+					>Stories.</span
 				>
-					<span class="w-8 h-[1px] bg-blue-500"></span>
-					Blog
-				</h2>
-				<h1
-					class="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none"
-				>
-					Cerita & <br />
-					<span
-						class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
-						>Inspirasi.</span
-					>
-				</h1>
-				<p class="text-gray-400 mt-6 max-w-xl text-lg">
-					Tips berkendara, rekomendasi destinasi, dan info terbaru seputar motor dan petualangan di
-					Malang.
-				</p>
-			</div>
+			</h1>
+			<p class="text-gray-400 mt-6 max-w-xl text-lg">
+				Temukan tips profesional, rute petualangan terbaik di Malang, dan wawasan terbaru untuk
+				perjalanan motor Anda berikutnya.
+			</p>
+		</div>
 
+		<!-- Filter Section -->
+		<div class="relative z-20 glass-surface rounded-2xl p-6 mb-12 flex flex-col md:flex-row gap-6">
 			<!-- Search -->
-			<div class="flex flex-col md:flex-row gap-4 mb-12">
-				<form on:submit|preventDefault={handleSearch} class="flex-1">
-					<Input
-						bind:value={searchQuery}
-						placeholder="Cari artikel..."
-						icon="search"
-						className="rounded-xl"
-					/>
-				</form>
-
-				<!-- Tags -->
-				{#if tags.length > 0}
-					<div class="flex flex-wrap gap-2">
-						{#each tags.slice(0, 5) as tag}
-							<span class="px-4 py-2 bg-white/5 text-gray-400 rounded-full text-sm">
-								{tag.nama}
-							</span>
-						{/each}
-					</div>
-				{/if}
+			<div class="flex-1">
+				<Input
+					id="search-blog"
+					label="Cari Artikel"
+					bind:value={searchQuery}
+					placeholder="Ketik kata kunci..."
+					icon="search"
+					on:input={handleSearch}
+				/>
 			</div>
 
-			<!-- Loading State -->
-			{#if loading}
-				<div class="flex justify-center py-20">
-					<div
-						class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
-					></div>
-				</div>
-			{:else if error}
-				<div class="text-center py-20">
-					<div class="text-6xl mb-4">⚠️</div>
-					<h3 class="text-2xl font-bold text-white mb-2">Terjadi Kesalahan</h3>
-					<p class="text-gray-400">{error}</p>
-				</div>
-			{:else if posts.length > 0}
-				<!-- Blog Grid -->
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{#each posts as post}
-						<a
-							href="/blog/{post.slug}"
-							class="group bg-gray-900 rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-500 hover:-translate-y-2"
+			<!-- Tags Filter -->
+			<div class="flex-[2]">
+				<label for="tag-filter" class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
+					>Filter Kategori</label
+				>
+				<div class="flex flex-wrap gap-2">
+					<button
+						on:click={() => selectTag('')}
+						class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all {selectedTagId ===
+						''
+							? 'bg-white text-black'
+							: 'bg-brand-surface text-gray-400 border border-brand-border hover:border-gray-500'}"
+					>
+						Semua
+					</button>
+					{#each tags as tag}
+						<button
+							on:click={() => selectTag(tag.id)}
+							class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all {selectedTagId ===
+							tag.id
+								? 'bg-blue-600 text-white'
+								: 'bg-brand-surface text-gray-400 border border-brand-border hover:border-gray-500'}"
 						>
-							<!-- Image -->
-							<div class="aspect-[16/10] overflow-hidden bg-gray-800">
-								{#if post.featuredImage || post.thumbnail}
-									<img
-										src={post.featuredImage || post.thumbnail}
-										alt={post.judul}
-										class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-									/>
-								{:else}
-									<div
-										class="w-full h-full flex items-center justify-center text-gray-600 bg-gradient-to-br from-gray-800 to-gray-900"
-									>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="48"
-											height="48"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="1"
-										>
-											<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-										</svg>
-									</div>
-								{/if}
-							</div>
-
-							<!-- Content -->
-							<div class="p-6">
-								<!-- Tags -->
-								{#if post.tags && post.tags.length > 0}
-									<div class="flex flex-wrap gap-2 mb-3">
-										{#each post.tags.slice(0, 2) as tag}
-											<span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">
-												{tag.nama}
-											</span>
-										{/each}
-									</div>
-								{/if}
-
-								<h3
-									class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors line-clamp-2"
-								>
-									{post.judul}
-								</h3>
-
-								<p class="text-gray-400 text-sm mb-4 line-clamp-3">
-									{stripHtml(post.konten)}
-								</p>
-
-								<div class="flex items-center justify-between text-sm">
-									<span class="text-gray-500">{formatDate(post.createdAt)}</span>
-									<span class="text-blue-500 group-hover:translate-x-1 transition-transform">
-										Baca →
-									</span>
-								</div>
-							</div>
-						</a>
+							{tag.nama}
+						</button>
 					{/each}
 				</div>
+			</div>
+		</div>
 
-				<!-- Pagination -->
-				{#if totalPages > 1}
-					<div class="flex justify-center gap-2 mt-12">
+		<!-- Blog Content -->
+		{#if loading}
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{#each Array(6) as _}
+					<div class="animate-pulse flex flex-col gap-4">
+						<div class="aspect-[16/10] bg-brand-surface rounded-3xl"></div>
+						<div class="h-6 bg-brand-surface rounded-full w-3/4"></div>
+						<div class="h-4 bg-brand-surface rounded-full w-full"></div>
+					</div>
+				{/each}
+			</div>
+		{:else if error}
+			<div class="text-center py-20 glass-surface rounded-3xl">
+				<div class="text-6xl mb-4">⚠️</div>
+				<h3 class="text-2xl font-bold text-white mb-2">Terjadi Kesalahan</h3>
+				<p class="text-gray-400 mb-8">{error}</p>
+				<Button on:click={loadPosts} variant="secondary">Coba Lagi</Button>
+			</div>
+		{:else if posts.length > 0}
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{#each posts as post, i}
+					<a
+						href="/blog/{post.slug}"
+						class="group glass-surface rounded-3xl overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-2"
+						in:fly={{ y: 20, duration: 600, delay: i * 50 }}
+					>
+						<!-- Image -->
+						<div class="aspect-[16/10] overflow-hidden bg-gray-800 relative">
+							{#if post.featuredImage || post.thumbnail}
+								<img
+									src={post.featuredImage || post.thumbnail}
+									alt={post.judul}
+									class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+								/>
+							{:else}
+								<div class="w-full h-full flex items-center justify-center text-gray-600">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="48"
+										height="48"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="1"
+										><rect x="3" y="3" width="18" height="18" rx="2" /><circle
+											cx="8.5"
+											cy="8.5"
+											r="1.5"
+										/><path d="m21 15-5-5L5 21" /></svg
+									>
+								</div>
+							{/if}
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"
+							></div>
+
+							<!-- Date Badge -->
+							<div class="absolute bottom-4 left-4">
+								<span
+									class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-wider"
+								>
+									{post.formattedDate}
+								</span>
+							</div>
+						</div>
+
+						<!-- Content -->
+						<div class="p-6 flex-1 flex flex-col">
+							<!-- Tags -->
+							{#if post.tags && post.tags.length > 0}
+								<div class="flex flex-wrap gap-2 mb-4">
+									{#each post.tags.slice(0, 2) as tag}
+										<span class="text-[9px] font-bold uppercase tracking-wider text-blue-400">
+											#{tag.nama}
+										</span>
+									{/each}
+								</div>
+							{/if}
+
+							<h3
+								class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors line-clamp-2"
+							>
+								{post.judul}
+							</h3>
+
+							<p class="text-gray-400 text-sm mb-8 line-clamp-3">
+								{post.excerpt}
+							</p>
+
+							<div
+								class="mt-auto flex items-center gap-2 text-white font-bold text-xs uppercase tracking-widest group-hover:gap-4 transition-all"
+							>
+								<span>Baca Selengkapnya</span>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2.5"
+									><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
+									></polyline></svg
+								>
+							</div>
+						</div>
+					</a>
+				{/each}
+			</div>
+
+			<!-- Pagination -->
+			{#if totalPages > 1}
+				<div class="flex justify-center items-center gap-4 mt-16">
+					<button
+						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-white disabled:opacity-20 hover:border-gray-500 transition-all"
+						disabled={currentPage === 1}
+						on:click={() => {
+							currentPage--;
+							loadPosts();
+						}}
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"
+							></polyline></svg
+						>
+					</button>
+
+					<div class="flex gap-2">
 						{#each Array(totalPages) as _, i}
-							<Button
+							<button
 								on:click={() => {
 									currentPage = i + 1;
 									loadPosts();
 								}}
-								variant={currentPage === i + 1 ? 'primary' : 'outline'}
-								size="icon"
-								className="rounded-full w-10 h-10"
+								class="w-10 h-10 flex items-center justify-center rounded-xl text-sm font-bold transition-all {currentPage ===
+								i + 1
+									? 'bg-white text-black'
+									: 'bg-brand-surface text-gray-500 border border-brand-border hover:border-gray-500'}"
 							>
 								{i + 1}
-							</Button>
+							</button>
 						{/each}
 					</div>
-				{/if}
-			{:else}
-				<div class="text-center py-20">
-					<div class="text-6xl mb-4">📝</div>
-					<h3 class="text-2xl font-bold text-white mb-2">Belum Ada Artikel</h3>
-					<p class="text-gray-400">Artikel akan segera hadir. Stay tuned!</p>
+
+					<button
+						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-white disabled:opacity-20 hover:border-gray-500 transition-all"
+						disabled={currentPage === totalPages}
+						on:click={() => {
+							currentPage++;
+							loadPosts();
+						}}
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
+							></polyline></svg
+						>
+					</button>
 				</div>
 			{/if}
-		</div>
-	</section>
-
-	<!-- Footer -->
-	<footer class="py-12 bg-black text-center text-gray-600 border-t border-gray-900">
-		<p>&copy; 2024 Rosantibike Motorent. All Rights Reserved.</p>
-	</footer>
-</div>
+		{:else}
+			<div class="text-center py-20 glass-surface rounded-3xl">
+				<div class="text-6xl mb-4">🔍</div>
+				<h3 class="text-2xl font-bold text-white mb-2">Tidak Ditemukan</h3>
+				<p class="text-gray-400 mb-8">Belum ada artikel yang cocok dengan pencarian Anda.</p>
+				<Button
+					on:click={() => {
+						searchQuery = '';
+						selectedTagId = '';
+						loadPosts();
+					}}
+					variant="secondary">Reset Filter</Button
+				>
+			</div>
+		{/if}
+	</div>
+</section>
 
 <style>
 	.line-clamp-2 {
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
-		line-clamp: 2;
 		overflow: hidden;
 	}
 
@@ -249,7 +340,6 @@
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
-		line-clamp: 3;
 		overflow: hidden;
 	}
 </style>

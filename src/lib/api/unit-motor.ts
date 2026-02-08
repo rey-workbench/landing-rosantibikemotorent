@@ -15,6 +15,10 @@ export const unitMotorApi = {
         const { data: body } = await api.get('/unit-motor', { params: filter });
         return { data: body.data, meta: body.meta };
     },
+    getAvailable: async (): Promise<{ data: UnitMotor[]; meta: PaginationMeta }> => {
+        const { data: body } = await api.get('/unit-motor', { params: { status: 'TERSEDIA', limit: 100 } });
+        return { data: body.data, meta: body.meta };
+    },
     getById: async (id: string): Promise<UnitMotor> => {
         const { data: body } = await api.get(`/unit-motor/${id}`);
         return body.data;
