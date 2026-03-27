@@ -30,6 +30,7 @@
 		"@studio-freight/lenis": "^1.0.42",
 		"axios": "^1.13.4",
 		"clsx": "^2.1.1",
+		"libphonenumber-js": "^1.12.40",
 		"tailwind-merge": "^3.4.0"
 	}
 }

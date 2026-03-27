@@ -15,6 +15,7 @@
 		searchable = true;
 	export let options: { value: string | number; label: string }[] = [];
 	export let icon: 'search' | 'user' | 'phone' | 'email' | 'calendar' | 'clock' | 'none' = 'none';
+	export let hint = '';
 
 	const iconPaths = {
 		search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
@@ -344,6 +345,7 @@
 	{#if error}<p class="mt-1 text-[10px] text-red-500 uppercase font-bold tracking-wider">
 			{error}
 		</p>{/if}
+	{#if hint && !error}<p class="mt-1 text-[10px] text-gray-500">{hint}</p>{/if}
 </div>
 
 <style>
