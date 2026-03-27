@@ -366,6 +366,150 @@ type RootTranslation = {
 	 * ←​ ​B​a​c​k​ ​t​o​ ​H​o​m​e
 	 */
 	booking_success_back_home: string
+	/**
+	 * p​c​s
+	 */
+	booking_confirm_pieces: string
+	/**
+	 * J​o​u​r​n​a​l
+	 */
+	blog_title: string
+	/**
+	 * S​t​o​r​i​e​s​ ​&
+	 */
+	blog_heading: string
+	/**
+	 * T​i​p​s
+	 */
+	blog_heading_highlight: string
+	/**
+	 * T​r​a​v​e​l​ ​g​u​i​d​e​s​,​ ​m​o​t​o​r​c​y​c​l​e​ ​m​a​i​n​t​e​n​a​n​c​e​ ​t​i​p​s​,​ ​a​n​d​ ​i​n​s​p​i​r​i​n​g​ ​s​t​o​r​i​e​s​ ​f​r​o​m​ ​o​u​r​ ​j​o​u​r​n​e​y​s​.
+	 */
+	blog_subtitle: string
+	/**
+	 * S​e​a​r​c​h
+	 */
+	blog_search_label: string
+	/**
+	 * S​e​a​r​c​h​ ​a​r​t​i​c​l​e​s​.​.​.
+	 */
+	blog_search_placeholder: string
+	/**
+	 * F​i​l​t​e​r​ ​b​y​ ​C​a​t​e​g​o​r​y
+	 */
+	blog_filter_label: string
+	/**
+	 * A​l​l
+	 */
+	blog_filter_all: string
+	/**
+	 * S​o​m​e​t​h​i​n​g​ ​w​e​n​t​ ​w​r​o​n​g
+	 */
+	blog_error_title: string
+	/**
+	 * T​r​y​ ​A​g​a​i​n
+	 */
+	blog_try_again: string
+	/**
+	 * R​e​a​d​ ​M​o​r​e
+	 */
+	blog_read_more: string
+	/**
+	 * N​o​ ​a​r​t​i​c​l​e​s​ ​f​o​u​n​d
+	 */
+	blog_empty_title: string
+	/**
+	 * T​r​y​ ​a​d​j​u​s​t​i​n​g​ ​y​o​u​r​ ​s​e​a​r​c​h​ ​o​r​ ​f​i​l​t​e​r​ ​t​o​ ​f​i​n​d​ ​w​h​a​t​ ​y​o​u​'​r​e​ ​l​o​o​k​i​n​g​ ​f​o​r​.
+	 */
+	blog_empty_desc: string
+	/**
+	 * R​e​s​e​t​ ​F​i​l​t​e​r
+	 */
+	blog_reset_filter: string
+	/**
+	 * ←​ ​B​a​c​k​ ​t​o​ ​J​o​u​r​n​a​l
+	 */
+	blog_back_to_journal: string
+	/**
+	 * m​i​n​ ​r​e​a​d
+	 */
+	blog_read_time: string
+	/**
+	 * S​h​a​r​e
+	 */
+	blog_share: string
+	/**
+	 * R​e​n​t​ ​N​o​w
+	 */
+	blog_rent_now: string
+	/**
+	 * ←​ ​B​a​c​k​ ​t​o​ ​F​l​e​e​t
+	 */
+	fleet_detail_back: string
+	/**
+	 * A​v​a​i​l​a​b​l​e
+	 */
+	fleet_detail_status_available: string
+	/**
+	 * R​e​n​t​e​d
+	 */
+	fleet_detail_status_rented: string
+	/**
+	 * U​n​d​e​r​ ​M​a​i​n​t​e​n​a​n​c​e
+	 */
+	fleet_detail_status_maintenance: string
+	/**
+	 * E​n​g​i​n​e
+	 */
+	fleet_detail_engine: string
+	/**
+	 * Y​e​a​r
+	 */
+	fleet_detail_year: string
+	/**
+	 * L​i​c​e​n​s​e​ ​P​l​a​t​e
+	 */
+	fleet_detail_plate: string
+	/**
+	 * P​r​i​c​e
+	 */
+	fleet_detail_price: string
+	/**
+	 * /​ ​d​a​y
+	 */
+	fleet_detail_per_day: string
+	/**
+	 * B​o​o​k​ ​N​o​w
+	 */
+	fleet_detail_book_now: string
+	/**
+	 * C​o​n​t​a​c​t​ ​u​s​ ​v​i​a​ ​W​h​a​t​s​A​p​p
+	 */
+	fleet_detail_contact_whatsapp: string
+	/**
+	 * I​n​s​u​r​a​n​c​e​ ​C​o​v​e​r​a​g​e
+	 */
+	fleet_detail_insurance: string
+	/**
+	 * A​l​l​ ​r​e​n​t​a​l​s​ ​i​n​c​l​u​d​e​ ​c​o​m​p​r​e​h​e​n​s​i​v​e​ ​i​n​s​u​r​a​n​c​e​ ​f​o​r​ ​y​o​u​r​ ​p​e​a​c​e​ ​o​f​ ​m​i​n​d​ ​d​u​r​i​n​g​ ​y​o​u​r​ ​j​o​u​r​n​e​y​.
+	 */
+	fleet_detail_insurance_desc: string
+	/**
+	 * W​e​l​l​-​M​a​i​n​t​a​i​n​e​d
+	 */
+	fleet_detail_well_maintained: string
+	/**
+	 * E​v​e​r​y​ ​u​n​i​t​ ​u​n​d​e​r​g​o​e​s​ ​r​e​g​u​l​a​r​ ​m​a​i​n​t​e​n​a​n​c​e​ ​c​h​e​c​k​s​ ​t​o​ ​e​n​s​u​r​e​ ​o​p​t​i​m​a​l​ ​p​e​r​f​o​r​m​a​n​c​e​ ​a​n​d​ ​s​a​f​e​t​y​.
+	 */
+	fleet_detail_well_maintained_desc: string
+	/**
+	 * 2​4​/​7​ ​S​u​p​p​o​r​t
+	 */
+	fleet_detail_support: string
+	/**
+	 * O​u​r​ ​s​u​p​p​o​r​t​ ​t​e​a​m​ ​i​s​ ​a​v​a​i​l​a​b​l​e​ ​a​r​o​u​n​d​ ​t​h​e​ ​c​l​o​c​k​ ​t​o​ ​a​s​s​i​s​t​ ​y​o​u​ ​w​i​t​h​ ​a​n​y​ ​q​u​e​s​t​i​o​n​s​ ​o​r​ ​e​m​e​r​g​e​n​c​i​e​s​.
+	 */
+	fleet_detail_support_desc: string
 }
 
 export type TranslationFunctions = {
@@ -721,6 +865,150 @@ export type TranslationFunctions = {
 	 * ← Back to Home
 	 */
 	booking_success_back_home: () => LocalizedString
+	/**
+	 * pcs
+	 */
+	booking_confirm_pieces: () => LocalizedString
+	/**
+	 * Journal
+	 */
+	blog_title: () => LocalizedString
+	/**
+	 * Stories &
+	 */
+	blog_heading: () => LocalizedString
+	/**
+	 * Tips
+	 */
+	blog_heading_highlight: () => LocalizedString
+	/**
+	 * Travel guides, motorcycle maintenance tips, and inspiring stories from our journeys.
+	 */
+	blog_subtitle: () => LocalizedString
+	/**
+	 * Search
+	 */
+	blog_search_label: () => LocalizedString
+	/**
+	 * Search articles...
+	 */
+	blog_search_placeholder: () => LocalizedString
+	/**
+	 * Filter by Category
+	 */
+	blog_filter_label: () => LocalizedString
+	/**
+	 * All
+	 */
+	blog_filter_all: () => LocalizedString
+	/**
+	 * Something went wrong
+	 */
+	blog_error_title: () => LocalizedString
+	/**
+	 * Try Again
+	 */
+	blog_try_again: () => LocalizedString
+	/**
+	 * Read More
+	 */
+	blog_read_more: () => LocalizedString
+	/**
+	 * No articles found
+	 */
+	blog_empty_title: () => LocalizedString
+	/**
+	 * Try adjusting your search or filter to find what you're looking for.
+	 */
+	blog_empty_desc: () => LocalizedString
+	/**
+	 * Reset Filter
+	 */
+	blog_reset_filter: () => LocalizedString
+	/**
+	 * ← Back to Journal
+	 */
+	blog_back_to_journal: () => LocalizedString
+	/**
+	 * min read
+	 */
+	blog_read_time: () => LocalizedString
+	/**
+	 * Share
+	 */
+	blog_share: () => LocalizedString
+	/**
+	 * Rent Now
+	 */
+	blog_rent_now: () => LocalizedString
+	/**
+	 * ← Back to Fleet
+	 */
+	fleet_detail_back: () => LocalizedString
+	/**
+	 * Available
+	 */
+	fleet_detail_status_available: () => LocalizedString
+	/**
+	 * Rented
+	 */
+	fleet_detail_status_rented: () => LocalizedString
+	/**
+	 * Under Maintenance
+	 */
+	fleet_detail_status_maintenance: () => LocalizedString
+	/**
+	 * Engine
+	 */
+	fleet_detail_engine: () => LocalizedString
+	/**
+	 * Year
+	 */
+	fleet_detail_year: () => LocalizedString
+	/**
+	 * License Plate
+	 */
+	fleet_detail_plate: () => LocalizedString
+	/**
+	 * Price
+	 */
+	fleet_detail_price: () => LocalizedString
+	/**
+	 * / day
+	 */
+	fleet_detail_per_day: () => LocalizedString
+	/**
+	 * Book Now
+	 */
+	fleet_detail_book_now: () => LocalizedString
+	/**
+	 * Contact us via WhatsApp
+	 */
+	fleet_detail_contact_whatsapp: () => LocalizedString
+	/**
+	 * Insurance Coverage
+	 */
+	fleet_detail_insurance: () => LocalizedString
+	/**
+	 * All rentals include comprehensive insurance for your peace of mind during your journey.
+	 */
+	fleet_detail_insurance_desc: () => LocalizedString
+	/**
+	 * Well-Maintained
+	 */
+	fleet_detail_well_maintained: () => LocalizedString
+	/**
+	 * Every unit undergoes regular maintenance checks to ensure optimal performance and safety.
+	 */
+	fleet_detail_well_maintained_desc: () => LocalizedString
+	/**
+	 * 24/7 Support
+	 */
+	fleet_detail_support: () => LocalizedString
+	/**
+	 * Our support team is available around the clock to assist you with any questions or emergencies.
+	 */
+	fleet_detail_support_desc: () => LocalizedString
 }
 
 export type Formatters = {}

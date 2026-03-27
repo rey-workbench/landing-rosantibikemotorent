@@ -33,14 +33,11 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">{$LL.footer_explore()}</h3>
+				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">
+					{$LL.footer_explore()}
+				</h3>
 				<ul class="space-y-4">
-					{#each [
-						{ label: $LL.footer_home(), href: `/${page.params.lang || $locale}` },
-						{ label: $LL.footer_catalog(), href: `/${page.params.lang || $locale}/fleet` },
-						{ label: $LL.footer_blog(), href: `/${page.params.lang || $locale}/blog` },
-						{ label: $LL.footer_procedure(), href: `/${page.params.lang || $locale}/booking` }
-					] as link}
+					{#each [{ label: $LL.footer_home(), href: `/${page.params.lang || $locale}` }, { label: $LL.footer_catalog(), href: `/${page.params.lang || $locale}/fleet` }, { label: $LL.footer_blog(), href: `/${page.params.lang || $locale}/blog` }, { label: $LL.footer_procedure(), href: `/${page.params.lang || $locale}/booking` }] as link}
 						<li>
 							<a
 								href={link.href}
@@ -54,14 +51,11 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">{$LL.footer_services()}</h3>
+				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">
+					{$LL.footer_services()}
+				</h3>
 				<ul class="space-y-4">
-					{#each [
-						$LL.footer_daily_rental(),
-						$LL.footer_delivery(),
-						$LL.footer_equipment(),
-						$LL.footer_insurance()
-					] as service}
+					{#each [$LL.footer_daily_rental(), $LL.footer_delivery(), $LL.footer_equipment(), $LL.footer_insurance()] as service}
 						<li class="flex items-center gap-3 text-gray-500 text-sm">
 							<span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
 							{service}
@@ -71,7 +65,9 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">{$LL.footer_office()}</h3>
+				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">
+					{$LL.footer_office()}
+				</h3>
 				<div class="space-y-6">
 					<div class="flex items-start gap-4">
 						<div class="mt-1 text-blue-500">
@@ -157,12 +153,14 @@
 			</div>
 			<div class="flex items-center gap-8">
 				<a
-					href="#"
+					href="/{page.params.lang || $locale}/privacy"
+					aria-label={$LL.footer_privacy()}
 					class="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
 					>{$LL.footer_privacy()}</a
 				>
 				<a
-					href="#"
+					href="/{page.params.lang || $locale}/terms"
+					aria-label={$LL.footer_terms()}
 					class="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
 					>{$LL.footer_terms()}</a
 				>

@@ -4,8 +4,12 @@
 	import Input from '$lib/components/ui/Input.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { LL } from '$i18n/i18n-svelte';
+	import { page } from '$app/stores';
 
 	export let data;
+
+	$: lang = $page.params.lang || 'id';
 
 	let posts: any[] = data.initialPosts;
 	let tags: BlogTag[] = data.tags;
@@ -40,7 +44,7 @@
 			}));
 			totalPages = response.meta?.totalPages || 1;
 		} catch (err) {
-			error = err instanceof Error ? err.message : 'Gagal memuat artikel';
+			error = err instanceof Error ? err.message : $LL.blog_error_title();
 		} finally {
 			loading = false;
 		}
@@ -75,21 +79,20 @@
 				class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
 			>
 				<span class="w-8 h-[1px] bg-blue-500"></span>
-				Journal
+				{$LL.blog_title()}
 				<span class="w-8 h-[1px] bg-blue-500"></span>
 			</h2>
 			<h1
 				class="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none"
 			>
-				Explorer <br />
+				{$LL.blog_heading()} <br />
 				<span
 					class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
-					>Stories.</span
+					>{$LL.blog_heading_highlight()}</span
 				>
 			</h1>
 			<p class="text-gray-400 mt-6 max-w-xl text-lg">
-				Temukan tips profesional, rute petualangan terbaik di Malang, dan wawasan terbaru untuk
-				perjalanan motor Anda berikutnya.
+				{$LL.blog_subtitle()}
 			</p>
 		</div>
 
@@ -99,9 +102,9 @@
 			<div class="flex-1">
 				<Input
 					id="search-blog"
-					label="Cari Artikel"
+					label={$LL.blog_search_label()}
 					bind:value={searchQuery}
-					placeholder="Ketik kata kunci..."
+					placeholder={$LL.blog_search_placeholder()}
 					icon="search"
 					on:input={handleSearch}
 				/>
@@ -110,7 +113,7 @@
 			<!-- Tags Filter -->
 			<div class="flex-[2]">
 				<label for="tag-filter" class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
-					>Filter Kategori</label
+					>{$LL.blog_filter_label()}</label
 				>
 				<div class="flex flex-wrap gap-2">
 					<button
@@ -120,7 +123,7 @@
 							? 'bg-white text-black'
 							: 'bg-brand-surface text-gray-400 border border-brand-border hover:border-gray-500'}"
 					>
-						Semua
+						{$LL.blog_filter_all()}
 					</button>
 					{#each tags as tag}
 						<button
@@ -151,15 +154,15 @@
 		{:else if error}
 			<div class="text-center py-20 glass-surface rounded-3xl">
 				<div class="text-6xl mb-4">⚠️</div>
-				<h3 class="text-2xl font-bold text-white mb-2">Terjadi Kesalahan</h3>
+				<h3 class="text-2xl font-bold text-white mb-2">{$LL.blog_error_title()}</h3>
 				<p class="text-gray-400 mb-8">{error}</p>
-				<Button on:click={loadPosts} variant="secondary">Coba Lagi</Button>
+				<Button on:click={loadPosts} variant="secondary">{$LL.blog_try_again()}</Button>
 			</div>
 		{:else if posts.length > 0}
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				{#each posts as post, i}
 					<a
-						href="/blog/{post.slug}"
+						href="/{lang}/blog/{post.slug}"
 						class="group glass-surface rounded-3xl overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-2"
 						in:fly={{ y: 20, duration: 600, delay: i * 50 }}
 					>
@@ -229,7 +232,7 @@
 							<div
 								class="mt-auto flex items-center gap-2 text-white font-bold text-xs uppercase tracking-widest group-hover:gap-4 transition-all"
 							>
-								<span>Baca Selengkapnya</span>
+								<span>{$LL.blog_read_more()}</span>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="16"
@@ -251,6 +254,7 @@
 			{#if totalPages > 1}
 				<div class="flex justify-center items-center gap-4 mt-16">
 					<button
+						aria-label="Previous page"
 						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-white disabled:opacity-20 hover:border-gray-500 transition-all"
 						disabled={currentPage === 1}
 						on:click={() => {
@@ -289,6 +293,7 @@
 					</div>
 
 					<button
+						aria-label="Next page"
 						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-white disabled:opacity-20 hover:border-gray-500 transition-all"
 						disabled={currentPage === totalPages}
 						on:click={() => {
@@ -313,15 +318,15 @@
 		{:else}
 			<div class="text-center py-20 glass-surface rounded-3xl">
 				<div class="text-6xl mb-4">🔍</div>
-				<h3 class="text-2xl font-bold text-white mb-2">Tidak Ditemukan</h3>
-				<p class="text-gray-400 mb-8">Belum ada artikel yang cocok dengan pencarian Anda.</p>
+				<h3 class="text-2xl font-bold text-white mb-2">{$LL.blog_empty_title()}</h3>
+				<p class="text-gray-400 mb-8">{$LL.blog_empty_desc()}</p>
 				<Button
 					on:click={() => {
 						searchQuery = '';
 						selectedTagId = '';
 						loadPosts();
 					}}
-					variant="secondary">Reset Filter</Button
+					variant="secondary">{$LL.blog_reset_filter()}</Button
 				>
 			</div>
 		{/if}
@@ -332,6 +337,7 @@
 	.line-clamp-2 {
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
@@ -339,6 +345,7 @@
 	.line-clamp-3 {
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
+		line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}

@@ -2,9 +2,11 @@
 	import { onMount } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
 	import { formatCurrency } from '$lib/utils/format';
-	import { LL } from '$i18n/i18n-svelte';
+	import { LL, locale } from '$i18n/i18n-svelte';
+	import { page } from '$app/state';
 
 	let { jenisMotors = $bindable([]) } = $props();
+	let lang = $derived(page.params.lang || $locale);
 	let loading = $state(jenisMotors.length === 0);
 	let error = $state('');
 
@@ -51,7 +53,7 @@
 			</h3>
 		</div>
 		<a
-			href="/fleet"
+			href="/{lang}/fleet"
 			class="text-xs md:text-base text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors"
 		>
 			{$LL.fleet_view_all()} →
@@ -74,7 +76,7 @@
 		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
 			{#each jenisMotors as jenis}
 				<a
-					href="/fleet/{jenis.slug}"
+					href="/{lang}/fleet/{jenis.slug}"
 					class="group relative h-[280px] md:h-[450px] flex flex-col glass-surface rounded-2xl md:rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-white/5 hover:border-white/20"
 				>
 					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-gray-900">
@@ -147,7 +149,9 @@
 										{$LL.fleet_per_day()}
 									</p>
 								{:else}
-									<span class="text-xs text-gray-400 font-bold uppercase">{$LL.fleet_contact_us()}</span>
+									<span class="text-xs text-gray-400 font-bold uppercase"
+										>{$LL.fleet_contact_us()}</span
+									>
 								{/if}
 							</div>
 
@@ -183,6 +187,7 @@
 	.line-clamp-1 {
 		display: -webkit-box;
 		-webkit-line-clamp: 1;
+		line-clamp: 1;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}

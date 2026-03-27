@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { LL } from '$i18n/i18n-svelte';
 
 	export let data;
 	$: post = data.post;
+	$: lang = $page.params.lang || 'id';
 
 	function getCurrentUrl(): string {
 		if (browser) {
@@ -37,7 +40,7 @@
 	<header class="relative pt-32 pb-16 px-4 md:px-10">
 		<div class="max-w-4xl mx-auto text-center">
 			<a
-				href="/blog"
+				href="/{lang}/blog"
 				class="inline-flex items-center gap-2 text-blue-500 text-xs font-bold uppercase tracking-widest mb-12 hover:gap-4 transition-all"
 			>
 				<svg
@@ -51,7 +54,7 @@
 				>
 					<path d="M19 12H5M12 19l-7-7 7-7" />
 				</svg>
-				Kembali ke Journal
+				{$LL.blog_back_to_journal()}
 			</a>
 
 			<div class="flex flex-wrap justify-center gap-2 mb-6">
@@ -84,7 +87,7 @@
 			>
 				<time datetime={post.createdAt}>{post.formattedDate}</time>
 				<span class="w-1 h-1 bg-gray-700 rounded-full"></span>
-				<span>5 Menit Baca</span>
+				<span>{$LL.blog_read_time()}</span>
 			</div>
 		</div>
 	</header>
@@ -116,12 +119,15 @@
 				class="mt-20 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between gap-8"
 			>
 				<div>
-					<h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Bagikan</h3>
+					<h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
+						{$LL.blog_share()}
+					</h3>
 					<div class="flex gap-3">
 						<a
 							href="https://wa.me/?text={encodeURIComponent(post.judul + ' - ' + getCurrentUrl())}"
 							target="_blank"
 							rel="noopener noreferrer"
+							aria-label="Share on WhatsApp"
 							class="w-10 h-10 glass-surface rounded-xl flex items-center justify-center hover:bg-green-600 hover:border-green-500 transition-all"
 						>
 							<svg
@@ -137,6 +143,7 @@
 						</a>
 						<button
 							on:click={copyLink}
+							aria-label="Copy link"
 							class="w-10 h-10 glass-surface rounded-xl flex items-center justify-center hover:bg-white hover:text-black transition-all"
 						>
 							<svg
@@ -156,7 +163,7 @@
 				</div>
 
 				<div class="flex items-center">
-					<Button href="/booking" variant="primary" size="lg">Sewa Motor Sekarang</Button>
+					<Button href="/{lang}/booking" variant="primary" size="lg">{$LL.blog_rent_now()}</Button>
 				</div>
 			</div>
 		</div>

@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import Button from '$lib/components/ui/Button.svelte';
+	import { LL } from '$i18n/i18n-svelte';
 
 	export let data;
 	$: motor = data.motor;
 	$: jenis = motor?.jenisMotor;
+	$: lang = $page.params.lang || 'id';
 
 	function formatPrice(price: number): string {
 		return new Intl.NumberFormat('id-ID', {
@@ -16,7 +19,7 @@
 
 	function handleBooking() {
 		if (motor) {
-			goto(`/booking?unitId=${motor.id}`);
+			goto(`/${lang}/booking?unitId=${motor.id}`);
 		}
 	}
 </script>
@@ -39,7 +42,7 @@
 <div class="pt-24 px-4 md:px-10">
 	<div class="max-w-7xl mx-auto">
 		<a
-			href="/fleet"
+			href="/{lang}/fleet"
 			class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
 		>
 			<svg
@@ -53,7 +56,7 @@
 			>
 				<path d="M19 12H5M12 19l-7-7 7-7" />
 			</svg>
-			Kembali ke Katalog
+			{$LL.fleet_detail_back()}
 		</a>
 	</div>
 </div>
@@ -108,10 +111,10 @@
 									: 'text-red-400'}"
 						>
 							{motor.status === 'TERSEDIA'
-								? '✓ Tersedia'
+								? $LL.fleet_detail_status_available()
 								: motor.status === 'DISEWA'
-									? 'Sedang Disewa'
-									: 'Maintenance'}
+									? $LL.fleet_detail_status_rented()
+									: $LL.fleet_detail_status_maintenance()}
 						</span>
 					</div>
 				</div>
@@ -138,17 +141,23 @@
 					<!-- Specs Grid -->
 					<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
 						<div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Kapasitas Mesin</p>
+							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">
+								{$LL.fleet_detail_engine()}
+							</p>
 							<p class="text-2xl font-bold text-white">
 								{jenis.cc} <span class="text-sm text-gray-400">CC</span>
 							</p>
 						</div>
 						<div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Tahun</p>
+							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">
+								{$LL.fleet_detail_year()}
+							</p>
 							<p class="text-2xl font-bold text-white">{motor.tahunPembuatan || '-'}</p>
 						</div>
 						<div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Plat Nomor</p>
+							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">
+								{$LL.fleet_detail_plate()}
+							</p>
 							<p class="text-2xl font-bold text-white">{motor.platNomor}</p>
 						</div>
 					</div>
@@ -159,24 +168,30 @@
 					>
 						<div class="flex items-end justify-between mb-6">
 							<div>
-								<p class="text-gray-400 text-sm uppercase tracking-wider mb-1">Harga Sewa</p>
+								<p class="text-gray-400 text-sm uppercase tracking-wider mb-1">
+									{$LL.fleet_detail_price()}
+								</p>
 								<p class="text-4xl font-black text-white">
 									{formatPrice(motor.hargaSewa)}
 								</p>
-								<p class="text-gray-400 text-sm">per 24 jam</p>
+								<p class="text-gray-400 text-sm">{$LL.fleet_detail_per_day()}</p>
 							</div>
 						</div>
 
 						{#if motor.status === 'TERSEDIA'}
-							<Button on:click={handleBooking} fullWidth size="lg">Booking Sekarang</Button>
+							<Button on:click={handleBooking} fullWidth size="lg"
+								>{$LL.fleet_detail_book_now()}</Button
+							>
 						{:else}
 							<Button disabled fullWidth size="lg" variant="secondary">
-								{motor.status === 'DISEWA' ? 'Sedang Disewa' : 'Dalam Maintenance'}
+								{motor.status === 'DISEWA'
+									? $LL.fleet_detail_status_rented()
+									: $LL.fleet_detail_status_maintenance()}
 							</Button>
 						{/if}
 
 						<p class="text-center text-gray-500 text-sm mt-4">
-							Atau hubungi via WhatsApp untuk info lebih lanjut
+							{$LL.fleet_detail_contact_whatsapp()}
 						</p>
 					</div>
 				</div>
@@ -199,9 +214,9 @@
 							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-white mb-2">Asuransi Lengkap</h3>
+					<h3 class="text-xl font-bold text-white mb-2">{$LL.fleet_detail_insurance()}</h3>
 					<p class="text-gray-400">
-						Setiap unit sudah termasuk asuransi kecelakaan untuk keamanan Anda.
+						{$LL.fleet_detail_insurance_desc()}
 					</p>
 				</div>
 
@@ -221,8 +236,8 @@
 							<polyline points="22 4 12 14.01 9 11.01" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-white mb-2">Unit Terawat</h3>
-					<p class="text-gray-400">Seluruh motor melalui pengecekan rutin sebelum disewakan.</p>
+					<h3 class="text-xl font-bold text-white mb-2">{$LL.fleet_detail_well_maintained()}</h3>
+					<p class="text-gray-400">{$LL.fleet_detail_well_maintained_desc()}</p>
 				</div>
 
 				<div class="bg-white/5 border border-white/10 rounded-3xl p-8">
@@ -240,9 +255,9 @@
 							<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-white mb-2">Support 24/7</h3>
+					<h3 class="text-xl font-bold text-white mb-2">{$LL.fleet_detail_support()}</h3>
 					<p class="text-gray-400">
-						Tim kami siap membantu kapan saja jika Anda membutuhkan bantuan.
+						{$LL.fleet_detail_support_desc()}
 					</p>
 				</div>
 			</div>
