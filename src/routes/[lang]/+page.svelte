@@ -5,7 +5,7 @@
 	import FleetGrid from '$lib/components/landing/Fleet.svelte';
 	import Stats from '$lib/components/landing/Stats.svelte';
 	import type { PageData } from './$types';
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 </script>
 
 <!-- Hero / Sequence Scroll -->

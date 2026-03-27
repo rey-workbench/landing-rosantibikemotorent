@@ -1,18 +1,19 @@
 <script lang="ts">
 	import { siteConfig } from '$lib/config';
+	import { LL, locale } from '$i18n/i18n-svelte';
+	import { page } from '$app/state';
 	export let className = '';
 </script>
 
 <footer class="bg-black border-t border-white/5 pt-20 pb-10 {className}">
 	<div class="max-w-7xl mx-auto px-6">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-			<!-- Brand Column -->
 			<div class="space-y-6">
 				<h2 class="text-2xl font-black uppercase tracking-tighter text-white">
 					{siteConfig.shortName}
 				</h2>
 				<p class="text-gray-500 text-sm leading-relaxed max-w-xs">
-					{siteConfig.description}
+					{$LL.footer_about()}
 				</p>
 				<div class="flex gap-4">
 					{#each [{ name: 'Instagram', url: siteConfig.socials.instagram, icon: 'M16.7 3h-9.4C4.4 3 2 5.4 2 8.3v9.4c0 2.9 2.4 5.3 5.3 5.3h9.4c2.9 0 5.3-2.4 5.3-5.3V8.3c0-2.9-2.4-5.3-5.3-5.3zm-4.7 15c-3.1 0-5.7-2.5-5.7-5.7s2.5-5.7 5.7-5.7 5.7 2.5 5.7 5.7-2.6 5.7-5.7 5.7zm5.5-10.4c-.7 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2 1.2.5 1.2 1.2-.5 1.2-1.2 1.2z' }, { name: 'Facebook', url: siteConfig.socials.facebook, icon: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z' }] as social}
@@ -31,11 +32,15 @@
 				</div>
 			</div>
 
-			<!-- Quick Links -->
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">Eksplorasi</h3>
+				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">{$LL.footer_explore()}</h3>
 				<ul class="space-y-4">
-					{#each [{ label: 'Beranda', href: '/' }, { label: 'Katalog Motor', href: '/fleet' }, { label: 'Blog & Tips', href: '/blog' }, { label: 'Prosedur Sewa', href: '/booking' }] as link}
+					{#each [
+						{ label: $LL.footer_home(), href: `/${page.params.lang || $locale}` },
+						{ label: $LL.footer_catalog(), href: `/${page.params.lang || $locale}/fleet` },
+						{ label: $LL.footer_blog(), href: `/${page.params.lang || $locale}/blog` },
+						{ label: $LL.footer_procedure(), href: `/${page.params.lang || $locale}/booking` }
+					] as link}
 						<li>
 							<a
 								href={link.href}
@@ -48,11 +53,15 @@
 				</ul>
 			</div>
 
-			<!-- Services / Values -->
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">Layanan Kami</h3>
+				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">{$LL.footer_services()}</h3>
 				<ul class="space-y-4">
-					{#each ['Sewa Motor Harian', 'Antar Jemput Unit', 'Peralatan Berkendara', 'Asuransi Perjalanan'] as service}
+					{#each [
+						$LL.footer_daily_rental(),
+						$LL.footer_delivery(),
+						$LL.footer_equipment(),
+						$LL.footer_insurance()
+					] as service}
 						<li class="flex items-center gap-3 text-gray-500 text-sm">
 							<span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
 							{service}
@@ -61,9 +70,8 @@
 				</ul>
 			</div>
 
-			<!-- Contact Column -->
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">Kantor Kami</h3>
+				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">{$LL.footer_office()}</h3>
 				<div class="space-y-6">
 					<div class="flex items-start gap-4">
 						<div class="mt-1 text-blue-500">
@@ -140,24 +148,23 @@
 			</div>
 		</div>
 
-		<!-- Bottom Bar -->
 		<div
 			class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6"
 		>
 			<div class="text-[11px] uppercase tracking-[0.2em] text-gray-600 font-bold">
 				&copy; {new Date().getFullYear()}
-				{siteConfig.name}. All Rights Reserved.
+				{siteConfig.name}. {$LL.footer_all_rights()}
 			</div>
 			<div class="flex items-center gap-8">
 				<a
 					href="#"
 					class="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
-					>Privacy Policy</a
+					>{$LL.footer_privacy()}</a
 				>
 				<a
 					href="#"
 					class="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
-					>Terms of Service</a
+					>{$LL.footer_terms()}</a
 				>
 			</div>
 		</div>

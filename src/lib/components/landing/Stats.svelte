@@ -1,19 +1,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { spring } from 'svelte/motion';
+	import { LL } from '$i18n/i18n-svelte';
 
-	const stats = [
-		{ label: 'Pelanggan Puas', value: 1500, suffix: '+' },
-		{ label: 'Unit Tersedia', value: 50, suffix: '' },
-		{ label: 'Tahun Pengalaman', value: 5, suffix: '+' }
-	];
+	const stats = $derived([
+		{ label: $LL.stats_customers(), value: 1500, suffix: '+' },
+		{ label: $LL.stats_units(), value: 50, suffix: '' },
+		{ label: $LL.stats_experience(), value: 5, suffix: '+' }
+	]);
 
-	let visible = false;
-	let sectionRef: HTMLElement;
+	let visible = $state(false);
+	let sectionRef = $state<HTMLElement>();
 
 	const spring1 = spring(0, { stiffness: 0.1, damping: 0.7 });
 	const spring2 = spring(0, { stiffness: 0.1, damping: 0.7 });
 	const spring3 = spring(0, { stiffness: 0.1, damping: 0.7 });
+
 	onMount(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -36,7 +38,6 @@
 </script>
 
 <section class="py-24 relative bg-brand-dark overflow-hidden z-20" bind:this={sectionRef}>
-	<!-- Background Elements -->
 	<div
 		class="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full blur-[128px] pointer-events-none"
 	></div>

@@ -5,6 +5,15 @@
 	import Navbar from '$lib/components/layout/Navbar.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import Preloader from '$lib/components/ui/Preloader.svelte';
+	import { setLocale } from '$i18n/i18n-svelte';
+
+	let { data, children } = $props();
+
+	$effect(() => {
+		if (data.lang) {
+			setLocale(data.lang);
+		}
+	});
 
 	onMount(() => {
 		const lenis = new Lenis({
@@ -28,7 +37,7 @@
 <Navbar />
 
 <main class="min-h-screen bg-brand-dark text-white">
-	<slot />
+	{@render children()}
 </main>
 
 <Footer />

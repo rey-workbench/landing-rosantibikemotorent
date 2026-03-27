@@ -2,16 +2,19 @@
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { siteConfig } from '$lib/config';
+	import { LL, locale } from '$i18n/i18n-svelte';
+	import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
+	import { page } from '$app/state';
 
-	let isOpen = false;
-	let isScrolled = false;
+	let isOpen = $state(false);
+	let isScrolled = $state(false);
 
-	const navItems = [
-		{ label: 'Beranda', href: '/' },
-		{ label: 'Katalog', href: '/fleet' },
-		{ label: 'Blog', href: '/blog' },
-		{ label: 'Booking', href: '/booking' }
-	];
+	const navItems = $derived([
+		{ label: $LL.nav_home(), href: `/${page.params.lang || $locale}` },
+		{ label: $LL.nav_fleet(), href: `/${page.params.lang || $locale}/fleet` },
+		{ label: $LL.nav_blog(), href: `/${page.params.lang || $locale}/blog` },
+		{ label: $LL.nav_booking(), href: `/${page.params.lang || $locale}/booking` }
+	]);
 
 	onMount(() => {
 		const handleScroll = () => {
@@ -27,28 +30,28 @@
 	class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center transition-all duration-300 mix-blend-difference"
 >
 	<a
-		href="/"
+		href="/{page.params.lang || $locale}"
 		class="text-2xl font-bold tracking-tighter uppercase text-white flex items-center gap-2"
 	>
 		{siteConfig.shortName}
 	</a>
 
 	<div class="flex items-center gap-8">
-		<!-- Book Now Button -->
 		<a
-			href="/booking"
+			href="/{page.params.lang || $locale}/booking"
 			class="hidden md:block px-6 py-2 rounded-full border border-white/20 text-sm font-bold text-white hover:bg-white hover:text-black transition-colors {isScrolled
 				? 'opacity-100'
 				: 'opacity-0'} duration-300"
 		>
-			Book Now
+			{$LL.nav_book_now()}
 		</a>
 
-		<!-- Hamburger Menu Button - Visible on ALL screens -->
+		<LanguageSwitcher />
+
 		<button
 			class="relative z-50 group flex flex-col gap-1.5 p-2 cursor-pointer"
 			aria-label="Toggle Menu"
-			on:click={() => (isOpen = !isOpen)}
+			onclick={() => (isOpen = !isOpen)}
 		>
 			<div
 				class="w-8 h-0.5 bg-white shadow-sm transition-all duration-300 rounded-full {isOpen
@@ -74,10 +77,9 @@
 		class="fixed inset-0 bg-brand-dark/98 backdrop-blur-3xl z-[60] flex flex-col justify-center items-center text-center space-y-12"
 		transition:fade={{ duration: 300 }}
 	>
-		<!-- Close Button (Top Right) -->
 		<button
 			class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"
-			on:click={() => (isOpen = false)}
+			onclick={() => (isOpen = false)}
 			aria-label="Close Menu"
 		>
 			<svg
@@ -99,7 +101,7 @@
 				<a
 					href={item.href}
 					class="text-5xl md:text-7xl font-black text-white hover:text-blue-500 transition-colors uppercase tracking-tighter font-sans"
-					on:click={() => (isOpen = false)}
+					onclick={() => (isOpen = false)}
 				>
 					{item.label}
 				</a>
@@ -107,11 +109,11 @@
 		</div>
 
 		<a
-			href="/booking"
+			href="/{page.params.lang || $locale}/booking"
 			class="mt-8 px-10 py-5 bg-white text-black font-black text-xl rounded-full hover:bg-gray-200 transition-colors uppercase tracking-widest"
-			on:click={() => (isOpen = false)}
+			onclick={() => (isOpen = false)}
 		>
-			Booking Sekarang
+			{$LL.nav_booking_now()}
 		</a>
 	</div>
 {/if}

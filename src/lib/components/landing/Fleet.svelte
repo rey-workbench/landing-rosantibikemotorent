@@ -2,10 +2,11 @@
 	import { onMount } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
 	import { formatCurrency } from '$lib/utils/format';
+	import { LL } from '$i18n/i18n-svelte';
 
-	export let jenisMotors: any[] = [];
-	let loading = jenisMotors.length === 0;
-	let error = '';
+	let { jenisMotors = $bindable([]) } = $props();
+	let loading = $state(jenisMotors.length === 0);
+	let error = $state('');
 
 	onMount(async () => {
 		if (jenisMotors.length > 0) {
@@ -17,7 +18,7 @@
 			const response = await jenisMotorApi.getAll({ limit: 4 });
 			jenisMotors = (response.data || []).filter((j: any) => j.computed.hasAvailable);
 		} catch (err) {
-			error = err instanceof Error ? err.message : 'Gagal memuat data';
+			error = err instanceof Error ? err.message : $LL.fleet_error();
 			console.error('Failed to load fleet:', err);
 		} finally {
 			loading = false;
@@ -35,17 +36,17 @@
 			<h2
 				class="text-[10px] md:text-sm font-bold text-blue-500 tracking-[0.2em] mb-2 md:mb-4 uppercase flex items-center gap-2"
 			>
-				<span class="w-6 md:w-8 h-[1px] bg-blue-500"></span>
-				Armada Kami
-				<span class="w-6 md:w-8 h-[1px] bg-blue-500"></span>
+				<span class="w-6 md:w-8 h-px bg-blue-500"></span>
+				{$LL.fleet_title()}
+				<span class="w-6 md:w-8 h-px bg-blue-500"></span>
 			</h2>
 			<h3
 				class="text-4xl md:text-5xl lg:text-7xl font-black text-white mt-2 mb-2 md:mb-6 leading-[0.9] uppercase tracking-tighter"
 			>
-				Pilih Motor <br />
+				{$LL.fleet_heading()} <br />
 				<span
-					class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
-					>Impianmu.</span
+					class="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-300 to-gray-600"
+					>{$LL.fleet_heading_highlight()}</span
 				>
 			</h3>
 		</div>
@@ -53,7 +54,7 @@
 			href="/fleet"
 			class="text-xs md:text-base text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors"
 		>
-			Lihat Semua Unit →
+			{$LL.fleet_view_all()} →
 		</a>
 	</div>
 
@@ -70,14 +71,12 @@
 			<p class="text-gray-400">{error}</p>
 		</div>
 	{:else if jenisMotors.length > 0}
-		<!-- Mobile: 2 Columns, Desktop: 4 Columns -->
 		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
 			{#each jenisMotors as jenis}
 				<a
 					href="/fleet/{jenis.slug}"
 					class="group relative h-[280px] md:h-[450px] flex flex-col glass-surface rounded-2xl md:rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-white/5 hover:border-white/20"
 				>
-					<!-- Image Container -->
 					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-gray-900">
 						{#if jenis.gambar}
 							<img
@@ -104,28 +103,26 @@
 							</div>
 						{/if}
 						<div
-							class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"
+							class="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-60"
 						></div>
 
-						<!-- Status Badge (Simplified for Component) -->
 						<div class="absolute top-2 left-2 md:top-4 md:left-4">
 							{#if !jenis.computed.hasAvailable}
 								<span
 									class="px-2 py-0.5 bg-red-500/80 text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
 								>
-									Habis
+									{$LL.fleet_empty()}
 								</span>
 							{:else}
 								<span
 									class="px-2 py-0.5 bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
 								>
-									Tersedia
+									{$LL.fleet_available()}
 								</span>
 							{/if}
 						</div>
 					</div>
 
-					<!-- Content -->
 					<div class="flex-1 p-3 md:p-6 flex flex-col justify-between bg-brand-surface">
 						<div>
 							<p
@@ -147,18 +144,17 @@
 										{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
 									</p>
 									<p class="text-[8px] md:text-xs text-gray-500 font-bold uppercase tracking-wider">
-										/ Hari
+										{$LL.fleet_per_day()}
 									</p>
 								{:else}
-									<span class="text-xs text-gray-400 font-bold uppercase">Hubungi Kami</span>
+									<span class="text-xs text-gray-400 font-bold uppercase">{$LL.fleet_contact_us()}</span>
 								{/if}
 							</div>
 
-							<!-- Hide button on mobile, show icon on desktop -->
 							<div
 								class="hidden md:flex items-center gap-2 text-white font-black text-[10px] uppercase tracking-widest group-hover:gap-3 transition-all"
 							>
-								<span>Pesan</span>
+								<span>{$LL.fleet_order()}</span>
 								<svg
 									width="12"
 									height="12"
@@ -178,7 +174,7 @@
 		</div>
 	{:else}
 		<div class="text-center py-12">
-			<p class="text-gray-400">Tidak ada motor tersedia saat ini.</p>
+			<p class="text-gray-400">{$LL.fleet_empty_desc()}</p>
 		</div>
 	{/if}
 </section>
