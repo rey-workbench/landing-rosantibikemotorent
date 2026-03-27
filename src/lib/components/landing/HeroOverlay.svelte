@@ -67,7 +67,8 @@
 		>
 			<div>Lat: -7.9839 | Lon: 112.6214</div>
 			<div class="flex items-center gap-2">
-				Status: <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> {$LL.hero_status_optimal()}
+				Status: <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+				{$LL.hero_status_optimal()}
 			</div>
 		</div>
 	</div>

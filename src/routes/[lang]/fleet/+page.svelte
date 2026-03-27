@@ -3,6 +3,7 @@
 	import Input from '$lib/components/ui/Input.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
+	import LL from '$i18n/i18n-svelte.js';
 
 	export let data;
 
@@ -35,11 +36,8 @@
 </script>
 
 <svelte:head>
-	<title>Katalog Motor - Rosantibike Motorent</title>
-	<meta
-		name="description"
-		content="Jelajahi koleksi motor premium kami. Berbagai pilihan motor berkualitas dengan harga terjangkau di Malang."
-	/>
+	<title>{$LL.page_title_fleet()} | Rosantibike Motorent</title>
+	<meta name="description" content={$LL.footer_about()} />
 </svelte:head>
 
 <!-- Hero Section -->
@@ -51,15 +49,15 @@
 				class="text-[10px] md:text-sm font-bold text-blue-500 tracking-[0.25em] mb-4 uppercase flex items-center gap-2"
 			>
 				<span class="w-8 h-[1px] bg-blue-500"></span>
-				Armada Kami
+				{$LL.fleet_header_title()}
 			</h2>
 			<h1
 				class="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.9]"
 			>
-				Pilih Motor <br />
+				{$LL.fleet_header_heading()} <br />
 				<span
 					class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-700"
-					>Impianmu.</span
+					>{$LL.fleet_header_heading_highlight()}</span
 				>
 			</h1>
 		</div>
@@ -71,9 +69,9 @@
 			<div class="space-y-1">
 				<Input
 					id="search-motor"
-					label="Cari Motor"
+					label={$LL.fleet_filter_search_label()}
 					bind:value={searchQuery}
-					placeholder="Cari..."
+					placeholder={$LL.fleet_filter_search_placeholder()}
 					icon="search"
 				/>
 			</div>
@@ -82,13 +80,13 @@
 				<Input
 					id="brand-filter"
 					type="dropdown"
-					label="Merek"
+					label={$LL.fleet_filter_brand_label()}
 					bind:value={selectedBrand}
 					options={[
-						{ value: '', label: 'Semua Merek' },
+						{ value: '', label: $LL.fleet_filter_brand_all() },
 						...brands.map((b) => ({ value: b.merk, label: b.merk }))
 					]}
-					placeholder="Semua"
+					placeholder={$LL.nav_home()}
 				/>
 			</div>
 
@@ -96,7 +94,7 @@
 				<label
 					for="price-min"
 					class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest"
-					>Range Harga</label
+					>{$LL.fleet_filter_price_label()}</label
 				>
 				<div class="flex items-center gap-2 mt-1">
 					<Input id="price-min" type="number" bind:value={priceRange.min} placeholder="Min" />
@@ -117,8 +115,8 @@
 			</div>
 		{:else if error}
 			<div class="text-center py-24 glass-surface rounded-[2rem]">
-				<h3 class="text-xl font-black text-white uppercase mb-4">Gagal Memuat</h3>
-				<Button size="sm" on:click={() => window.location.reload()}>Refresh</Button>
+				<h3 class="text-xl font-black text-white uppercase mb-4">{$LL.fleet_error_load_title()}</h3>
+				<Button size="sm" on:click={() => window.location.reload()}>{$LL.fleet_refresh()}</Button>
 			</div>
 		{:else if filteredMotors.length > 0}
 			<!-- Updated Grid: grid-cols-2 on mobile -->
@@ -161,13 +159,13 @@
 									<span
 										class="px-2 py-0.5 bg-red-500/80 text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
 									>
-										Habis
+										{$LL.fleet_status_habis()}
 									</span>
 								{:else}
 									<span
 										class="px-2 py-0.5 bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
 									>
-										{jenis.computed.availableCount} Unit
+										{$LL.fleet_unit_ready({ count: jenis.computed.availableCount })}
 									</span>
 								{/if}
 							</div>
@@ -195,17 +193,19 @@
 											{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
 										</span>
 										<span class="text-[8px] md:text-[10px] text-gray-500 font-bold uppercase"
-											>/ Hari</span
+											>{$LL.fleet_per_day()}</span
 										>
 									{:else}
-										<span class="text-xs font-black text-gray-500 uppercase">Hubungi Kami</span>
+										<span class="text-xs font-black text-gray-500 uppercase"
+											>{$LL.fleet_contact_us()}</span
+										>
 									{/if}
 								</div>
 
 								<div
 									class="hidden md:flex items-center gap-2 text-white font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all"
 								>
-									<span>Detail</span>
+									<span>{$LL.fleet_link_detail()}</span>
 									<svg
 										width="12"
 										height="12"
@@ -225,8 +225,8 @@
 			</div>
 		{:else}
 			<div class="text-center py-24 glass-surface rounded-[2rem]">
-				<h3 class="text-xl font-black text-white uppercase">Tidak Ditemukan</h3>
-				<p class="text-gray-500 mt-2 text-sm">Coba atur ulang filter Anda.</p>
+				<h3 class="text-xl font-black text-white uppercase">{$LL.fleet_empty_search_title()}</h3>
+				<p class="text-gray-500 mt-2 text-sm">{$LL.fleet_empty_search_desc()}</p>
 			</div>
 		{/if}
 	</div>

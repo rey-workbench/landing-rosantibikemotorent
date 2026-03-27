@@ -31,7 +31,7 @@
 			<meta property="og:image" content={post.featuredImage} />
 		{/if}
 	{:else}
-		<title>Artikel | Rosantibike Motorent</title>
+		<title>{$LL.blog_title()} | Rosantibike Motorent</title>
 	{/if}
 </svelte:head>
 

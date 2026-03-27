@@ -17,7 +17,7 @@
 </script>
 
 <svelte:head>
-	<title>Booking Berhasil - Rosantibike Motorent</title>
+	<title>{$LL.page_title_booking_success()} | Rosantibike Motorent</title>
 </svelte:head>
 
 <section class="pt-32 pb-20 px-4 md:px-10">
@@ -124,8 +124,8 @@
 
 			<!-- WhatsApp CTA -->
 			<a
-				href="https://wa.me/{siteConfig.whatsapp}?text=Halo, saya baru saja melakukan booking dengan ID: {$page.url.searchParams.get(
-					'id'
+				href="https://wa.me/{siteConfig.whatsapp}?text={encodeURIComponent(
+					$LL.booking_success_whatsapp_message({ id: $page.url.searchParams.get('id') || '' })
 				)}"
 				target="_blank"
 				rel="noopener noreferrer"

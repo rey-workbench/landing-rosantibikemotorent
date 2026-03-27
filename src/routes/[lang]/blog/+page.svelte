@@ -63,11 +63,8 @@
 </script>
 
 <svelte:head>
-	<title>Blog & Artikel | Rosantibike Motorent</title>
-	<meta
-		name="description"
-		content="Baca artikel terbaru seputar tips berkendara, destinasi wisata Malang, dan berita seputar motor dari Rosantibike Motorent."
-	/>
+	<title>{$LL.page_title_blog()} | Rosantibike Motorent</title>
+	<meta name="description" content={$LL.blog_subtitle()} />
 </svelte:head>
 
 <!-- Hero Section -->

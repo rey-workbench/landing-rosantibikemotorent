@@ -1,64 +1,62 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-    --font-sans: 'Outfit', sans-serif;
-    --color-brand-dark: #050505;
-    --color-brand-surface: #121212;
-    --color-brand-border: #262626;
-    --color-brand-accent: #ffffff;
+	--font-sans: 'Outfit', sans-serif;
+	--color-brand-dark: #050505;
+	--color-brand-surface: #121212;
+	--color-brand-border: #262626;
+	--color-brand-accent: #ffffff;
 }
 
 :root {
-    --brand-dark: #050505;
-    --brand-surface: #121212;
-    --brand-border: #262626;
-    --brand-accent: #ffffff;
+	--brand-dark: #050505;
+	--brand-surface: #121212;
+	--brand-border: #262626;
+	--brand-accent: #ffffff;
 }
 
 @layer utilities {
-
-    .glass-effect,
-    .glass-surface {
-        background: #121212;
-        border: 1px solid #262626;
-        backdrop-filter: none !important;
-    }
+	.glass-effect,
+	.glass-surface {
+		background: #121212;
+		border: 1px solid #262626;
+		backdrop-filter: none !important;
+	}
 }
 
 @layer base {
-    :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 10, 10, 10;
-        --background-end-rgb: 10, 10, 10;
-    }
+	:root {
+		--foreground-rgb: 255, 255, 255;
+		--background-start-rgb: 10, 10, 10;
+		--background-end-rgb: 10, 10, 10;
+	}
 
-    body {
-        color: rgb(var(--foreground-rgb));
-        background: linear-gradient(to bottom,
-                transparent,
-                rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-        font-family: var(--font-sans);
-        overflow-x: hidden;
-    }
+	body {
+		color: rgb(var(--foreground-rgb));
+		background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
+			rgb(var(--background-start-rgb));
+		font-family: var(--font-sans);
+		overflow-x: hidden;
+	}
 }
 
 /* Lenis Smooth Scroll */
 html.lenis {
-    height: auto;
+	height: auto;
 }
 
 .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
+	scroll-behavior: auto !important;
 }
 
 .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
+	overscroll-behavior: contain;
 }
 
 .lenis.lenis-stopped {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 .lenis.lenis-scrolling iframe {
-    pointer-events: none;
+	pointer-events: none;
 }

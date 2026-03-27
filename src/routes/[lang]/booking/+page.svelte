@@ -8,8 +8,10 @@
 	import PhoneInput from '$lib/components/ui/PhoneInput.svelte';
 	import StepIndicator from '$lib/components/ui/StepIndicator.svelte';
 	import { parsePhoneNumberFromString } from 'libphonenumber-js';
+	import LL from '$i18n/i18n-svelte.js';
 
 	export let data;
+	$: ({ lang } = data);
 
 	// State
 	let availableMotors: UnitMotor[] = data.availableMotors;
@@ -37,11 +39,11 @@
 	}
 
 	// Steps configuration
-	const steps = [
-		{ title: 'Data Diri', description: 'Identitas penyewa' },
-		{ title: 'Pilih Motor', description: 'Pilihan motor' },
-		{ title: 'Waktu', description: 'Tanggal & jam' },
-		{ title: 'Konfirmasi', description: 'Ringkasan' }
+	$: steps = [
+		{ title: $LL.booking_steps_personal_title(), description: $LL.booking_steps_personal_desc() },
+		{ title: $LL.booking_steps_motor_title(), description: $LL.booking_steps_motor_desc() },
+		{ title: $LL.booking_steps_time_title(), description: $LL.booking_steps_time_desc() },
+		{ title: $LL.booking_steps_confirm_title(), description: $LL.booking_steps_confirm_desc() }
 	];
 
 	let currentStep = 0;
@@ -95,7 +97,7 @@
 			priceBreakdown = result;
 		} catch (err) {
 			console.error('Price calculation failed:', err);
-			formError = err instanceof Error ? err.message : 'Gagal menghitung harga';
+			formError = err instanceof Error ? err.message : $LL.booking_error_price_calc();
 			priceBreakdown = null;
 		} finally {
 			isCalculating = false;
@@ -105,19 +107,18 @@
 	function validateStep(step: number): string | null {
 		switch (step) {
 			case 0:
-				if (!formData.namaPenyewa.trim()) return 'Nama lengkap wajib diisi';
-				if (!formData.noWhatsapp.trim()) return 'No. WhatsApp wajib diisi';
-				if (!isValidWhatsapp(formData.noWhatsapp))
-					return 'Format no. WhatsApp tidak valid';
+				if (!formData.namaPenyewa.trim()) return $LL.booking_error_name_required();
+				if (!formData.noWhatsapp.trim()) return $LL.booking_error_whatsapp_required();
+				if (!isValidWhatsapp(formData.noWhatsapp)) return $LL.booking_error_whatsapp_invalid();
 				return null;
 			case 1:
-				if (!formData.jenisId && !formData.unitId) return 'Pilih motor yang akan disewa';
+				if (!formData.jenisId && !formData.unitId) return $LL.booking_error_motor_required();
 				return null;
 			case 2:
-				if (!formData.tanggalMulai) return 'Tanggal mulai wajib diisi';
-				if (!formData.tanggalSelesai) return 'Tanggal selesai wajib diisi';
+				if (!formData.tanggalMulai) return $LL.booking_error_start_date_required();
+				if (!formData.tanggalSelesai) return $LL.booking_error_end_date_required();
 				if (formData.tanggalSelesai < formData.tanggalMulai)
-					return 'Tanggal selesai tidak boleh sebelum tanggal mulai';
+					return $LL.booking_error_date_invalid();
 				return null;
 			default:
 				return null;
@@ -180,10 +181,10 @@
 
 			success = true;
 			setTimeout(() => {
-				goto(`/booking/success?id=${response.id}`);
+				goto(`/${lang}/booking/success?id=${response.id}`);
 			}, 2000);
 		} catch (err) {
-			formError = err instanceof Error ? err.message : 'Gagal membuat booking';
+			formError = err instanceof Error ? err.message : $LL.booking_error_create();
 		} finally {
 			isSubmitting = false;
 		}
@@ -215,11 +216,8 @@
 </script>
 
 <svelte:head>
-	<title>Booking Motor - Rosantibike Motorent</title>
-	<meta
-		name="description"
-		content="Booking motor rental di Rosantibike Motorent Malang. Proses cepat dan mudah."
-	/>
+	<title>{$LL.page_title_booking()} | Rosantibike Motorent</title>
+	<meta name="description" content={$LL.booking_header_subtitle()} />
 </svelte:head>
 
 <section class="pt-32 pb-20 px-4 md:px-10">
@@ -230,17 +228,18 @@
 				class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center justify-center gap-2"
 			>
 				<span class="w-8 h-[1px] bg-blue-500"></span>
-				Booking
+				{$LL.booking_header_title()}
 				<span class="w-8 h-[1px] bg-blue-500"></span>
 			</h2>
 			<h1 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter">
-				Pesan <span
+				{$LL.booking_header_order()}
+				<span
 					class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
-					>Motormu</span
+					>{$LL.booking_header_motor()}</span
 				>
 			</h1>
 			<p class="text-gray-400 mt-4 max-w-xl mx-auto">
-				Isi formulir step-by-step untuk memesan motor
+				{$LL.booking_header_subtitle()}
 			</p>
 		</div>
 
@@ -264,8 +263,8 @@
 						/>
 					</svg>
 				</div>
-				<h3 class="text-2xl font-bold text-white mb-3">Booking Berhasil!</h3>
-				<p class="text-gray-400">Kami akan segera menghubungi Anda via WhatsApp.</p>
+				<h3 class="text-2xl font-bold text-white mb-3">{$LL.booking_success_title()}</h3>
+				<p class="text-gray-400">{$LL.booking_success_message()}</p>
 			</div>
 		{:else}
 			<!-- Step Indicator -->
@@ -298,26 +297,26 @@
 				{#if currentStep === 0}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
-							<h3 class="text-xl font-bold text-white">Data Diri Penyewa</h3>
-							<p class="text-gray-400 text-sm mt-1">Lengkapi data di bawah dengan benar</p>
+							<h3 class="text-xl font-bold text-white">{$LL.booking_step1_title()}</h3>
+							<p class="text-gray-400 text-sm mt-1">{$LL.booking_step1_desc()}</p>
 						</div>
 
 						<Input
 							id="nama-penyewa"
-							label="Nama Lengkap"
+							label={$LL.booking_name_label()}
 							bind:value={formData.namaPenyewa}
 							required
-							placeholder="Nama sesuai KTP"
+							placeholder={$LL.booking_name_placeholder()}
 							icon="user"
 						/>
 
 						<PhoneInput
 							id="no-whatsapp"
-							label="No. WhatsApp"
+							label={$LL.booking_whatsapp_label()}
 							bind:value={formData.noWhatsapp}
 							required
-							placeholder="81234567890"
-							hint="Pilih kode negara atau ketik nomor Anda"
+							placeholder={$LL.booking_whatsapp_placeholder()}
+							hint={$LL.booking_whatsapp_hint()}
 						/>
 					</div>
 				{/if}
@@ -333,17 +332,17 @@
 						<Input
 							id="unit-motor"
 							type="dropdown"
-							label="Tipe Motor"
+							label={$LL.booking_motor_type_label()}
 							bind:value={formData.jenisId}
 							required
 							options={uniqueMotors.map((m) => {
 								const jenis = m.jenis || m.jenisMotor;
 								return {
 									value: m.jenisId,
-									label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(m.hargaSewa)}/hari`
+									label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(m.hargaSewa)}/${$LL.booking_day()}`
 								};
 							})}
-							placeholder="Pilih Motor"
+							placeholder={$LL.booking_motor_placeholder()}
 							on:change={handleMotorChange}
 						/>
 
@@ -367,7 +366,7 @@
 									{/if}
 									<p class="text-green-400 font-bold mt-1">
 										{formatPrice(selectedUnit.hargaSewa)}
-										<span class="text-gray-500 font-normal text-sm">/ hari</span>
+										<span class="text-gray-500 font-normal text-sm">/ {$LL.booking_day()}</span>
 									</p>
 								</div>
 							</div>
@@ -394,7 +393,7 @@
 										d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
 									/>
 								</svg>
-								<p class="text-gray-400">Pilih motor dari dropdown di atas</p>
+								<p class="text-gray-400">{$LL.booking_motor_select()}</p>
 							</div>
 						{/if}
 					</div>
@@ -404,14 +403,14 @@
 				{#if currentStep === 2}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
-							<h3 class="text-xl font-bold text-white">Waktu Sewa</h3>
-							<p class="text-gray-400 text-sm mt-1">Tentukan tanggal dan jam sewa</p>
+							<h3 class="text-xl font-bold text-white">{$LL.booking_step3_title()}</h3>
+							<p class="text-gray-400 text-sm mt-1">{$LL.booking_step3_desc()}</p>
 						</div>
 
 						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<Input
 								id="tanggal-mulai"
-								label="Tanggal Mulai"
+								label={$LL.booking_start_date_label()}
 								type="date"
 								bind:value={formData.tanggalMulai}
 								on:change={handleCalculatePrice}
@@ -419,7 +418,7 @@
 							/>
 							<Input
 								id="jam-mulai"
-								label="Jam Mulai"
+								label={$LL.booking_start_time_label()}
 								type="time"
 								bind:value={formData.jamMulai}
 								on:change={handleCalculatePrice}
@@ -427,7 +426,7 @@
 							/>
 							<Input
 								id="tanggal-selesai"
-								label="Tanggal Selesai"
+								label={$LL.booking_end_date_label()}
 								type="date"
 								bind:value={formData.tanggalSelesai}
 								on:change={handleCalculatePrice}
@@ -435,7 +434,7 @@
 							/>
 							<Input
 								id="jam-selesai"
-								label="Jam Selesai"
+								label={$LL.booking_end_time_label()}
 								type="time"
 								bind:value={formData.jamSelesai}
 								on:change={handleCalculatePrice}
@@ -445,34 +444,34 @@
 
 						<div class="border-t border-white/10 pt-6">
 							<h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
-								Aksesori Tambahan
+								{$LL.booking_accessories_label()}
 							</h4>
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 								<Input
 									id="jas-hujan"
 									type="dropdown"
-									label="Jas Hujan (maks 2)"
+									label={$LL.booking_raincoat_label()}
 									bind:value={formData.jasHujan}
 									on:change={handleCalculatePrice}
 									options={[
-										{ value: 0, label: 'Tidak perlu' },
-										{ value: 1, label: '1 buah' },
-										{ value: 2, label: '2 buah' }
+										{ value: 0, label: $LL.booking_not_needed() },
+										{ value: 1, label: $LL.booking_pieces_1() },
+										{ value: 2, label: $LL.booking_pieces_2() }
 									]}
-									placeholder="Pilih Jas Hujan"
+									placeholder={$LL.booking_raincoat_placeholder()}
 								/>
 								<Input
 									id="helm"
 									type="dropdown"
-									label="Helm Tambahan (maks 2)"
+									label={$LL.booking_helmet_label()}
 									bind:value={formData.helm}
 									on:change={handleCalculatePrice}
 									options={[
-										{ value: 0, label: 'Tidak perlu' },
-										{ value: 1, label: '1 buah' },
-										{ value: 2, label: '2 buah' }
+										{ value: 0, label: $LL.booking_not_needed() },
+										{ value: 1, label: $LL.booking_pieces_1() },
+										{ value: 2, label: $LL.booking_pieces_2() }
 									]}
-									placeholder="Pilih Helm Tambahan"
+									placeholder={$LL.booking_helmet_placeholder()}
 								/>
 							</div>
 							<p class="text-xs text-gray-500 mt-3 flex items-center gap-2">
@@ -484,7 +483,7 @@
 										d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 									/>
 								</svg>
-								Jas hujan dan helm tambahan GRATIS
+								{$LL.booking_accessories_free()}
 							</p>
 						</div>
 					</div>
@@ -494,8 +493,8 @@
 				{#if currentStep === 3}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h3 class="text-xl font-bold text-white">Konfirmasi Booking</h3>
-							<p class="text-gray-400 text-sm mt-1">Periksa kembali data booking Anda</p>
+							<h3 class="text-xl font-bold text-white">{$LL.booking_step4_title()}</h3>
+							<p class="text-gray-400 text-sm mt-1">{$LL.booking_step4_desc()}</p>
 						</div>
 
 						<!-- Summary Card -->
@@ -512,33 +511,33 @@
 										/>
 									{/if}
 									<div>
-										<p class="text-gray-400 text-xs uppercase">Motor</p>
+										<p class="text-gray-400 text-xs uppercase">{$LL.booking_motor_label()}</p>
 										<p class="text-white font-bold">{jenis?.merk} {jenis?.model}</p>
 									</div>
 								</div>
 							{:else if formData.jenisId || formData.unitId}
 								<div class="p-4 border-b border-white/10">
-									<p class="text-gray-400 text-xs uppercase">Motor</p>
-									<p class="text-white font-bold">Motor dipilih</p>
+									<p class="text-gray-400 text-xs uppercase">{$LL.booking_motor_label()}</p>
+									<p class="text-white font-bold">{$LL.booking_motor_selected()}</p>
 								</div>
 							{/if}
 
 							<!-- Details -->
 							<div class="p-4 space-y-3">
 								<div class="flex justify-between">
-									<span class="text-gray-400">Nama</span>
+									<span class="text-gray-400">{$LL.booking_name_field()}</span>
 									<span class="text-white font-medium">{formData.namaPenyewa}</span>
 								</div>
 								<div class="flex justify-between">
-									<span class="text-gray-400">WhatsApp</span>
+									<span class="text-gray-400">{$LL.booking_whatsapp_field()}</span>
 									<span class="text-white font-medium">{formData.noWhatsapp}</span>
 								</div>
 								<div class="flex justify-between">
-									<span class="text-gray-400">Tanggal</span>
+									<span class="text-gray-400">{$LL.booking_date_field()}</span>
 									<span class="text-white font-medium">{formatDate(formData.tanggalMulai)}</span>
 								</div>
 								<div class="flex justify-between">
-									<span class="text-gray-400">Jam</span>
+									<span class="text-gray-400">{$LL.booking_time_field()}</span>
 									<span class="text-white font-medium"
 										>{formData.jamMulai} - {formData.jamSelesai}</span
 									>
@@ -547,14 +546,18 @@
 									<div class="border-t border-white/10 pt-3 mt-3">
 										{#if formData.jasHujan > 0}
 											<div class="flex justify-between">
-												<span class="text-gray-400">Jas Hujan</span>
-												<span class="text-green-400">{formData.jasHujan} buah</span>
+												<span class="text-gray-400">{$LL.booking_raincoat_field()}</span>
+												<span class="text-green-400"
+													>{formData.jasHujan} {$LL.booking_confirm_pieces()}</span
+												>
 											</div>
 										{/if}
 										{#if formData.helm > 0}
 											<div class="flex justify-between">
-												<span class="text-gray-400">Helm Tambahan</span>
-												<span class="text-green-400">{formData.helm} buah</span>
+												<span class="text-gray-400">{$LL.booking_helmet_field()}</span>
+												<span class="text-green-400"
+													>{formData.helm} {$LL.booking_confirm_pieces()}</span
+												>
 											</div>
 										{/if}
 									</div>
@@ -568,14 +571,13 @@
 								<!-- Price Breakdown -->
 								<div class="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-3">
 									<h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">
-										Rincian Biaya
+										{$LL.booking_price_breakdown()}
 									</h4>
 									<div class="space-y-2">
 										<div class="flex justify-between text-sm">
 											<span class="text-gray-400">
-												Sewa ({priceBreakdown.rincian.jumlahHari} hari × {formatPrice(
-													priceBreakdown.rincian.hargaPerHari
-												)})
+												{$LL.booking_rental_cost()} ({priceBreakdown.rincian.jumlahHari}
+												{$LL.booking_day()} × {formatPrice(priceBreakdown.rincian.hargaPerHari)})
 											</span>
 											<span class="text-white font-medium">
 												{formatPrice(
@@ -586,7 +588,7 @@
 										{#if priceBreakdown.rincian.jamTambahan > 0}
 											<div class="flex justify-between text-sm">
 												<span class="text-gray-400">
-													Biaya tambahan ({priceBreakdown.rincian.jamTambahan} jam × {formatPrice(
+													{$LL.booking_additional_fee()} ({priceBreakdown.rincian.jamTambahan} jam × {formatPrice(
 														priceBreakdown.rincian.dendaPerJam
 													)})
 												</span>
@@ -596,7 +598,7 @@
 											</div>
 										{/if}
 										<div class="text-xs text-gray-500 pt-2 border-t border-white/10">
-											Total durasi: {priceBreakdown.rincian.totalJam} jam
+											{$LL.booking_total_duration()}: {priceBreakdown.rincian.totalJam} jam
 										</div>
 									</div>
 								</div>
@@ -607,7 +609,7 @@
 								>
 									<div class="flex justify-between items-center">
 										<div>
-											<p class="text-gray-400 text-sm">Total Biaya</p>
+											<p class="text-gray-400 text-sm">{$LL.booking_total_cost()}</p>
 										</div>
 										<p class="text-2xl font-bold text-white">
 											{formatPrice(priceBreakdown.totalBiaya)}
@@ -617,7 +619,7 @@
 							</div>
 						{:else}
 							<div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
-								<p class="text-gray-400">Menghitung harga...</p>
+								<p class="text-gray-400">{$LL.booking_calculating()}</p>
 							</div>
 						{/if}
 
@@ -637,9 +639,9 @@
 								/>
 							</svg>
 							<div class="text-sm">
-								<p class="text-blue-300 font-medium">Booking akan dikonfirmasi via WhatsApp</p>
+								<p class="text-blue-300 font-medium">{$LL.booking_note_title()}</p>
 								<p class="text-gray-400 mt-1">
-									Pastikan no. WhatsApp Anda aktif dan dapat dihubungi
+									{$LL.booking_note_desc()}
 								</p>
 							</div>
 						</div>
@@ -658,13 +660,13 @@
 									d="M15 19l-7-7 7-7"
 								/>
 							</svg>
-							Kembali
+							{$LL.booking_back()}
 						</Button>
 					{/if}
 
 					{#if currentStep < steps.length - 1}
 						<Button variant="primary" on:click={nextStep} className="flex-1">
-							Lanjut
+							{$LL.booking_next()}
 							<svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path
 									stroke-linecap="round"
@@ -682,7 +684,7 @@
 							disabled={isSubmitting || isCalculating}
 							className="flex-1"
 						>
-							{isSubmitting ? 'Memproses...' : 'Konfirmasi Booking'}
+							{isSubmitting ? $LL.booking_processing() : $LL.booking_confirm()}
 						</Button>
 					{/if}
 				</div>

@@ -26,15 +26,13 @@
 
 <svelte:head>
 	{#if motor && jenis}
-		<title>{jenis.merk} {jenis.model} - Rosantibike Motorent</title>
+		<title>{jenis.merk} {jenis.model} | Rosantibike Motorent</title>
 		<meta
 			name="description"
-			content="Sewa {jenis.merk} {jenis.model} dengan harga {formatPrice(
-				motor.hargaSewa
-			)} per hari di Rosantibike Motorent Malang."
+			content={$LL.fleet_detail_description({ merk: jenis.merk, model: jenis.model, cc: jenis.cc })}
 		/>
 	{:else}
-		<title>Detail Motor - Rosantibike Motorent</title>
+		<title>{$LL.page_title_fleet_detail()} | Rosantibike Motorent</title>
 	{/if}
 </svelte:head>
 
@@ -133,9 +131,7 @@
 					</h1>
 
 					<p class="text-gray-400 text-lg mb-8 leading-relaxed">
-						Rasakan kenyamanan berkendara dengan {jenis.merk}
-						{jenis.model}. Motor ini dilengkapi dengan mesin {jenis.cc}cc yang bertenaga dan irit
-						bahan bakar.
+						{$LL.fleet_detail_description({ merk: jenis.merk, model: jenis.model, cc: jenis.cc })}
 					</p>
 
 					<!-- Specs Grid -->

@@ -77,9 +77,10 @@
 		}
 
 		try {
-			const parsed = raw.startsWith('+') || raw.startsWith('00')
-				? parsePhoneNumberFromString(normalizeInternationalInput(raw))
-				: parsePhoneNumberFromString(raw, selectedCountry.code as any);
+			const parsed =
+				raw.startsWith('+') || raw.startsWith('00')
+					? parsePhoneNumberFromString(normalizeInternationalInput(raw))
+					: parsePhoneNumberFromString(raw, selectedCountry.code as any);
 
 			if (parsed?.country) {
 				const matchedCountry = countryData.find((c) => c.code === parsed.country);
@@ -87,7 +88,9 @@
 			}
 
 			if (parsed?.number) {
-				value = includeCountryCode ? parsed.number : parsed.nationalNumber || raw.replace(/\D/g, '');
+				value = includeCountryCode
+					? parsed.number
+					: parsed.nationalNumber || raw.replace(/\D/g, '');
 			} else {
 				const digits = raw.replace(/\D/g, '');
 				value = includeCountryCode ? `+${selectedCountry.callingCode}${digits}` : digits;
