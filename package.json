@@ -34,6 +34,7 @@
 		"axios": "^1.13.4",
 		"clsx": "^2.1.1",
 		"libphonenumber-js": "^1.12.40",
+		"socket.io-client": "^4.8.3",
 		"tailwind-merge": "^3.4.0",
 		"unplugin": "^3.0.0"
 	}

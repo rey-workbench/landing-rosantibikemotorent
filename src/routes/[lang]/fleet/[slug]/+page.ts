@@ -11,12 +11,27 @@ export const load: PageLoad = async ({ params }) => {
 			throw error(404, 'Tidak ada unit tersedia untuk model ini');
 		}
 
-		const units = jenisData.unitMotor as UnitMotor[];
-		const availableUnit = units.find((u) => u.status === 'TERSEDIA') || units[0];
+		const units = (jenisData.unitMotor as UnitMotor[]).slice();
+		const statusPriority: Record<string, number> = {
+			TERSEDIA: 0,
+			DIPESAN: 1,
+			DISEWA: 2,
+			OVERDUE: 3,
+			PERBAIKAN: 4
+		};
+
+		const selectedUnit = units.sort((a, b) => {
+			const byStatus = (statusPriority[a.status] ?? 99) - (statusPriority[b.status] ?? 99);
+			if (byStatus !== 0) return byStatus;
+
+			const aUpdated = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+			const bUpdated = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+			return bUpdated - aUpdated;
+		})[0];
 
 		return {
 			motor: {
-				...availableUnit,
+				...selectedUnit,
 				jenisMotor: jenisData
 			}
 		};

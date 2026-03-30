@@ -4,6 +4,8 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import LL from '$i18n/i18n-svelte.js';
+	import { page } from '$app/stores';
+	import { locale } from '$i18n/i18n-svelte';
 
 	export let data;
 
@@ -15,6 +17,7 @@
 	let searchQuery = '';
 	let selectedBrand = '';
 	let priceRange = { min: 0, max: 1000000 };
+	$: lang = $page.params.lang || $locale;
 
 	$: filteredMotors = jenisMotors.filter((jenis) => {
 		const matchesSearch =
@@ -123,7 +126,7 @@
 			<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
 				{#each filteredMotors as jenis, i}
 					<a
-						href="/fleet/{jenis.slug}"
+						href="/{lang}/fleet/{jenis.slug}"
 						class="group relative flex flex-col glass-surface rounded-2xl md:rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-white/5 hover:border-white/20"
 						in:fly={{ y: 20, duration: 500, delay: i * 30 }}
 					>

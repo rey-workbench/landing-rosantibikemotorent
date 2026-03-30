@@ -1,4 +1,5 @@
 import api from './axios';
+import { API_ENDPOINTS } from '$lib/constants';
 import type { Transaksi, PaginationMeta, PriceCalculation } from '$lib/types';
 import { formatDate } from '$lib/utils/format';
 
@@ -47,14 +48,14 @@ export const transaksiApi = {
 	create: async (
 		transaksi: CreateTransaksiDto
 	): Promise<ProcessedTransaksi & { qrisBase64?: string }> => {
-		const { data: body } = await api.post('/transaksi', transaksi);
+		const { data: body } = await api.post(API_ENDPOINTS.TRANSAKSI, transaksi);
 		return {
 			...processTransaksi(body.data),
 			qrisBase64: body.data.qrisBase64
 		};
 	},
 	getById: async (id: string): Promise<ProcessedTransaksi & { qrisBase64?: string }> => {
-		const { data: body } = await api.get(`/transaksi/${id}`);
+		const { data: body } = await api.get(`${API_ENDPOINTS.TRANSAKSI}/${id}`);
 		return {
 			...processTransaksi(body.data),
 			qrisBase64: body.data.qrisBase64
@@ -63,7 +64,7 @@ export const transaksiApi = {
 	searchByPhone: async (
 		noWhatsapp: string
 	): Promise<{ data: ProcessedTransaksi[]; meta: PaginationMeta }> => {
-		const { data: body } = await api.get('/transaksi/search', {
+		const { data: body } = await api.get(`${API_ENDPOINTS.TRANSAKSI}/search`, {
 			params: { noHP: noWhatsapp }
 		});
 		return {
@@ -72,7 +73,7 @@ export const transaksiApi = {
 		};
 	},
 	calculatePrice: async (params: CalculatePriceDto): Promise<PriceCalculation> => {
-		const { data: body } = await api.post('/transaksi/calculate-price', params);
+		const { data: body } = await api.post(`${API_ENDPOINTS.TRANSAKSI}/calculate-price`, params);
 		return body.data;
 	}
 };
