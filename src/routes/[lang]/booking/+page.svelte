@@ -21,7 +21,7 @@
 	$: {
 		const seen = new Set();
 		uniqueMotors = availableMotors.filter((m) => {
-			const key = `${m.jenisId}-${m.hargaSewa}`;
+			const key = `${m.jenisId}`;
 			if (seen.has(key)) return false;
 			seen.add(key);
 			return true;
@@ -337,11 +337,11 @@
 							required
 							options={uniqueMotors.map((m) => {
 								const jenis = m.jenis || m.jenisMotor;
-								return {
-									value: m.jenisId,
-									label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(m.hargaSewa)}/${$LL.booking_day()}`
-								};
-							})}
+							return {
+								value: m.jenisId,
+								label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(jenis?.hargaSewa || 0)}/${$LL.booking_day()}`
+							};
+						})}
 							placeholder={$LL.booking_motor_placeholder()}
 							on:change={handleMotorChange}
 						/>
@@ -364,10 +364,10 @@
 									{#if jenis?.cc}
 										<p class="text-gray-500 text-sm">{jenis.cc} CC</p>
 									{/if}
-									<p class="text-green-400 font-bold mt-1">
-										{formatPrice(selectedUnit.hargaSewa)}
-										<span class="text-gray-500 font-normal text-sm">/ {$LL.booking_day()}</span>
-									</p>
+							<p class="text-green-400 font-bold mt-1">
+									{formatPrice((selectedUnit.jenis || selectedUnit.jenisMotor)?.hargaSewa || 0)}
+								<span class="text-gray-500 font-normal text-sm">/ {$LL.booking_day()}</span>
+							</p>
 								</div>
 							</div>
 						{:else}

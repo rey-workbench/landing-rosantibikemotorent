@@ -7,6 +7,7 @@
 	export let data;
 	$: motor = data.motor;
 	$: jenis = motor?.jenisMotor;
+	$: displayPrice = jenis?.hargaSewa || 0;
 	$: lang = $page.params.lang || 'id';
 
 	function formatPrice(price: number): string {
@@ -167,9 +168,9 @@
 								<p class="text-gray-400 text-sm uppercase tracking-wider mb-1">
 									{$LL.fleet_detail_price()}
 								</p>
-								<p class="text-4xl font-black text-white">
-									{formatPrice(motor.hargaSewa)}
-								</p>
+							<p class="text-4xl font-black text-white">
+								{formatPrice(displayPrice)}
+							</p>
 								<p class="text-gray-400 text-sm">{$LL.fleet_detail_per_day()}</p>
 							</div>
 						</div>

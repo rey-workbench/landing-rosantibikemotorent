@@ -18,11 +18,7 @@ function processJenis(jenis: any): ProcessedJenisMotor {
 
 	let minPrice = 0;
 	if (units.length > 0) {
-		if (hasAvailable) {
-			minPrice = Math.min(...availableUnits.map((u) => u.hargaSewa));
-		} else {
-			minPrice = Math.min(...units.map((u) => u.hargaSewa));
-		}
+		minPrice = Number(jenis.hargaSewa || 0);
 	}
 
 	return {

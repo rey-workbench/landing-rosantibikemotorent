@@ -7,8 +7,8 @@ export interface JenisMotor {
     cc: number;
     gambar?: string;
     slug: string;
-    hargaSewa?: number;
-    unitMotor?: { id: string; hargaSewa: number; status: string }[];
+    hargaSewa: number;
+    unitMotor?: { id: string; status: string }[];
     createdAt: string;
     updatedAt: string;
 }
@@ -20,7 +20,6 @@ export interface UnitMotor {
     jenis?: JenisMotor;
     jenisMotor?: JenisMotor;
     status: StatusMotor;
-    hargaSewa: number;
     tahunPembuatan?: number;
     slug: string;
     createdAt: string;
