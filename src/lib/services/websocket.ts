@@ -36,8 +36,11 @@ class WebSocketService {
             this.socket = null;
         }
 
-        const apiUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:3030';
+        let apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3030/api';
+        apiUrl = apiUrl.replace(/\/api$/, '').replace(/\/api$/, '');
         
+        alert('WS URL: ' + apiUrl);
+
         this.socket = io(`${apiUrl}/realtime`, {
             transports: ['websocket'],
             reconnection: true,
