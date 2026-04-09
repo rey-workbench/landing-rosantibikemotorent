@@ -33,10 +33,10 @@
 	{#each locales as lang}
 		<button
 			onclick={() => switchLanguage(lang)}
-			class="px-3 py-1 text-xs font-black rounded-full border transition-all duration-300 {currentLang ===
+			class="px-3 py-1 text-xs font-black rounded-full border transition-all duration-300 ease-[var(--ease-luxury)] {currentLang ===
 			lang
 				? 'bg-white text-black border-white'
-				: 'text-white/40 border-white/10 hover:border-white/40 hover:text-white'}"
+				: 'text-muted border-[rgba(166,173,187,0.2)] hover:border-accent-soft hover:text-white'}"
 			aria-current={currentLang === lang ? 'page' : undefined}
 		>
 			{names[lang] || lang.toUpperCase()}

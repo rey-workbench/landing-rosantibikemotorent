@@ -108,7 +108,7 @@
 					<h2
 						in:fly={{ y: 50, duration: 800, easing: (t) => t * (2 - t) }}
 						out:fly={{ y: -50, duration: 600 }}
-						class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter mb-2 sm:mb-4 drop-shadow-2xl leading-[0.9] uppercase"
+						class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter mb-2 sm:mb-4 leading-[0.9] uppercase"
 					>
 						{#if t.id === 'hero'}
 							<span class="block relative">
@@ -142,7 +142,7 @@
 						class="mt-6 sm:mt-8 md:mt-12 flex flex-col items-center gap-3 sm:gap-4"
 					>
 						<button
-							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full shadow-[0_0_30px_rgba(255,255,255,0.2)] sm:shadow-[0_0_50px_rgba(255,255,255,0.2)] overflow-hidden"
+							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full overflow-hidden"
 						>
 							<span class="relative z-10">{$LL.hero_book_whatsapp()}</span>
 							<div

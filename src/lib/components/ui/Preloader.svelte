@@ -38,13 +38,13 @@
     -->
 	<div class="fixed top-0 left-0 w-full h-[3px] z-[200] pointer-events-none">
 		<div
-			class="h-full bg-gradient-to-r from-blue-600 via-blue-400 to-white shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-all duration-150 ease-out"
+			class="h-full bg-white transition-all duration-150 ease-out"
 			style="width: {$loadingProgress}%"
 		></div>
 
-		<!-- Subtle Shimmer Aura at the top -->
+		<!-- No glow overlay -->
 		<div
-			class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-blue-600/10 to-transparent pointer-events-none opacity-50"
+			class="absolute top-0 left-0 w-full h-20 pointer-events-none opacity-0"
 			transition:fade={{ duration: 500 }}
 		></div>
 	</div>

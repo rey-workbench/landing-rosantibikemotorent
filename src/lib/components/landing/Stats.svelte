@@ -38,9 +38,7 @@
 </script>
 
 <section class="py-24 relative bg-brand-dark overflow-hidden z-20" bind:this={sectionRef}>
-	<div
-		class="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full blur-[128px] pointer-events-none"
-	></div>
+	<div class="absolute top-1/2 left-1/4 w-96 h-96 rounded-full pointer-events-none opacity-0"></div>
 
 	<div class="container mx-auto px-4 relative z-10">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">

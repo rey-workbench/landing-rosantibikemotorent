@@ -10,7 +10,9 @@
 <div class="w-full mb-8">
 	<div class="flex items-center justify-between relative px-2">
 		<!-- Progress Line Background -->
-		<div class="absolute top-5 left-[2.5rem] right-[2.5rem] h-[2px] bg-white/20 -z-10"></div>
+		<div
+			class="absolute top-5 left-[2.5rem] right-[2.5rem] h-[2px] bg-[rgba(166,173,187,0.3)] -z-10"
+		></div>
 
 		<!-- Progress Line Active -->
 		<div
@@ -22,13 +24,13 @@
 		{#each steps as step, index}
 			<div class="flex flex-col items-center z-10">
 				<div
-					class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 {isCompleted(
+					class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ease-[var(--ease-luxury)] {isCompleted(
 						index
 					)
 						? 'bg-white text-black'
 						: isCurrent(index)
-							? 'bg-white text-black ring-4 ring-white/30'
-							: 'bg-white/20 text-white/60'}"
+							? 'bg-white text-black'
+							: 'bg-[rgba(166,173,187,0.2)] text-[rgba(255,255,255,0.65)]'}"
 				>
 					{#if isCompleted(index)}
 						<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +48,7 @@
 				<span
 					class="mt-3 text-xs font-medium text-center max-w-[80px] {isCurrent(index)
 						? 'text-white'
-						: 'text-gray-400'}"
+						: 'text-muted'}"
 				>
 					{step.title}
 				</span>

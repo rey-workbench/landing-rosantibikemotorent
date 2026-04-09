@@ -32,29 +32,22 @@
 	}
 </script>
 
-<section id="fleet" class="py-20 md:py-32 bg-brand-dark px-4 md:px-10 overflow-hidden">
+<section id="fleet" class="py-20 md:py-32 bg-brand-dark section-shell overflow-hidden">
 	<div class="max-w-7xl mx-auto mb-10 md:mb-16 flex flex-col items-start gap-6">
 		<div>
-			<h2
-				class="text-[10px] md:text-sm font-bold text-blue-500 tracking-[0.2em] mb-2 md:mb-4 uppercase flex items-center gap-2"
-			>
-				<span class="w-6 md:w-8 h-px bg-blue-500"></span>
+			<h2 class="section-kicker mb-2 md:mb-4">
+				<span class="kicker-line"></span>
 				{$LL.fleet_title()}
-				<span class="w-6 md:w-8 h-px bg-blue-500"></span>
+				<span class="kicker-line"></span>
 			</h2>
-			<h3
-				class="text-4xl md:text-5xl lg:text-7xl font-black text-white mt-2 mb-2 md:mb-6 leading-[0.9] uppercase tracking-tighter"
-			>
+			<h3 class="section-title mt-2 mb-2 md:mb-6">
 				{$LL.fleet_heading()} <br />
-				<span
-					class="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-300 to-gray-600"
-					>{$LL.fleet_heading_highlight()}</span
-				>
+				<span class="section-title-highlight">{$LL.fleet_heading_highlight()}</span>
 			</h3>
 		</div>
 		<a
 			href="/{lang}/fleet"
-			class="text-xs md:text-base text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors"
+			class="text-xs md:text-base text-white border-b border-[rgba(166,173,187,0.5)] pb-1 hover:text-[var(--brand-highlight)] hover:border-[var(--brand-highlight)] transition-colors"
 		>
 			{$LL.fleet_view_all()} →
 		</a>
@@ -63,23 +56,21 @@
 	{#if loading}
 		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
 			{#each [1, 2, 3, 4] as _}
-				<div
-					class="h-[250px] md:h-[450px] rounded-2xl md:rounded-3xl bg-gray-800 animate-pulse"
-				></div>
+				<div class="h-[250px] md:h-[450px] surface-card animate-pulse"></div>
 			{/each}
 		</div>
 	{:else if error}
 		<div class="text-center py-12">
-			<p class="text-gray-400">{error}</p>
+			<p class="text-muted">{error}</p>
 		</div>
 	{:else if jenisMotors.length > 0}
 		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
 			{#each jenisMotors as jenis}
 				<a
 					href="/{lang}/fleet/{jenis.slug}"
-					class="group relative h-[280px] md:h-[450px] flex flex-col glass-surface rounded-2xl md:rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-white/5 hover:border-white/20"
+					class="group relative h-[280px] md:h-[450px] flex flex-col surface-card overflow-hidden"
 				>
-					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-gray-900">
+					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-[var(--brand-surface-soft)]">
 						{#if jenis.gambar}
 							<img
 								src={jenis.gambar}
@@ -87,7 +78,9 @@
 								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
 							/>
 						{:else}
-							<div class="w-full h-full bg-gray-800 flex items-center justify-center">
+							<div
+								class="w-full h-full bg-[rgba(166,173,187,0.12)] flex items-center justify-center"
+							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="40"
@@ -96,7 +89,7 @@
 									fill="none"
 									stroke="currentColor"
 									stroke-width="1"
-									class="text-gray-600"
+									class="text-[rgba(166,173,187,0.62)]"
 								>
 									<rect x="3" y="3" width="18" height="18" rx="2" />
 									<circle cx="8.5" cy="8.5" r="1.5" />
@@ -110,15 +103,11 @@
 
 						<div class="absolute top-2 left-2 md:top-4 md:left-4">
 							{#if !jenis.computed.hasAvailable}
-								<span
-									class="px-2 py-0.5 bg-red-500/80 text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
-								>
+								<span class="label-pill bg-red-500/80 text-white">
 									{$LL.fleet_empty()}
 								</span>
 							{:else}
-								<span
-									class="px-2 py-0.5 bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
-								>
+								<span class="label-pill bg-green-500/20 border border-green-500/30 text-green-300">
 									{$LL.fleet_available()}
 								</span>
 							{/if}
@@ -128,7 +117,7 @@
 					<div class="flex-1 p-3 md:p-6 flex flex-col justify-between bg-brand-surface">
 						<div>
 							<p
-								class="text-[8px] md:text-xs text-blue-500 font-black uppercase tracking-widest mb-0.5 md:mb-1"
+								class="text-[8px] md:text-xs text-[var(--brand-highlight)] font-black uppercase tracking-widest mb-0.5 md:mb-1"
 							>
 								{jenis.merk}
 							</p>
@@ -145,11 +134,11 @@
 									<p class="text-sm md:text-2xl font-black text-white">
 										{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
 									</p>
-									<p class="text-[8px] md:text-xs text-gray-500 font-bold uppercase tracking-wider">
+									<p class="text-[8px] md:text-xs text-muted font-bold uppercase tracking-wider">
 										{$LL.fleet_per_day()}
 									</p>
 								{:else}
-									<span class="text-xs text-gray-400 font-bold uppercase"
+									<span class="text-xs text-muted font-bold uppercase"
 										>{$LL.fleet_contact_us()}</span
 									>
 								{/if}
@@ -178,7 +167,7 @@
 		</div>
 	{:else}
 		<div class="text-center py-12">
-			<p class="text-gray-400">{$LL.fleet_empty_desc()}</p>
+			<p class="text-muted">{$LL.fleet_empty_desc()}</p>
 		</div>
 	{/if}
 </section>

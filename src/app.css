@@ -1,34 +1,152 @@
 @import 'tailwindcss';
 
 @theme {
-	--font-sans: 'Outfit', sans-serif;
+	--font-sans: 'Sora', 'Outfit', sans-serif;
+	--font-display: 'Bebas Neue', 'Anton', 'Impact', sans-serif;
 	--color-brand-dark: #050505;
-	--color-brand-surface: #121212;
-	--color-brand-border: #262626;
+	--color-brand-surface: #111317;
+	--color-brand-surface-soft: #171a20;
+	--color-brand-border: #2d313a;
 	--color-brand-accent: #ffffff;
+	--color-brand-muted: #a6adbb;
+	--color-brand-highlight: #6ca0ff;
 }
 
 :root {
 	--brand-dark: #050505;
-	--brand-surface: #121212;
-	--brand-border: #262626;
+	--brand-surface: #111317;
+	--brand-surface-soft: #171a20;
+	--brand-border: #2d313a;
 	--brand-accent: #ffffff;
+	--brand-muted: #a6adbb;
+	--brand-highlight: #6ca0ff;
+	--ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+	--radius-panel: 1.5rem;
+	--radius-card: 2rem;
 }
 
 @layer utilities {
 	.glass-effect,
 	.glass-surface {
-		background: #121212;
-		border: 1px solid #262626;
+		background: linear-gradient(160deg, rgba(23, 26, 32, 0.94), rgba(11, 12, 16, 0.94));
+		border: 1px solid rgba(166, 173, 187, 0.18);
 		backdrop-filter: none !important;
+	}
+
+	.surface-panel {
+		background: linear-gradient(150deg, rgba(23, 26, 32, 0.96), rgba(7, 8, 10, 0.96));
+		border: 1px solid rgba(166, 173, 187, 0.2);
+		border-radius: var(--radius-panel);
+	}
+
+	.surface-card {
+		background: linear-gradient(165deg, rgba(17, 19, 23, 0.98), rgba(9, 10, 13, 0.98));
+		border: 1px solid rgba(166, 173, 187, 0.14);
+		border-radius: var(--radius-card);
+		transition:
+			transform 0.45s var(--ease-luxury),
+			border-color 0.35s var(--ease-luxury);
+	}
+
+	.surface-card:hover {
+		transform: translateY(-6px);
+		border-color: rgba(108, 160, 255, 0.38);
+	}
+
+	.section-shell {
+		padding-inline: 1rem;
+	}
+
+	@media (min-width: 768px) {
+		.section-shell {
+			padding-inline: 2.5rem;
+		}
+	}
+
+	.text-muted {
+		color: var(--brand-muted);
+	}
+
+	.kicker-line {
+		display: inline-flex;
+		height: 1px;
+		width: 2rem;
+		background: color-mix(in oklab, var(--brand-highlight) 75%, white 25%);
+	}
+
+	.section-kicker {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.65rem;
+		letter-spacing: 0.23em;
+		font-weight: 800;
+		text-transform: uppercase;
+		color: color-mix(in oklab, var(--brand-highlight) 82%, white 18%);
+	}
+
+	@media (min-width: 768px) {
+		.section-kicker {
+			font-size: 0.8rem;
+		}
+	}
+
+	.section-title {
+		font-family: var(--font-display);
+		font-size: clamp(2.2rem, 7vw, 5.3rem);
+		line-height: 0.9;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		color: white;
+	}
+
+	.section-title-highlight {
+		color: transparent;
+		background-image: linear-gradient(
+			105deg,
+			rgba(255, 255, 255, 1) 0%,
+			rgba(191, 209, 255, 0.92) 44%,
+			rgba(109, 163, 255, 0.45) 100%
+		);
+		-webkit-background-clip: text;
+		background-clip: text;
+	}
+
+	.label-pill {
+		border-radius: 999px;
+		padding: 0.2rem 0.55rem;
+		font-size: 0.56rem;
+		font-weight: 800;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+	}
+
+	@media (min-width: 768px) {
+		.label-pill {
+			font-size: 0.66rem;
+			padding: 0.24rem 0.72rem;
+		}
+	}
+
+	.focus-ring {
+		outline: none;
+		border-color: rgba(166, 173, 187, 0.5);
+	}
+
+	.border-accent-soft {
+		border-color: rgba(166, 173, 187, 0.4);
+	}
+
+	.bg-accent-soft {
+		background: rgba(166, 173, 187, 0.12);
 	}
 }
 
 @layer base {
 	:root {
 		--foreground-rgb: 255, 255, 255;
-		--background-start-rgb: 10, 10, 10;
-		--background-end-rgb: 10, 10, 10;
+		--background-start-rgb: 6, 7, 10;
+		--background-end-rgb: 6, 7, 10;
 	}
 
 	body {
@@ -37,6 +155,14 @@
 			rgb(var(--background-start-rgb));
 		font-family: var(--font-sans);
 		overflow-x: hidden;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	a {
+		transition:
+			color 0.32s var(--ease-luxury),
+			border-color 0.32s var(--ease-luxury);
 	}
 }
 

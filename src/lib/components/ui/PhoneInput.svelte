@@ -187,10 +187,7 @@
 	style="z-index: {isOpen ? 1000 : 1}"
 >
 	{#if label}
-		<label
-			for={actualId}
-			class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2"
-		>
+		<label for={actualId} class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">
 			{label}
 			{#if required}<span class="text-red-500 ml-1">*</span>{/if}
 		</label>
@@ -201,13 +198,13 @@
 			<button
 				type="button"
 				on:click|stopPropagation={openDropdown}
-				class="flex items-center gap-2 bg-white/5 border border-r-0 border-white/10 rounded-l-xl px-3 py-3 hover:bg-white/10 transition-all {disabled
+				class="flex items-center gap-2 bg-[rgba(255,255,255,0.04)] border border-r-0 border-[rgba(166,173,187,0.2)] rounded-l-xl px-3 py-3 hover:bg-[rgba(255,255,255,0.08)] transition-all {disabled
 					? 'opacity-50 cursor-not-allowed'
-					: 'cursor-pointer'} {isOpen ? 'bg-white/10 border-white/30' : ''}"
+					: 'cursor-pointer'} {isOpen ? 'bg-[rgba(108,160,255,0.08)] border-accent-soft' : ''}"
 			>
 				<span class="text-lg">{selectedCountry?.flag}</span>
 				<span class="text-white font-medium">+{selectedCountry?.callingCode}</span>
-				<svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<svg class="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -227,7 +224,7 @@
 				on:input={handleInput}
 				on:blur={handleBlur}
 				on:click|stopPropagation={() => {}}
-				class="flex-1 bg-white/5 border border-white/10 rounded-r-xl rounded-l-none px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-white/40 focus:bg-white/10 transition-all {error
+				class="flex-1 bg-[rgba(255,255,255,0.04)] border border-[rgba(166,173,187,0.2)] rounded-r-xl rounded-l-none px-4 py-3 text-white placeholder-[rgba(166,173,187,0.7)] focus-visible:focus-ring focus:bg-[rgba(108,160,255,0.08)] transition-all {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''}"
 			/>
@@ -236,14 +233,14 @@
 		{#if isOpen}
 			<div
 				transition:fly={{ y: -10, duration: 200 }}
-				class="absolute left-0 top-full mt-2 w-72 max-h-80 bg-gray-950 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-[99999]"
+				class="absolute left-0 top-full mt-2 w-72 max-h-80 bg-[rgba(9,11,14,0.98)] border border-[rgba(166,173,187,0.2)] rounded-xl shadow-2xl overflow-hidden z-[99999]"
 			>
-				<div class="p-2 border-b border-white/5">
+				<div class="p-2 border-b border-[rgba(166,173,187,0.12)]">
 					<input
 						type="text"
 						bind:value={searchTerm}
 						placeholder="Cari negara..."
-						class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none"
+						class="w-full bg-[rgba(255,255,255,0.04)] border border-[rgba(166,173,187,0.2)] rounded-lg px-3 py-2 text-sm text-white placeholder-[rgba(166,173,187,0.7)] focus-visible:focus-ring"
 						on:click|stopPropagation={() => {}}
 					/>
 				</div>
@@ -256,11 +253,11 @@
 							class="w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 {country.code ===
 							selectedCountry?.code
 								? 'bg-white/10 text-white'
-								: 'text-gray-400 hover:bg-white/5 hover:text-white'}"
+								: 'text-muted hover:bg-[rgba(108,160,255,0.12)] hover:text-white'}"
 						>
 							<span class="text-lg">{country.flag}</span>
 							<span class="flex-1 truncate">{country.name}</span>
-							<span class="text-gray-500 text-xs">+{country.callingCode}</span>
+							<span class="text-muted text-xs">+{country.callingCode}</span>
 							{#if country.code === selectedCountry?.code}
 								<svg
 									class="w-4 h-4 text-green-400"
@@ -280,7 +277,7 @@
 					{/each}
 
 					{#if filteredCountries.length === 0}
-						<div class="px-4 py-8 text-center text-gray-500 text-sm">Tidak ditemukan</div>
+						<div class="px-4 py-8 text-center text-muted text-sm">Tidak ditemukan</div>
 					{/if}
 				</div>
 			</div>
@@ -291,7 +288,7 @@
 		<p class="mt-1 text-[10px] text-red-500 uppercase font-bold tracking-wider">{error}</p>
 	{/if}
 	{#if hint && !error}
-		<p class="mt-1 text-[10px] text-gray-500">{hint}</p>
+		<p class="mt-1 text-[10px] text-muted">{hint}</p>
 	{/if}
 </div>
 
@@ -300,7 +297,7 @@
 		width: 4px;
 	}
 	.scrollbar-custom::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.1);
+		background: rgba(166, 173, 187, 0.3);
 		border-radius: 10px;
 	}
 	.scrollbar-custom::-webkit-scrollbar-track {

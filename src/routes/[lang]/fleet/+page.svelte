@@ -51,31 +51,23 @@
 />
 
 <!-- Hero Section -->
-<section class="pt-32 pb-16 px-4 md:px-10">
+<section class="pt-32 pb-16 section-shell">
 	<div class="max-w-7xl mx-auto">
 		<!-- Header -->
 		<div class="mb-12">
-			<h2
-				class="text-[10px] md:text-sm font-bold text-blue-500 tracking-[0.25em] mb-4 uppercase flex items-center gap-2"
-			>
-				<span class="w-8 h-[1px] bg-blue-500"></span>
+			<h2 class="section-kicker mb-4">
+				<span class="kicker-line"></span>
 				{$LL.fleet_header_title()}
+				<span class="kicker-line"></span>
 			</h2>
-			<h1
-				class="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.9]"
-			>
+			<h1 class="section-title">
 				{$LL.fleet_header_heading()} <br />
-				<span
-					class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-700"
-					>{$LL.fleet_header_heading_highlight()}</span
-				>
+				<span class="section-title-highlight">{$LL.fleet_header_heading_highlight()}</span>
 			</h1>
 		</div>
 
 		<!-- Filter Section -->
-		<div
-			class="relative z-20 glass-surface rounded-2xl md:rounded-[2rem] p-5 md:p-8 mb-12 grid grid-cols-1 md:grid-cols-3 gap-6 shadow-2xl"
-		>
+		<div class="relative z-20 surface-panel p-5 md:p-8 mb-12 grid grid-cols-1 md:grid-cols-3 gap-6">
 			<div class="space-y-1">
 				<Input
 					id="search-motor"
@@ -103,12 +95,12 @@
 			<div class="space-y-1">
 				<label
 					for="price-min"
-					class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest"
+					class="block text-[10px] font-bold text-muted uppercase tracking-widest"
 					>{$LL.fleet_filter_price_label()}</label
 				>
 				<div class="flex items-center gap-2 mt-1">
 					<Input id="price-min" type="number" bind:value={priceRange.min} placeholder="Min" />
-					<span class="text-gray-700 font-bold">-</span>
+					<span class="text-[rgba(166,173,187,0.7)] font-bold">-</span>
 					<Input id="price-max" type="number" bind:value={priceRange.max} placeholder="Max" />
 				</div>
 			</div>
@@ -118,13 +110,11 @@
 		{#if loading}
 			<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
 				{#each Array(8) as _}
-					<div
-						class="aspect-[4/5] rounded-2xl md:rounded-[2.5rem] bg-brand-surface animate-pulse border border-white/5"
-					></div>
+					<div class="aspect-[4/5] surface-card animate-pulse"></div>
 				{/each}
 			</div>
 		{:else if error}
-			<div class="text-center py-24 glass-surface rounded-[2rem]">
+			<div class="text-center py-24 surface-panel">
 				<h3 class="text-xl font-black text-white uppercase mb-4">{$LL.fleet_error_load_title()}</h3>
 				<Button size="sm" on:click={() => window.location.reload()}>{$LL.fleet_refresh()}</Button>
 			</div>
@@ -134,11 +124,13 @@
 				{#each filteredMotors as jenis, i}
 					<a
 						href="/{lang}/fleet/{jenis.slug}"
-						class="group relative flex flex-col glass-surface rounded-2xl md:rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-white/5 hover:border-white/20"
+						class="group relative flex flex-col surface-card overflow-hidden"
 						in:fly={{ y: 20, duration: 500, delay: i * 30 }}
 					>
 						<!-- Image -->
-						<div class="relative aspect-[4/3] md:aspect-[3/2] overflow-hidden bg-gray-900">
+						<div
+							class="relative aspect-[4/3] md:aspect-[3/2] overflow-hidden bg-[var(--brand-surface-soft)]"
+						>
 							{#if jenis.gambar}
 								<img
 									src={jenis.gambar}
@@ -146,7 +138,9 @@
 									class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
 								/>
 							{:else}
-								<div class="w-full h-full flex items-center justify-center text-gray-800">
+								<div
+									class="w-full h-full flex items-center justify-center text-[rgba(166,173,187,0.56)]"
+								>
 									<svg
 										width="40"
 										height="40"
@@ -166,14 +160,12 @@
 							<!-- Status Badges -->
 							<div class="absolute top-2 left-2 md:top-4 md:left-4 flex flex-col gap-1">
 								{#if !jenis.computed.hasAvailable}
-									<span
-										class="px-2 py-0.5 bg-red-500/80 text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
-									>
+									<span class="label-pill bg-red-500/80 text-white">
 										{$LL.fleet_status_habis()}
 									</span>
 								{:else}
 									<span
-										class="px-2 py-0.5 bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full"
+										class="label-pill bg-green-500/20 border border-green-500/30 text-green-300"
 									>
 										{$LL.fleet_unit_ready({ count: jenis.computed.availableCount })}
 									</span>
@@ -185,12 +177,12 @@
 						<div class="p-4 md:p-6 flex-1 flex flex-col justify-between">
 							<div>
 								<p
-									class="text-[8px] md:text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1"
+									class="text-[8px] md:text-[10px] font-black text-[var(--brand-highlight)] uppercase tracking-widest mb-1"
 								>
 									{jenis.merk}
 								</p>
 								<h3
-									class="text-sm md:text-xl font-black text-white uppercase tracking-tighter leading-none group-hover:text-blue-400 transition-colors line-clamp-1"
+									class="text-sm md:text-xl font-black text-white uppercase tracking-tighter leading-none group-hover:text-[var(--brand-highlight)] transition-colors line-clamp-1"
 								>
 									{jenis.model}
 								</h3>
@@ -202,11 +194,11 @@
 										<span class="text-sm md:text-xl font-black text-white uppercase">
 											{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
 										</span>
-										<span class="text-[8px] md:text-[10px] text-gray-500 font-bold uppercase"
+										<span class="text-[8px] md:text-[10px] text-muted font-bold uppercase"
 											>{$LL.fleet_per_day()}</span
 										>
 									{:else}
-										<span class="text-xs font-black text-gray-500 uppercase"
+										<span class="text-xs font-black text-muted uppercase"
 											>{$LL.fleet_contact_us()}</span
 										>
 									{/if}
@@ -234,9 +226,9 @@
 				{/each}
 			</div>
 		{:else}
-			<div class="text-center py-24 glass-surface rounded-[2rem]">
+			<div class="text-center py-24 surface-panel">
 				<h3 class="text-xl font-black text-white uppercase">{$LL.fleet_empty_search_title()}</h3>
-				<p class="text-gray-500 mt-2 text-sm">{$LL.fleet_empty_search_desc()}</p>
+				<p class="text-muted mt-2 text-sm">{$LL.fleet_empty_search_desc()}</p>
 			</div>
 		{/if}
 	</div>

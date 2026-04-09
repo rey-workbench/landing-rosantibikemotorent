@@ -12,32 +12,32 @@
 
 	// Styling base
 	const baseStyles =
-		'inline-flex items-center justify-center font-bold uppercase tracking-wider transition-all duration-300 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed';
+		'inline-flex items-center justify-center font-semibold uppercase tracking-[0.18em] transition-all duration-300 ease-[var(--ease-luxury)] focus-visible:focus-ring disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none';
 
 	// Variants
 	const variants = {
-		primary: 'bg-white text-black hover:bg-gray-200 border border-transparent',
-		secondary: 'bg-gray-800 text-white hover:bg-gray-700 border border-transparent',
-		outline: 'bg-transparent text-white border border-white/30 hover:bg-white/10',
-		ghost: 'bg-transparent text-white hover:text-gray-300 hover:bg-white/5',
-		glass: 'bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20'
+		primary:
+			'bg-white text-black border border-transparent hover:bg-[rgba(255,255,255,0.9)] hover:-translate-y-0.5',
+		secondary:
+			'surface-panel text-white border border-[rgba(166,173,187,0.25)] hover:border-accent-soft hover:bg-[rgba(166,173,187,0.1)]',
+		outline:
+			'bg-transparent text-white border border-[rgba(166,173,187,0.4)] hover:border-accent-soft hover:bg-accent-soft',
+		ghost: 'bg-transparent text-[var(--brand-muted)] hover:text-white hover:bg-white/6',
+		glass:
+			'bg-[rgba(255,255,255,0.06)] text-white border border-[rgba(166,173,187,0.24)] hover:border-accent-soft hover:bg-[rgba(166,173,187,0.14)]'
 	};
 
 	// Sizes
 	const sizes = {
-		sm: 'text-xs px-4 py-2 rounded-lg',
-		md: 'text-sm px-6 py-3 rounded-xl',
-		lg: 'text-base px-8 py-4 rounded-2xl',
+		sm: 'text-[0.68rem] px-4 py-2 rounded-xl',
+		md: 'text-[0.74rem] px-6 py-3 rounded-2xl',
+		lg: 'text-[0.82rem] px-8 py-4 rounded-[1.35rem]',
 		icon: 'p-3 rounded-xl'
 	};
 
-	$: classes = `
-		${baseStyles} 
-		${variants[variant]} 
-		${sizes[size]} 
-		${fullWidth ? 'w-full' : ''} 
-		${className}
-	`;
+	$: classes = [baseStyles, variants[variant], sizes[size], fullWidth ? 'w-full' : '', className]
+		.filter(Boolean)
+		.join(' ');
 
 	const dispatch = createEventDispatcher();
 

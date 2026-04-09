@@ -5,14 +5,16 @@
 	export let className = '';
 </script>
 
-<footer class="bg-black border-t border-white/5 pt-20 pb-10 {className}">
+<footer class="bg-brand-dark border-t border-[rgba(166,173,187,0.14)] pt-20 pb-10 {className}">
 	<div class="max-w-7xl mx-auto px-6">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
 			<div class="space-y-6">
-				<h2 class="text-2xl font-black uppercase tracking-tighter text-white">
+				<h2
+					class="font-(family-name:--font-display) text-[2rem] uppercase tracking-[0.03em] text-white"
+				>
 					{siteConfig.shortName}
 				</h2>
-				<p class="text-gray-500 text-sm leading-relaxed max-w-xs">
+				<p class="text-muted text-sm leading-relaxed max-w-xs">
 					{$LL.footer_about()}
 				</p>
 				<div class="flex gap-4">
@@ -22,7 +24,7 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label={social.name}
-							class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black hover:border-white transition-all duration-300"
+							class="w-10 h-10 rounded-xl surface-panel flex items-center justify-center text-muted hover:text-white hover:border-accent-soft transition-all duration-300"
 						>
 							<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
 								<path d={social.icon} />
@@ -33,7 +35,7 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">
+				<h3 class="text-white font-bold uppercase tracking-[0.2em] text-xs mb-8">
 					{$LL.footer_explore()}
 				</h3>
 				<ul class="space-y-4">
@@ -41,7 +43,7 @@
 						<li>
 							<a
 								href={link.href}
-								class="text-gray-500 hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm"
+								class="text-muted hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm"
 							>
 								{link.label}
 							</a>
@@ -51,13 +53,13 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">
+				<h3 class="text-white font-bold uppercase tracking-[0.2em] text-xs mb-8">
 					{$LL.footer_services()}
 				</h3>
 				<ul class="space-y-4">
 					{#each [$LL.footer_daily_rental(), $LL.footer_delivery(), $LL.footer_equipment(), $LL.footer_insurance()] as service}
-						<li class="flex items-center gap-3 text-gray-500 text-sm">
-							<span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+						<li class="flex items-center gap-3 text-muted text-sm">
+							<span class="w-1.5 h-1.5 rounded-full bg-[var(--brand-highlight)]"></span>
 							{service}
 						</li>
 					{/each}
@@ -65,12 +67,12 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-widest text-xs mb-8">
+				<h3 class="text-white font-bold uppercase tracking-[0.2em] text-xs mb-8">
 					{$LL.footer_office()}
 				</h3>
 				<div class="space-y-6">
 					<div class="flex items-start gap-4">
-						<div class="mt-1 text-blue-500">
+						<div class="mt-1 text-[var(--brand-highlight)]">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="18"
@@ -88,7 +90,7 @@
 								/></svg
 							>
 						</div>
-						<p class="text-gray-500 text-sm leading-relaxed">
+						<p class="text-muted text-sm leading-relaxed">
 							{siteConfig.address}
 						</p>
 					</div>
@@ -111,7 +113,7 @@
 						</div>
 						<a
 							href="mailto:{siteConfig.email}"
-							class="text-gray-500 hover:text-white transition-colors text-sm"
+							class="text-muted hover:text-white transition-colors text-sm"
 						>
 							{siteConfig.email}
 						</a>
@@ -135,7 +137,7 @@
 						</div>
 						<a
 							href="https://wa.me/{siteConfig.whatsapp}"
-							class="text-gray-500 hover:text-white transition-colors text-sm"
+							class="text-muted hover:text-white transition-colors text-sm"
 						>
 							{siteConfig.phone}
 						</a>
@@ -145,9 +147,9 @@
 		</div>
 
 		<div
-			class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6"
+			class="pt-10 border-t border-[rgba(166,173,187,0.14)] flex flex-col md:flex-row justify-between items-center gap-6"
 		>
-			<div class="text-[11px] uppercase tracking-[0.2em] text-gray-600 font-bold">
+			<div class="text-[11px] uppercase tracking-[0.2em] text-[rgba(166,173,187,0.68)] font-bold">
 				&copy; {new Date().getFullYear()}
 				{siteConfig.name}. {$LL.footer_all_rights()}
 			</div>
@@ -155,13 +157,13 @@
 				<a
 					href="/{page.params.lang || $locale}/privacy"
 					aria-label={$LL.footer_privacy()}
-					class="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
+					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-white transition-colors"
 					>{$LL.footer_privacy()}</a
 				>
 				<a
 					href="/{page.params.lang || $locale}/terms"
 					aria-label={$LL.footer_terms()}
-					class="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
+					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-white transition-colors"
 					>{$LL.footer_terms()}</a
 				>
 			</div>

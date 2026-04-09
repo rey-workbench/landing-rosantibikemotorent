@@ -223,7 +223,7 @@
 
 				<div class="relative order-1 lg:order-2 flex justify-center lg:justify-end">
 					<div
-						class="relative w-full aspect-[4/3] max-w-lg rounded-2xl overflow-hidden shadow-2xl border border-white/5 bg-gray-900 group"
+						class="relative w-full aspect-[4/3] max-w-lg rounded-2xl overflow-hidden border border-white/5 bg-gray-900 group"
 					>
 						<canvas
 							bind:this={canvas}
@@ -235,9 +235,7 @@
 						></div>
 					</div>
 
-					<div
-						class="absolute -inset-10 bg-blue-500/5 blur-[80px] -z-10 rounded-full opacity-30"
-					></div>
+					<div class="absolute -inset-10 -z-10 rounded-full opacity-0"></div>
 				</div>
 			</div>
 		</div>
