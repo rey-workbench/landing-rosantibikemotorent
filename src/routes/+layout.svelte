@@ -7,17 +7,18 @@
 	import Preloader from '$lib/components/ui/Preloader.svelte';
 	import { setLocale } from '$i18n/i18n-svelte';
 	import { websocketService } from '$lib/services/websocket';
+	import type { Locales } from '$i18n/i18n-types';
 
 	let { data, children } = $props();
+	const layoutData = data as { lang?: Locales; organizationSchema?: object };
 
 	$effect(() => {
-		if (data.lang) {
-			setLocale(data.lang);
+		if (layoutData.lang) {
+			setLocale(layoutData.lang);
 		}
 	});
 
 	onMount(() => {
-		// Initialize smooth scroll
 		const lenis = new Lenis({
 			duration: 1.2,
 			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -33,7 +34,6 @@
 
 		requestAnimationFrame(raf);
 
-		// Initialize WebSocket for real-time updates
 		websocketService.connect();
 
 		return () => {
@@ -50,3 +50,11 @@
 </main>
 
 <Footer />
+
+<svelte:head>
+	{#if layoutData.organizationSchema}
+		<script type="application/ld+json">
+{JSON.stringify(layoutData.organizationSchema)}
+		</script>
+	{/if}
+</svelte:head>

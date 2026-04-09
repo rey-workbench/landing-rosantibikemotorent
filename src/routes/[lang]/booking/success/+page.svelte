@@ -2,10 +2,12 @@
 	import { page } from '$app/stores';
 	import { siteConfig } from '$lib/config';
 	import { LL } from '$i18n/i18n-svelte';
+	import { SeoHead } from '$lib/components/seo';
 
 	export let data;
 	$: transaksi = data.transaksi;
-	$: lang = $page.params.lang || 'id';
+	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
+	$: currentUrl = $page.url.href;
 
 	function formatPrice(price: number): string {
 		return new Intl.NumberFormat('id-ID', {
@@ -16,9 +18,14 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{$LL.page_title_booking_success()} | Rosantibike Motorent</title>
-</svelte:head>
+<SeoHead
+	{lang}
+	meta={{
+		title: `${$LL.page_title_booking_success()} | Rosantibike Motorent`,
+		robots: 'noindex, nofollow',
+		canonicalUrl: currentUrl
+	}}
+/>
 
 <section class="pt-32 pb-20 px-4 md:px-10">
 	<div class="max-w-2xl mx-auto text-center">

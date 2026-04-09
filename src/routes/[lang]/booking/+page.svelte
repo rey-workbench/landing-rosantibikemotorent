@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { transaksiApi } from '$lib/api';
 	import type { UnitMotor, PriceCalculation } from '$lib/types';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -9,9 +10,11 @@
 	import StepIndicator from '$lib/components/ui/StepIndicator.svelte';
 	import { parsePhoneNumberFromString } from 'libphonenumber-js';
 	import LL from '$i18n/i18n-svelte.js';
+	import { SeoHead } from '$lib/components/seo';
 
 	export let data;
-	$: ({ lang } = data);
+	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
+	$: currentUrl = $page.url.href;
 
 	// State
 	let availableMotors: UnitMotor[] = data.availableMotors;
@@ -215,10 +218,15 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{$LL.page_title_booking()} | Rosantibike Motorent</title>
-	<meta name="description" content={$LL.booking_header_subtitle()} />
-</svelte:head>
+<SeoHead
+	{lang}
+	meta={{
+		title: `${$LL.page_title_booking()} | Rosantibike Motorent`,
+		description: $LL.booking_header_subtitle(),
+		ogType: 'website',
+		canonicalUrl: currentUrl
+	}}
+/>
 
 <section class="pt-32 pb-20 px-4 md:px-10">
 	<div class="max-w-3xl mx-auto">
@@ -337,11 +345,11 @@
 							required
 							options={uniqueMotors.map((m) => {
 								const jenis = m.jenis || m.jenisMotor;
-							return {
-								value: m.jenisId,
-								label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(jenis?.hargaSewa || 0)}/${$LL.booking_day()}`
-							};
-						})}
+								return {
+									value: m.jenisId,
+									label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(jenis?.hargaSewa || 0)}/${$LL.booking_day()}`
+								};
+							})}
 							placeholder={$LL.booking_motor_placeholder()}
 							on:change={handleMotorChange}
 						/>
@@ -364,10 +372,10 @@
 									{#if jenis?.cc}
 										<p class="text-gray-500 text-sm">{jenis.cc} CC</p>
 									{/if}
-							<p class="text-green-400 font-bold mt-1">
-									{formatPrice((selectedUnit.jenis || selectedUnit.jenisMotor)?.hargaSewa || 0)}
-								<span class="text-gray-500 font-normal text-sm">/ {$LL.booking_day()}</span>
-							</p>
+									<p class="text-green-400 font-bold mt-1">
+										{formatPrice((selectedUnit.jenis || selectedUnit.jenisMotor)?.hargaSewa || 0)}
+										<span class="text-gray-500 font-normal text-sm">/ {$LL.booking_day()}</span>
+									</p>
 								</div>
 							</div>
 						{:else}

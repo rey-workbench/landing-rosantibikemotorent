@@ -4,10 +4,23 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
+	import { SeoHead } from '$lib/components/seo';
+	import { buildBreadcrumbSchema } from '$lib/seo/schema';
 
 	export let data;
 	$: post = data.post;
-	$: lang = $page.params.lang || 'id';
+	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
+	$: currentUrl = $page.url.href;
+
+	$: breadcrumbSchema = post
+		? buildBreadcrumbSchema([
+				{ position: 1, name: 'Home', item: `https://rosantibike.com/${lang}` },
+				{ position: 2, name: 'Blog', item: `https://rosantibike.com/${lang}/blog` },
+				{ position: 3, name: post.judul || '', item: currentUrl }
+			])
+		: null;
+
+	$: schemas = breadcrumbSchema ? [breadcrumbSchema] : [];
 
 	function getCurrentUrl(): string {
 		if (browser) {
@@ -23,17 +36,27 @@
 	}
 </script>
 
-<svelte:head>
-	{#if post}
-		<title>{post.metaTitle || post.judul} | Rosantibike Journal</title>
-		<meta name="description" content={post.metaDescription || post.judul} />
-		{#if post.featuredImage}
-			<meta property="og:image" content={post.featuredImage} />
-		{/if}
-	{:else}
-		<title>{$LL.blog_title()} | Rosantibike Motorent</title>
-	{/if}
-</svelte:head>
+{#if post}
+	<SeoHead
+		{lang}
+		meta={{
+			title: `${post.metaTitle || post.judul} | Rosantibike Journal`,
+			description: post.metaDescription || post.judul,
+			ogType: 'article',
+			ogImage: post.featuredImage,
+			canonicalUrl: getCurrentUrl(),
+			articlePublishedTime: post.createdAt
+		}}
+		{schemas}
+	/>
+{:else}
+	<SeoHead
+		{lang}
+		meta={{
+			title: `${$LL.blog_title()} | Rosantibike Motorent`
+		}}
+	/>
+{/if}
 
 {#if post}
 	<!-- Header -->

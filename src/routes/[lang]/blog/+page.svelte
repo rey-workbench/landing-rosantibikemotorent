@@ -6,10 +6,12 @@
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
 	import { page } from '$app/stores';
+	import { SeoHead } from '$lib/components/seo';
 
 	export let data;
 
-	$: lang = $page.params.lang || 'id';
+	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
+	$: currentUrl = $page.url.href;
 
 	let posts: any[] = data.initialPosts;
 	let tags: BlogTag[] = data.tags;
@@ -62,10 +64,15 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{$LL.page_title_blog()} | Rosantibike Motorent</title>
-	<meta name="description" content={$LL.blog_subtitle()} />
-</svelte:head>
+<SeoHead
+	{lang}
+	meta={{
+		title: `${$LL.page_title_blog()} | Rosantibike Motorent`,
+		description: $LL.blog_subtitle(),
+		ogType: 'website',
+		canonicalUrl: currentUrl
+	}}
+/>
 
 <!-- Hero Section -->
 <section class="pt-32 pb-16 px-4 md:px-10">

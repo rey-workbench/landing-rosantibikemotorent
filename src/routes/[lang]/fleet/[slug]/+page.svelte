@@ -2,13 +2,16 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/components/ui/Button.svelte';
+	import { SeoHead } from '$lib/components/seo';
 	import { LL } from '$i18n/i18n-svelte';
+	import { buildProductSchema, buildBreadcrumbSchema } from '$lib/seo/schema';
 
 	export let data;
 	$: motor = data.motor;
 	$: jenis = motor?.jenisMotor;
 	$: displayPrice = jenis?.hargaSewa || 0;
-	$: lang = $page.params.lang || 'id';
+	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
+	$: currentUrl = $page.url.href;
 
 	function formatPrice(price: number): string {
 		return new Intl.NumberFormat('id-ID', {
@@ -23,19 +26,62 @@
 			goto(`/${lang}/booking?unitId=${motor.id}`);
 		}
 	}
+
+	$: productSchema =
+		motor && jenis
+			? buildProductSchema({
+					name: `${jenis.merk} ${jenis.model}`,
+					description: $LL.fleet_detail_description({
+						merk: jenis.merk,
+						model: jenis.model,
+						cc: jenis.cc
+					}),
+					brand: jenis.merk,
+					image: jenis.gambar,
+					sku: motor.id || '',
+					mpn: motor.platNomor,
+					price: displayPrice,
+					inStock: motor.status === 'TERSEDIA',
+					url: currentUrl
+				})
+			: null;
+
+	$: breadcrumbSchema =
+		motor && jenis
+			? buildBreadcrumbSchema([
+					{ position: 1, name: 'Home', item: `https://rosantibike.com/${lang}` },
+					{ position: 2, name: 'Fleet', item: `https://rosantibike.com/${lang}/fleet` },
+					{ position: 3, name: `${jenis.merk} ${jenis.model}`, item: currentUrl }
+				])
+			: null;
+
+	$: schemas = [productSchema, breadcrumbSchema].filter(Boolean) as object[];
 </script>
 
-<svelte:head>
-	{#if motor && jenis}
-		<title>{jenis.merk} {jenis.model} | Rosantibike Motorent</title>
-		<meta
-			name="description"
-			content={$LL.fleet_detail_description({ merk: jenis.merk, model: jenis.model, cc: jenis.cc })}
-		/>
-	{:else}
-		<title>{$LL.page_title_fleet_detail()} | Rosantibike Motorent</title>
-	{/if}
-</svelte:head>
+{#if motor && jenis}
+	<SeoHead
+		{lang}
+		meta={{
+			title: `${jenis.merk} ${jenis.model} | Rosantibike Motorent`,
+			description: $LL.fleet_detail_description({
+				merk: jenis.merk,
+				model: jenis.model,
+				cc: jenis.cc
+			}),
+			ogType: 'product',
+			ogImage: jenis.gambar,
+			canonicalUrl: currentUrl
+		}}
+		{schemas}
+	/>
+{:else}
+	<SeoHead
+		{lang}
+		meta={{
+			title: `${$LL.page_title_fleet_detail()} | Rosantibike Motorent`
+		}}
+	/>
+{/if}
 
 <!-- Back Button -->
 <div class="pt-24 px-4 md:px-10">
@@ -168,9 +214,9 @@
 								<p class="text-gray-400 text-sm uppercase tracking-wider mb-1">
 									{$LL.fleet_detail_price()}
 								</p>
-							<p class="text-4xl font-black text-white">
-								{formatPrice(displayPrice)}
-							</p>
+								<p class="text-4xl font-black text-white">
+									{formatPrice(displayPrice)}
+								</p>
 								<p class="text-gray-400 text-sm">{$LL.fleet_detail_per_day()}</p>
 							</div>
 						</div>

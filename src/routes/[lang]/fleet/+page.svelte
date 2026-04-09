@@ -3,6 +3,7 @@
 	import Input from '$lib/components/ui/Input.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { SeoHead } from '$lib/components/seo';
 	import LL from '$i18n/i18n-svelte.js';
 	import { page } from '$app/stores';
 	import { locale } from '$i18n/i18n-svelte';
@@ -17,7 +18,8 @@
 	let searchQuery = '';
 	let selectedBrand = '';
 	let priceRange = { min: 0, max: 1000000 };
-	$: lang = $page.params.lang || $locale;
+	$: lang = ($page.params.lang || $locale) as 'id' | 'en';
+	$: currentUrl = $page.url.href;
 
 	$: filteredMotors = jenisMotors.filter((jenis) => {
 		const matchesSearch =
@@ -38,10 +40,15 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{$LL.page_title_fleet()} | Rosantibike Motorent</title>
-	<meta name="description" content={$LL.footer_about()} />
-</svelte:head>
+<SeoHead
+	{lang}
+	meta={{
+		title: `${$LL.page_title_fleet()} | Rosantibike Motorent`,
+		description: $LL.footer_about(),
+		ogType: 'website',
+		canonicalUrl: currentUrl
+	}}
+/>
 
 <!-- Hero Section -->
 <section class="pt-32 pb-16 px-4 md:px-10">
