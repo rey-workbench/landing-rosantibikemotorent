@@ -1,5 +1,3 @@
-export type StatusMotor = 'TERSEDIA' | 'DISEWA' | 'PERBAIKAN' | 'DIPESAN' | 'OVERDUE';
-
 export interface JenisMotor {
     id: string;
     merk: string;
@@ -8,7 +6,6 @@ export interface JenisMotor {
     gambar?: string;
     slug: string;
     hargaSewa: number;
-    unitMotor?: { id: string; status: string }[];
     createdAt: string;
     updatedAt: string;
 }
@@ -19,7 +16,6 @@ export interface UnitMotor {
     jenisId: string;
     jenis?: JenisMotor;
     jenisMotor?: JenisMotor;
-    status: StatusMotor;
     tahunPembuatan?: number;
     slug: string;
     createdAt: string;
@@ -28,7 +24,6 @@ export interface UnitMotor {
 
 export interface MotorStatusUpdate {
     id: string;
-    status: string;
     platNomor: string;
     message: string;
 }

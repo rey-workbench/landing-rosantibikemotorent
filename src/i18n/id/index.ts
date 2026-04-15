@@ -83,9 +83,10 @@ const id: BaseTranslation = {
 	booking_header_title: 'Booking',
 	booking_header_subtitle: 'Isi formulir step-by-step untuk memesan motor',
 	booking_success_title: 'Booking Berhasil!',
-	booking_success_message: 'Kami akan segera menghubungi Anda via WhatsApp.',
+	booking_success_message:
+		'Kami akan menghubungi Anda via WhatsApp untuk konfirmasi. Mohon selesaikan Down Payment (DP) maksimal 2 jam setelah menerima pesan konfirmasi untuk mengamankan pesanan Anda.',
 	booking_success_subtitle:
-		'Terima kasih telah memilih Rosantibike Motorent. Kami akan segera menghubungi Anda via WhatsApp untuk konfirmasi.',
+		'Terima kasih telah memilih Rosantibike Motorent. Kami akan menghubungi Anda via WhatsApp untuk konfirmasi. Mohon selesaikan Down Payment (DP) maksimal 2 jam setelah menerima pesan konfirmasi untuk mengamankan pesanan.',
 	booking_success_detail_title: 'Detail Booking',
 	booking_success_renter_name: 'Nama Penyewa',
 	booking_success_whatsapp: 'No. WhatsApp',

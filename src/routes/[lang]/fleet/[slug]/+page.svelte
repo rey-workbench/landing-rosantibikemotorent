@@ -41,7 +41,7 @@
 					sku: motor.id || '',
 					mpn: motor.platNomor,
 					price: displayPrice,
-					inStock: motor.status === 'TERSEDIA',
+					inStock: true,
 					url: currentUrl
 				})
 			: null;
@@ -139,29 +139,7 @@
 						{/if}
 					</div>
 
-					<!-- Status Badge -->
-					<div
-						class="absolute top-6 left-6 px-4 py-2 rounded-full backdrop-blur-md {motor.status ===
-						'TERSEDIA'
-							? 'bg-green-500/20 border border-green-500/30'
-							: motor.status === 'DISEWA'
-								? 'bg-yellow-500/20 border border-yellow-500/30'
-								: 'bg-red-500/20 border border-red-500/30'}"
-					>
-						<span
-							class="text-sm font-bold uppercase tracking-wider {motor.status === 'TERSEDIA'
-								? 'text-green-400'
-								: motor.status === 'DISEWA'
-									? 'text-yellow-400'
-									: 'text-red-400'}"
-						>
-							{motor.status === 'TERSEDIA'
-								? $LL.fleet_detail_status_available()
-								: motor.status === 'DISEWA'
-									? $LL.fleet_detail_status_rented()
-									: $LL.fleet_detail_status_maintenance()}
-						</span>
-					</div>
+
 				</div>
 
 				<!-- Details Section -->
@@ -221,17 +199,9 @@
 							</div>
 						</div>
 
-						{#if motor.status === 'TERSEDIA'}
-							<Button on:click={handleBooking} fullWidth size="lg"
-								>{$LL.fleet_detail_book_now()}</Button
-							>
-						{:else}
-							<Button disabled fullWidth size="lg" variant="secondary">
-								{motor.status === 'DISEWA'
-									? $LL.fleet_detail_status_rented()
-									: $LL.fleet_detail_status_maintenance()}
-							</Button>
-						{/if}
+						<Button on:click={handleBooking} fullWidth size="lg"
+							>{$LL.fleet_detail_book_now()}</Button
+						>
 
 						<p class="text-center text-gray-500 text-sm mt-4">
 							{$LL.fleet_detail_contact_whatsapp()}

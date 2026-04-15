@@ -83,9 +83,10 @@ const en: Translation = {
 	booking_header_title: 'Booking',
 	booking_header_subtitle: 'Fill out the step-by-step form to book a motorcycle',
 	booking_success_title: 'Booking Successful!',
-	booking_success_message: 'We will contact you shortly via WhatsApp.',
+	booking_success_message:
+		'We will contact you via WhatsApp for confirmation. Please complete the Down Payment (DP) within a maximum of 2 hours after receiving the confirmation message to secure your booking.',
 	booking_success_subtitle:
-		'Thank you for choosing Rosantibike Motorent. We will contact you shortly via WhatsApp for confirmation.',
+		'Thank you for choosing Rosantibike Motorent. We will contact you via WhatsApp for confirmation. Please complete the Down Payment (DP) within a maximum of 2 hours after receiving the confirmation message to secure your booking.',
 	booking_success_detail_title: 'Booking Details',
 	booking_success_renter_name: 'Renter Name',
 	booking_success_whatsapp: 'WhatsApp Number',

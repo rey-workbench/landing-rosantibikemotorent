@@ -1,17 +1,12 @@
-export const STATUS_MOTOR = {
-    TERSEDIA: 'TERSEDIA',
-    DISEWA: 'DISEWA',
-    PERBAIKAN: 'PERBAIKAN',
-    DIPESAN: 'DIPESAN',
-    OVERDUE: 'OVERDUE',
-} as const;
-
 export const STATUS_TRANSAKSI = {
+    PENDING_DP: 'PENDING_DP',
     PENDING: 'PENDING',
+    DP_DIBAYAR: 'DP_DIBAYAR',
+    LUNAS: 'LUNAS',
     AKTIF: 'AKTIF',
+    BATAL: 'BATAL',
     SELESAI: 'SELESAI',
     OVERDUE: 'OVERDUE',
-    DIBATALKAN: 'DIBATALKAN',
 } as const;
 
 export const API_ENDPOINTS = {
