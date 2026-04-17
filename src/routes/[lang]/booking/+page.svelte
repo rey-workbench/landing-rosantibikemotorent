@@ -33,7 +33,7 @@
 
 	$: {
 		if (formData.jenisId) {
-			selectedUnit = availableMotors.find((m) => (m.jenisId || (m.jenis || m.jenisMotor)?.id) === formData.jenisId) || null;
+			selectedUnit = availableMotors.find((m) => (m.jenisId || m.jenis?.id) === formData.jenisId) || null;
 		} else if (formData.unitId) {
 			selectedUnit = availableMotors.find((m) => m.id === formData.unitId) || null;
 		} else {
@@ -339,7 +339,7 @@
 							bind:value={formData.jenisId}
 							required
 							options={uniqueMotors.map((m) => {
-								const jenis = m.jenis || m.jenisMotor;
+								const jenis = m.jenis;
 								return {
 									value: m.jenisId,
 									label: `${jenis?.merk} ${jenis?.model} - ${formatPrice(jenis?.hargaSewa || 0)}/${$LL.booking_day()}`
@@ -350,7 +350,7 @@
 						/>
 
 						{#if selectedUnit}
-							{@const jenis = selectedUnit.jenis || selectedUnit.jenisMotor}
+							{@const jenis = selectedUnit.jenis}
 							<div class="surface-panel p-4 flex items-center gap-4 mt-4">
 								{#if jenis?.gambar}
 									<img
@@ -500,7 +500,7 @@
 						<div class="surface-panel overflow-hidden">
 							<!-- Motor Info -->
 							{#if selectedUnit}
-								{@const jenis = selectedUnit.jenis || selectedUnit.jenisMotor}
+								{@const jenis = selectedUnit.jenis}
 								<div class="p-4 flex items-center gap-4 border-b border-[rgba(166,173,187,0.16)]">
 									{#if jenis?.gambar}
 										<img

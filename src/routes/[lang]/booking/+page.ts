@@ -20,23 +20,12 @@ export const load: PageLoad = async ({ url }) => {
 		});
 		// Filter units that are available for the entire range
 		availableMotors = (availabilityData as any).units
-			.filter((u: any) => u.availability.every((a: any) => a.isAvailable))
-			.map((u: any) => ({
-				...u,
-				id: u.unitId,
-				jenisId: u.jenisMotor?.id,
-				jenis: u.jenisMotor
-			}));
+			.filter((u: any) => u.availability.every((a: any) => a.isAvailable));
 	} catch (e) {
 		console.error('Failed to fetch availability:', e);
-		// Fallback to all units if availability check fails, to avoid total breakage
+		// Fallback to all units if availability check fails
 		const motorsResponse = await unitMotorApi.getAvailable();
-		availableMotors = (motorsResponse.data || []).map((u: any) => ({
-			...u,
-			id: u.id || u.unitId,
-			jenisId: u.jenisId || u.jenisMotor?.id,
-			jenis: u.jenis || u.jenisMotor
-		}));
+		availableMotors = motorsResponse.data || [];
 	}
 
 	let selectedUnitFromUrl = null;
@@ -46,12 +35,7 @@ export const load: PageLoad = async ({ url }) => {
 			try {
 				const unit = await unitMotorApi.getById(urlUnitId);
 				if (unit) {
-					selectedUnitFromUrl = {
-						...unit,
-						id: unit.id,
-						jenisId: unit.jenisId || unit.jenisMotor?.id,
-						jenis: unit.jenis || unit.jenisMotor
-					};
+					selectedUnitFromUrl = unit;
 					availableMotors = [selectedUnitFromUrl, ...availableMotors];
 				}
 			} catch (e) {
