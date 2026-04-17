@@ -3,8 +3,35 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ url }) => {
 	const urlUnitId = url.searchParams.get('unitId');
-	const motorsResponse = await unitMotorApi.getAvailable();
-	let availableMotors = motorsResponse.data || [];
+
+	const today = new Date();
+	const tomorrow = new Date();
+	tomorrow.setDate(tomorrow.getDate() + 1);
+	const toISODate = (d: Date) => d.toISOString().split('T')[0];
+
+	const startDate = toISODate(today);
+	const endDate = toISODate(tomorrow);
+
+	let availableMotors: any[] = [];
+	try {
+		const availabilityData = await unitMotorApi.checkAvailability({
+			startDate,
+			endDate
+		});
+		// Filter units that are available for the entire range
+		availableMotors = (availabilityData as any).units
+			.filter((u: any) => u.availability.every((a: any) => a.isAvailable))
+			.map((u: any) => ({
+				...u,
+				id: u.unitId,
+				jenis: u.jenisMotor // Map to expected frontend property
+			}));
+	} catch (e) {
+		console.error('Failed to fetch availability:', e);
+		// Fallback to all units if availability check fails, to avoid total breakage
+		const motorsResponse = await unitMotorApi.getAvailable();
+		availableMotors = motorsResponse.data || [];
+	}
 
 	let selectedUnitFromUrl = null;
 	if (urlUnitId) {
@@ -22,19 +49,12 @@ export const load: PageLoad = async ({ url }) => {
 		}
 	}
 
-	// Prepare default dates (ISO string date part)
-	const today = new Date();
-	const tomorrow = new Date();
-	tomorrow.setDate(tomorrow.getDate() + 1);
-
-	const toISODate = (d: Date) => d.toISOString().split('T')[0];
-
 	return {
 		availableMotors,
 		selectedUnitFromUrl,
 		defaultDates: {
-			mulai: toISODate(today),
-			selesai: toISODate(tomorrow)
+			mulai: startDate,
+			selesai: endDate
 		}
 	};
 };

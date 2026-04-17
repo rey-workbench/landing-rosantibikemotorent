@@ -6,7 +6,6 @@ export const unitMotorApi = {
 	getAll: async (filter?: {
 		page?: number;
 		limit?: number;
-		status?: string;
 		jenisId?: string;
 		search?: string;
 		ccMin?: number;
@@ -18,7 +17,7 @@ export const unitMotorApi = {
 	},
 	getAvailable: async (): Promise<{ data: UnitMotor[]; meta: PaginationMeta }> => {
 		const { data: body } = await api.get(API_ENDPOINTS.UNIT_MOTOR, {
-			params: { status: 'TERSEDIA', limit: 100 }
+			params: { limit: 100 }
 		});
 		return { data: body.data, meta: body.meta };
 	},
