@@ -33,7 +33,7 @@
 
 	$: {
 		if (formData.jenisId) {
-			selectedUnit = availableMotors.find((m) => m.jenisId === formData.jenisId) || null;
+			selectedUnit = availableMotors.find((m) => (m.jenisId || (m.jenis || m.jenisMotor)?.id) === formData.jenisId) || null;
 		} else if (formData.unitId) {
 			selectedUnit = availableMotors.find((m) => m.id === formData.unitId) || null;
 		} else {
