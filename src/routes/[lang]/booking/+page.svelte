@@ -280,7 +280,7 @@
 						class="bg-red-500/20 border border-red-500/30 rounded-xl p-4 mb-6 flex items-center gap-3"
 					>
 						<svg
-							class="w-5 h-5 text-red-400 flex-shrink-0"
+							class="w-5 h-5 text-red-400 shrink-0"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke="currentColor"
@@ -366,7 +366,7 @@
 										<p class="text-gray-500 text-sm">{jenis.cc} CC</p>
 									{/if}
 									<p class="text-green-400 font-bold mt-1">
-										{formatPrice((selectedUnit.jenis || selectedUnit.jenisMotor)?.hargaSewa || 0)}
+										{formatPrice(jenis?.hargaSewa || 0)}
 										<span class="text-muted font-normal text-sm">/ {$LL.booking_day()}</span>
 									</p>
 								</div>
@@ -604,7 +604,7 @@
 
 								<!-- Total -->
 								<div
-									class="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-5"
+									class="bg-linear-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-5"
 								>
 									<div class="flex justify-between items-center">
 										<div>
@@ -625,7 +625,7 @@
 						<!-- Note -->
 						<div class="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 flex gap-3">
 							<svg
-								class="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5"
+								class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
