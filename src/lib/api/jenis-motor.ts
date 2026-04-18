@@ -11,13 +11,12 @@ export interface ProcessedJenisMotor extends JenisMotor {
 }
 
 function processJenis(jenis: any): ProcessedJenisMotor {
-	const units = (jenis.unitMotor || []) as UnitMotor[];
-	const availableUnits = units.filter((u) => u.status === 'TERSEDIA');
+	const availableUnits = (jenis.unitMotor || []) as UnitMotor[];
 	const hasAvailable = availableUnits.length > 0;
 	const availableCount = availableUnits.length;
 
 	let minPrice = 0;
-	if (units.length > 0) {
+	if (availableUnits.length > 0) {
 		minPrice = Number(jenis.hargaSewa || 0);
 	}
 
