@@ -1,17 +1,67 @@
 <script lang="ts">
+		import { onMount, onDestroy, untrack } from 'svelte';
+	import { jenisMotorApi } from '$lib/api';
+	import { websocketService } from '$lib/services/websocket';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page as pageStore } from '$app/stores';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { SeoHead } from '$lib/components/seo';
 	import { LL } from '$i18n/i18n-svelte';
 	import { buildProductSchema, buildBreadcrumbSchema } from '$lib/seo/schema';
 
-	export let data;
-	$: motor = data.motor;
-	$: jenis = motor?.jenisMotor;
-	$: displayPrice = jenis?.hargaSewa || 0;
-	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
-	$: currentUrl = $page.url.href;
+	let { data } = $props();
+	let motor = $state(untrack(() => data.motor));
+
+	$effect(() => {
+		motor = data.motor;
+	});
+
+	let unsubs: (() => void)[] = [];
+
+	let jenis = $derived(motor?.jenisMotor);
+	let displayPrice = $derived(jenis?.hargaSewa || 0);
+	let lang = $derived(($pageStore.params.lang || 'id') as 'id' | 'en');
+	let currentUrl = $derived($pageStore.url.href);
+
+	async function fetchMotor() {
+		if (!jenis?.slug) return;
+		try {
+			const jenisData = (await jenisMotorApi.getBySlug(jenis.slug)) as any;
+			if (jenisData && jenisData.unitMotor && jenisData.unitMotor.length > 0) {
+				const units = jenisData.unitMotor;
+				const selectedUnit = units.sort((a: any, b: any) => {
+					const aUpdated = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+					const bUpdated = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+					return bUpdated - aUpdated;
+				})[0];
+
+				motor = {
+					...selectedUnit,
+					jenisMotor: jenisData
+				};
+			}
+		} catch (err) {
+			console.error('Failed to refresh motor data:', err);
+		}
+	}
+
+	onMount(() => {
+		websocketService.connect();
+
+		const refresh = () => {
+			console.log('[MotorDetail] Refreshing motor data...');
+			fetchMotor();
+		};
+
+		unsubs = [
+			websocketService.onTransactionUpdate(refresh),
+			websocketService.onUnitMotorUpdate(refresh)
+		];
+	});
+
+	onDestroy(() => {
+		unsubs.forEach((unsub: () => void) => unsub());
+	});
 
 	function formatPrice(price: number): string {
 		return new Intl.NumberFormat('id-ID', {
@@ -27,7 +77,8 @@
 		}
 	}
 
-	$: productSchema =
+
+	let productSchema = $derived(
 		motor && jenis
 			? buildProductSchema({
 					name: `${jenis.merk} ${jenis.model}`,
@@ -44,18 +95,20 @@
 					inStock: true,
 					url: currentUrl
 				})
-			: null;
+			: null
+	);
 
-	$: breadcrumbSchema =
+	let breadcrumbSchema = $derived(
 		motor && jenis
 			? buildBreadcrumbSchema([
 					{ position: 1, name: 'Home', item: `https://rosantibike.com/${lang}` },
 					{ position: 2, name: 'Fleet', item: `https://rosantibike.com/${lang}/fleet` },
 					{ position: 3, name: `${jenis.merk} ${jenis.model}`, item: currentUrl }
 				])
-			: null;
+			: null
+	);
 
-	$: schemas = [productSchema, breadcrumbSchema].filter(Boolean) as object[];
+	let schemas = $derived([productSchema, breadcrumbSchema].filter(Boolean) as object[]);
 </script>
 
 {#if motor && jenis}
@@ -113,7 +166,7 @@
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 				<!-- Image Section -->
 				<div class="relative">
-					<div class="aspect-[4/3] rounded-3xl overflow-hidden bg-gray-900 border border-white/10">
+					<div class="aspect-4/3 rounded-3xl overflow-hidden bg-gray-900 border border-white/10">
 						{#if jenis.gambar}
 							<img
 								src={jenis.gambar}
@@ -185,7 +238,7 @@
 
 					<!-- Price & Booking -->
 					<div
-						class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-3xl p-8"
+						class="bg-linear-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-3xl p-8"
 					>
 						<div class="flex items-end justify-between mb-6">
 							<div>

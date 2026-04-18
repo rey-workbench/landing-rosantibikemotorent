@@ -1,35 +1,62 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+		import { onMount, onDestroy } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
 	import { formatCurrency } from '$lib/utils/format';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { page } from '$app/state';
+	import { websocketService } from '$lib/services/websocket';
 
 	let { jenisMotors = $bindable([]) } = $props();
 	let lang = $derived(page.params.lang || $locale);
 	let loading = $state(jenisMotors.length === 0);
 	let error = $state('');
+	let unsubscribe: (() => void) | null = null;
 
-	onMount(async () => {
-		if (jenisMotors.length > 0) {
-			loading = false;
-			return;
-		}
-
+	async function fetchFleet() {
 		try {
 			const response = await jenisMotorApi.getAll({ limit: 4 });
-			jenisMotors = (response.data || []).filter((j: any) => j.computed.hasAvailable);
+			// Filter out motors that are completely unavailable if needed
+			// But usually we want to show them as "Sold Out"
+			jenisMotors = response.data || [];
 		} catch (err) {
 			error = err instanceof Error ? err.message : $LL.fleet_error();
 			console.error('Failed to load fleet:', err);
 		} finally {
 			loading = false;
 		}
+	}
+
+	let unsubUnit: (() => void) | null = null;
+
+	onMount(() => {
+		// Initial fetch
+		fetchFleet();
+
+		// Connect to websocket
+		websocketService.connect();
+
+		// Listen for transaction updates to refresh availability
+		unsubscribe = websocketService.onTransactionUpdate((data) => {
+			console.log('[Fleet] Transaction updated, refreshing availability...', data.event);
+			fetchFleet();
+		});
+
+		// Also listen for unit updates
+		unsubUnit = websocketService.onUnitMotorUpdate(() => {
+			console.log('[Fleet] Unit motor updated, refreshing fleet...');
+			fetchFleet();
+		});
+	});
+
+	onDestroy(() => {
+		if (unsubscribe) unsubscribe();
+		if (unsubUnit) unsubUnit();
 	});
 
 	function formatPrice(price: number): string {
 		return formatCurrency(price);
 	}
+
 </script>
 
 <section id="fleet" class="py-20 md:py-32 bg-brand-dark section-shell overflow-hidden">
@@ -47,7 +74,7 @@
 		</div>
 		<a
 			href="/{lang}/fleet"
-			class="text-xs md:text-base text-white border-b border-[rgba(166,173,187,0.5)] pb-1 hover:text-[var(--brand-highlight)] hover:border-[var(--brand-highlight)] transition-colors"
+			class="text-xs md:text-base text-white border-b border-[rgba(166,173,187,0.5)] pb-1 hover:text-(--brand-highlight) hover:border-(--brand-highlight) transition-colors"
 		>
 			{$LL.fleet_view_all()} →
 		</a>
@@ -70,7 +97,7 @@
 					href="/{lang}/fleet/{jenis.slug}"
 					class="group relative h-[280px] md:h-[450px] flex flex-col surface-card overflow-hidden"
 				>
-					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-[var(--brand-surface-soft)]">
+					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-(--brand-surface-soft)">
 						{#if jenis.gambar}
 							<img
 								src={jenis.gambar}
@@ -117,7 +144,7 @@
 					<div class="flex-1 p-3 md:p-6 flex flex-col justify-between bg-brand-surface">
 						<div>
 							<p
-								class="text-[8px] md:text-xs text-[var(--brand-highlight)] font-black uppercase tracking-widest mb-0.5 md:mb-1"
+								class="text-[8px] md:text-xs text-(--brand-highlight) font-black uppercase tracking-widest mb-0.5 md:mb-1"
 							>
 								{jenis.merk}
 							</p>

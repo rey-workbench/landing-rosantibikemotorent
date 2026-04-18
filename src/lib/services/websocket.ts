@@ -5,9 +5,11 @@ import type { MotorStatusUpdate, UnitMotorUpdate, ConnectionState } from '$lib/t
 
 export const socketConnected = writable<boolean>(false);
 export const motorAvailability = writable<MotorStatusUpdate | null>(null);
+export const transactionUpdate = writable<any | null>(null);
 
 type MotorStatusUpdateHandler = (data: MotorStatusUpdate) => void;
 type UnitMotorUpdateHandler = (data: UnitMotorUpdate) => void;
+type TransactionUpdateHandler = (data: any) => void;
 
 class WebSocketService {
     private socket: Socket | null = null;
@@ -20,6 +22,7 @@ class WebSocketService {
 
     private motorStatusUpdateHandlers = new Set<MotorStatusUpdateHandler>();
     private unitMotorUpdateHandlers = new Set<UnitMotorUpdateHandler>();
+    private transactionUpdateHandlers = new Set<TransactionUpdateHandler>();
 
     connect(): void {
         if (!browser) {
@@ -82,6 +85,7 @@ class WebSocketService {
         if (!this.socket) return;
 
         this.socket.on('connect', () => {
+            console.log('[Landing Socket] Connected with ID:', this.socket?.id);
             this.updateState(true, this.socket?.id || null);
         });
 
@@ -101,6 +105,22 @@ class WebSocketService {
         this.socket.on('unit-motor:update', (data: UnitMotorUpdate) => {
             this.unitMotorUpdateHandlers.forEach(handler => handler(data));
         });
+
+        // Transaction events
+        const transactionEvents = [
+            'transaksi-created',
+            'transaksi-updated',
+            'transaksi-deleted',
+            'transaksi-selesai'
+        ];
+
+        transactionEvents.forEach(event => {
+            this.socket?.on(event, (data) => {
+                console.log(`[Landing Socket] Event ${event} received:`, data);
+                transactionUpdate.set({ event, data });
+                this.transactionUpdateHandlers.forEach(handler => handler({ event, data }));
+            });
+        });
     }
 
     onMotorStatusUpdate(handler: MotorStatusUpdateHandler) {
@@ -111,6 +131,11 @@ class WebSocketService {
     onUnitMotorUpdate(handler: UnitMotorUpdateHandler) {
         this.unitMotorUpdateHandlers.add(handler);
         return () => this.unitMotorUpdateHandlers.delete(handler);
+    }
+
+    onTransactionUpdate(handler: TransactionUpdateHandler) {
+        this.transactionUpdateHandlers.add(handler);
+        return () => this.transactionUpdateHandlers.delete(handler);
     }
 
     isConnected(): boolean {
@@ -128,3 +153,4 @@ class WebSocketService {
 
 export const websocketService = new WebSocketService();
 export default websocketService;
+

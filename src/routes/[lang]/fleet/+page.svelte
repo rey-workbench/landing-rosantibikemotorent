@@ -1,4 +1,6 @@
 <script lang="ts">
+		import { onMount, onDestroy, untrack } from 'svelte';
+	import { jenisMotorApi } from '$lib/api';
 	import type { JenisMotor } from '$lib/types';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -7,29 +9,65 @@
 	import LL from '$i18n/i18n-svelte.js';
 	import { page } from '$app/stores';
 	import { locale } from '$i18n/i18n-svelte';
+	import { websocketService } from '$lib/services/websocket';
 
-	export let data;
+	let { data } = $props();
 
-	let jenisMotors: any[] = data.jenisMotors;
-	let brands: { id: string; merk: string }[] = data.brands;
-	let loading = false;
-	let error = '';
+	let jenisMotors: any[] = $state(untrack(() => data.jenisMotors));
+	let brands: { id: string; merk: string }[] = $state(untrack(() => data.brands));
 
-	let searchQuery = '';
-	let selectedBrand = '';
-	let priceRange = { min: 0, max: 1000000 };
-	$: lang = ($page.params.lang || $locale) as 'id' | 'en';
-	$: currentUrl = $page.url.href;
-
-	$: filteredMotors = jenisMotors.filter((jenis) => {
-		const matchesSearch =
-			jenis.merk.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			jenis.model.toLowerCase().includes(searchQuery.toLowerCase());
-		const matchesBrand = !selectedBrand || jenis.merk === selectedBrand;
-		const matchesPrice =
-			jenis.computed.minPrice >= priceRange.min && jenis.computed.minPrice <= priceRange.max;
-		return matchesSearch && matchesBrand && matchesPrice;
+	$effect(() => {
+		jenisMotors = data.jenisMotors;
+		brands = data.brands;
 	});
+	let loading = $state(false);
+	let error = $state('');
+	let unsubs: (() => void)[] = [];
+
+	let searchQuery = $state('');
+	let selectedBrand = $state('');
+	let priceRange = $state({ min: 0, max: 1000000 });
+	let lang = $derived(($page.params.lang || $locale) as 'id' | 'en');
+	let currentUrl = $derived($page.url.href);
+
+	async function fetchFleet() {
+		try {
+			const response = await jenisMotorApi.getAll();
+			jenisMotors = response.data || [];
+		} catch (err) {
+			console.error('Failed to load fleet:', err);
+		}
+	}
+
+	onMount(() => {
+		websocketService.connect();
+		
+		const refresh = () => {
+			console.log('[FleetPage] Refreshing data...');
+			fetchFleet();
+		};
+
+		unsubs = [
+            websocketService.onTransactionUpdate(refresh),
+            websocketService.onUnitMotorUpdate(refresh)
+        ];
+	});
+
+	onDestroy(() => {
+		unsubs.forEach(unsub => unsub());
+	});
+
+	let filteredMotors = $derived(
+		jenisMotors.filter((jenis) => {
+			const matchesSearch =
+				jenis.merk.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				jenis.model.toLowerCase().includes(searchQuery.toLowerCase());
+			const matchesBrand = !selectedBrand || jenis.merk === selectedBrand;
+			const matchesPrice =
+				jenis.computed.minPrice >= priceRange.min && jenis.computed.minPrice <= priceRange.max;
+			return matchesSearch && matchesBrand && matchesPrice;
+		})
+	);
 
 	function formatPrice(price: number): string {
 		return new Intl.NumberFormat('id-ID', {
@@ -38,6 +76,7 @@
 			minimumFractionDigits: 0
 		}).format(price);
 	}
+
 </script>
 
 <SeoHead
@@ -110,7 +149,7 @@
 		{#if loading}
 			<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
 				{#each Array(8) as _}
-					<div class="aspect-[4/5] surface-card animate-pulse"></div>
+					<div class="aspect-4/5 surface-card animate-pulse"></div>
 				{/each}
 			</div>
 		{:else if error}
@@ -129,7 +168,7 @@
 					>
 						<!-- Image -->
 						<div
-							class="relative aspect-[4/3] md:aspect-[3/2] overflow-hidden bg-[var(--brand-surface-soft)]"
+							class="relative aspect-4/3 md:aspect-3/2 overflow-hidden bg-(--brand-surface-soft)"
 						>
 							{#if jenis.gambar}
 								<img
@@ -177,12 +216,12 @@
 						<div class="p-4 md:p-6 flex-1 flex flex-col justify-between">
 							<div>
 								<p
-									class="text-[8px] md:text-[10px] font-black text-[var(--brand-highlight)] uppercase tracking-widest mb-1"
+									class="text-[8px] md:text-[10px] font-black text-(--brand-highlight) uppercase tracking-widest mb-1"
 								>
 									{jenis.merk}
 								</p>
 								<h3
-									class="text-sm md:text-xl font-black text-white uppercase tracking-tighter leading-none group-hover:text-[var(--brand-highlight)] transition-colors line-clamp-1"
+									class="text-sm md:text-xl font-black text-white uppercase tracking-tighter leading-none group-hover:text-(--brand-highlight) transition-colors line-clamp-1"
 								>
 									{jenis.model}
 								</h3>
