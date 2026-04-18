@@ -48,49 +48,8 @@
 <div
 	class="fixed inset-0 pointer-events-none z-20 flex flex-col justify-center px-4 md:px-20 overflow-hidden"
 >
-	<div
-		class="absolute top-20 sm:top-24 left-4 sm:left-10 md:left-20 opacity-30 sm:opacity-40 hidden sm:block"
-	>
-		<div
-			class="flex items-center gap-2 sm:gap-4 text-[8px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.3em] text-white/50 uppercase"
-		>
-			<span class="w-6 sm:w-12 h-px bg-white/30"></span>
-			{$LL.hero_malang_adventure()}
-		</div>
-	</div>
 
-	<div
-		class="absolute bottom-20 sm:bottom-24 right-4 sm:right-10 md:right-20 opacity-30 sm:opacity-40 hidden md:block"
-	>
-		<div
-			class="flex flex-col items-end gap-1 sm:gap-2 text-[8px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.3em] text-white/50 uppercase"
-		>
-			<div>Lat: -7.9839 | Lon: 112.6214</div>
-			<div class="flex items-center gap-2">
-				Status: <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-				{$LL.hero_status_optimal()}
-			</div>
-		</div>
-	</div>
 
-	<div class="absolute right-10 top-1/2 -translate-y-1/2 h-64 w-[2px] bg-white/10 hidden md:block">
-		<div
-			class="absolute top-0 left-0 w-full bg-white transition-all duration-300"
-			style="height: {scrollProgress * 100}%"
-		></div>
-		{#each texts as t, i}
-			<div
-				class="absolute h-1 w-4 -left-1 bg-white/20 transition-all duration-500"
-				class:bg-white={i === activeIndex}
-				class:w-6={i === activeIndex}
-				style="top: {t.progressStart * 100}%"
-			>
-				<span class="absolute left-8 top-1/2 -translate-y-1/2 text-[10px] font-mono text-white/40"
-					>0{i + 1}</span
-				>
-			</div>
-		{/each}
-	</div>
 
 	{#each texts as t, i}
 		{#if i === activeIndex}
@@ -142,11 +101,11 @@
 						class="mt-6 sm:mt-8 md:mt-12 flex flex-col items-center gap-3 sm:gap-4"
 					>
 						<button
-							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full overflow-hidden"
+							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-widest sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full overflow-hidden"
 						>
 							<span class="relative z-10">{$LL.hero_book_whatsapp()}</span>
 							<div
-								class="absolute inset-0 bg-linear-to-r from-gray-200 to-gray-400 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"
+								class="absolute inset-0 bg-linear-to-r from-gray-200 to-gray-400 -translate-x-full group-hover:translate-x-0 transition-transform duration-500"
 							></div>
 							<span
 								class="absolute inset-0 flex items-center justify-center z-10 group-hover:text-white transition-colors duration-500 opacity-0 group-hover:opacity-100"

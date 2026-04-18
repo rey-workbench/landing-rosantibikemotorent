@@ -19,8 +19,7 @@ const en: Translation = {
 	hero_book_whatsapp: 'Book via WhatsApp',
 	hero_partner: 'Official Malang Rental Partner',
 	hero_scroll: 'Scroll',
-	hero_malang_adventure: 'Malang Adventure',
-	hero_status_optimal: 'Optimal',
+
 	why_title: "Rosanti's Excellence",
 	why_heading: 'Designed for',
 	why_heading_highlight: 'Perfection.',

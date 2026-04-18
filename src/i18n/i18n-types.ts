@@ -87,14 +87,6 @@ type RootTranslation = {
 	 */
 	hero_scroll: string
 	/**
-	 * M​a​l​a​n​g​ ​A​d​v​e​n​t​u​r​e
-	 */
-	hero_malang_adventure: string
-	/**
-	 * O​p​t​i​m​a​l
-	 */
-	hero_status_optimal: string
-	/**
 	 * R​o​s​a​n​t​i​'​s​ ​E​x​c​e​l​l​e​n​c​e
 	 */
 	why_title: string
@@ -311,11 +303,11 @@ type RootTranslation = {
 	 */
 	booking_success_title: string
 	/**
-	 * W​e​ ​w​i​l​l​ ​c​o​n​t​a​c​t​ ​y​o​u​ ​s​h​o​r​t​l​y​ ​v​i​a​ ​W​h​a​t​s​A​p​p​.
+	 * W​e​ ​w​i​l​l​ ​c​o​n​t​a​c​t​ ​y​o​u​ ​v​i​a​ ​W​h​a​t​s​A​p​p​ ​f​o​r​ ​c​o​n​f​i​r​m​a​t​i​o​n​.​ ​P​l​e​a​s​e​ ​c​o​m​p​l​e​t​e​ ​t​h​e​ ​D​o​w​n​ ​P​a​y​m​e​n​t​ ​(​D​P​)​ ​w​i​t​h​i​n​ ​a​ ​m​a​x​i​m​u​m​ ​o​f​ ​2​ ​h​o​u​r​s​ ​a​f​t​e​r​ ​r​e​c​e​i​v​i​n​g​ ​t​h​e​ ​c​o​n​f​i​r​m​a​t​i​o​n​ ​m​e​s​s​a​g​e​ ​t​o​ ​s​e​c​u​r​e​ ​y​o​u​r​ ​b​o​o​k​i​n​g​.
 	 */
 	booking_success_message: string
 	/**
-	 * T​h​a​n​k​ ​y​o​u​ ​f​o​r​ ​c​h​o​o​s​i​n​g​ ​R​o​s​a​n​t​i​b​i​k​e​ ​M​o​t​o​r​e​n​t​.​ ​W​e​ ​w​i​l​l​ ​c​o​n​t​a​c​t​ ​y​o​u​ ​s​h​o​r​t​l​y​ ​v​i​a​ ​W​h​a​t​s​A​p​p​ ​f​o​r​ ​c​o​n​f​i​r​m​a​t​i​o​n​.
+	 * T​h​a​n​k​ ​y​o​u​ ​f​o​r​ ​c​h​o​o​s​i​n​g​ ​R​o​s​a​n​t​i​b​i​k​e​ ​M​o​t​o​r​e​n​t​.​ ​W​e​ ​w​i​l​l​ ​c​o​n​t​a​c​t​ ​y​o​u​ ​v​i​a​ ​W​h​a​t​s​A​p​p​ ​f​o​r​ ​c​o​n​f​i​r​m​a​t​i​o​n​.​ ​P​l​e​a​s​e​ ​c​o​m​p​l​e​t​e​ ​t​h​e​ ​D​o​w​n​ ​P​a​y​m​e​n​t​ ​(​D​P​)​ ​w​i​t​h​i​n​ ​a​ ​m​a​x​i​m​u​m​ ​o​f​ ​2​ ​h​o​u​r​s​ ​a​f​t​e​r​ ​r​e​c​e​i​v​i​n​g​ ​t​h​e​ ​c​o​n​f​i​r​m​a​t​i​o​n​ ​m​e​s​s​a​g​e​ ​t​o​ ​s​e​c​u​r​e​ ​y​o​u​r​ ​b​o​o​k​i​n​g​.
 	 */
 	booking_success_subtitle: string
 	/**
@@ -959,14 +951,6 @@ export type TranslationFunctions = {
 	 */
 	hero_scroll: () => LocalizedString
 	/**
-	 * Malang Adventure
-	 */
-	hero_malang_adventure: () => LocalizedString
-	/**
-	 * Optimal
-	 */
-	hero_status_optimal: () => LocalizedString
-	/**
 	 * Rosanti's Excellence
 	 */
 	why_title: () => LocalizedString
@@ -1183,11 +1167,11 @@ export type TranslationFunctions = {
 	 */
 	booking_success_title: () => LocalizedString
 	/**
-	 * We will contact you shortly via WhatsApp.
+	 * We will contact you via WhatsApp for confirmation. Please complete the Down Payment (DP) within a maximum of 2 hours after receiving the confirmation message to secure your booking.
 	 */
 	booking_success_message: () => LocalizedString
 	/**
-	 * Thank you for choosing Rosantibike Motorent. We will contact you shortly via WhatsApp for confirmation.
+	 * Thank you for choosing Rosantibike Motorent. We will contact you via WhatsApp for confirmation. Please complete the Down Payment (DP) within a maximum of 2 hours after receiving the confirmation message to secure your booking.
 	 */
 	booking_success_subtitle: () => LocalizedString
 	/**

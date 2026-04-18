@@ -19,8 +19,7 @@ const id: BaseTranslation = {
 	hero_book_whatsapp: 'Pesan via WhatsApp',
 	hero_partner: 'Mitra Rental Resmi Malang',
 	hero_scroll: 'Gulir',
-	hero_malang_adventure: 'Malang Adventure',
-	hero_status_optimal: 'Optimal',
+
 	why_title: 'Keunggulan Rosanti',
 	why_heading: 'Dirancang untuk',
 	why_heading_highlight: 'Kesempurnaan.',

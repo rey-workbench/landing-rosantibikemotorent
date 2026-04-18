@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HeroSequence from '$lib/components/landing/HeroSequence.svelte';
+	import HeroVideo from '$lib/components/landing/HeroVideo.svelte';
 	import WhyChooseUs from '$lib/components/landing/WhyChooseUs.svelte';
 	import AdventureMap from '$lib/components/landing/AdventureMap.svelte';
 	import FleetGrid from '$lib/components/landing/Fleet.svelte';
@@ -54,9 +54,9 @@
 	schemas={[faqSchema]}
 />
 
-<!-- Hero / Sequence Scroll -->
+<!-- Hero / video background -->
 <div class="relative z-0">
-	<HeroSequence />
+	<HeroVideo />
 </div>
 
 <!-- Content Overlap -->
