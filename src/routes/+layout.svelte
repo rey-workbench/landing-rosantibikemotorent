@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import Lenis from '@studio-freight/lenis';
+	import Lenis from 'lenis';
 	import Navbar from '$lib/components/layout/Navbar.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import Preloader from '$lib/components/ui/Preloader.svelte';
