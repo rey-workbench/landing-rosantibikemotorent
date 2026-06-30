@@ -1,4 +1,4 @@
-import api from './axios';
+import api from './client';
 import { API_ENDPOINTS } from '$lib/constants';
 import type { Transaksi, PaginationMeta, PriceCalculation } from '$lib/types';
 import { formatDate } from '$lib/utils/format';

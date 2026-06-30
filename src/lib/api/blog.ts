@@ -1,4 +1,4 @@
-import api from './axios';
+import api from './client';
 import { API_ENDPOINTS } from '$lib/constants';
 import type { BlogPost, BlogTag, PaginationMeta } from '$lib/types';
 import { formatDate, stripHtml } from '$lib/utils/format';
