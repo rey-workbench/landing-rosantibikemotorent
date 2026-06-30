@@ -121,7 +121,7 @@
 			<!-- Image -->
 			{#if post.featuredImage || post.thumbnail}
 				<div
-					class="mb-16 rounded-3xl overflow-hidden glass-surface aspect-[16/9]"
+					class="mb-16 rounded-3xl overflow-hidden glass-surface aspect-video"
 					in:fade={{ duration: 800 }}
 				>
 					<img

@@ -10,7 +10,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
 			<div class="space-y-6">
 				<h2
-					class="font-(family-name:--font-display) text-[2rem] uppercase tracking-[0.03em] text-white"
+					class="font-display text-[2rem] uppercase tracking-[0.03em] text-white"
 				>
 					{siteConfig.shortName}
 				</h2>
@@ -59,7 +59,7 @@
 				<ul class="space-y-4">
 					{#each [$LL.footer_daily_rental(), $LL.footer_delivery(), $LL.footer_equipment(), $LL.footer_insurance()] as service}
 						<li class="flex items-center gap-3 text-muted text-sm">
-							<span class="w-1.5 h-1.5 rounded-full bg-[var(--brand-highlight)]"></span>
+							<span class="w-1.5 h-1.5 rounded-full bg-(--brand-highlight)"></span>
 							{service}
 						</li>
 					{/each}
@@ -72,7 +72,7 @@
 				</h3>
 				<div class="space-y-6">
 					<div class="flex items-start gap-4">
-						<div class="mt-1 text-[var(--brand-highlight)]">
+						<div class="mt-1 text-(--brand-highlight)">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="18"

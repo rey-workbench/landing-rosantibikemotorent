@@ -82,16 +82,16 @@
 			<h2
 				class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
 			>
-				<span class="w-8 h-[1px] bg-blue-500"></span>
+				<span class="w-8 h-px bg-blue-500"></span>
 				{$LL.blog_title()}
-				<span class="w-8 h-[1px] bg-blue-500"></span>
+				<span class="w-8 h-px bg-blue-500"></span>
 			</h2>
 			<h1
 				class="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none"
 			>
 				{$LL.blog_heading()} <br />
 				<span
-					class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600"
+					class="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-300 to-gray-600"
 					>{$LL.blog_heading_highlight()}</span
 				>
 			</h1>
@@ -115,7 +115,7 @@
 			</div>
 
 			<!-- Tags Filter -->
-			<div class="flex-[2]">
+			<div class="flex-2">
 				<label for="tag-filter" class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
 					>{$LL.blog_filter_label()}</label
 				>
@@ -149,7 +149,7 @@
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				{#each Array(6) as _}
 					<div class="animate-pulse flex flex-col gap-4">
-						<div class="aspect-[16/10] bg-brand-surface rounded-3xl"></div>
+						<div class="aspect-16/10 bg-brand-surface rounded-3xl"></div>
 						<div class="h-6 bg-brand-surface rounded-full w-3/4"></div>
 						<div class="h-4 bg-brand-surface rounded-full w-full"></div>
 					</div>
@@ -171,7 +171,7 @@
 						in:fly={{ y: 20, duration: 600, delay: i * 50 }}
 					>
 						<!-- Image -->
-						<div class="aspect-[16/10] overflow-hidden bg-gray-800 relative">
+						<div class="aspect-16/10 overflow-hidden bg-gray-800 relative">
 							{#if post.featuredImage || post.thumbnail}
 								<img
 									src={post.featuredImage || post.thumbnail}
@@ -197,7 +197,7 @@
 								</div>
 							{/if}
 							<div
-								class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"
+								class="absolute inset-0 bg-linear-to-t from-gray-900 via-transparent to-transparent"
 							></div>
 
 							<!-- Date Badge -->

@@ -169,7 +169,7 @@
 								class:border-transparent={i !== activeFeatureIndex}
 							>
 								{#if i === activeFeatureIndex}
-									<div class="absolute inset-0 bg-white/[0.03] backdrop-blur-sm -z-10"></div>
+									<div class="absolute inset-0 bg-white/3 backdrop-blur-sm -z-10"></div>
 								{/if}
 
 								<div class="flex items-center gap-5">
@@ -204,7 +204,7 @@
 								</div>
 
 								<div
-									class="absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-100 ease-linear"
+									class="absolute bottom-0 left-0 h-0.5 bg-blue-500 transition-all duration-100 ease-linear"
 									style="width: {i === activeFeatureIndex
 										? Math.min(
 												100,
@@ -223,7 +223,7 @@
 
 				<div class="relative order-1 lg:order-2 flex justify-center lg:justify-end">
 					<div
-						class="relative w-full aspect-[4/3] max-w-lg rounded-2xl overflow-hidden border border-white/5 bg-gray-900 group"
+						class="relative w-full aspect-4/3 max-w-lg rounded-2xl overflow-hidden border border-white/5 bg-gray-900 group"
 					>
 						<canvas
 							bind:this={canvas}

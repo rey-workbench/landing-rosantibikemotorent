@@ -83,7 +83,7 @@
 	{#if loading}
 		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
 			{#each [1, 2, 3, 4] as _}
-				<div class="h-[250px] md:h-[450px] surface-card animate-pulse"></div>
+				<div class="h-62.5 md:h-112.5 surface-card animate-pulse"></div>
 			{/each}
 		</div>
 	{:else if error}
@@ -95,7 +95,7 @@
 			{#each jenisMotors as jenis}
 				<a
 					href="/{lang}/fleet/{jenis.slug}"
-					class="group relative h-[280px] md:h-[450px] flex flex-col surface-card overflow-hidden"
+					class="group relative h-70 md:h-112.5 flex flex-col surface-card overflow-hidden"
 				>
 					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-(--brand-surface-soft)">
 						{#if jenis.gambar}

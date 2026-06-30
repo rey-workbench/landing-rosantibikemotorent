@@ -28,11 +28,11 @@
 </script>
 
 <nav
-	class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center transition-all duration-300 ease-[var(--ease-luxury)]"
+	class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center transition-all duration-300 ease-(--ease-luxury)"
 >
 	<a
 		href="/{page.params.lang || $locale}"
-		class="font-(family-name:--font-display) text-[1.7rem] tracking-[0.03em] uppercase text-white flex items-center gap-2"
+		class="font-display text-[1.7rem] tracking-[0.03em] uppercase text-white flex items-center gap-2"
 	>
 		{siteConfig.shortName}
 	</a>
@@ -77,7 +77,7 @@
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 bg-[rgba(5,5,8,0.96)] z-[60] flex flex-col justify-center items-center text-center space-y-12"
+		class="fixed inset-0 bg-[rgba(5,5,8,0.96)] z-60 flex flex-col justify-center items-center text-center space-y-12"
 		transition:fade={{ duration: 300 }}
 	>
 		<button
@@ -103,7 +103,7 @@
 			{#each navItems as item}
 				<a
 					href={item.href}
-					class="text-5xl md:text-7xl font-(family-name:--font-display) text-white hover:text-[var(--brand-highlight)] transition-colors uppercase tracking-[0.03em]"
+					class="text-5xl md:text-7xl font-display text-white hover:text-(--brand-highlight) transition-colors uppercase tracking-[0.03em]"
 					onclick={() => (isOpen = false)}
 				>
 					{item.label}

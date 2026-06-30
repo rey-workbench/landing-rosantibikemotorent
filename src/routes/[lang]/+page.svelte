@@ -60,7 +60,7 @@
 </div>
 
 <!-- Content Overlap -->
-<div class="relative z-10 -mt-[100vh] bg-brand-dark section-shell">
+<div class="relative z-10 mt-[-100vh] bg-brand-dark section-shell">
 	<WhyChooseUs />
 	<AdventureMap />
 	<Stats />

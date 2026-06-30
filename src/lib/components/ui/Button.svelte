@@ -12,7 +12,7 @@
 
 	// Styling base
 	const baseStyles =
-		'inline-flex items-center justify-center font-semibold uppercase tracking-[0.18em] transition-all duration-300 ease-[var(--ease-luxury)] focus-visible:focus-ring disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none';
+		'inline-flex items-center justify-center font-semibold uppercase tracking-[0.18em] transition-all duration-300 ease-(--ease-luxury) focus-visible:focus-ring disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none';
 
 	// Variants
 	const variants = {
@@ -22,7 +22,7 @@
 			'surface-panel text-white border border-[rgba(166,173,187,0.25)] hover:border-accent-soft hover:bg-[rgba(166,173,187,0.1)]',
 		outline:
 			'bg-transparent text-white border border-[rgba(166,173,187,0.4)] hover:border-accent-soft hover:bg-accent-soft',
-		ghost: 'bg-transparent text-[var(--brand-muted)] hover:text-white hover:bg-white/6',
+		ghost: 'bg-transparent text-(--brand-muted) hover:text-white hover:bg-white/6',
 		glass:
 			'bg-[rgba(255,255,255,0.06)] text-white border border-[rgba(166,173,187,0.24)] hover:border-accent-soft hover:bg-[rgba(166,173,187,0.14)]'
 	};

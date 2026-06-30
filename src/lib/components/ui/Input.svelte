@@ -134,7 +134,7 @@
 				<div class="flex items-center gap-3 truncate">
 					{#if icon !== 'none' && iconPaths[icon]}
 						<svg
-							class="text-[rgba(166,173,187,0.7)] flex-shrink-0"
+							class="text-[rgba(166,173,187,0.7)] shrink-0"
 							width="18"
 							height="18"
 							viewBox="0 0 24 24"
@@ -152,7 +152,7 @@
 					>
 				</div>
 				<svg
-					class="text-[rgba(166,173,187,0.7)] flex-shrink-0 transition-transform {isOpen
+					class="text-[rgba(166,173,187,0.7)] shrink-0 transition-transform {isOpen
 						? 'rotate-180 text-white'
 						: ''}"
 					width="18"
@@ -167,7 +167,7 @@
 			{#if isOpen}
 				<div
 					transition:fly={{ y: -10, duration: 200 }}
-					class="absolute left-0 w-full min-w-[260px] md:max-w-[300px] mt-2 bg-[rgba(9,11,14,0.98)] border border-[rgba(166,173,187,0.2)] rounded-xl shadow-2xl overflow-hidden backdrop-blur-xl z-[99999]"
+					class="absolute left-0 w-full min-w-65 md:max-w-75 mt-2 bg-[rgba(9,11,14,0.98)] border border-[rgba(166,173,187,0.2)] rounded-xl shadow-2xl overflow-hidden backdrop-blur-xl z-99999"
 				>
 					{#if type === 'dropdown'}
 						{#if searchable}
@@ -261,7 +261,7 @@
 											: 'text-[rgba(166,173,187,0.25)] pointer-events-none'} {curr &&
 										value ===
 											`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
-											? 'bg-white !text-black font-bold'
+											? 'bg-white text-black! font-bold'
 											: ''}">{d}</button
 									>
 								{/each}

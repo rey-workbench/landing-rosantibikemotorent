@@ -11,12 +11,12 @@
 	<div class="flex items-center justify-between relative px-2">
 		<!-- Progress Line Background -->
 		<div
-			class="absolute top-5 left-[2.5rem] right-[2.5rem] h-[2px] bg-[rgba(166,173,187,0.3)] -z-10"
+			class="absolute top-5 left-10 right-10 h-0.5 bg-[rgba(166,173,187,0.3)] -z-10"
 		></div>
 
 		<!-- Progress Line Active -->
 		<div
-			class="absolute top-5 left-[2.5rem] h-[2px] bg-white transition-all duration-500 -z-10"
+			class="absolute top-5 left-10 h-0.5 bg-white transition-all duration-500 -z-10"
 			style="width: calc({progressWidth}% * (100% - 5rem) / 100)"
 		></div>
 
@@ -24,7 +24,7 @@
 		{#each steps as step, index}
 			<div class="flex flex-col items-center z-10">
 				<div
-					class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ease-[var(--ease-luxury)] {isCompleted(
+					class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ease-(--ease-luxury) {isCompleted(
 						index
 					)
 						? 'bg-white text-black'
@@ -46,7 +46,7 @@
 					{/if}
 				</div>
 				<span
-					class="mt-3 text-xs font-medium text-center max-w-[80px] {isCurrent(index)
+					class="mt-3 text-xs font-medium text-center max-w-20 {isCurrent(index)
 						? 'text-white'
 						: 'text-muted'}"
 				>

@@ -233,7 +233,7 @@
 		{#if isOpen}
 			<div
 				transition:fly={{ y: -10, duration: 200 }}
-				class="absolute left-0 top-full mt-2 w-72 max-h-80 bg-[rgba(9,11,14,0.98)] border border-[rgba(166,173,187,0.2)] rounded-xl shadow-2xl overflow-hidden z-[99999]"
+				class="absolute left-0 top-full mt-2 w-72 max-h-80 bg-[rgba(9,11,14,0.98)] border border-[rgba(166,173,187,0.2)] rounded-xl shadow-2xl overflow-hidden z-99999"
 			>
 				<div class="p-2 border-b border-[rgba(166,173,187,0.12)]">
 					<input
