@@ -59,7 +59,7 @@
 
 		for (let i = 1; i <= frameCount; i++) {
 			const frameIndex = i.toString().padStart(5, '0');
-			const src = `/sequence/whychooseus/${frameIndex}.png`;
+			const src = `/sequence/whychooseus_webp/${frameIndex}.webp`;
 
 			const cached = getCachedImage(src);
 			if (cached && cached.complete) {
@@ -240,7 +240,7 @@
 					>
 						{#if isMobile}
 							<img
-								src="/sequence/whychooseus/00026.png"
+								src="/sequence/whychooseus_webp/00026.webp"
 								alt="Why Choose Us"
 								class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
 							/>
