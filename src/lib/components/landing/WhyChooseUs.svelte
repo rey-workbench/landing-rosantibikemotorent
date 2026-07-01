@@ -34,8 +34,21 @@
 	]);
 
 	let activeFeatureIndex = $state(-1);
+	let isMobile = $state(false);
 
 	onMount(() => {
+		const checkMobile = () => {
+			isMobile = window.innerWidth < 1024;
+		};
+		checkMobile();
+		window.addEventListener('resize', checkMobile);
+
+		if (isMobile) {
+			return () => {
+				window.removeEventListener('resize', checkMobile);
+			};
+		}
+
 		if (canvas) context = canvas.getContext('2d');
 		resize();
 
@@ -94,11 +107,12 @@
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 			window.removeEventListener('resize', resize);
+			window.removeEventListener('resize', checkMobile);
 		};
 	});
 
 	function render(index: number) {
-		if (!context || !canvas || !images[index]) return;
+		if (isMobile || !context || !canvas || !images[index]) return;
 		const width = canvas.clientWidth;
 		const height = canvas.clientHeight;
 
@@ -118,13 +132,14 @@
 	}
 
 	function resize() {
+		if (isMobile) return;
 		if (images.length > 0) render(Math.floor(scrollProgress * frameCount) || 0);
 	}
 </script>
 
-<div class="bg-brand-dark py-32" bind:this={containerRef}>
-	<div class="h-[250vh] relative">
-		<div class="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden">
+<div class="bg-brand-dark py-12 lg:py-32" bind:this={containerRef}>
+	<div class={isMobile ? "relative" : "h-[250vh] relative"}>
+		<div class={isMobile ? "relative w-full flex flex-col justify-center overflow-hidden py-8" : "sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden"}>
 			<div class="absolute inset-0 bg-brand-dark"></div>
 			<div
 				class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none"
@@ -163,12 +178,12 @@
 						{#each features as feature, i}
 							<div
 								class="p-5 rounded-2xl border transition-all duration-500 group cursor-pointer relative overflow-hidden"
-								class:bg-white-5={i === activeFeatureIndex}
-								class:border-white-10={i === activeFeatureIndex}
-								class:bg-transparent={i !== activeFeatureIndex}
-								class:border-transparent={i !== activeFeatureIndex}
+								class:bg-white-5={isMobile || i === activeFeatureIndex}
+								class:border-white-10={isMobile || i === activeFeatureIndex}
+								class:bg-transparent={!isMobile && i !== activeFeatureIndex}
+								class:border-transparent={!isMobile && i !== activeFeatureIndex}
 							>
-								{#if i === activeFeatureIndex}
+								{#if isMobile || i === activeFeatureIndex}
 									<div class="absolute inset-0 bg-white/3 backdrop-blur-sm -z-10"></div>
 								{/if}
 
@@ -192,9 +207,7 @@
 										</h3>
 										<div
 											class="grid transition-all duration-500 overflow-hidden"
-											style="grid-template-rows: {i === activeFeatureIndex
-												? '1fr'
-												: '0fr'}; opacity: {i === activeFeatureIndex ? '1' : '0'}"
+											style="grid-template-rows: {(isMobile || i === activeFeatureIndex) ? '1fr' : '0fr'}; opacity: {(isMobile || i === activeFeatureIndex) ? '1' : '0'}"
 										>
 											<p class="text-gray-500 text-sm mt-1 leading-relaxed min-h-0">
 												{feature.description}
@@ -205,7 +218,7 @@
 
 								<div
 									class="absolute bottom-0 left-0 h-0.5 bg-blue-500 transition-all duration-100 ease-linear"
-									style="width: {i === activeFeatureIndex
+									style="width: {!isMobile && i === activeFeatureIndex
 										? Math.min(
 												100,
 												Math.max(
@@ -225,10 +238,18 @@
 					<div
 						class="relative w-full aspect-4/3 max-w-lg rounded-2xl overflow-hidden border border-white/5 bg-gray-900 group"
 					>
-						<canvas
-							bind:this={canvas}
-							class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
-						></canvas>
+						{#if isMobile}
+							<img
+								src="/sequence/whychooseus/00026.png"
+								alt="Why Choose Us"
+								class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+							/>
+						{:else}
+							<canvas
+								bind:this={canvas}
+								class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+							></canvas>
+						{/if}
 
 						<div
 							class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent pointer-events-none"

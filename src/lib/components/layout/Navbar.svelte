@@ -19,20 +19,24 @@
 
 	onMount(() => {
 		const handleScroll = () => {
-			isScrolled = window.scrollY > 50;
+			const heroHeight = window.innerWidth < 768 ? window.innerHeight : window.innerHeight * 4;
+			isScrolled = window.scrollY > heroHeight - 80;
 		};
 
 		window.addEventListener('scroll', handleScroll);
+		handleScroll(); // check initially
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
 </script>
 
 <nav
-	class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center transition-all duration-300 ease-(--ease-luxury)"
+	class="fixed top-0 w-full z-50 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center transition-all duration-300 ease-(--ease-luxury)"
+	class:bg-[rgba(5,5,8,0.85)]={isScrolled}
+	class:backdrop-blur-md={isScrolled}
 >
 	<a
 		href="/{page.params.lang || $locale}"
-		class="font-display text-[1.7rem] tracking-[0.03em] uppercase text-white flex items-center gap-2"
+		class="font-display text-[1.1rem] sm:text-[1.7rem] tracking-[0.03em] uppercase text-white flex items-center gap-2"
 	>
 		{siteConfig.shortName}
 	</a>
@@ -103,7 +107,7 @@
 			{#each navItems as item}
 				<a
 					href={item.href}
-					class="text-5xl md:text-7xl font-display text-white hover:text-(--brand-highlight) transition-colors uppercase tracking-[0.03em]"
+					class="text-3xl sm:text-5xl md:text-7xl font-display text-white hover:text-(--brand-highlight) transition-colors uppercase tracking-[0.03em]"
 					onclick={() => (isOpen = false)}
 				>
 					{item.label}
@@ -116,7 +120,7 @@
 			variant="primary"
 			size="lg"
 			className="mt-8 text-sm"
-			on:click={() => (isOpen = false)}
+			onclick={() => (isOpen = false)}
 		>
 			{$LL.nav_booking_now()}
 		</Button>

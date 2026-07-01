@@ -42,8 +42,11 @@ class ApiClient {
             }
         }
 
+        // ponytail: use SvelteKit fetch when provided (load functions), else global fetch
+        const fetchFn: typeof fetch = config.customFetch ?? fetch;
+
         try {
-            const response = await fetch(fetchUrl, {
+            const response = await fetchFn(fetchUrl, {
                 method,
                 headers,
                 body

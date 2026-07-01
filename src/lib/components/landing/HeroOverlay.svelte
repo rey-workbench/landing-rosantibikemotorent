@@ -3,7 +3,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
 
-	let { scrollProgress = 0 } = $props();
+	let { scrollProgress = 0, isMobile = false } = $props();
 
 	const texts = $derived([
 		{
@@ -46,7 +46,7 @@
 </script>
 
 <div
-	class="fixed inset-0 pointer-events-none z-20 flex flex-col justify-center px-4 md:px-20 overflow-hidden"
+	class="{isMobile ? 'absolute' : 'fixed'} inset-0 pointer-events-none z-20 flex flex-col justify-center px-4 md:px-20 overflow-hidden"
 >
 
 

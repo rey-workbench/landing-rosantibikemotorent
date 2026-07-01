@@ -4,34 +4,71 @@
 	import TextOverlay from './HeroOverlay.svelte';
 
 	let scrollProgress = $state(0);
+	let isMobile = $state(false);
 
 	onMount(() => {
-		// Since it's a video, we can consider it "loaded" once the component or window is ready
-		// or when the video can play through.
 		setTimeout(() => isLoaded.set(true), 1000);
 
-		const handleScroll = () => {
-			const scrollTop = window.scrollY;
-			const viewportHeight = window.innerHeight;
-			const sectionHeight = viewportHeight * 5;
-			const overlapAdjust = viewportHeight * 1;
-			const effectiveScrollRange = sectionHeight - overlapAdjust;
+		let interval: ReturnType<typeof setInterval> | undefined;
 
-			let progress = scrollTop / (effectiveScrollRange - viewportHeight);
-			if (progress < 0) progress = 0;
-			if (progress > 1) progress = 1;
-
-			scrollProgress = progress;
+		const startMobileSlides = () => {
+			if (interval) return;
+			let currentSlide = 0;
+			const slides = [0.07, 0.27, 0.47, 0.67];
+			scrollProgress = slides[0];
+			interval = setInterval(() => {
+				currentSlide = (currentSlide + 1) % slides.length;
+				scrollProgress = slides[currentSlide];
+			}, 4000);
 		};
 
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
+		const stopMobileSlides = () => {
+			if (interval) { clearInterval(interval); interval = undefined; }
+		};
+
+		const handleScroll = () => {
+			if (isMobile) return;
+			const scrollTop = window.scrollY;
+			const vh = window.innerHeight;
+			// Container: 500vh sticky. Effective scroll range: 500vh - 100vh(overlap) - 1vh = ~3vh
+			const effectiveRange = vh * 3;
+			scrollProgress = Math.max(0, Math.min(1, scrollTop / effectiveRange));
+		};
+
+		const checkMobile = () => {
+			const mobile = window.innerWidth < 768;
+			if (mobile !== isMobile) {
+				isMobile = mobile;
+				if (mobile) {
+					stopMobileSlides();
+					window.removeEventListener('scroll', handleScroll);
+					startMobileSlides();
+				} else {
+					stopMobileSlides();
+					window.addEventListener('scroll', handleScroll);
+				}
+			}
+		};
+
+		isMobile = window.innerWidth < 768;
+		if (isMobile) {
+			startMobileSlides();
+		} else {
+			window.addEventListener('scroll', handleScroll);
+		}
+		window.addEventListener('resize', checkMobile);
+
+		return () => {
+			stopMobileSlides();
+			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('resize', checkMobile);
+		};
 	});
 </script>
 
 <div class="bg-brand-dark">
-	<div class="h-[500vh] relative">
-		<div class="sticky top-0 h-screen w-full overflow-hidden">
+	<div class={isMobile ? "h-screen relative" : "h-[500vh] relative"}>
+		<div class={isMobile ? "h-full w-full overflow-hidden relative" : "sticky top-0 h-screen w-full overflow-hidden"}>
 			<!-- Video Background -->
 			<video
 				autoplay
@@ -39,7 +76,6 @@
 				loop
 				playsinline
 				class="absolute inset-0 w-full h-full object-cover"
-				poster="/video/hero.png"
 			>
 				<source src="/video/hero.mp4" type="video/mp4" />
 			</video>
@@ -61,7 +97,7 @@
 			</div>
 
 			<!-- Text Overlay -->
-			<TextOverlay {scrollProgress} />
+			<TextOverlay {scrollProgress} {isMobile} />
 		</div>
 	</div>
 </div>

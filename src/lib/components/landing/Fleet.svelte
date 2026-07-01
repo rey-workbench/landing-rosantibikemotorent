@@ -15,8 +15,6 @@
 	async function fetchFleet() {
 		try {
 			const response = await jenisMotorApi.getAll({ limit: 4 });
-			// Filter out motors that are completely unavailable if needed
-			// But usually we want to show them as "Sold Out"
 			jenisMotors = response.data || [];
 		} catch (err) {
 			error = err instanceof Error ? err.message : $LL.fleet_error();
@@ -29,8 +27,12 @@
 	let unsubUnit: (() => void) | null = null;
 
 	onMount(() => {
-		// Initial fetch
-		fetchFleet();
+		// Only fetch if not already pre-loaded from SSR
+		if (jenisMotors.length === 0) {
+			fetchFleet();
+		} else {
+			loading = false;
+		}
 
 		// Connect to websocket
 		websocketService.connect();

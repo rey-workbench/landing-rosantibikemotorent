@@ -10,7 +10,7 @@
 	import type { Locales } from '$i18n/i18n-types';
 
 	let { data, children } = $props();
-	const layoutData = data as { lang?: Locales; organizationSchema?: object };
+	let layoutData = $derived(data as { lang?: Locales; organizationSchema?: object });
 
 	$effect(() => {
 		if (layoutData.lang) {

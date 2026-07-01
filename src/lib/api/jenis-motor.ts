@@ -36,8 +36,8 @@ export const jenisMotorApi = {
 		limit?: number;
 		search?: string;
 		merk?: string;
-	}): Promise<{ data: ProcessedJenisMotor[]; meta: PaginationMeta }> => {
-		const { data: body } = await api.get(API_ENDPOINTS.JENIS_MOTOR, { params: filter });
+	}, customFetch?: typeof fetch): Promise<{ data: ProcessedJenisMotor[]; meta: PaginationMeta }> => {
+		const { data: body } = await api.get(API_ENDPOINTS.JENIS_MOTOR, { params: filter, customFetch });
 		return {
 			data: (body.data || []).map(processJenis),
 			meta: body.meta

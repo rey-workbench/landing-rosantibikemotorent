@@ -248,7 +248,7 @@
 
 		{#if success}
 			<!-- Success Message -->
-			<div class="surface-panel p-12 text-center">
+			<div class="surface-panel p-6 md:p-12 text-center">
 				<div
 					class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6"
 				>

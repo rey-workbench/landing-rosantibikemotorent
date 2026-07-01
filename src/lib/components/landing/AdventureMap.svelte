@@ -6,6 +6,7 @@
 	let scrollProgress = $state(0);
 	let containerRef = $state<HTMLElement>();
 	let activePanelIndex = $state(0);
+	let isMobile = $state(false);
 
 	const panels = $derived([
 		{
@@ -40,7 +41,9 @@
 	let videoRefs: HTMLVideoElement[] = [];
 
 	$effect(() => {
-		activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
+		if (!isMobile) {
+			activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
+		}
 
 		videoRefs.forEach((video, idx) => {
 			if (video) {
@@ -58,7 +61,14 @@
 	});
 
 	onMount(() => {
+		const checkMobile = () => {
+			isMobile = window.innerWidth < 768;
+		};
+		checkMobile();
+		window.addEventListener('resize', checkMobile);
+
 		const handleScroll = () => {
+			if (isMobile) return;
 			if (!containerRef) return;
 			const rect = containerRef.getBoundingClientRect();
 			const viewportHeight = window.innerHeight;
@@ -74,20 +84,23 @@
 
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('resize', checkMobile);
 		};
 	});
 </script>
 
 <div class="bg-brand-dark relative" bind:this={containerRef}>
-	<div class="relative" style="height: {panels.length * 100}vh">
-		<div class="absolute inset-0 flex flex-col pointer-events-none">
-			{#each panels as _, i}
-				<div class="h-screen w-full snap-start"></div>
-			{/each}
-		</div>
+	<div class="relative" style="height: {isMobile ? 'auto' : `${panels.length * 100}vh`}">
+		{#if !isMobile}
+			<div class="absolute inset-0 flex flex-col pointer-events-none">
+				{#each panels as _, i}
+					<div class="h-screen w-full snap-start"></div>
+				{/each}
+			</div>
+		{/if}
 
 		<div
-			class="sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row bg-black"
+			class={isMobile ? "relative w-full h-[75vh] flex flex-col bg-black overflow-hidden" : "sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row bg-black"}
 			style="perspective: 1000px;"
 		>
 			<div
@@ -115,12 +128,24 @@
 			</div>
 			{#each panels as panel, i}
 				<div
-					class="panel relative w-full md:w-auto md:h-full transition-all duration-700 md:duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden border-b border-white/10 md:border-b-0 md:border-r last:border-0"
+					class="panel relative w-full md:w-auto md:h-full transition-all duration-700 md:duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden border-b border-white/10 md:border-b-0 md:border-r last:border-0 cursor-pointer"
+					role="button"
+					tabindex="0"
 					style="
 						z-index: {i === activePanelIndex ? 10 : i};
 						flex: {i === activePanelIndex ? '6' : '1'};
 						filter: {i === activePanelIndex ? 'saturate(1.1) brightness(1)' : 'saturate(0) brightness(0.4)'};
 					"
+					onclick={() => {
+						if (isMobile) {
+							activePanelIndex = i;
+						}
+					}}
+					onkeydown={(e) => {
+						if (isMobile && (e.key === 'Enter' || e.key === ' ')) {
+							activePanelIndex = i;
+						}
+					}}
 				>
 					<div
 						class="absolute inset-0 w-full h-full transition-transform duration-[1.5s] ease-out"

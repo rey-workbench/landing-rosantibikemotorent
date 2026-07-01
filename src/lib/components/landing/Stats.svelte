@@ -37,7 +37,7 @@
 	});
 </script>
 
-<section class="py-24 relative bg-brand-dark overflow-hidden z-20" bind:this={sectionRef}>
+<section class="py-16 md:py-24 relative bg-brand-dark overflow-hidden z-20" bind:this={sectionRef}>
 	<div class="absolute top-1/2 left-1/4 w-96 h-96 rounded-full pointer-events-none opacity-0"></div>
 
 	<div class="container mx-auto px-4 relative z-10">
