@@ -36,23 +36,17 @@
 >
 	<a
 		href="/{page.params.lang || $locale}"
-		class="font-display text-[1.1rem] sm:text-[1.7rem] tracking-[0.03em] uppercase text-white flex items-center gap-2"
+		class="flex flex-col text-left group"
 	>
-		{siteConfig.shortName}
+		<span class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase text-white font-black leading-none">
+			{siteConfig.shortName}
+		</span>
+		<span class="text-[0.55rem] sm:text-[0.7rem] tracking-[0.35em] uppercase text-white/60 font-mono leading-none mt-1 sm:mt-1.5 font-bold group-hover:text-blue-400 transition-colors">
+			MOTORENT
+		</span>
 	</a>
 
 	<div class="flex items-center gap-5 md:gap-8">
-		<Button
-			href="/{page.params.lang || $locale}/booking"
-			variant="outline"
-			size="sm"
-			className="hidden md:inline-flex border-[rgba(166,173,187,0.34)] text-white {isScrolled
-				? 'opacity-100 translate-y-0'
-				: 'opacity-0 -translate-y-2 pointer-events-none'}"
-		>
-			{$LL.nav_book_now()}
-		</Button>
-
 		<LanguageSwitcher />
 
 		<button

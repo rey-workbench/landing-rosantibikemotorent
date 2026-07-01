@@ -106,7 +106,7 @@
 			<div
 				class="absolute top-0 left-0 w-full z-20 pointer-events-none mix-blend-difference text-white"
 			>
-				<div class="absolute top-4 md:top-8 left-1/2 -translate-x-1/2 text-center w-full px-4 pt-4">
+				<div class="absolute top-6 md:top-24 left-1/2 -translate-x-1/2 text-center w-full px-4 pt-4">
 					<h2
 						class="text-[10px] md:text-sm font-bold text-blue-400 tracking-[0.2em] mb-2 md:mb-4 uppercase flex items-center justify-center gap-2"
 					>

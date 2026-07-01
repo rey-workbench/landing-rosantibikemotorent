@@ -55,6 +55,7 @@
 			startMobileSlides();
 		} else {
 			window.addEventListener('scroll', handleScroll);
+			handleScroll(); // run immediately to set correct scrollProgress based on initial scroll position
 		}
 		window.addEventListener('resize', checkMobile);
 
@@ -96,8 +97,10 @@
 				<div class="absolute inset-0 bg-black/30"></div>
 			</div>
 
-			<!-- Text Overlay -->
-			<TextOverlay {scrollProgress} {isMobile} />
+			{#if isMobile || scrollProgress < 0.95}
+				<!-- Text Overlay -->
+				<TextOverlay {scrollProgress} {isMobile} />
+			{/if}
 		</div>
 	</div>
 </div>
