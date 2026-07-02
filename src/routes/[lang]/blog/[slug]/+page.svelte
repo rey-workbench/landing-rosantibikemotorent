@@ -134,7 +134,9 @@
 
 			<!-- Text -->
 			<div class="prose prose-invert max-w-none article-content">
-				{@html post.konten}
+				{#await import('isomorphic-dompurify') then DOMPurify}
+					{@html DOMPurify.default.sanitize(post.konten)}
+				{/await}
 			</div>
 
 			<!-- Footer / Share -->
