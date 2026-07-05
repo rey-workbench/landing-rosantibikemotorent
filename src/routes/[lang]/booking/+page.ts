@@ -19,8 +19,9 @@ export const load: PageLoad = async ({ url }) => {
 			endDate
 		});
 		// Filter units that are available for the entire range
-		availableMotors = (availabilityData as any).units
-			.filter((u: any) => u.availability.every((a: any) => a.isAvailable));
+		availableMotors = (availabilityData as any).units.filter((u: any) =>
+			u.availability.every((a: any) => a.isAvailable)
+		);
 	} catch (e) {
 		console.error('Failed to fetch availability:', e);
 		// Fallback to all units if availability check fails

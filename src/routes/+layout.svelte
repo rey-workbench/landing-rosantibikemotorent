@@ -42,10 +42,17 @@
 	});
 </script>
 
+<a
+	href="#main-content"
+	class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-999 bg-white text-black px-4 py-2 rounded font-bold"
+>
+	Skip to content
+</a>
+
 <Preloader />
 <Navbar />
 
-<main class="min-h-screen bg-brand-dark text-white">
+<main id="main-content" class="min-h-screen bg-brand-dark text-white">
 	{@render children()}
 </main>
 

@@ -23,7 +23,10 @@
 		};
 
 		const stopMobileSlides = () => {
-			if (interval) { clearInterval(interval); interval = undefined; }
+			if (interval) {
+				clearInterval(interval);
+				interval = undefined;
+			}
 		};
 
 		const handleScroll = () => {
@@ -68,16 +71,14 @@
 </script>
 
 <div class="bg-brand-dark">
-	<div class={isMobile ? "h-screen relative" : "h-[500vh] relative"}>
-		<div class={isMobile ? "h-full w-full overflow-hidden relative" : "sticky top-0 h-screen w-full overflow-hidden"}>
+	<div class={isMobile ? 'h-screen relative' : 'h-[500vh] relative'}>
+		<div
+			class={isMobile
+				? 'h-full w-full overflow-hidden relative'
+				: 'sticky top-0 h-screen w-full overflow-hidden'}
+		>
 			<!-- Video Background -->
-			<video
-				autoplay
-				muted
-				loop
-				playsinline
-				class="absolute inset-0 w-full h-full object-cover"
-			>
+			<video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
 				<source src="/video/hero.mp4" type="video/mp4" />
 			</video>
 

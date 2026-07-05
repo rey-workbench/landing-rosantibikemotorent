@@ -1,5 +1,5 @@
 <script lang="ts">
-		import { onMount, onDestroy, untrack } from 'svelte';
+	import { onMount, onDestroy, untrack } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
 	import type { JenisMotor } from '$lib/types';
 	import Input from '$lib/components/ui/Input.svelte';
@@ -31,30 +31,32 @@
 	let currentUrl = $derived($page.url.href);
 
 	async function fetchFleet() {
+		loading = true;
 		try {
 			const response = await jenisMotorApi.getAll();
 			jenisMotors = response.data || [];
 		} catch (err: any) {
 			console.error('Failed to load fleet:', err);
+		} finally {
+			loading = false;
 		}
 	}
 
 	onMount(() => {
 		websocketService.connect();
-		
+
 		const refresh = () => {
-			console.log('[FleetPage] Refreshing data...');
 			fetchFleet();
 		};
 
 		unsubs = [
-            websocketService.onTransactionUpdate(refresh),
-            websocketService.onUnitMotorUpdate(refresh)
-        ];
+			websocketService.onTransactionUpdate(refresh),
+			websocketService.onUnitMotorUpdate(refresh)
+		];
 	});
 
 	onDestroy(() => {
-		unsubs.forEach(unsub => unsub());
+		unsubs.forEach((unsub) => unsub());
 	});
 
 	let filteredMotors = $derived(
@@ -76,7 +78,6 @@
 			minimumFractionDigits: 0
 		}).format(price);
 	}
-
 </script>
 
 <SeoHead
@@ -94,11 +95,12 @@
 	<div class="max-w-7xl mx-auto">
 		<!-- Header -->
 		<div class="mb-12">
-			<h2 class="section-kicker mb-4">
+			<!-- M4 FIX: kicker demoted from h2 to p to preserve h1-first heading order -->
+			<p class="section-kicker mb-4">
 				<span class="kicker-line"></span>
 				{$LL.fleet_header_title()}
 				<span class="kicker-line"></span>
-			</h2>
+			</p>
 			<h1 class="section-title">
 				{$LL.fleet_header_heading()} <br />
 				<span class="section-title-highlight">{$LL.fleet_header_heading_highlight()}</span>
@@ -127,7 +129,7 @@
 						{ value: '', label: $LL.fleet_filter_brand_all() },
 						...brands.map((b) => ({ value: b.merk, label: b.merk }))
 					]}
-					placeholder={$LL.nav_home()}
+					placeholder={$LL.fleet_filter_brand_all()}
 				/>
 			</div>
 
@@ -138,9 +140,19 @@
 					>{$LL.fleet_filter_price_label()}</label
 				>
 				<div class="flex items-center gap-2 mt-1">
-					<Input id="price-min" type="number" bind:value={priceRange.min} placeholder="Min" />
-					<span class="text-[rgba(166,173,187,0.7)] font-bold">-</span>
-					<Input id="price-max" type="number" bind:value={priceRange.max} placeholder="Max" />
+					<div class="flex-1">
+						<Input id="price-min" type="number" bind:value={priceRange.min} placeholder="Min" />
+						<div class="text-[10px] text-muted mt-1 ml-1">
+							{formatPrice(priceRange.min).replace(',00', '')}
+						</div>
+					</div>
+					<span class="text-[rgba(166,173,187,0.7)] font-bold mb-4">-</span>
+					<div class="flex-1">
+						<Input id="price-max" type="number" bind:value={priceRange.max} placeholder="Max" />
+						<div class="text-[10px] text-muted mt-1 ml-1">
+							{formatPrice(priceRange.max).replace(',00', '')}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -164,7 +176,7 @@
 					<a
 						href="/{lang}/fleet/{jenis.slug}"
 						class="group relative flex flex-col surface-card overflow-hidden"
-						in:fly={{ y: 20, duration: 500, delay: i * 30 }}
+						in:fly={{ y: 20, duration: 500, delay: Math.min(i * 30, 120) }}
 					>
 						<!-- Image -->
 						<div
@@ -174,6 +186,9 @@
 								<img
 									src={jenis.gambar}
 									alt={`${jenis.merk} ${jenis.model}`}
+									loading="lazy"
+									width="400"
+									height="300"
 									class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
 								/>
 							{:else}
@@ -243,6 +258,7 @@
 									{/if}
 								</div>
 
+								<!-- Desktop CTA arrow -->
 								<div
 									class="hidden md:flex items-center gap-2 text-white font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all"
 								>
@@ -254,6 +270,25 @@
 										fill="none"
 										stroke="currentColor"
 										stroke-width="3"
+										aria-hidden="true"
+										><line x1="5" y1="12" x2="19" y2="12"></line><polyline
+											points="12 5 19 12 12 19"
+										/></svg
+									>
+								</div>
+								<!-- H5 FIX: Mobile tap affordance -->
+								<div
+									class="flex md:hidden items-center gap-1 text-white/50 font-black text-[9px] uppercase tracking-widest mt-1"
+								>
+									<span>{$LL.fleet_link_detail()}</span>
+									<svg
+										width="8"
+										height="8"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="3"
+										aria-hidden="true"
 										><line x1="5" y1="12" x2="19" y2="12"></line><polyline
 											points="12 5 19 12 12 19"
 										/></svg

@@ -31,13 +31,19 @@ function processJenis(jenis: any): ProcessedJenisMotor {
 }
 
 export const jenisMotorApi = {
-	getAll: async (filter?: {
-		page?: number;
-		limit?: number;
-		search?: string;
-		merk?: string;
-	}, customFetch?: typeof fetch): Promise<{ data: ProcessedJenisMotor[]; meta: PaginationMeta }> => {
-		const { data: body } = await api.get(API_ENDPOINTS.JENIS_MOTOR, { params: filter, customFetch });
+	getAll: async (
+		filter?: {
+			page?: number;
+			limit?: number;
+			search?: string;
+			merk?: string;
+		},
+		customFetch?: typeof fetch
+	): Promise<{ data: ProcessedJenisMotor[]; meta: PaginationMeta }> => {
+		const { data: body } = await api.get(API_ENDPOINTS.JENIS_MOTOR, {
+			params: filter,
+			customFetch
+		});
 		return {
 			data: (body.data || []).map(processJenis),
 			meta: body.meta

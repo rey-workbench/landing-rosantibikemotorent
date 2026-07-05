@@ -100,13 +100,17 @@
 		{/if}
 
 		<div
-			class={isMobile ? "relative w-full h-[75vh] flex flex-col bg-black overflow-hidden" : "sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row bg-black"}
+			class={isMobile
+				? 'relative w-full h-[75vh] flex flex-col bg-black overflow-hidden'
+				: 'sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row bg-black'}
 			style="perspective: 1000px;"
 		>
 			<div
 				class="absolute top-0 left-0 w-full z-20 pointer-events-none mix-blend-difference text-white"
 			>
-				<div class="absolute top-6 md:top-24 left-1/2 -translate-x-1/2 text-center w-full px-4 pt-4">
+				<div
+					class="absolute top-6 md:top-24 left-1/2 -translate-x-1/2 text-center w-full px-4 pt-4"
+				>
 					<h2
 						class="text-[10px] md:text-sm font-bold text-blue-400 tracking-[0.2em] mb-2 md:mb-4 uppercase flex items-center justify-center gap-2"
 					>

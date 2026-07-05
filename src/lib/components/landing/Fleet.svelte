@@ -1,5 +1,5 @@
 <script lang="ts">
-		import { onMount, onDestroy } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
 	import { formatCurrency } from '$lib/utils/format';
 	import { LL, locale } from '$i18n/i18n-svelte';
@@ -39,13 +39,11 @@
 
 		// Listen for transaction updates to refresh availability
 		unsubscribe = websocketService.onTransactionUpdate((data) => {
-			console.log('[Fleet] Transaction updated, refreshing availability...', data.event);
 			fetchFleet();
 		});
 
 		// Also listen for unit updates
 		unsubUnit = websocketService.onUnitMotorUpdate(() => {
-			console.log('[Fleet] Unit motor updated, refreshing fleet...');
 			fetchFleet();
 		});
 	});
@@ -58,7 +56,6 @@
 	function formatPrice(price: number): string {
 		return formatCurrency(price);
 	}
-
 </script>
 
 <section id="fleet" class="py-20 md:py-32 bg-brand-dark section-shell overflow-hidden">
@@ -104,6 +101,9 @@
 							<img
 								src={jenis.gambar}
 								alt={`${jenis.merk} ${jenis.model}`}
+								loading="lazy"
+								width="400"
+								height="300"
 								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
 							/>
 						{:else}

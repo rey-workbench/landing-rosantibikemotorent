@@ -21,9 +21,16 @@
 			(entries) => {
 				if (entries[0].isIntersecting && !visible) {
 					visible = true;
-					spring1.set(stats[0].value);
-					spring2.set(stats[1].value);
-					spring3.set(stats[2].value);
+					const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+					if (prefersReduced) {
+						spring1.set(stats[0].value, { hard: true });
+						spring2.set(stats[1].value, { hard: true });
+						spring3.set(stats[2].value, { hard: true });
+					} else {
+						spring1.set(stats[0].value);
+						spring2.set(stats[1].value);
+						spring3.set(stats[2].value);
+					}
 				}
 			},
 			{ threshold: 0.2 }

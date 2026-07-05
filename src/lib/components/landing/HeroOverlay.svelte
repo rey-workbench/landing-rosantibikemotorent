@@ -2,8 +2,13 @@
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
+	import { siteConfig } from '$lib/config';
 
 	let { scrollProgress = 0, isMobile = false } = $props();
+
+	const whatsappHref = $derived(
+		`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('Halo, saya tertarik untuk menyewa motor.')}`
+	);
 
 	const texts = $derived([
 		{
@@ -46,11 +51,10 @@
 </script>
 
 <div
-	class="{isMobile ? 'absolute' : 'fixed'} inset-0 pointer-events-none z-20 flex flex-col justify-center px-4 md:px-20 overflow-hidden"
+	class="{isMobile
+		? 'absolute'
+		: 'fixed'} inset-0 pointer-events-none z-20 flex flex-col justify-center px-4 md:px-20 overflow-hidden"
 >
-
-
-
 	{#each texts as t, i}
 		{#if i === activeIndex}
 			<div
@@ -100,18 +104,21 @@
 						in:fade={{ delay: 300 }}
 						class="mt-6 sm:mt-8 md:mt-12 flex flex-col items-center gap-3 sm:gap-4"
 					>
-						<button
-							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-widest sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full overflow-hidden"
+						<a
+							href={whatsappHref}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-widest sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full overflow-hidden inline-block"
 						>
 							<span class="relative z-10">{$LL.hero_book_whatsapp()}</span>
 							<div
-								class="absolute inset-0 bg-linear-to-r from-gray-200 to-gray-400 -translate-x-full group-hover:translate-x-0 transition-transform duration-500"
+								class="absolute inset-0 bg-linear-to-r from-green-400 to-green-600 -translate-x-full group-hover:translate-x-0 transition-transform duration-500"
 							></div>
 							<span
 								class="absolute inset-0 flex items-center justify-center z-10 group-hover:text-white transition-colors duration-500 opacity-0 group-hover:opacity-100"
 								>{$LL.hero_book_whatsapp()}</span
 							>
-						</button>
+						</a>
 						<span
 							class="text-[8px] sm:text-[10px] font-mono text-white/30 tracking-[0.2em] sm:tracking-[0.4em]"
 							>{$LL.hero_partner()}</span
@@ -122,7 +129,7 @@
 		{/if}
 	{/each}
 
-	{#if scrollProgress < 0.05}
+	{#if scrollProgress < 0.12 && !isMobile}
 		<div
 			class="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-4 text-white animate-bounce"
 			in:fade
@@ -132,6 +139,19 @@
 				>{$LL.hero_scroll()}</span
 			>
 			<div class="w-px h-8 sm:h-12 bg-linear-to-b from-white to-transparent"></div>
+		</div>
+	{/if}
+
+	<!-- H1 FIX: Mobile slide progress dots -->
+	{#if isMobile && activeIndex >= 0}
+		<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2" in:fade>
+			{#each texts as _t, i}
+				<div
+					class="rounded-full transition-all duration-300 {i === activeIndex
+						? 'w-5 h-1.5 bg-white'
+						: 'w-1.5 h-1.5 bg-white/30'}"
+				></div>
+			{/each}
 		</div>
 	{/if}
 </div>

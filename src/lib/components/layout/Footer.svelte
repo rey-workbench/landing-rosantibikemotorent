@@ -9,9 +9,7 @@
 	<div class="max-w-7xl mx-auto px-6">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
 			<div class="space-y-6">
-				<h2
-					class="font-display text-[2rem] uppercase tracking-[0.03em] text-white"
-				>
+				<h2 class="font-display text-[2rem] uppercase tracking-[0.03em] text-white">
 					{siteConfig.shortName}
 				</h2>
 				<p class="text-muted text-sm leading-relaxed max-w-xs">

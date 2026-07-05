@@ -10,9 +10,7 @@
 <div class="w-full mb-8">
 	<div class="flex items-center justify-between relative px-2">
 		<!-- Progress Line Background -->
-		<div
-			class="absolute top-5 left-10 right-10 h-0.5 bg-[rgba(166,173,187,0.3)] -z-10"
-		></div>
+		<div class="absolute top-5 left-10 right-10 h-0.5 bg-[rgba(166,173,187,0.3)] -z-10"></div>
 
 		<!-- Progress Line Active -->
 		<div

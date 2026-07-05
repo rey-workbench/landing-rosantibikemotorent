@@ -34,14 +34,15 @@
 	class:bg-[rgba(5,5,8,0.85)]={isScrolled}
 	class:backdrop-blur-md={isScrolled}
 >
-	<a
-		href="/{page.params.lang || $locale}"
-		class="flex flex-col text-left group"
-	>
-		<span class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase text-white font-black leading-none">
+	<a href="/{page.params.lang || $locale}" class="flex flex-col text-left group">
+		<span
+			class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase text-white font-black leading-none"
+		>
 			{siteConfig.shortName}
 		</span>
-		<span class="text-[0.55rem] sm:text-[0.7rem] tracking-[0.35em] uppercase text-white/60 font-mono leading-none mt-1 sm:mt-1.5 font-bold group-hover:text-blue-400 transition-colors">
+		<span
+			class="text-[0.55rem] sm:text-[0.7rem] tracking-[0.35em] uppercase text-white/60 font-mono leading-none mt-1 sm:mt-1.5 font-bold group-hover:text-blue-400 transition-colors"
+		>
 			MOTORENT
 		</span>
 	</a>
@@ -101,7 +102,11 @@
 			{#each navItems as item}
 				<a
 					href={item.href}
-					class="text-3xl sm:text-5xl md:text-7xl font-display text-white hover:text-(--brand-highlight) transition-colors uppercase tracking-[0.03em]"
+					aria-current={page.url.pathname === item.href ? 'page' : undefined}
+					class="text-3xl sm:text-5xl md:text-7xl font-display transition-colors uppercase tracking-[0.03em] {page
+						.url.pathname === item.href
+						? 'text-(--brand-highlight)'
+						: 'text-white hover:text-(--brand-highlight)'}"
 					onclick={() => (isOpen = false)}
 				>
 					{item.label}

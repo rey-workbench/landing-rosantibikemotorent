@@ -1,5 +1,5 @@
 <script lang="ts">
-		import { onMount, onDestroy, untrack } from 'svelte';
+	import { onMount, onDestroy, untrack } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
 	import { websocketService } from '$lib/services/websocket';
 	import { goto } from '$app/navigation';
@@ -76,7 +76,6 @@
 			goto(`/${lang}/booking?unitId=${motor.id}`);
 		}
 	}
-
 
 	let productSchema = $derived(
 		motor && jenis
@@ -191,8 +190,6 @@
 							</div>
 						{/if}
 					</div>
-
-
 				</div>
 
 				<!-- Details Section -->

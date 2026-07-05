@@ -16,19 +16,19 @@
 		{
 			title: $LL.why_price_title(),
 			description: $LL.why_price_desc(),
-			icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12.586 2.586a2 2 0 0 0-2.828 0l-7.172 7.172a2 2 0 0 0 0 2.828l7.172 7.172a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828z"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>`,
+			icon: `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12.586 2.586a2 2 0 0 0-2.828 0l-7.172 7.172a2 2 0 0 0 0 2.828l7.172 7.172a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828z"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>`,
 			progressTrigger: 0.1
 		},
 		{
 			title: $LL.why_unit_title(),
 			description: $LL.why_unit_desc(),
-			icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+			icon: `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
 			progressTrigger: 0.4
 		},
 		{
 			title: $LL.why_delivery_title(),
 			description: $LL.why_delivery_desc(),
-			icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck"><path d="M5 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M17 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M13 18H7V6a2 2 0 0 0-2-2H3"/><path d="M13 18h7a2 2 0 0 0 2-2V9l-3-3h-6Z"/><path d="M13 12h9"/></svg>`,
+			icon: `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck"><path d="M5 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M17 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M13 18H7V6a2 2 0 0 0-2-2H3"/><path d="M13 18h7a2 2 0 0 0 2-2V9l-3-3h-6Z"/><path d="M13 12h9"/></svg>`,
 			progressTrigger: 0.7
 		}
 	]);
@@ -138,8 +138,12 @@
 </script>
 
 <div class="bg-brand-dark py-12 lg:py-32" bind:this={containerRef}>
-	<div class={isMobile ? "relative" : "h-[250vh] relative"}>
-		<div class={isMobile ? "relative w-full flex flex-col justify-center overflow-hidden py-8" : "sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden"}>
+	<div class={isMobile ? 'relative' : 'h-[250vh] relative'}>
+		<div
+			class={isMobile
+				? 'relative w-full flex flex-col justify-center overflow-hidden py-8'
+				: 'sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden'}
+		>
 			<div class="absolute inset-0 bg-brand-dark"></div>
 			<div
 				class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none"
@@ -207,7 +211,9 @@
 										</h3>
 										<div
 											class="grid transition-all duration-500 overflow-hidden"
-											style="grid-template-rows: {(isMobile || i === activeFeatureIndex) ? '1fr' : '0fr'}; opacity: {(isMobile || i === activeFeatureIndex) ? '1' : '0'}"
+											style="grid-template-rows: {isMobile || i === activeFeatureIndex
+												? '1fr'
+												: '0fr'}; opacity: {isMobile || i === activeFeatureIndex ? '1' : '0'}"
 										>
 											<p class="text-gray-500 text-sm mt-1 leading-relaxed min-h-0">
 												{feature.description}

@@ -12,148 +12,149 @@ type UnitMotorUpdateHandler = (data: UnitMotorUpdate) => void;
 type TransactionUpdateHandler = (data: any) => void;
 
 class WebSocketService {
-    private socket: Socket | null = null;
-    private connectionState = writable<ConnectionState>({
-        isConnected: false,
-        socketId: null
-    });
-    private isInitialized = false;
-    private beforeUnloadHandler: (() => void) | null = null;
+	private socket: Socket | null = null;
+	private connectionState = writable<ConnectionState>({
+		isConnected: false,
+		socketId: null
+	});
+	private isInitialized = false;
+	private beforeUnloadHandler: (() => void) | null = null;
 
-    private motorStatusUpdateHandlers = new Set<MotorStatusUpdateHandler>();
-    private unitMotorUpdateHandlers = new Set<UnitMotorUpdateHandler>();
-    private transactionUpdateHandlers = new Set<TransactionUpdateHandler>();
+	private motorStatusUpdateHandlers = new Set<MotorStatusUpdateHandler>();
+	private unitMotorUpdateHandlers = new Set<UnitMotorUpdateHandler>();
+	private transactionUpdateHandlers = new Set<TransactionUpdateHandler>();
 
-    connect(): void {
-        if (!browser) {
-            return;
-        }
+	connect(): void {
+		if (!browser) {
+			return;
+		}
 
-        if (this.socket && (this.socket.connected || this.socket.active)) {
-            return;
-        }
+		if (this.socket && (this.socket.connected || this.socket.active)) {
+			return;
+		}
 
-        if (this.socket) {
-            this.socket.removeAllListeners();
-            this.socket.disconnect();
-            this.socket = null;
-        }
+		if (this.socket) {
+			this.socket.removeAllListeners();
+			this.socket.disconnect();
+			this.socket = null;
+		}
 
-        let apiUrl = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL?.replace(/\/api$/, '');
-        if (!apiUrl) {
-            apiUrl = browser ? `${window.location.protocol}//${window.location.hostname}:3030` : 'http://localhost:3030';
-        }
+		let apiUrl = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL?.replace(/\/api$/, '');
+		if (!apiUrl) {
+			apiUrl = browser
+				? `${window.location.protocol}//${window.location.hostname}:3030`
+				: 'http://localhost:3030';
+		}
 
-        this.socket = io(`${apiUrl}/realtime`, {
-            transports: ['websocket'],
-            reconnection: true,
-            reconnectionAttempts: 5,
-            reconnectionDelay: 2000,
-            autoConnect: true,
-        });
+		this.socket = io(`${apiUrl}/realtime`, {
+			transports: ['websocket'],
+			reconnection: true,
+			reconnectionAttempts: 5,
+			reconnectionDelay: 2000,
+			autoConnect: true
+		});
 
-        this.setupEventListeners();
-        this.isInitialized = true;
+		this.setupEventListeners();
+		this.isInitialized = true;
 
-        if (browser && !this.beforeUnloadHandler) {
-            this.beforeUnloadHandler = () => this.disconnect();
-            window.addEventListener('beforeunload', this.beforeUnloadHandler);
-        }
-    }
+		if (browser && !this.beforeUnloadHandler) {
+			this.beforeUnloadHandler = () => this.disconnect();
+			window.addEventListener('beforeunload', this.beforeUnloadHandler);
+		}
+	}
 
-    disconnect(): void {
-        if (this.socket) {
-            this.socket.removeAllListeners();
-            this.socket.disconnect();
-            this.socket = null;
-            this.isInitialized = false;
-            this.updateState(false, null);
-        }
+	disconnect(): void {
+		if (this.socket) {
+			this.socket.removeAllListeners();
+			this.socket.disconnect();
+			this.socket = null;
+			this.isInitialized = false;
+			this.updateState(false, null);
+		}
 
-        if (browser && this.beforeUnloadHandler) {
-            window.removeEventListener('beforeunload', this.beforeUnloadHandler);
-            this.beforeUnloadHandler = null;
-        }
-    }
+		if (browser && this.beforeUnloadHandler) {
+			window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+			this.beforeUnloadHandler = null;
+		}
+	}
 
-    private updateState(isConnected: boolean, socketId: string | null) {
-        socketConnected.set(isConnected);
-        this.connectionState.update(() => ({
-            isConnected,
-            socketId
-        }));
-    }
+	private updateState(isConnected: boolean, socketId: string | null) {
+		socketConnected.set(isConnected);
+		this.connectionState.update(() => ({
+			isConnected,
+			socketId
+		}));
+	}
 
-    private setupEventListeners(): void {
-        if (!this.socket) return;
+	private setupEventListeners(): void {
+		if (!this.socket) return;
 
-        this.socket.on('connect', () => {
-            console.log('[Landing Socket] Connected with ID:', this.socket?.id);
-            this.updateState(true, this.socket?.id || null);
-        });
+		this.socket.on('connect', () => {
+			console.log('[Landing Socket] Connected with ID:', this.socket?.id);
+			this.updateState(true, this.socket?.id || null);
+		});
 
-        this.socket.on('disconnect', () => {
-            this.updateState(false, null);
-        });
+		this.socket.on('disconnect', () => {
+			this.updateState(false, null);
+		});
 
-        this.socket.on('connect_error', (error) => {
-            console.error('[Landing Socket] Connection error:', error.message);
-        });
+		this.socket.on('connect_error', (error) => {
+			console.error('[Landing Socket] Connection error:', error.message);
+		});
 
-        this.socket.on('motor-status-update', (data: MotorStatusUpdate) => {
-            motorAvailability.set(data);
-            this.motorStatusUpdateHandlers.forEach(handler => handler(data));
-        });
+		this.socket.on('motor-status-update', (data: MotorStatusUpdate) => {
+			motorAvailability.set(data);
+			this.motorStatusUpdateHandlers.forEach((handler) => handler(data));
+		});
 
-        this.socket.on('unit-motor:update', (data: UnitMotorUpdate) => {
-            this.unitMotorUpdateHandlers.forEach(handler => handler(data));
-        });
+		this.socket.on('unit-motor:update', (data: UnitMotorUpdate) => {
+			this.unitMotorUpdateHandlers.forEach((handler) => handler(data));
+		});
 
-        // Transaction events
-        const transactionEvents = [
-            'transaksi-created',
-            'transaksi-updated',
-            'transaksi-deleted',
-            'transaksi-selesai'
-        ];
+		// Transaction events
+		const transactionEvents = [
+			'transaksi-created',
+			'transaksi-updated',
+			'transaksi-deleted',
+			'transaksi-selesai'
+		];
 
-        transactionEvents.forEach(event => {
-            this.socket?.on(event, (data) => {
-                console.log(`[Landing Socket] Event ${event} received:`, data);
-                transactionUpdate.set({ event, data });
-                this.transactionUpdateHandlers.forEach(handler => handler({ event, data }));
-            });
-        });
-    }
+		transactionEvents.forEach((event) => {
+			this.socket?.on(event, (data) => {
+				console.log(`[Landing Socket] Event ${event} received:`, data);
+				transactionUpdate.set({ event, data });
+				this.transactionUpdateHandlers.forEach((handler) => handler({ event, data }));
+			});
+		});
+	}
 
-    onMotorStatusUpdate(handler: MotorStatusUpdateHandler) {
-        this.motorStatusUpdateHandlers.add(handler);
-        return () => this.motorStatusUpdateHandlers.delete(handler);
-    }
+	onMotorStatusUpdate(handler: MotorStatusUpdateHandler) {
+		this.motorStatusUpdateHandlers.add(handler);
+		return () => this.motorStatusUpdateHandlers.delete(handler);
+	}
 
-    onUnitMotorUpdate(handler: UnitMotorUpdateHandler) {
-        this.unitMotorUpdateHandlers.add(handler);
-        return () => this.unitMotorUpdateHandlers.delete(handler);
-    }
+	onUnitMotorUpdate(handler: UnitMotorUpdateHandler) {
+		this.unitMotorUpdateHandlers.add(handler);
+		return () => this.unitMotorUpdateHandlers.delete(handler);
+	}
 
-    onTransactionUpdate(handler: TransactionUpdateHandler) {
-        this.transactionUpdateHandlers.add(handler);
-        return () => this.transactionUpdateHandlers.delete(handler);
-    }
+	onTransactionUpdate(handler: TransactionUpdateHandler) {
+		this.transactionUpdateHandlers.add(handler);
+		return () => this.transactionUpdateHandlers.delete(handler);
+	}
 
-    isConnected(): boolean {
-        return this.socket?.connected ?? false;
-    }
+	isConnected(): boolean {
+		return this.socket?.connected ?? false;
+	}
 
-    getSocketId(): string | null {
-        return this.socket?.id ?? null;
-    }
+	getSocketId(): string | null {
+		return this.socket?.id ?? null;
+	}
 
-    getConnectionState() {
-        return this.connectionState;
-    }
+	getConnectionState() {
+		return this.connectionState;
+	}
 }
 
 export const websocketService = new WebSocketService();
 export default websocketService;
-

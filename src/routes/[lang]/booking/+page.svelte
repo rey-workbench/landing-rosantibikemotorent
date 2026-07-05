@@ -33,7 +33,8 @@
 
 	$: {
 		if (formData.jenisId) {
-			selectedUnit = availableMotors.find((m) => (m.jenisId || m.jenis?.id) === formData.jenisId) || null;
+			selectedUnit =
+				availableMotors.find((m) => (m.jenisId || m.jenis?.id) === formData.jenisId) || null;
 		} else if (formData.unitId) {
 			selectedUnit = availableMotors.find((m) => m.id === formData.unitId) || null;
 		} else {
@@ -100,7 +101,10 @@
 			priceBreakdown = result;
 		} catch (err: any) {
 			console.error('Price calculation failed:', err);
-			formError = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
+			formError =
+				err?.response?.data?.userErrorMsg ||
+				err?.response?.data?.message ||
+				$LL.booking_error_price_calc();
 			priceBreakdown = null;
 		} finally {
 			isCalculating = false;
@@ -187,7 +191,10 @@
 				goto(`/${lang}/booking/success?id=${response.id}`);
 			}, 2000);
 		} catch (err: any) {
-			formError = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
+			formError =
+				err?.response?.data?.userErrorMsg ||
+				err?.response?.data?.message ||
+				$LL.booking_error_create();
 		} finally {
 			isSubmitting = false;
 		}
