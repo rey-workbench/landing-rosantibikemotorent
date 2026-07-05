@@ -4,6 +4,7 @@
 	import AdventureMap from '$lib/components/landing/AdventureMap.svelte';
 	import FleetGrid from '$lib/components/landing/Fleet.svelte';
 	import Stats from '$lib/components/landing/Stats.svelte';
+	import Faq from '$lib/components/landing/Faq.svelte';
 	import { SeoHead } from '$lib/components/seo';
 	import { page } from '$app/stores';
 	import { LL } from '$i18n/i18n-svelte';
@@ -65,4 +66,5 @@
 	<AdventureMap />
 	<Stats />
 	<FleetGrid jenisMotors={data.featuredMotors} />
+	<Faq />
 </div>

@@ -5,7 +5,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
 	import { SeoHead } from '$lib/components/seo';
-	import { buildBreadcrumbSchema } from '$lib/seo/schema';
+	import { buildBreadcrumbSchema, buildArticleSchema } from '$lib/seo/schema';
 
 	export let data;
 	$: post = data.post;
@@ -14,13 +14,23 @@
 
 	$: breadcrumbSchema = post
 		? buildBreadcrumbSchema([
-				{ position: 1, name: 'Home', item: `https://rosantibike.com/${lang}` },
-				{ position: 2, name: 'Blog', item: `https://rosantibike.com/${lang}/blog` },
+				{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
+				{ position: 2, name: 'Blog', item: `https://rosantibikemotorent.com/${lang}/blog` },
 				{ position: 3, name: post.judul || '', item: currentUrl }
 			])
 		: null;
 
-	$: schemas = breadcrumbSchema ? [breadcrumbSchema] : [];
+	$: articleSchema = post
+		? buildArticleSchema({
+				title: post.judul,
+				description: post.metaDescription || post.judul,
+				image: post.featuredImage || post.thumbnail,
+				publishedTime: post.createdAt,
+				url: currentUrl
+			})
+		: null;
+
+	$: schemas = [breadcrumbSchema, articleSchema].filter(Boolean) as object[];
 
 	function getCurrentUrl(): string {
 		if (browser) {

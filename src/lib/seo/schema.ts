@@ -4,9 +4,9 @@ import { BASE_URL, SITE_NAME } from './types';
 export function buildOrganizationSchema() {
 	return {
 		'@context': 'https://schema.org',
-		'@type': 'Organization',
+		'@type': 'AutoRental',
 		name: SITE_NAME,
-		alternateName: 'Rosantibike',
+		alternateName: 'Rosantibike Motorent',
 		url: BASE_URL,
 		logo: `${BASE_URL}/favicon.svg`,
 		description:
@@ -14,23 +14,28 @@ export function buildOrganizationSchema() {
 		areaServed: { '@type': 'City', name: 'Malang' },
 		address: {
 			'@type': 'PostalAddress',
+			streetAddress: 'Jl. Bauksit No.90C',
 			addressLocality: 'Malang',
 			addressRegion: 'East Java',
+			postalCode: '65142',
 			addressCountry: 'ID'
 		},
 		contactPoint: {
 			'@type': 'ContactPoint',
-			telephone: '+62-812-xxxx-xxxx',
+			telephone: '+62-811-3535-122',
 			contactType: 'customer service',
 			availableLanguage: ['Indonesian', 'English']
 		},
-		sameAs: ['https://www.instagram.com/rosantibike', 'https://wa.me/62812xxxxxxxx'],
+		sameAs: [
+			'https://www.instagram.com/rosantibike',
+			'https://share.google/txOxHDzSGQxVfc1ql'
+		],
 		priceRange: '$$',
 		openingHoursSpecification: {
 			'@type': 'OpeningHoursSpecification',
 			dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-			opens: '00:00',
-			closes: '23:59'
+			opens: '07:30',
+			closes: '17:00'
 		}
 	};
 }

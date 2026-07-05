@@ -100,8 +100,8 @@
 	let breadcrumbSchema = $derived(
 		motor && jenis
 			? buildBreadcrumbSchema([
-					{ position: 1, name: 'Home', item: `https://rosantibike.com/${lang}` },
-					{ position: 2, name: 'Fleet', item: `https://rosantibike.com/${lang}/fleet` },
+					{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
+					{ position: 2, name: 'Fleet', item: `https://rosantibikemotorent.com/${lang}/fleet` },
 					{ position: 3, name: `${jenis.merk} ${jenis.model}`, item: currentUrl }
 				])
 			: null
@@ -114,7 +114,7 @@
 	<SeoHead
 		{lang}
 		meta={{
-			title: `${jenis.merk} ${jenis.model} | Rosantibike Motorent`,
+			title: `Sewa Motor ${jenis.merk} ${jenis.model} di Malang | Rosantibike`,
 			description: $LL.fleet_detail_description({
 				merk: jenis.merk,
 				model: jenis.model,
@@ -202,7 +202,7 @@
 					<h1
 						class="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter mb-6"
 					>
-						{jenis.model}
+						Sewa Motor {jenis.model} Malang
 					</h1>
 
 					<p class="text-gray-400 text-lg mb-8 leading-relaxed">

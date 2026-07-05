@@ -35,5 +35,5 @@ export interface FaqItem {
 
 export type SupportedLocale = 'id' | 'en';
 
-export const BASE_URL = 'https://rosantibikeamotorent.com' as const;
+export const BASE_URL = 'https://rosantibikemotorent.com' as const;
 export const SITE_NAME = 'Rosantibike Motorent' as const;

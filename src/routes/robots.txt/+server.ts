@@ -2,7 +2,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async () => {
 	const robotsTxt = `# Rosantibike Motorent - robots.txt
-# https://rosantibikeamotorent.com
+# https://rosantibikemotorent.com
 
 User-agent: *
 Allow: /
@@ -16,7 +16,7 @@ Disallow: /private/
 Disallow: /*/booking/success
 
 # Sitemap
-Sitemap: https://rosantibikeamotorent.com/sitemap.xml
+Sitemap: https://rosantibikemotorent.com/sitemap.xml
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1`;

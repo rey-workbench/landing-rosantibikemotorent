@@ -1,5 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { BASE_URL } from '$lib/seo/types';
+import { jenisMotorApi, blogApi } from '$lib/api';
 
 interface SitemapUrl {
 	path: string;
@@ -33,8 +34,32 @@ function generateUrlElement(url: SitemapUrl, isId: boolean): string {
 }
 
 export const GET: RequestHandler = async () => {
-	const idUrls = staticUrls.map((url) => generateUrlElement(url, true)).join('\n');
-	const enUrls = staticUrls.map((url) => generateUrlElement(url, false)).join('\n');
+	let dynamicUrls: SitemapUrl[] = [];
+	try {
+		const response = await jenisMotorApi.getAll();
+		const jenisMotors = response.data || [];
+		dynamicUrls = jenisMotors.map((jenis: any): SitemapUrl => ({
+			path: `/fleet/${jenis.slug}`,
+			changefreq: 'weekly',
+			priority: 0.8
+		}));
+
+		const blogResponse = await blogApi.getAll({ limit: 100, status: 'PUBLISHED' });
+		const blogs = blogResponse.data || [];
+		dynamicUrls.push(...blogs.map((blog: any): SitemapUrl => ({
+			path: `/blog/${blog.slug}`,
+			changefreq: 'monthly',
+			priority: 0.6,
+			lastmod: blog.updatedAt ? new Date(blog.updatedAt).toISOString().split('T')[0] : undefined
+		})));
+	} catch (error) {
+		console.error('Failed to fetch dynamic routes for sitemap:', error);
+	}
+
+	const allUrls = [...staticUrls, ...dynamicUrls];
+
+	const idUrls = allUrls.map((url) => generateUrlElement(url, true)).join('\n');
+	const enUrls = allUrls.map((url) => generateUrlElement(url, false)).join('\n');
 
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset
