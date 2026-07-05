@@ -72,8 +72,7 @@ class ApiClient {
             return { data: responseData, status: response.status };
         } catch (error: any) {
             if (browser) {
-                const message = error.response?.data?.message || error.message || 'Terjadi kesalahan sistem';
-                console.error('[API Error]', message);
+                console.error('[API Error]', error.response?.data?.userErrorMsg || error.response?.data?.message || error.message);
             }
             throw error;
         }

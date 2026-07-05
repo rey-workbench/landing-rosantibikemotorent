@@ -98,9 +98,9 @@
 				helm: Number(formData.helm)
 			});
 			priceBreakdown = result;
-		} catch (err) {
+		} catch (err: any) {
 			console.error('Price calculation failed:', err);
-			formError = err instanceof Error ? err.message : $LL.booking_error_price_calc();
+			formError = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
 			priceBreakdown = null;
 		} finally {
 			isCalculating = false;
@@ -186,8 +186,8 @@
 			setTimeout(() => {
 				goto(`/${lang}/booking/success?id=${response.id}`);
 			}, 2000);
-		} catch (err) {
-			formError = err instanceof Error ? err.message : $LL.booking_error_create();
+		} catch (err: any) {
+			formError = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
 		} finally {
 			isSubmitting = false;
 		}

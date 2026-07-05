@@ -34,7 +34,7 @@
 		try {
 			const response = await jenisMotorApi.getAll();
 			jenisMotors = response.data || [];
-		} catch (err) {
+		} catch (err: any) {
 			console.error('Failed to load fleet:', err);
 		}
 	}

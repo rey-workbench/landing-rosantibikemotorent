@@ -45,8 +45,8 @@
 				})
 			}));
 			totalPages = response.meta?.totalPages || 1;
-		} catch (err) {
-			error = err instanceof Error ? err.message : $LL.blog_error_title();
+		} catch (err: any) {
+			error = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
 		} finally {
 			loading = false;
 		}
