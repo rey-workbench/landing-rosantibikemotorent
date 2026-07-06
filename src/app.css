@@ -248,3 +248,22 @@ html.lenis {
 .lenis.lenis-scrolling iframe {
 	pointer-events: none;
 }
+
+/* 7. ACCESSIBILITY - PREFERS REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* 8. UTILITIES - HIDE SCROLLBARS */
+.scrollbar-none::-webkit-scrollbar {
+	display: none;
+}
+.scrollbar-none {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}

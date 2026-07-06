@@ -6,13 +6,17 @@ import { formatDate, stripHtml } from '$lib/utils/format';
 export interface ProcessedBlogPost extends BlogPost {
 	excerpt: string;
 	formattedDate: string;
+	readingTime: string;
 }
 
 function processPost(post: any): ProcessedBlogPost {
+	const wordCount = post.konten ? post.konten.replace(/<[^>]*>/g, '').split(/\s+/).length : 0;
+	const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 	return {
 		...post,
 		excerpt: stripHtml(post.konten),
-		formattedDate: formatDate(post.createdAt)
+		formattedDate: formatDate(post.createdAt),
+		readingTime: `${readingTime} min read`
 	};
 }
 

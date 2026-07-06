@@ -7,30 +7,35 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { buildBreadcrumbSchema, buildArticleSchema } from '$lib/seo/schema';
 
-	export let data;
-	$: post = data.post;
-	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
-	$: currentUrl = $page.url.href;
+	let { data } = $props();
 
-	$: breadcrumbSchema = post
-		? buildBreadcrumbSchema([
-				{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
-				{ position: 2, name: 'Blog', item: `https://rosantibikemotorent.com/${lang}/blog` },
-				{ position: 3, name: post.judul || '', item: currentUrl }
-			])
-		: null;
+	const post = $derived(data.post);
+	const lang = $derived(($page.params.lang || 'id') as 'id' | 'en');
+	const currentUrl = $derived($page.url.href);
 
-	$: articleSchema = post
-		? buildArticleSchema({
-				title: post.judul,
-				description: post.metaDescription || post.judul,
-				image: post.featuredImage || post.thumbnail,
-				publishedTime: post.createdAt,
-				url: currentUrl
-			})
-		: null;
+	const breadcrumbSchema = $derived(
+		post
+			? buildBreadcrumbSchema([
+					{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
+					{ position: 2, name: 'Blog', item: `https://rosantibikemotorent.com/${lang}/blog` },
+					{ position: 3, name: post.judul || '', item: currentUrl }
+				])
+			: null
+	);
 
-	$: schemas = [breadcrumbSchema, articleSchema].filter(Boolean) as object[];
+	const articleSchema = $derived(
+		post
+			? buildArticleSchema({
+					title: post.judul,
+					description: post.metaDescription || post.judul,
+					image: post.featuredImage || post.thumbnail,
+					publishedTime: post.createdAt,
+					url: currentUrl
+				})
+			: null
+	);
+
+	const schemas = $derived([breadcrumbSchema, articleSchema].filter(Boolean) as object[]);
 
 	function getCurrentUrl(): string {
 		if (browser) {
@@ -69,12 +74,13 @@
 {/if}
 
 {#if post}
-	<!-- Header -->
-	<header class="relative pt-32 pb-16 px-4 md:px-10">
-		<div class="max-w-4xl mx-auto text-center">
+	<!-- Header Section -->
+	<header class="relative pt-44 md:pt-48 pb-16 px-4 md:px-10">
+		<div class="max-w-3xl mx-auto">
+			<!-- Back Button -->
 			<a
 				href="/{lang}/blog"
-				class="inline-flex items-center gap-2 text-blue-500 text-xs font-bold uppercase tracking-widest mb-12 hover:gap-4 transition-all"
+				class="inline-flex items-center gap-2 text-blue-500 text-xs font-bold uppercase tracking-widest mb-10 hover:gap-4 transition-all"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -83,17 +89,18 @@
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
-					stroke-width="2"
+					stroke-width="2.5"
 				>
 					<path d="M19 12H5M12 19l-7-7 7-7" />
 				</svg>
-				{$LL.blog_back_to_journal()}
+				{$LL.blog_back_to_journal().replace(/^[←\s\-]+/g, '')}
 			</a>
 
-			<div class="flex flex-wrap justify-center gap-2 mb-6">
+			<!-- Categories & Tags -->
+			<div class="flex flex-wrap gap-2 mb-6">
 				{#if post.kategori}
 					<span
-						class="px-4 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full"
+						class="px-3.5 py-1 bg-blue-600/10 text-blue-500 text-[10px] font-extrabold uppercase tracking-wider rounded-full border border-blue-500/20"
 					>
 						{post.kategori.nama}
 					</span>
@@ -101,7 +108,7 @@
 				{#if post.tags}
 					{#each post.tags as tag}
 						<span
-							class="px-4 py-1 bg-brand-surface border border-brand-border text-blue-400 text-[10px] font-bold uppercase tracking-widest rounded-full"
+							class="px-3.5 py-1 bg-brand-surface border border-brand-border text-brand-fg/80 text-[10px] font-bold uppercase tracking-wider rounded-full"
 						>
 							#{tag.nama}
 						</span>
@@ -109,29 +116,39 @@
 				{/if}
 			</div>
 
+			<!-- Title -->
 			<h1
-				class="text-4xl md:text-5xl lg:text-6xl font-black text-brand-fg leading-tight tracking-tighter uppercase mb-8"
+				class="text-3xl md:text-5xl lg:text-6xl font-black text-brand-fg leading-tight tracking-tighter uppercase mb-8"
 			>
 				{post.judul}
 			</h1>
 
-			<div
-				class="flex items-center justify-center gap-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest"
-			>
-				<time datetime={post.createdAt}>{post.formattedDate}</time>
-				<span class="w-1 h-1 bg-gray-700 rounded-full"></span>
-				<span>{$LL.blog_read_time()}</span>
+			<!-- Meta Data with Author Avatar -->
+			<div class="flex items-center gap-4 border-t border-b border-brand-border/40 py-5">
+				<div class="w-10 h-10 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-500 font-black text-sm">
+					R
+				</div>
+				<div class="flex flex-col">
+					<span class="text-xs font-extrabold text-brand-fg uppercase tracking-wider">Rosantibike Team</span>
+					<div class="flex items-center gap-2 text-[10px] text-brand-muted font-bold uppercase tracking-wider mt-0.5">
+						{#if post.formattedDate && post.formattedDate !== '-'}
+							<time datetime={post.createdAt}>{post.formattedDate}</time>
+							<span class="text-brand-muted/40 font-light">/</span>
+						{/if}
+						<span>{post.readingTime}</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</header>
 
-	<!-- Content -->
+	<!-- Content Section -->
 	<article class="pb-32 px-4 md:px-10">
-		<div class="max-w-4xl mx-auto">
-			<!-- Image -->
+		<div class="max-w-3xl mx-auto">
+			<!-- Featured Hero Image -->
 			{#if post.featuredImage || post.thumbnail}
 				<div
-					class="mb-16 rounded-3xl overflow-hidden glass-surface aspect-video"
+					class="mb-16 rounded-4xl overflow-hidden glass-surface aspect-video"
 					in:fade={{ duration: 800 }}
 				>
 					<img
@@ -142,30 +159,26 @@
 				</div>
 			{/if}
 
-			<!-- Text -->
-			<div
-				class="prose prose-invert prose-lg md:prose-xl max-w-none article-content prose-img:rounded-3xl prose-headings:font-display prose-a:text-blue-500 hover:prose-a:text-blue-400 prose-headings:uppercase prose-p:text-gray-300"
-			>
+			<!-- Article Body Content -->
+			<div class="prose prose-lg max-w-none article-content">
 				{#await import('isomorphic-dompurify') then DOMPurify}
 					{@html DOMPurify.default.sanitize(post.konten)}
 				{/await}
 			</div>
 
-			<!-- Footer / Share -->
-			<div
-				class="mt-20 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between gap-8"
-			>
-				<div>
-					<h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
+			<!-- Share & CTA Footer Box -->
+			<div class="mt-20 p-8 glass-surface rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 border border-brand-border/30">
+				<div class="text-center md:text-left">
+					<h3 class="text-xs font-black text-brand-muted uppercase tracking-widest mb-3">
 						{$LL.blog_share()}
 					</h3>
-					<div class="flex gap-3">
+					<div class="flex justify-center md:justify-start gap-3">
 						<a
 							href="https://wa.me/?text={encodeURIComponent(post.judul + ' - ' + getCurrentUrl())}"
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Share on WhatsApp"
-							class="w-10 h-10 glass-surface rounded-xl flex items-center justify-center hover:bg-green-600 hover:border-green-500 transition-all"
+							class="w-10 h-10 glass-surface rounded-xl flex items-center justify-center hover:bg-green-600 hover:border-green-500 hover:text-white transition-all cursor-pointer"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -179,9 +192,9 @@
 							>
 						</a>
 						<button
-							on:click={copyLink}
+							onclick={copyLink}
 							aria-label="Copy link"
-							class="w-10 h-10 glass-surface rounded-xl flex items-center justify-center hover:bg-white hover:text-black transition-all"
+							class="w-10 h-10 glass-surface rounded-xl flex items-center justify-center hover:bg-white hover:text-black transition-all cursor-pointer"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +203,7 @@
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
-								stroke-width="2"
+								stroke-width="2.5"
 								><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path
 									d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
 								></path></svg
@@ -199,7 +212,7 @@
 					</div>
 				</div>
 
-				<div class="flex items-center">
+				<div class="flex items-center shrink-0">
 					<Button href="/{lang}/booking" variant="primary" size="lg">{$LL.blog_rent_now()}</Button>
 				</div>
 			</div>
@@ -209,35 +222,74 @@
 
 <style>
 	.article-content {
-		color: #9ca3af;
-		line-height: 1.8;
+		color: var(--brand-muted);
+		line-height: 1.85;
+		font-size: 1.125rem;
+		letter-spacing: -0.01em;
 	}
 
-	:global(.article-content h2) {
-		color: white;
+	/* Beautiful Magazine Dropcap */
+	.article-content :global(p:first-of-type::first-letter) {
+		float: left;
+		font-size: 4rem;
+		line-height: 0.8;
+		padding-top: 4px;
+		padding-right: 8px;
 		font-weight: 900;
-		font-size: 2rem;
-		margin: 3rem 0 1.5rem;
-		text-transform: uppercase;
+		color: var(--brand-highlight, #3b82f6);
+	}
+
+	:global(.article-content h1),
+	:global(.article-content h2),
+	:global(.article-content h3),
+	:global(.article-content h4),
+	:global(.article-content strong) {
+		color: var(--brand-fg) !important;
+		font-weight: 900;
 		letter-spacing: -0.02em;
 	}
 
+	:global(.article-content h2) {
+		font-size: 2.25rem;
+		margin: 3.5rem 0 1.5rem;
+		text-transform: uppercase;
+		border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+		padding-bottom: 0.5rem;
+	}
+
+	:global(.article-content h3) {
+		font-size: 1.75rem;
+		margin: 2.5rem 0 1.25rem;
+		text-transform: uppercase;
+	}
+
 	:global(.article-content p) {
-		margin-bottom: 1.5rem;
+		margin-bottom: 1.75rem;
+		color: var(--brand-muted);
+	}
+
+	:global(.article-content a) {
+		color: var(--brand-highlight) !important;
+		text-decoration: underline;
+	}
+
+	:global(.article-content a:hover) {
+		opacity: 0.8;
 	}
 
 	:global(.article-content img) {
-		border-radius: 1.5rem;
-		margin: 3rem 0;
-		border: 1px solid #262626;
+		border-radius: 2rem;
+		margin: 3.5rem 0;
+		border: 1px solid var(--brand-border);
 	}
 
 	:global(.article-content blockquote) {
-		border-left: 4px solid #3b82f6;
+		border-left: 4px solid var(--brand-highlight, #3b82f6);
 		padding: 1.5rem 2rem;
-		background: #121212;
-		border-radius: 0 1rem 1rem 0;
-		margin: 2rem 0;
+		background: var(--brand-surface-soft);
+		border-radius: 0 1.5rem 1.5rem 0;
+		margin: 2.5rem 0;
 		font-style: italic;
+		color: var(--brand-fg);
 	}
 </style>
