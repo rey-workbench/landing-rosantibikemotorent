@@ -41,9 +41,7 @@
 	let videoRefs = $state<HTMLVideoElement[]>([]);
 
 	$effect(() => {
-		if (!isMobile) {
-			activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
-		}
+		activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
 
 		videoRefs.forEach((video, idx) => {
 			if (video) {
@@ -68,7 +66,6 @@
 		window.addEventListener('resize', checkMobile);
 
 		const handleScroll = () => {
-			if (isMobile) return;
 			if (!containerRef) return;
 			const rect = containerRef.getBoundingClientRect();
 			const viewportHeight = window.innerHeight;
@@ -90,26 +87,22 @@
 </script>
 
 <div class="bg-brand-dark relative" bind:this={containerRef}>
-	<div class="relative" style="height: {isMobile ? 'auto' : `${panels.length * 100}vh`}">
-		{#if !isMobile}
-			<div class="absolute inset-0 flex flex-col pointer-events-none">
-				{#each panels as _, i}
-					<div class="h-screen w-full snap-start"></div>
-				{/each}
-			</div>
-		{/if}
+	<div class="relative" style="height: {panels.length * 100}vh">
+		<div class="absolute inset-0 flex flex-col pointer-events-none">
+			{#each panels as _, i}
+				<div class="h-screen w-full snap-start"></div>
+			{/each}
+		</div>
 
 		<div
-			class={isMobile
-				? 'relative w-full h-[75vh] flex flex-col bg-black overflow-hidden'
-				: 'sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row bg-black'}
+			class="sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row bg-black"
 			style="perspective: 1000px;"
 		>
 			<div
 				class="absolute top-0 left-0 w-full z-20 pointer-events-none mix-blend-difference text-white"
 			>
 				<div
-					class="absolute top-6 md:top-24 left-1/2 -translate-x-1/2 text-center w-full px-4 pt-4"
+					class="absolute top-20 md:top-28 left-1/2 -translate-x-1/2 text-center w-full px-4 pt-4"
 				>
 					<h2
 						class="text-[10px] md:text-sm font-bold text-blue-400 tracking-[0.2em] mb-2 md:mb-4 uppercase flex items-center justify-center gap-2"
@@ -141,13 +134,19 @@
 						filter: {i === activePanelIndex ? 'saturate(1.1) brightness(1)' : 'saturate(0) brightness(0.4)'};
 					"
 					onclick={() => {
-						if (isMobile) {
-							activePanelIndex = i;
+						if (containerRef) {
+							const sectionHeight = window.innerHeight;
+							const targetY = containerRef.offsetTop + i * sectionHeight;
+							window.scrollTo({ top: targetY, behavior: 'smooth' });
 						}
 					}}
 					onkeydown={(e) => {
-						if (isMobile && (e.key === 'Enter' || e.key === ' ')) {
-							activePanelIndex = i;
+						if (e.key === 'Enter' || e.key === ' ') {
+							if (containerRef) {
+								const sectionHeight = window.innerHeight;
+								const targetY = containerRef.offsetTop + i * sectionHeight;
+								window.scrollTo({ top: targetY, behavior: 'smooth' });
+							}
 						}
 					}}
 				>

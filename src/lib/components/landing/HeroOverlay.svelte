@@ -13,31 +13,31 @@
 	const texts = $derived([
 		{
 			progressStart: 0,
-			progressEnd: 0.15,
+			progressEnd: 0.2,
 			text: $LL.hero_title(),
 			sub: $LL.hero_tagline(),
 			align: 'center',
 			id: 'hero'
 		},
 		{
-			progressStart: 0.2,
-			progressEnd: 0.35,
+			progressStart: 0.25,
+			progressEnd: 0.45,
 			text: $LL.hero_explore(),
 			sub: $LL.hero_explore_sub(),
 			align: 'left',
 			id: 't2'
 		},
 		{
-			progressStart: 0.4,
-			progressEnd: 0.55,
+			progressStart: 0.5,
+			progressEnd: 0.7,
 			text: $LL.hero_unit_well(),
 			sub: $LL.hero_unit_well_sub(),
 			align: 'right',
 			id: 't3'
 		},
 		{
-			progressStart: 0.6,
-			progressEnd: 0.75,
+			progressStart: 0.75,
+			progressEnd: 0.92,
 			text: $LL.hero_start(),
 			sub: $LL.hero_start_sub(),
 			align: 'center',

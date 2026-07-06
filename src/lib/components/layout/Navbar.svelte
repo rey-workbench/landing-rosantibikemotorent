@@ -30,12 +30,7 @@
 
 	onMount(() => {
 		const handleScroll = () => {
-			const isMobileDevice = window.innerWidth < 768;
-			const threshold = isHomepage
-				? isMobileDevice
-					? window.innerHeight - 80
-					: window.innerHeight * 4 - 80
-				: 50;
+			const threshold = isHomepage ? window.innerHeight * 4 - 80 : 50;
 			isScrolled = window.scrollY > threshold;
 		};
 
