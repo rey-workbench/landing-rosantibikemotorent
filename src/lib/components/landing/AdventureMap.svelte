@@ -38,7 +38,7 @@
 		}
 	]);
 
-	let videoRefs: HTMLVideoElement[] = [];
+	let videoRefs = $state<HTMLVideoElement[]>([]);
 
 	$effect(() => {
 		if (!isMobile) {
