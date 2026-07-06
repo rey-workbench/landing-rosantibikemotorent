@@ -5,6 +5,8 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 
+	let { isTransparent = false } = $props();
+
 	const names: Record<string, string> = {
 		en: 'EN',
 		id: 'ID'
@@ -33,10 +35,13 @@
 	{#each locales as lang}
 		<button
 			onclick={() => switchLanguage(lang)}
-			class="px-3 py-1 text-xs font-black rounded-full border transition-all duration-300 ease-(--ease-luxury) {currentLang ===
-			lang
-				? 'bg-brand-fg text-brand-surface border-brand-fg'
-				: 'text-brand-muted border-brand-border hover:border-brand-accent hover:text-brand-fg'}"
+			class="px-3 py-1 text-xs font-black rounded-full border transition-all duration-300 ease-(--ease-luxury) {isTransparent
+				? currentLang === lang
+					? 'bg-white text-black border-white'
+					: 'text-white/60 border-white/20 hover:border-white hover:text-white'
+				: currentLang === lang
+					? 'bg-brand-fg text-brand-surface border-brand-fg'
+					: 'text-brand-muted border-brand-border hover:border-brand-accent hover:text-brand-fg'}"
 			aria-current={currentLang === lang ? 'page' : undefined}
 		>
 			{names[lang] || lang.toUpperCase()}

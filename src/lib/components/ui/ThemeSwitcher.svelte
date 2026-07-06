@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	let { isTransparent = false } = $props();
 	let theme = $state('dark');
 
 	onMount(() => {
@@ -18,7 +19,9 @@
 
 <button
 	onclick={toggleTheme}
-	class="p-2 rounded-xl border border-[rgba(166,173,187,0.18)] bg-brand-surface-soft/80 text-current hover:border-brand-accent transition-colors cursor-pointer flex items-center justify-center"
+	class="p-2 rounded-xl border transition-all duration-300 cursor-pointer flex items-center justify-center {isTransparent
+		? 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white'
+		: 'bg-brand-surface-soft/80 border-brand-border/40 text-brand-fg hover:border-brand-accent'}"
 	aria-label="Toggle Theme"
 >
 	{#if theme === 'dark'}

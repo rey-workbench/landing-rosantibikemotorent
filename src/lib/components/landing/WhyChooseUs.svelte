@@ -68,11 +68,16 @@
 				continue;
 			}
 
+			const idx = i - 1;
 			const img = new Image();
 			img.src = src;
 			img.onload = () => {
 				setCachedImage(src, img);
 				updateProgress();
+				const currentFrame = Math.min(frameCount - 1, Math.floor(scrollProgress * frameCount));
+				if (idx === currentFrame) {
+					render(currentFrame);
+				}
 			};
 			img.onerror = () => {
 				console.warn(`Failed to load frame: ${frameIndex}`);

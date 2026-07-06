@@ -1,14 +1,19 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+/* ----------------------------------------------------
+   1. TAILWIND THEME CONFIGURATION
+   ---------------------------------------------------- */
 @theme {
 	--font-sans: 'Sora', 'Outfit', sans-serif;
 	--font-display: 'Bebas Neue', 'Anton', 'Impact', sans-serif;
 
-	/* Binding theme colors to CSS variables */
+	/* Color mappings to CSS Custom Properties (Tokens) */
 	--color-brand-dark: #050505;
 	--color-brand-background: var(--brand-bg);
+	--color-brand-bg: var(--brand-bg);
 	--color-brand-foreground: var(--brand-fg);
+	--color-brand-fg: var(--brand-fg);
 	--color-brand-surface: var(--brand-surface);
 	--color-brand-surface-soft: var(--brand-surface-soft);
 	--color-brand-border: var(--brand-border);
@@ -17,8 +22,11 @@
 	--color-brand-highlight: var(--brand-highlight);
 }
 
+/* ----------------------------------------------------
+   2. DESIGN TOKENS (LIGHT MODE / DEFAULT)
+   ---------------------------------------------------- */
 :root {
-	/* Light Mode (Default) */
+	/* Core Colors */
 	--brand-bg: #f9fafb;
 	--brand-fg: #111827;
 	--brand-surface: #ffffff;
@@ -28,16 +36,21 @@
 	--brand-muted: #6b7280;
 	--brand-highlight: #2563eb;
 
+	/* Background RGB channels for overlays */
 	--background-start-rgb: 249, 250, 251;
 	--background-end-rgb: 243, 244, 246;
 
+	/* Transitions & Radius */
 	--ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
 	--radius-panel: 1.5rem;
 	--radius-card: 2rem;
 }
 
+/* ----------------------------------------------------
+   3. DESIGN TOKENS (DARK MODE SINKRON)
+   ---------------------------------------------------- */
 :root[data-theme='dark'] {
-	/* Dark Mode */
+	/* Core Colors */
 	--brand-bg: #050505;
 	--brand-fg: #ffffff;
 	--brand-surface: #111317;
@@ -47,20 +60,58 @@
 	--brand-muted: #a6adbb;
 	--brand-highlight: #6ca0ff;
 
+	/* Background RGB channels for overlays */
 	--background-start-rgb: 6, 7, 10;
 	--background-end-rgb: 6, 7, 10;
 }
 
+/* ----------------------------------------------------
+   4. BASE LAYER
+   ---------------------------------------------------- */
+@layer base {
+	body {
+		color: var(--brand-fg);
+		background: linear-gradient(
+			to bottom,
+			rgb(var(--background-start-rgb)),
+			rgb(var(--background-end-rgb))
+		);
+		font-family: var(--font-sans);
+		overflow-x: hidden;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		transition:
+			background 0.3s ease,
+			color 0.3s ease;
+	}
+
+	a {
+		transition:
+			color 0.32s var(--ease-luxury),
+			border-color 0.32s var(--ease-luxury);
+	}
+}
+
+/* ----------------------------------------------------
+   5. CUSTOM UTILITY CLASSES
+   ---------------------------------------------------- */
 @layer utilities {
+	/* Glassmorphism surfaces */
 	.glass-effect,
 	.glass-surface {
+		background: var(--brand-surface);
 		background: color-mix(in srgb, var(--brand-surface) 90%, transparent);
+		border: 1px solid var(--brand-border);
 		border: 1px solid color-mix(in srgb, var(--brand-border) 40%, transparent);
+		-webkit-backdrop-filter: blur(12px) saturate(160%);
 		backdrop-filter: blur(12px) saturate(160%);
 	}
 
+	/* Card & Panel layouts */
 	.surface-panel {
+		background: var(--brand-surface-soft);
 		background: color-mix(in srgb, var(--brand-surface-soft) 95%, transparent);
+		border: 1px solid var(--brand-border);
 		border: 1px solid color-mix(in srgb, var(--brand-border) 50%, transparent);
 		border-radius: var(--radius-panel);
 	}
@@ -77,10 +128,12 @@
 
 	.surface-card:hover {
 		transform: translateY(-6px);
+		border-color: var(--brand-highlight);
 		border-color: color-mix(in srgb, var(--brand-highlight) 50%, transparent);
 		box-shadow: 0 10px 40px -10px color-mix(in srgb, var(--brand-highlight) 15%, transparent);
 	}
 
+	/* Section spacing & headers */
 	.section-shell {
 		padding-inline: 1rem;
 	}
@@ -139,6 +192,7 @@
 		background-clip: text;
 	}
 
+	/* Micro-elements */
 	.label-pill {
 		border-radius: 999px;
 		padding: 0.2rem 0.55rem;
@@ -157,43 +211,24 @@
 
 	.focus-ring {
 		outline: none;
+		border-color: var(--brand-muted);
 		border-color: color-mix(in srgb, var(--brand-muted) 50%, transparent);
 	}
 
 	.border-accent-soft {
+		border-color: var(--brand-border);
 		border-color: color-mix(in srgb, var(--brand-muted) 40%, transparent);
 	}
 
 	.bg-accent-soft {
+		background: var(--brand-surface-soft);
 		background: color-mix(in srgb, var(--brand-muted) 12%, transparent);
 	}
 }
 
-@layer base {
-	body {
-		color: var(--brand-fg);
-		background: linear-gradient(
-			to bottom,
-			rgb(var(--background-start-rgb)),
-			rgb(var(--background-end-rgb))
-		);
-		font-family: var(--font-sans);
-		overflow-x: hidden;
-		text-rendering: optimizeLegibility;
-		-webkit-font-smoothing: antialiased;
-		transition:
-			background 0.3s ease,
-			color 0.3s ease;
-	}
-
-	a {
-		transition:
-			color 0.32s var(--ease-luxury),
-			border-color 0.32s var(--ease-luxury);
-	}
-}
-
-/* Lenis Smooth Scroll */
+/* ----------------------------------------------------
+   6. LENIS SMOOTH SCROLL INTEGRATION
+   ---------------------------------------------------- */
 html.lenis {
 	height: auto;
 }

@@ -6,22 +6,37 @@
 	import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
 	import ThemeSwitcher from '../ui/ThemeSwitcher.svelte';
 	import Button from '../ui/Button.svelte';
-	import { page } from '$app/state';
+	import { page } from '$app/stores';
 
 	let isOpen = $state(false);
 	let isScrolled = $state(false);
 
+	const isHomepage = $derived(
+		$page.url.pathname === '/' ||
+		$page.url.pathname === '/id' ||
+		$page.url.pathname === '/en' ||
+		$page.url.pathname === '/id/' ||
+		$page.url.pathname === '/en/'
+	);
+
+	const isTransparentNavbar = $derived(!isScrolled && isHomepage);
+
 	const navItems = $derived([
-		{ label: $LL.nav_home(), href: `/${page.params.lang || $locale}` },
-		{ label: $LL.nav_fleet(), href: `/${page.params.lang || $locale}/fleet` },
-		{ label: $LL.nav_blog(), href: `/${page.params.lang || $locale}/blog` },
-		{ label: $LL.nav_booking(), href: `/${page.params.lang || $locale}/booking` }
+		{ label: $LL.nav_home(), href: `/${$page.params.lang || $locale}` },
+		{ label: $LL.nav_fleet(), href: `/${$page.params.lang || $locale}/fleet` },
+		{ label: $LL.nav_blog(), href: `/${$page.params.lang || $locale}/blog` },
+		{ label: $LL.nav_booking(), href: `/${$page.params.lang || $locale}/booking` }
 	]);
 
 	onMount(() => {
 		const handleScroll = () => {
-			const heroHeight = window.innerWidth < 768 ? window.innerHeight : window.innerHeight * 4;
-			isScrolled = window.scrollY > heroHeight - 80;
+			const isMobileDevice = window.innerWidth < 768;
+			const threshold = isHomepage
+				? isMobileDevice
+					? window.innerHeight - 80
+					: window.innerHeight * 4 - 80
+				: 50;
+			isScrolled = window.scrollY > threshold;
 		};
 
 		window.addEventListener('scroll', handleScroll);
@@ -31,20 +46,22 @@
 </script>
 
 <nav
-	class="fixed top-0 w-full z-50 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center transition-all duration-300 ease-(--ease-luxury) {isScrolled
-		? 'bg-brand-surface/80 backdrop-blur-md text-brand-fg'
-		: 'text-white'}"
+	class="fixed top-0 w-full z-50 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center transition-all duration-300 ease-(--ease-luxury) border-b {isScrolled
+		? 'bg-brand-surface/80 backdrop-blur-md text-brand-fg border-brand-border/40'
+		: isHomepage
+			? 'bg-transparent text-white border-transparent'
+			: 'bg-transparent text-brand-fg border-transparent'}"
 >
-	<a href="/{page.params.lang || $locale}" class="flex flex-col text-left group">
+	<a href="/{$page.params.lang || $locale}" class="flex flex-col text-left group">
 		<span
-			class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase {isScrolled
+			class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase {isScrolled || !isHomepage
 				? 'text-brand-fg'
 				: 'text-white'} font-black leading-none"
 		>
 			{siteConfig.shortName}
 		</span>
 		<span
-			class="text-[0.55rem] sm:text-[0.7rem] tracking-[0.35em] uppercase {isScrolled
+			class="text-[0.55rem] sm:text-[0.7rem] tracking-[0.35em] uppercase {isScrolled || !isHomepage
 				? 'text-brand-muted'
 				: 'text-white/60'} font-mono leading-none mt-1 sm:mt-1.5 font-bold group-hover:text-brand-highlight transition-colors"
 		>
@@ -53,30 +70,32 @@
 	</a>
 
 	<div class="flex items-center gap-5 md:gap-8">
-		<ThemeSwitcher />
-		<LanguageSwitcher />
+		<ThemeSwitcher isTransparent={isTransparentNavbar} />
+		<LanguageSwitcher isTransparent={isTransparentNavbar} />
 
 		<button
-			class="relative z-50 group flex flex-col gap-1.5 p-2 cursor-pointer rounded-xl border border-[rgba(166,173,187,0.18)] bg-brand-surface-soft/80 hover:border-accent-soft transition-colors"
+			class="relative z-50 group flex flex-col gap-1.5 p-2 cursor-pointer rounded-xl border transition-all duration-300 {isTransparentNavbar
+				? 'bg-white/10 border-white/20 hover:bg-white/20 hover:border-white text-white'
+				: 'bg-brand-surface-soft/80 border-brand-border/40 hover:border-brand-accent text-brand-fg'}"
 			aria-label="Toggle Menu"
 			onclick={() => (isOpen = !isOpen)}
 		>
 			<div
-				class="w-8 h-0.5 {isScrolled
+				class="w-8 h-0.5 {isScrolled || !isHomepage
 					? 'bg-brand-fg'
 					: 'bg-white'} transition-all duration-300 rounded-full {isOpen
 					? 'rotate-45 translate-y-2'
 					: ''}"
 			></div>
 			<div
-				class="w-6 h-0.5 {isScrolled
+				class="w-6 h-0.5 {isScrolled || !isHomepage
 					? 'bg-brand-fg'
 					: 'bg-white'} ml-auto transition-all duration-300 rounded-full {isOpen
 					? 'opacity-0'
 					: ''} group-hover:w-8"
 			></div>
 			<div
-				class="w-8 h-0.5 {isScrolled
+				class="w-8 h-0.5 {isScrolled || !isHomepage
 					? 'bg-brand-fg'
 					: 'bg-white'} transition-all duration-300 rounded-full {isOpen
 					? '-rotate-45 -translate-y-2'
@@ -114,8 +133,8 @@
 			{#each navItems as item}
 				<a
 					href={item.href}
-					aria-current={page.url.pathname === item.href ? 'page' : undefined}
-					class="text-3xl sm:text-5xl md:text-7xl font-display transition-colors uppercase tracking-[0.03em] {page
+					aria-current={$page.url.pathname === item.href ? 'page' : undefined}
+					class="text-3xl sm:text-5xl md:text-7xl font-display transition-colors uppercase tracking-[0.03em] {$page
 						.url.pathname === item.href
 						? 'text-(--brand-highlight)'
 						: 'text-brand-fg hover:text-(--brand-highlight)'}"
@@ -127,7 +146,7 @@
 		</div>
 
 		<Button
-			href="/{page.params.lang || $locale}/booking"
+			href="/{$page.params.lang || $locale}/booking"
 			variant="primary"
 			size="lg"
 			className="mt-8 text-sm"
