@@ -1,8 +1,18 @@
 export function formatDate(
-	date: string | Date,
+	date: string | Date | null | undefined,
 	variant: 'short' | 'long' | 'full' = 'short'
 ): string {
-	const d = typeof date === 'string' ? new Date(date) : date;
+	if (!date) return '-';
+
+	let d: Date;
+	try {
+		d = typeof date === 'string' ? new Date(date) : (date as Date);
+		if (isNaN(d.getTime())) {
+			return '-';
+		}
+	} catch (e) {
+		return '-';
+	}
 
 	const options: Intl.DateTimeFormatOptions = {
 		year: 'numeric',
