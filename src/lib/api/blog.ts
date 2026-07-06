@@ -21,32 +21,35 @@ function processPost(post: any): ProcessedBlogPost {
 }
 
 export const blogApi = {
-	getAll: async (filter?: {
-		page?: number;
-		limit?: number;
-		status?: string;
-		search?: string;
-		tagId?: string;
-	}): Promise<{ data: ProcessedBlogPost[]; meta: PaginationMeta }> => {
+	getAll: async (
+		filter?: {
+			page?: number;
+			limit?: number;
+			status?: string;
+			search?: string;
+			tagId?: string;
+		},
+		customFetch?: typeof fetch
+	): Promise<{ data: ProcessedBlogPost[]; meta: PaginationMeta }> => {
 		const params = { ...filter, status: 'TERBIT' };
-		const { data } = await api.get(API_ENDPOINTS.BLOG, { params });
+		const { data } = await api.get(API_ENDPOINTS.BLOG, { params, customFetch });
 		return {
 			data: (data.data || []).map(processPost),
 			meta: data.meta
 		};
 	},
-	getById: async (id: string): Promise<ProcessedBlogPost> => {
-		const { data } = await api.get(`${API_ENDPOINTS.BLOG}/${id}`);
+	getById: async (id: string, customFetch?: typeof fetch): Promise<ProcessedBlogPost> => {
+		const { data } = await api.get(`${API_ENDPOINTS.BLOG}/${id}`, { customFetch });
 		const post = data.data || data;
 		return processPost(post);
 	},
-	getBySlug: async (slug: string): Promise<ProcessedBlogPost> => {
-		const { data } = await api.get(`${API_ENDPOINTS.BLOG}/by-slug/${slug}`);
+	getBySlug: async (slug: string, customFetch?: typeof fetch): Promise<ProcessedBlogPost> => {
+		const { data } = await api.get(`${API_ENDPOINTS.BLOG}/by-slug/${slug}`, { customFetch });
 		const post = data.data || data;
 		return processPost(post);
 	},
-	getTags: async (): Promise<BlogTag[]> => {
-		const { data } = await api.get(`${API_ENDPOINTS.BLOG}/tags`);
+	getTags: async (customFetch?: typeof fetch): Promise<BlogTag[]> => {
+		const { data } = await api.get(`${API_ENDPOINTS.BLOG}/tags`, { customFetch });
 		return data.data;
 	}
 };

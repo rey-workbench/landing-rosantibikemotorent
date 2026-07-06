@@ -3,9 +3,9 @@ import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import type { UnitMotor } from '$lib/types';
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageLoad = async ({ params, fetch }) => {
 	try {
-		const jenisData = (await jenisMotorApi.getBySlug(params.slug)) as any;
+		const jenisData = (await jenisMotorApi.getBySlug(params.slug, fetch)) as any;
 
 		if (!jenisData || !jenisData.unitMotor || jenisData.unitMotor.length === 0) {
 			throw error(404, 'Tidak ada unit tersedia untuk model ini');
