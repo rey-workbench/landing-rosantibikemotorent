@@ -5,11 +5,13 @@
 	export let className = '';
 </script>
 
-<footer class="bg-brand-dark border-t border-[rgba(166,173,187,0.14)] pt-20 pb-10 {className}">
+<footer
+	class="bg-brand-background border-t border-[rgba(166,173,187,0.14)] pt-20 pb-10 {className}"
+>
 	<div class="max-w-7xl mx-auto px-6">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
 			<div class="space-y-6">
-				<h2 class="font-display text-[2rem] uppercase tracking-[0.03em] text-white">
+				<h2 class="font-display text-[2rem] uppercase tracking-[0.03em] text-brand-fg">
 					{siteConfig.shortName}
 				</h2>
 				<p class="text-muted text-sm leading-relaxed max-w-xs">
@@ -22,7 +24,7 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label={social.name}
-							class="w-10 h-10 rounded-xl surface-panel flex items-center justify-center text-muted hover:text-white hover:border-accent-soft transition-all duration-300"
+							class="w-10 h-10 rounded-xl surface-panel flex items-center justify-center text-muted hover:text-brand-fg hover:border-accent-soft transition-all duration-300"
 						>
 							<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
 								<path d={social.icon} />
@@ -33,7 +35,7 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-[0.2em] text-xs mb-8">
+				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
 					{$LL.footer_explore()}
 				</h3>
 				<ul class="space-y-4">
@@ -41,7 +43,7 @@
 						<li>
 							<a
 								href={link.href}
-								class="text-muted hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm"
+								class="text-muted hover:text-brand-fg hover:translate-x-1 transition-all duration-300 inline-block text-sm"
 							>
 								{link.label}
 							</a>
@@ -51,7 +53,7 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-[0.2em] text-xs mb-8">
+				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
 					{$LL.footer_services()}
 				</h3>
 				<ul class="space-y-4">
@@ -65,7 +67,7 @@
 			</div>
 
 			<div>
-				<h3 class="text-white font-bold uppercase tracking-[0.2em] text-xs mb-8">
+				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
 					{$LL.footer_office()}
 				</h3>
 				<div class="space-y-6">
@@ -111,7 +113,7 @@
 						</div>
 						<a
 							href="mailto:{siteConfig.email}"
-							class="text-muted hover:text-white transition-colors text-sm"
+							class="text-muted hover:text-brand-fg transition-colors text-sm"
 						>
 							{siteConfig.email}
 						</a>
@@ -135,7 +137,7 @@
 						</div>
 						<a
 							href="https://wa.me/{siteConfig.whatsapp}"
-							class="text-muted hover:text-white transition-colors text-sm"
+							class="text-muted hover:text-brand-fg transition-colors text-sm"
 						>
 							{siteConfig.phone}
 						</a>
@@ -155,13 +157,13 @@
 				<a
 					href="/{page.params.lang || $locale}/privacy"
 					aria-label={$LL.footer_privacy()}
-					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-white transition-colors"
+					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-brand-fg transition-colors"
 					>{$LL.footer_privacy()}</a
 				>
 				<a
 					href="/{page.params.lang || $locale}/terms"
 					aria-label={$LL.footer_terms()}
-					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-white transition-colors"
+					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-brand-fg transition-colors"
 					>{$LL.footer_terms()}</a
 				>
 			</div>

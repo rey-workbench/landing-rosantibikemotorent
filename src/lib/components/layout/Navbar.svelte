@@ -4,6 +4,7 @@
 	import { siteConfig } from '$lib/config';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
+	import ThemeSwitcher from '../ui/ThemeSwitcher.svelte';
 	import Button from '../ui/Button.svelte';
 	import { page } from '$app/state';
 
@@ -30,43 +31,54 @@
 </script>
 
 <nav
-	class="fixed top-0 w-full z-50 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center transition-all duration-300 ease-(--ease-luxury)"
-	class:bg-[rgba(5,5,8,0.85)]={isScrolled}
-	class:backdrop-blur-md={isScrolled}
+	class="fixed top-0 w-full z-50 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center transition-all duration-300 ease-(--ease-luxury) {isScrolled
+		? 'bg-brand-surface/80 backdrop-blur-md text-brand-fg'
+		: 'text-white'}"
 >
 	<a href="/{page.params.lang || $locale}" class="flex flex-col text-left group">
 		<span
-			class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase text-white font-black leading-none"
+			class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase {isScrolled
+				? 'text-brand-fg'
+				: 'text-white'} font-black leading-none"
 		>
 			{siteConfig.shortName}
 		</span>
 		<span
-			class="text-[0.55rem] sm:text-[0.7rem] tracking-[0.35em] uppercase text-white/60 font-mono leading-none mt-1 sm:mt-1.5 font-bold group-hover:text-blue-400 transition-colors"
+			class="text-[0.55rem] sm:text-[0.7rem] tracking-[0.35em] uppercase {isScrolled
+				? 'text-brand-muted'
+				: 'text-white/60'} font-mono leading-none mt-1 sm:mt-1.5 font-bold group-hover:text-brand-highlight transition-colors"
 		>
 			MOTORENT
 		</span>
 	</a>
 
 	<div class="flex items-center gap-5 md:gap-8">
+		<ThemeSwitcher />
 		<LanguageSwitcher />
 
 		<button
-			class="relative z-50 group flex flex-col gap-1.5 p-2 cursor-pointer rounded-xl border border-[rgba(166,173,187,0.18)] bg-[rgba(23,26,32,0.55)] hover:border-accent-soft transition-colors"
+			class="relative z-50 group flex flex-col gap-1.5 p-2 cursor-pointer rounded-xl border border-[rgba(166,173,187,0.18)] bg-brand-surface-soft/80 hover:border-accent-soft transition-colors"
 			aria-label="Toggle Menu"
 			onclick={() => (isOpen = !isOpen)}
 		>
 			<div
-				class="w-8 h-0.5 bg-white transition-all duration-300 rounded-full {isOpen
+				class="w-8 h-0.5 {isScrolled
+					? 'bg-brand-fg'
+					: 'bg-white'} transition-all duration-300 rounded-full {isOpen
 					? 'rotate-45 translate-y-2'
 					: ''}"
 			></div>
 			<div
-				class="w-6 h-0.5 bg-white ml-auto transition-all duration-300 rounded-full {isOpen
+				class="w-6 h-0.5 {isScrolled
+					? 'bg-brand-fg'
+					: 'bg-white'} ml-auto transition-all duration-300 rounded-full {isOpen
 					? 'opacity-0'
 					: ''} group-hover:w-8"
 			></div>
 			<div
-				class="w-8 h-0.5 bg-white transition-all duration-300 rounded-full {isOpen
+				class="w-8 h-0.5 {isScrolled
+					? 'bg-brand-fg'
+					: 'bg-white'} transition-all duration-300 rounded-full {isOpen
 					? '-rotate-45 -translate-y-2'
 					: ''}"
 			></div>
@@ -76,11 +88,11 @@
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 bg-[rgba(5,5,8,0.96)] z-60 flex flex-col justify-center items-center text-center space-y-12"
+		class="fixed inset-0 bg-brand-surface/95 z-60 flex flex-col justify-center items-center text-center space-y-12"
 		transition:fade={{ duration: 300 }}
 	>
 		<button
-			class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"
+			class="absolute top-8 right-8 text-brand-muted hover:text-brand-fg transition-colors"
 			onclick={() => (isOpen = false)}
 			aria-label="Close Menu"
 		>
@@ -106,7 +118,7 @@
 					class="text-3xl sm:text-5xl md:text-7xl font-display transition-colors uppercase tracking-[0.03em] {page
 						.url.pathname === item.href
 						? 'text-(--brand-highlight)'
-						: 'text-white hover:text-(--brand-highlight)'}"
+						: 'text-brand-fg hover:text-(--brand-highlight)'}"
 					onclick={() => (isOpen = false)}
 				>
 					{item.label}

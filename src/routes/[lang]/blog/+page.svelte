@@ -87,15 +87,15 @@
 				<span class="w-8 h-px bg-blue-500"></span>
 			</h2>
 			<h1
-				class="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none"
+				class="text-4xl md:text-6xl lg:text-7xl font-black text-brand-fg uppercase tracking-tighter leading-none"
 			>
 				{$LL.blog_heading()} <br />
 				<span
-					class="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-300 to-gray-600"
+					class="text-transparent bg-clip-text bg-linear-to-r from-brand-fg via-brand-fg to-brand-fg/50"
 					>{$LL.blog_heading_highlight()}</span
 				>
 			</h1>
-			<p class="text-gray-400 mt-6 max-w-xl text-lg">
+			<p class="text-brand-muted mt-6 max-w-xl text-lg">
 				{$LL.blog_subtitle()}
 			</p>
 		</div>
@@ -116,7 +116,7 @@
 
 			<!-- Tags Filter -->
 			<div class="flex-2">
-				<label for="tag-filter" class="block text-sm text-gray-400 mb-2 uppercase tracking-wider"
+				<label for="tag-filter" class="block text-sm text-brand-muted mb-2 uppercase tracking-wider"
 					>{$LL.blog_filter_label()}</label
 				>
 				<div class="flex flex-wrap gap-2">
@@ -124,8 +124,8 @@
 						on:click={() => selectTag('')}
 						class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all {selectedTagId ===
 						''
-							? 'bg-white text-black'
-							: 'bg-brand-surface text-gray-400 border border-brand-border hover:border-gray-500'}"
+							? 'bg-brand-fg text-brand-surface'
+							: 'bg-brand-surface text-brand-fg border border-brand-border hover:border-gray-500'}"
 					>
 						{$LL.blog_filter_all()}
 					</button>
@@ -135,7 +135,7 @@
 							class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all {selectedTagId ===
 							tag.id
 								? 'bg-blue-600 text-white'
-								: 'bg-brand-surface text-gray-400 border border-brand-border hover:border-gray-500'}"
+								: 'bg-brand-surface text-brand-fg border border-brand-border hover:border-gray-500'}"
 						>
 							{tag.nama}
 						</button>
@@ -158,8 +158,8 @@
 		{:else if error}
 			<div class="text-center py-20 glass-surface rounded-3xl">
 				<div class="text-6xl mb-4">⚠️</div>
-				<h3 class="text-2xl font-bold text-white mb-2">{$LL.blog_error_title()}</h3>
-				<p class="text-gray-400 mb-8">{error}</p>
+				<h3 class="text-2xl font-bold text-brand-fg mb-2">{$LL.blog_error_title()}</h3>
+				<p class="text-brand-muted mb-8">{error}</p>
 				<Button on:click={loadPosts} variant="secondary">{$LL.blog_try_again()}</Button>
 			</div>
 		{:else if posts.length > 0}
@@ -224,17 +224,17 @@
 							{/if}
 
 							<h3
-								class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors line-clamp-2"
+								class="text-xl font-bold text-brand-fg mb-4 group-hover:text-blue-500 transition-colors line-clamp-2"
 							>
 								{post.judul}
 							</h3>
 
-							<p class="text-gray-400 text-sm mb-8 line-clamp-3">
+							<p class="text-brand-muted text-sm mb-8 line-clamp-3">
 								{post.excerpt}
 							</p>
 
 							<div
-								class="mt-auto flex items-center gap-2 text-white font-bold text-xs uppercase tracking-widest group-hover:gap-4 transition-all"
+								class="mt-auto flex items-center gap-2 text-brand-fg font-bold text-xs uppercase tracking-widest group-hover:gap-4 transition-all"
 							>
 								<span>{$LL.blog_read_more()}</span>
 								<svg
@@ -259,7 +259,7 @@
 				<div class="flex justify-center items-center gap-4 mt-16">
 					<button
 						aria-label="Previous page"
-						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-white disabled:opacity-20 hover:border-gray-500 transition-all"
+						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-brand-fg disabled:opacity-20 hover:border-gray-500 transition-all"
 						disabled={currentPage === 1}
 						on:click={() => {
 							currentPage--;
@@ -298,7 +298,7 @@
 
 					<button
 						aria-label="Next page"
-						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-white disabled:opacity-20 hover:border-gray-500 transition-all"
+						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-brand-fg disabled:opacity-20 hover:border-gray-500 transition-all"
 						disabled={currentPage === totalPages}
 						on:click={() => {
 							currentPage++;
@@ -322,8 +322,8 @@
 		{:else}
 			<div class="text-center py-20 glass-surface rounded-3xl">
 				<div class="text-6xl mb-4">🔍</div>
-				<h3 class="text-2xl font-bold text-white mb-2">{$LL.blog_empty_title()}</h3>
-				<p class="text-gray-400 mb-8">{$LL.blog_empty_desc()}</p>
+				<h3 class="text-2xl font-bold text-brand-fg mb-2">{$LL.blog_empty_title()}</h3>
+				<p class="text-brand-muted mb-8">{$LL.blog_empty_desc()}</p>
 				<Button
 					on:click={() => {
 						searchQuery = '';

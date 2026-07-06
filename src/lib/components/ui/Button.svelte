@@ -17,14 +17,14 @@
 	// Variants
 	const variants = {
 		primary:
-			'bg-white text-black border border-transparent hover:bg-[rgba(255,255,255,0.9)] hover:-translate-y-0.5',
+			'bg-brand-fg text-brand-surface border border-transparent hover:opacity-90 hover:-translate-y-0.5',
 		secondary:
-			'surface-panel text-white border border-[rgba(166,173,187,0.25)] hover:border-accent-soft hover:bg-[rgba(166,173,187,0.1)]',
+			'surface-panel text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft',
 		outline:
-			'bg-transparent text-white border border-[rgba(166,173,187,0.4)] hover:border-accent-soft hover:bg-accent-soft',
-		ghost: 'bg-transparent text-(--brand-muted) hover:text-white hover:bg-white/6',
+			'bg-transparent text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft',
+		ghost: 'bg-transparent text-brand-muted hover:text-brand-fg hover:bg-brand-surface-soft',
 		glass:
-			'bg-[rgba(255,255,255,0.06)] text-white border border-[rgba(166,173,187,0.24)] hover:border-accent-soft hover:bg-[rgba(166,173,187,0.14)]'
+			'bg-white/10 text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft'
 	};
 
 	// Sizes

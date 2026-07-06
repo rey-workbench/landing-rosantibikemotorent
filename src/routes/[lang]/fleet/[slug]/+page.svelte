@@ -89,7 +89,6 @@
 					brand: jenis.merk,
 					image: jenis.gambar,
 					sku: motor.id || '',
-					mpn: motor.platNomor,
 					price: displayPrice,
 					inStock: true,
 					url: currentUrl
@@ -140,7 +139,7 @@
 	<div class="max-w-7xl mx-auto">
 		<a
 			href="/{lang}/fleet"
-			class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+			class="inline-flex items-center gap-2 text-gray-400 hover:text-brand-fg transition-colors"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +199,7 @@
 					</p>
 
 					<h1
-						class="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter mb-6"
+						class="text-4xl md:text-5xl lg:text-6xl font-black text-brand-fg uppercase tracking-tighter mb-6"
 					>
 						Sewa Motor {jenis.model} Malang
 					</h1>
@@ -210,12 +209,12 @@
 					</p>
 
 					<!-- Specs Grid -->
-					<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+					<div class="grid grid-cols-2 gap-4 mb-8">
 						<div class="bg-white/5 border border-white/10 rounded-2xl p-4">
 							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_engine()}
 							</p>
-							<p class="text-2xl font-bold text-white">
+							<p class="text-2xl font-bold text-brand-fg">
 								{jenis.cc} <span class="text-sm text-gray-400">CC</span>
 							</p>
 						</div>
@@ -223,13 +222,7 @@
 							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_year()}
 							</p>
-							<p class="text-2xl font-bold text-white">{motor.tahunPembuatan || '-'}</p>
-						</div>
-						<div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">
-								{$LL.fleet_detail_plate()}
-							</p>
-							<p class="text-2xl font-bold text-white">{motor.platNomor}</p>
+							<p class="text-2xl font-bold text-brand-fg">{motor.tahunPembuatan || '-'}</p>
 						</div>
 					</div>
 
@@ -242,7 +235,7 @@
 								<p class="text-gray-400 text-sm uppercase tracking-wider mb-1">
 									{$LL.fleet_detail_price()}
 								</p>
-								<p class="text-4xl font-black text-white">
+								<p class="text-4xl font-black text-brand-fg">
 									{formatPrice(displayPrice)}
 								</p>
 								<p class="text-gray-400 text-sm">{$LL.fleet_detail_per_day()}</p>
@@ -277,7 +270,7 @@
 							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-white mb-2">{$LL.fleet_detail_insurance()}</h3>
+					<h3 class="text-xl font-bold text-brand-fg mb-2">{$LL.fleet_detail_insurance()}</h3>
 					<p class="text-gray-400">
 						{$LL.fleet_detail_insurance_desc()}
 					</p>
@@ -299,7 +292,7 @@
 							<polyline points="22 4 12 14.01 9 11.01" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-white mb-2">{$LL.fleet_detail_well_maintained()}</h3>
+					<h3 class="text-xl font-bold text-brand-fg mb-2">{$LL.fleet_detail_well_maintained()}</h3>
 					<p class="text-gray-400">{$LL.fleet_detail_well_maintained_desc()}</p>
 				</div>
 
@@ -318,7 +311,7 @@
 							<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-white mb-2">{$LL.fleet_detail_support()}</h3>
+					<h3 class="text-xl font-bold text-brand-fg mb-2">{$LL.fleet_detail_support()}</h3>
 					<p class="text-gray-400">
 						{$LL.fleet_detail_support_desc()}
 					</p>

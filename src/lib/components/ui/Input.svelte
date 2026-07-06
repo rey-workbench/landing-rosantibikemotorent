@@ -125,16 +125,16 @@
 				type="button"
 				{disabled}
 				on:click={() => !disabled && ((isOpen = !isOpen), (searchTerm = ''))}
-				class="w-full bg-[rgba(255,255,255,0.04)] border border-[rgba(166,173,187,0.2)] rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-[rgba(255,255,255,0.08)] hover:border-[rgba(166,173,187,0.32)] focus-visible:focus-ring {error
+				class="w-full bg-brand-surface-soft border border-brand-border rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-brand-surface-soft/80 hover:border-brand-border/80 focus-visible:focus-ring {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''} {isOpen
-					? 'border-accent-soft bg-[rgba(108,160,255,0.08)]'
+					? 'border-brand-highlight bg-brand-highlight/5'
 					: ''}"
 			>
 				<div class="flex items-center gap-3 truncate">
 					{#if icon !== 'none' && iconPaths[icon]}
 						<svg
-							class="text-[rgba(166,173,187,0.7)] shrink-0"
+							class="text-brand-muted shrink-0"
 							width="18"
 							height="18"
 							viewBox="0 0 24 24"
@@ -147,13 +147,13 @@
 							<path d={iconPaths[icon]} />
 						</svg>
 					{/if}
-					<span class="truncate {selectedLabel ? 'text-white' : 'text-[rgba(166,173,187,0.72)]'}"
+					<span class="truncate {selectedLabel ? 'text-brand-fg' : 'text-brand-muted'}"
 						>{selectedLabel || placeholder || 'Pilih...'}</span
 					>
 				</div>
 				<svg
-					class="text-[rgba(166,173,187,0.7)] shrink-0 transition-transform {isOpen
-						? 'rotate-180 text-white'
+					class="text-brand-muted shrink-0 transition-transform {isOpen
+						? 'rotate-180 text-brand-fg'
 						: ''}"
 					width="18"
 					height="18"
@@ -167,17 +167,17 @@
 			{#if isOpen}
 				<div
 					transition:fly={{ y: -10, duration: 200 }}
-					class="absolute left-0 w-full min-w-65 md:max-w-75 mt-2 bg-[rgba(9,11,14,0.98)] border border-[rgba(166,173,187,0.2)] rounded-xl shadow-2xl overflow-hidden backdrop-blur-xl z-99999"
+					class="absolute left-0 w-full min-w-65 md:max-w-75 mt-2 bg-brand-surface border border-brand-border rounded-xl shadow-2xl overflow-hidden backdrop-blur-xl z-99999"
 				>
 					{#if type === 'dropdown'}
 						{#if searchable}
-							<div class="p-2 border-b border-[rgba(166,173,187,0.12)]">
+							<div class="p-2 border-b border-brand-border">
 								<input
 									type="text"
 									bind:value={searchTerm}
 									placeholder="Cari..."
 									aria-label="Cari opsi"
-									class="w-full bg-[rgba(255,255,255,0.04)] border border-[rgba(166,173,187,0.2)] rounded-lg px-3 py-2 text-sm text-white focus-visible:focus-ring"
+									class="w-full bg-brand-surface-soft border border-brand-border rounded-lg px-3 py-2 text-sm text-brand-fg focus-visible:focus-ring"
 									on:click|stopPropagation
 								/>
 							</div>
@@ -189,8 +189,8 @@
 									on:click={() => select(opt.value)}
 									class="w-full px-4 py-2.5 text-left text-sm flex items-center justify-between {opt.value ==
 									value
-										? 'bg-white/10 text-white'
-										: 'text-muted hover:bg-[rgba(108,160,255,0.12)] hover:text-white'}"
+										? 'bg-brand-highlight/10 text-brand-highlight font-bold'
+										: 'text-brand-fg hover:bg-brand-surface-soft hover:text-brand-fg'}"
 								>
 									<span>{opt.label}</span>
 									{#if opt.value == value}<svg
@@ -210,7 +210,7 @@
 								<button
 									type="button"
 									on:click|stopPropagation={() => adjustMonth(-1)}
-									class="p-1 hover:bg-[rgba(108,160,255,0.16)] rounded text-white"
+									class="p-1 hover:bg-brand-surface-soft rounded text-brand-fg"
 									aria-label="Bulan sebelumnya"
 									><svg
 										width="14"
@@ -221,14 +221,14 @@
 										stroke-width="2"><polyline points="15 18 9 12 15 6" /></svg
 									></button
 								>
-								<div class="text-[10px] font-bold text-white uppercase tracking-[0.17em]">
+								<div class="text-[10px] font-bold text-brand-fg uppercase tracking-[0.17em]">
 									{months[view.month]}
 									{view.year}
 								</div>
 								<button
 									type="button"
 									on:click|stopPropagation={() => adjustMonth(1)}
-									class="p-1 hover:bg-[rgba(108,160,255,0.16)] rounded text-white"
+									class="p-1 hover:bg-brand-surface-soft rounded text-brand-fg"
 									aria-label="Bulan berikutnya"
 									><svg
 										width="14"
@@ -242,7 +242,7 @@
 							</div>
 							<div class="grid grid-cols-7 gap-px mb-1">
 								{#each ['S', 'M', 'T', 'W', 'T', 'F', 'S'] as d}<div
-										class="text-[8px] font-bold text-[rgba(166,173,187,0.56)] text-center"
+										class="text-[8px] font-bold text-brand-muted text-center"
 									>
 										{d}
 									</div>{/each}
@@ -257,11 +257,11 @@
 												`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
 											)}
 										class="aspect-square flex items-center justify-center text-[10px] rounded-md {curr
-											? 'text-white hover:bg-[rgba(108,160,255,0.16)]'
-											: 'text-[rgba(166,173,187,0.25)] pointer-events-none'} {curr &&
+											? 'text-brand-fg hover:bg-brand-surface-soft'
+											: 'text-brand-muted/30 pointer-events-none'} {curr &&
 										value ===
 											`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
-											? 'bg-white text-black! font-bold'
+											? 'bg-brand-fg text-brand-surface! font-bold'
 											: ''}">{d}</button
 									>
 								{/each}
@@ -274,19 +274,19 @@
 										on:click|stopPropagation={() =>
 											select(`${h}:${value.toString().split(':')[1] || '00'}`)}
 										class="w-full py-1.5 text-[10px] rounded {value.toString().startsWith(h + ':')
-											? 'bg-white text-black'
-											: 'text-muted hover:text-white'}">{h}</button
+											? 'bg-brand-fg text-brand-surface'
+											: 'text-brand-muted hover:text-brand-fg'}">{h}</button
 									>{/each}
 							</div>
 							<div
-								class="overflow-y-auto scrollbar-custom pr-1 border-l border-[rgba(166,173,187,0.12)] pl-2"
+								class="overflow-y-auto scrollbar-custom pr-1 border-l border-brand-border pl-2"
 							>
 								{#each mins as m}<button
 										on:click|stopPropagation={() =>
 											select(`${value.toString().split(':')[0] || '08'}:${m}`)}
 										class="w-full py-1.5 text-[10px] rounded {value.toString().endsWith(':' + m)
-											? 'bg-white text-black'
-											: 'text-muted hover:text-white'}">{m}</button
+											? 'bg-brand-fg text-brand-surface'
+											: 'text-brand-muted hover:text-brand-fg'}">{m}</button
 									>{/each}
 							</div>
 						</div>
@@ -302,7 +302,7 @@
 				{required}
 				{disabled}
 				on:input={(e) => (value = e.currentTarget.value)}
-				class="w-full bg-[rgba(255,255,255,0.04)] border border-[rgba(166,173,187,0.2)] rounded-xl px-4 py-3 text-white placeholder-[rgba(166,173,187,0.7)] focus-visible:focus-ring focus:bg-[rgba(108,160,255,0.08)] transition-all {type ===
+				class="w-full bg-brand-surface-soft border border-brand-border rounded-xl px-4 py-3 text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring focus:bg-brand-highlight/5 transition-all {type ===
 				'number'
 					? 'pr-12'
 					: ''} {error ? 'border-red-500' : ''}"
@@ -312,7 +312,7 @@
 					<button
 						type="button"
 						on:click={() => step(1)}
-						class="p-1 hover:text-white text-muted"
+						class="p-1 hover:text-brand-fg text-brand-muted"
 						aria-label="Tambah"
 						><svg
 							width="12"
@@ -326,7 +326,7 @@
 					<button
 						type="button"
 						on:click={() => step(-1)}
-						class="p-1 hover:text-white text-muted"
+						class="p-1 hover:text-brand-fg text-brand-muted"
 						aria-label="Kurangi"
 						><svg
 							width="12"

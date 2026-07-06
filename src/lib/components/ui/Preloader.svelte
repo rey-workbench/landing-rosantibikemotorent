@@ -38,7 +38,7 @@
     -->
 	<div class="fixed top-0 left-0 w-full h-0.75 z-200 pointer-events-none">
 		<div
-			class="h-full bg-white transition-all duration-150 ease-out"
+			class="h-full bg-brand-highlight transition-all duration-150 ease-out"
 			style="width: {$loadingProgress}%"
 		></div>
 

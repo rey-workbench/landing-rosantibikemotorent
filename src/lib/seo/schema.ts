@@ -26,10 +26,7 @@ export function buildOrganizationSchema() {
 			contactType: 'customer service',
 			availableLanguage: ['Indonesian', 'English']
 		},
-		sameAs: [
-			'https://www.instagram.com/rosantibike',
-			'https://share.google/txOxHDzSGQxVfc1ql'
-		],
+		sameAs: ['https://www.instagram.com/rosantibike', 'https://share.google/txOxHDzSGQxVfc1ql'],
 		priceRange: '$$',
 		openingHoursSpecification: {
 			'@type': 'OpeningHoursSpecification',

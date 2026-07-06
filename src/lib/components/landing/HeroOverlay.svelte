@@ -81,7 +81,7 @@
 								>
 							</span>
 							<span
-								class="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white/60 mt-1 sm:mt-2 font-light tracking-[0.2em]"
+								class="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white/70 mt-1 sm:mt-2 font-light tracking-[0.2em]"
 								>{$LL.hero_subtitle()}</span
 							>
 						{:else}
@@ -93,7 +93,7 @@
 				<p
 					in:fly={{ y: 20, duration: 800, delay: 150 }}
 					out:fly={{ y: -20, duration: 600 }}
-					class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 font-mono tracking-wider sm:tracking-widest max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl uppercase mt-2 sm:mt-4"
+					class="text-sm sm:text-base md:text-lg lg:text-xl text-white/60 font-mono tracking-wider sm:tracking-widest max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl uppercase mt-2 sm:mt-4"
 				>
 					<span class="inline-block w-3 sm:w-4 h-px bg-white mr-2 sm:mr-4 align-middle"></span>
 					{t.sub}
@@ -110,17 +110,16 @@
 							rel="noopener noreferrer"
 							class="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-bold text-sm sm:text-base md:text-lg uppercase tracking-widest sm:tracking-[0.2em] transition-all hover:scale-105 pointer-events-auto rounded-full overflow-hidden inline-block"
 						>
-							<span class="relative z-10">{$LL.hero_book_whatsapp()}</span>
+							<span
+								class="relative z-10 text-black group-hover:text-white transition-colors duration-500"
+								>{$LL.hero_book_whatsapp()}</span
+							>
 							<div
 								class="absolute inset-0 bg-linear-to-r from-green-400 to-green-600 -translate-x-full group-hover:translate-x-0 transition-transform duration-500"
 							></div>
-							<span
-								class="absolute inset-0 flex items-center justify-center z-10 group-hover:text-white transition-colors duration-500 opacity-0 group-hover:opacity-100"
-								>{$LL.hero_book_whatsapp()}</span
-							>
 						</a>
 						<span
-							class="text-[8px] sm:text-[10px] font-mono text-white/30 tracking-[0.2em] sm:tracking-[0.4em]"
+							class="text-[8px] sm:text-[10px] font-mono text-white/50 tracking-[0.2em] sm:tracking-[0.4em]"
 							>{$LL.hero_partner()}</span
 						>
 					</div>

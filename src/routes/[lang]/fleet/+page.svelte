@@ -166,7 +166,9 @@
 			</div>
 		{:else if error}
 			<div class="text-center py-24 surface-panel">
-				<h3 class="text-xl font-black text-white uppercase mb-4">{$LL.fleet_error_load_title()}</h3>
+				<h3 class="text-xl font-black text-brand-fg uppercase mb-4">
+					{$LL.fleet_error_load_title()}
+				</h3>
 				<Button size="sm" on:click={() => window.location.reload()}>{$LL.fleet_refresh()}</Button>
 			</div>
 		{:else if filteredMotors.length > 0}
@@ -236,7 +238,7 @@
 									{jenis.merk}
 								</p>
 								<h3
-									class="text-sm md:text-xl font-black text-white uppercase tracking-tighter leading-none group-hover:text-(--brand-highlight) transition-colors line-clamp-1"
+									class="text-sm md:text-xl font-black text-brand-fg uppercase tracking-tighter leading-none group-hover:text-(--brand-highlight) transition-colors line-clamp-1"
 								>
 									{jenis.model}
 								</h3>
@@ -245,7 +247,7 @@
 							<div class="mt-4 flex flex-col gap-2">
 								<div class="flex items-baseline gap-1">
 									{#if jenis.computed.minPrice > 0}
-										<span class="text-sm md:text-xl font-black text-white uppercase">
+										<span class="text-sm md:text-xl font-black text-brand-fg uppercase">
 											{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
 										</span>
 										<span class="text-[8px] md:text-[10px] text-muted font-bold uppercase"
@@ -260,7 +262,7 @@
 
 								<!-- Desktop CTA arrow -->
 								<div
-									class="hidden md:flex items-center gap-2 text-white font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all"
+									class="hidden md:flex items-center gap-2 text-brand-fg font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all"
 								>
 									<span>{$LL.fleet_link_detail()}</span>
 									<svg
@@ -278,7 +280,7 @@
 								</div>
 								<!-- H5 FIX: Mobile tap affordance -->
 								<div
-									class="flex md:hidden items-center gap-1 text-white/50 font-black text-[9px] uppercase tracking-widest mt-1"
+									class="flex md:hidden items-center gap-1 text-brand-fg/50 font-black text-[9px] uppercase tracking-widest mt-1"
 								>
 									<span>{$LL.fleet_link_detail()}</span>
 									<svg
@@ -301,7 +303,7 @@
 			</div>
 		{:else}
 			<div class="text-center py-24 surface-panel">
-				<h3 class="text-xl font-black text-white uppercase">{$LL.fleet_empty_search_title()}</h3>
+				<h3 class="text-xl font-black text-brand-fg uppercase">{$LL.fleet_empty_search_title()}</h3>
 				<p class="text-muted mt-2 text-sm">{$LL.fleet_empty_search_desc()}</p>
 			</div>
 		{/if}

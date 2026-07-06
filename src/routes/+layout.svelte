@@ -52,16 +52,20 @@
 <Preloader />
 <Navbar />
 
-<main id="main-content" class="min-h-screen bg-brand-dark text-white">
+<main id="main-content" class="min-h-screen">
 	{@render children()}
 </main>
 
 <Footer />
 
 <svelte:head>
+	<script>
+		(function () {
+			const theme = localStorage.getItem('theme') || 'dark';
+			document.documentElement.setAttribute('data-theme', theme);
+		})();
+	</script>
 	{#if layoutData.organizationSchema}
-		<script type="application/ld+json">
-{JSON.stringify(layoutData.organizationSchema)}
-		</script>
+		{@html `<script type="application/ld+json">${JSON.stringify(layoutData.organizationSchema)}</script>`}
 	{/if}
 </svelte:head>

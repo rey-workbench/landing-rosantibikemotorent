@@ -110,7 +110,7 @@
 			</div>
 
 			<h1
-				class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tighter uppercase mb-8"
+				class="text-4xl md:text-5xl lg:text-6xl font-black text-brand-fg leading-tight tracking-tighter uppercase mb-8"
 			>
 				{post.judul}
 			</h1>
@@ -143,7 +143,9 @@
 			{/if}
 
 			<!-- Text -->
-			<div class="prose prose-invert max-w-none article-content">
+			<div
+				class="prose prose-invert prose-lg md:prose-xl max-w-none article-content prose-img:rounded-3xl prose-headings:font-display prose-a:text-blue-500 hover:prose-a:text-blue-400 prose-headings:uppercase prose-p:text-gray-300"
+			>
 				{#await import('isomorphic-dompurify') then DOMPurify}
 					{@html DOMPurify.default.sanitize(post.konten)}
 				{/await}

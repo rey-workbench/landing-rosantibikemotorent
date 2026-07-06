@@ -35,8 +35,8 @@
 			onclick={() => switchLanguage(lang)}
 			class="px-3 py-1 text-xs font-black rounded-full border transition-all duration-300 ease-(--ease-luxury) {currentLang ===
 			lang
-				? 'bg-white text-black border-white'
-				: 'text-muted border-[rgba(166,173,187,0.2)] hover:border-accent-soft hover:text-white'}"
+				? 'bg-brand-fg text-brand-surface border-brand-fg'
+				: 'text-brand-muted border-brand-border hover:border-brand-accent hover:text-brand-fg'}"
 			aria-current={currentLang === lang ? 'page' : undefined}
 		>
 			{names[lang] || lang.toUpperCase()}

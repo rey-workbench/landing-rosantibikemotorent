@@ -66,8 +66,6 @@
 	<link rel="alternate" hreflang="x-default" href={alternateUrls.xDefault} />
 
 	{#each schemas as schema}
-		<script type="application/ld+json">
-{JSON.stringify(schema)}
-		</script>
+		{@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
 	{/each}
 </svelte:head>

@@ -46,12 +46,14 @@ export const GET: RequestHandler = async () => {
 
 		const blogResponse = await blogApi.getAll({ limit: 100, status: 'PUBLISHED' });
 		const blogs = blogResponse.data || [];
-		dynamicUrls.push(...blogs.map((blog: any): SitemapUrl => ({
-			path: `/blog/${blog.slug}`,
-			changefreq: 'monthly',
-			priority: 0.6,
-			lastmod: blog.updatedAt ? new Date(blog.updatedAt).toISOString().split('T')[0] : undefined
-		})));
+		dynamicUrls.push(
+			...blogs.map((blog: any): SitemapUrl => ({
+				path: `/blog/${blog.slug}`,
+				changefreq: 'monthly',
+				priority: 0.6,
+				lastmod: blog.updatedAt ? new Date(blog.updatedAt).toISOString().split('T')[0] : undefined
+			}))
+		);
 	} catch (error) {
 		console.error('Failed to fetch dynamic routes for sitemap:', error);
 	}

@@ -44,38 +44,47 @@
 	});
 </script>
 
-<section class="py-16 md:py-24 relative bg-brand-dark overflow-hidden z-20" bind:this={sectionRef}>
+<section
+	class="py-16 md:py-24 relative bg-brand-background overflow-hidden z-20"
+	bind:this={sectionRef}
+>
 	<div class="absolute top-1/2 left-1/4 w-96 h-96 rounded-full pointer-events-none opacity-0"></div>
 
 	<div class="container mx-auto px-4 relative z-10">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 			<div
-				class="group p-8 md:p-12 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-white/10 hover:border-white/20 hover:transform hover:-translate-y-2 text-center"
+				class="group p-8 md:p-12 rounded-3xl bg-brand-surface border border-brand-border backdrop-blur-sm transition-all duration-500 hover:bg-brand-surface-soft hover:transform hover:-translate-y-2 text-center"
 			>
-				<div class="text-6xl md:text-8xl font-black text-white mb-4 tracking-tighter leading-none">
+				<div
+					class="text-6xl md:text-8xl font-black text-brand-fg mb-4 tracking-tighter leading-none"
+				>
 					{Math.round($spring1)}{stats[0].suffix}
 				</div>
-				<div class="text-xs md:text-sm text-gray-400 uppercase tracking-[0.2em] font-bold">
+				<div class="text-xs md:text-sm text-brand-muted uppercase tracking-[0.2em] font-bold">
 					{stats[0].label}
 				</div>
 			</div>
 			<div
-				class="group p-8 md:p-12 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-white/10 hover:border-white/20 hover:transform hover:-translate-y-2 text-center"
+				class="group p-8 md:p-12 rounded-3xl bg-brand-surface border border-brand-border backdrop-blur-sm transition-all duration-500 hover:bg-brand-surface-soft hover:transform hover:-translate-y-2 text-center"
 			>
-				<div class="text-6xl md:text-8xl font-black text-white mb-4 tracking-tighter leading-none">
+				<div
+					class="text-6xl md:text-8xl font-black text-brand-fg mb-4 tracking-tighter leading-none"
+				>
 					{Math.round($spring2)}{stats[1].suffix}
 				</div>
-				<div class="text-xs md:text-sm text-gray-400 uppercase tracking-[0.2em] font-bold">
+				<div class="text-xs md:text-sm text-brand-muted uppercase tracking-[0.2em] font-bold">
 					{stats[1].label}
 				</div>
 			</div>
 			<div
-				class="group p-8 md:p-12 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-white/10 hover:border-white/20 hover:transform hover:-translate-y-2 text-center"
+				class="group p-8 md:p-12 rounded-3xl bg-brand-surface border border-brand-border backdrop-blur-sm transition-all duration-500 hover:bg-brand-surface-soft hover:transform hover:-translate-y-2 text-center"
 			>
-				<div class="text-6xl md:text-8xl font-black text-white mb-4 tracking-tighter leading-none">
+				<div
+					class="text-6xl md:text-8xl font-black text-brand-fg mb-4 tracking-tighter leading-none"
+				>
 					{Math.round($spring3)}{stats[2].suffix}
 				</div>
-				<div class="text-xs md:text-sm text-gray-400 uppercase tracking-[0.2em] font-bold">
+				<div class="text-xs md:text-sm text-brand-muted uppercase tracking-[0.2em] font-bold">
 					{stats[2].label}
 				</div>
 			</div>

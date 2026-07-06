@@ -49,7 +49,7 @@
 						<polyline points="20 6 9 17 4 12" />
 					</svg>
 				</div>
-				<h1 class="text-3xl md:text-4xl font-black text-white uppercase tracking-tighter mb-4">
+				<h1 class="text-3xl md:text-4xl font-black text-brand-fg uppercase tracking-tighter mb-4">
 					{$LL.booking_success_title()}
 				</h1>
 				<p class="text-muted text-lg">
@@ -59,7 +59,7 @@
 
 			<!-- Booking Details -->
 			<div class="surface-panel p-8 text-left mb-8">
-				<h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+				<h3 class="text-lg font-bold text-brand-fg mb-6 flex items-center gap-2">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="20"
@@ -82,24 +82,24 @@
 				<div class="space-y-4">
 					<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
 						<span class="text-muted">{$LL.booking_success_renter_name()}</span>
-						<span class="text-white font-medium">{transaksi.namaPenyewa}</span>
+						<span class="text-brand-fg font-medium">{transaksi.namaPenyewa}</span>
 					</div>
 					<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
 						<span class="text-muted">{$LL.booking_success_whatsapp()}</span>
-						<span class="text-white font-medium">{transaksi.noWhatsapp}</span>
+						<span class="text-brand-fg font-medium">{transaksi.noWhatsapp}</span>
 					</div>
 					<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
 						<span class="text-muted">{$LL.booking_success_start_date()}</span>
-						<span class="text-white font-medium">{transaksi.formatted.mulai}</span>
+						<span class="text-brand-fg font-medium">{transaksi.formatted.mulai}</span>
 					</div>
 					<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
 						<span class="text-muted">{$LL.booking_success_end_date()}</span>
-						<span class="text-white font-medium">{transaksi.formatted.selesai}</span>
+						<span class="text-brand-fg font-medium">{transaksi.formatted.selesai}</span>
 					</div>
 					{#if transaksi.jasHujan > 0}
 						<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
 							<span class="text-muted">{$LL.booking_success_raincoat()}</span>
-							<span class="text-white font-medium"
+							<span class="text-brand-fg font-medium"
 								>{transaksi.jasHujan} {$LL.booking_confirm_pieces()}</span
 							>
 						</div>
@@ -107,14 +107,15 @@
 					{#if transaksi.helm > 0}
 						<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
 							<span class="text-muted">{$LL.booking_success_helmet()}</span>
-							<span class="text-white font-medium"
+							<span class="text-brand-fg font-medium"
 								>{transaksi.helm} {$LL.booking_confirm_pieces()}</span
 							>
 						</div>
 					{/if}
 					<div class="flex justify-between py-3">
 						<span class="text-muted">{$LL.booking_success_total()}</span>
-						<span class="text-2xl font-bold text-white">{formatPrice(transaksi.totalBiaya)}</span>
+						<span class="text-2xl font-bold text-brand-fg">{formatPrice(transaksi.totalBiaya)}</span
+						>
 					</div>
 				</div>
 			</div>
@@ -154,7 +155,7 @@
 			</Button>
 
 			<div class="mt-8">
-				<a href="/{lang}/" class="text-muted hover:text-white transition-colors">
+				<a href="/{lang}/" class="text-muted hover:text-brand-fg transition-colors">
 					{$LL.booking_success_back_home()}
 				</a>
 			</div>

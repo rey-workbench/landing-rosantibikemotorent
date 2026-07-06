@@ -273,7 +273,7 @@
 						/>
 					</svg>
 				</div>
-				<h3 class="text-2xl font-bold text-white mb-3">{$LL.booking_success_title()}</h3>
+				<h3 class="text-2xl font-bold text-brand-fg mb-3">{$LL.booking_success_title()}</h3>
 				<p class="text-muted">{$LL.booking_success_message()}</p>
 			</div>
 		{:else}
@@ -307,7 +307,7 @@
 				{#if currentStep === 0}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
-							<h3 class="text-xl font-bold text-white">{$LL.booking_step1_title()}</h3>
+							<h3 class="text-xl font-bold text-brand-fg">{$LL.booking_step1_title()}</h3>
 							<p class="text-muted text-sm mt-1">{$LL.booking_step1_desc()}</p>
 						</div>
 
@@ -335,7 +335,7 @@
 				{#if currentStep === 1}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
-							<h3 class="text-xl font-bold text-white">Pilih Motor</h3>
+							<h3 class="text-xl font-bold text-brand-fg">Pilih Motor</h3>
 							<p class="text-muted text-sm mt-1">Pilih motor yang ingin disewa</p>
 						</div>
 
@@ -368,7 +368,7 @@
 								{/if}
 								<div class="flex-1">
 									<p class="text-muted text-sm">{jenis?.merk}</p>
-									<p class="text-white font-bold text-lg">{jenis?.model}</p>
+									<p class="text-brand-fg font-bold text-lg">{jenis?.model}</p>
 									{#if jenis?.cc}
 										<p class="text-gray-500 text-sm">{jenis.cc} CC</p>
 									{/if}
@@ -409,7 +409,7 @@
 				{#if currentStep === 2}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
-							<h3 class="text-xl font-bold text-white">{$LL.booking_step3_title()}</h3>
+							<h3 class="text-xl font-bold text-brand-fg">{$LL.booking_step3_title()}</h3>
 							<p class="text-muted text-sm mt-1">{$LL.booking_step3_desc()}</p>
 						</div>
 
@@ -499,7 +499,7 @@
 				{#if currentStep === 3}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h3 class="text-xl font-bold text-white">{$LL.booking_step4_title()}</h3>
+							<h3 class="text-xl font-bold text-brand-fg">{$LL.booking_step4_title()}</h3>
 							<p class="text-muted text-sm mt-1">{$LL.booking_step4_desc()}</p>
 						</div>
 
@@ -518,13 +518,13 @@
 									{/if}
 									<div>
 										<p class="text-muted text-xs uppercase">{$LL.booking_motor_label()}</p>
-										<p class="text-white font-bold">{jenis?.merk} {jenis?.model}</p>
+										<p class="text-brand-fg font-bold">{jenis?.merk} {jenis?.model}</p>
 									</div>
 								</div>
 							{:else if formData.jenisId || formData.unitId}
 								<div class="p-4 border-b border-[rgba(166,173,187,0.16)]">
 									<p class="text-muted text-xs uppercase">{$LL.booking_motor_label()}</p>
-									<p class="text-white font-bold">{$LL.booking_motor_selected()}</p>
+									<p class="text-brand-fg font-bold">{$LL.booking_motor_selected()}</p>
 								</div>
 							{/if}
 
@@ -532,19 +532,19 @@
 							<div class="p-4 space-y-3">
 								<div class="flex justify-between">
 									<span class="text-muted">{$LL.booking_name_field()}</span>
-									<span class="text-white font-medium">{formData.namaPenyewa}</span>
+									<span class="text-brand-fg font-medium">{formData.namaPenyewa}</span>
 								</div>
 								<div class="flex justify-between">
 									<span class="text-muted">{$LL.booking_whatsapp_field()}</span>
-									<span class="text-white font-medium">{formData.noWhatsapp}</span>
+									<span class="text-brand-fg font-medium">{formData.noWhatsapp}</span>
 								</div>
 								<div class="flex justify-between">
 									<span class="text-muted">{$LL.booking_date_field()}</span>
-									<span class="text-white font-medium">{formatDate(formData.tanggalMulai)}</span>
+									<span class="text-brand-fg font-medium">{formatDate(formData.tanggalMulai)}</span>
 								</div>
 								<div class="flex justify-between">
 									<span class="text-muted">{$LL.booking_time_field()}</span>
-									<span class="text-white font-medium"
+									<span class="text-brand-fg font-medium"
 										>{formData.jamMulai} - {formData.jamSelesai}</span
 									>
 								</div>
@@ -585,7 +585,7 @@
 												{$LL.booking_rental_cost()} ({priceBreakdown.rincian.jumlahHari}
 												{$LL.booking_day()} × {formatPrice(priceBreakdown.rincian.hargaPerHari)})
 											</span>
-											<span class="text-white font-medium">
+											<span class="text-brand-fg font-medium">
 												{formatPrice(
 													priceBreakdown.rincian.jumlahHari * priceBreakdown.rincian.hargaPerHari
 												)}
@@ -598,7 +598,7 @@
 														priceBreakdown.rincian.dendaPerJam
 													)})
 												</span>
-												<span class="text-white font-medium">
+												<span class="text-brand-fg font-medium">
 													{formatPrice(priceBreakdown.rincian.biayaJamTambahan)}
 												</span>
 											</div>
@@ -617,7 +617,7 @@
 										<div>
 											<p class="text-muted text-sm">{$LL.booking_total_cost()}</p>
 										</div>
-										<p class="text-2xl font-bold text-white">
+										<p class="text-2xl font-bold text-brand-fg">
 											{formatPrice(priceBreakdown.totalBiaya)}
 										</p>
 									</div>

@@ -198,13 +198,13 @@
 			<button
 				type="button"
 				on:click|stopPropagation={openDropdown}
-				class="flex items-center gap-2 bg-[rgba(255,255,255,0.04)] border border-r-0 border-[rgba(166,173,187,0.2)] rounded-l-xl px-3 py-3 hover:bg-[rgba(255,255,255,0.08)] transition-all {disabled
+				class="flex items-center gap-2 bg-brand-surface-soft border border-r-0 border-brand-border rounded-l-xl px-3 py-3 hover:bg-brand-surface-soft/80 transition-all {disabled
 					? 'opacity-50 cursor-not-allowed'
-					: 'cursor-pointer'} {isOpen ? 'bg-[rgba(108,160,255,0.08)] border-accent-soft' : ''}"
+					: 'cursor-pointer'} {isOpen ? 'bg-brand-highlight/5 border-brand-highlight' : ''}"
 			>
 				<span class="text-lg">{selectedCountry?.flag}</span>
-				<span class="text-white font-medium">+{selectedCountry?.callingCode}</span>
-				<svg class="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<span class="text-brand-fg font-medium">+{selectedCountry?.callingCode}</span>
+				<svg class="w-4 h-4 text-brand-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -224,7 +224,7 @@
 				on:input={handleInput}
 				on:blur={handleBlur}
 				on:click|stopPropagation={() => {}}
-				class="flex-1 bg-[rgba(255,255,255,0.04)] border border-[rgba(166,173,187,0.2)] rounded-r-xl rounded-l-none px-4 py-3 text-white placeholder-[rgba(166,173,187,0.7)] focus-visible:focus-ring focus:bg-[rgba(108,160,255,0.08)] transition-all {error
+				class="flex-1 bg-brand-surface-soft border border-brand-border rounded-r-xl rounded-l-none px-4 py-3 text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring focus:bg-brand-highlight/5 transition-all {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''}"
 			/>
@@ -233,14 +233,14 @@
 		{#if isOpen}
 			<div
 				transition:fly={{ y: -10, duration: 200 }}
-				class="absolute left-0 top-full mt-2 w-72 max-h-80 bg-[rgba(9,11,14,0.98)] border border-[rgba(166,173,187,0.2)] rounded-xl shadow-2xl overflow-hidden z-99999"
+				class="absolute left-0 top-full mt-2 w-72 max-h-80 bg-brand-surface border border-brand-border rounded-xl shadow-2xl overflow-hidden z-99999"
 			>
-				<div class="p-2 border-b border-[rgba(166,173,187,0.12)]">
+				<div class="p-2 border-b border-brand-border">
 					<input
 						type="text"
 						bind:value={searchTerm}
 						placeholder="Cari negara..."
-						class="w-full bg-[rgba(255,255,255,0.04)] border border-[rgba(166,173,187,0.2)] rounded-lg px-3 py-2 text-sm text-white placeholder-[rgba(166,173,187,0.7)] focus-visible:focus-ring"
+						class="w-full bg-brand-surface-soft border border-brand-border rounded-lg px-3 py-2 text-sm text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring"
 						on:click|stopPropagation={() => {}}
 					/>
 				</div>
@@ -252,8 +252,8 @@
 							on:click|stopPropagation={() => selectCountry(country)}
 							class="w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 {country.code ===
 							selectedCountry?.code
-								? 'bg-white/10 text-white'
-								: 'text-muted hover:bg-[rgba(108,160,255,0.12)] hover:text-white'}"
+								? 'bg-brand-highlight/10 text-brand-highlight font-bold'
+								: 'text-brand-fg hover:bg-brand-surface-soft hover:text-brand-fg'}"
 						>
 							<span class="text-lg">{country.flag}</span>
 							<span class="flex-1 truncate">{country.name}</span>

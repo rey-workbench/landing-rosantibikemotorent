@@ -58,7 +58,7 @@
 	}
 </script>
 
-<section id="fleet" class="py-20 md:py-32 bg-brand-dark section-shell overflow-hidden">
+<section id="fleet" class="py-20 md:py-32 bg-brand-background section-shell overflow-hidden">
 	<div class="max-w-7xl mx-auto mb-10 md:mb-16 flex flex-col items-start gap-6">
 		<div>
 			<h2 class="section-kicker mb-2 md:mb-4">
@@ -73,7 +73,7 @@
 		</div>
 		<a
 			href="/{lang}/fleet"
-			class="text-xs md:text-base text-white border-b border-[rgba(166,173,187,0.5)] pb-1 hover:text-(--brand-highlight) hover:border-(--brand-highlight) transition-colors"
+			class="text-xs md:text-base text-brand-fg border-b border-[rgba(166,173,187,0.5)] pb-1 hover:text-(--brand-highlight) hover:border-(--brand-highlight) transition-colors"
 		>
 			{$LL.fleet_view_all()} →
 		</a>
@@ -151,7 +151,7 @@
 								{jenis.merk}
 							</p>
 							<h3
-								class="text-sm md:text-2xl font-black text-white leading-tight uppercase line-clamp-1 md:line-clamp-none"
+								class="text-sm md:text-2xl font-black text-brand-fg leading-tight uppercase line-clamp-1 md:line-clamp-none"
 							>
 								{jenis.model}
 							</h3>
@@ -160,7 +160,7 @@
 						<div class="flex items-end justify-between mt-2">
 							<div>
 								{#if jenis.computed.minPrice > 0}
-									<p class="text-sm md:text-2xl font-black text-white">
+									<p class="text-sm md:text-2xl font-black text-brand-fg">
 										{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
 									</p>
 									<p class="text-[8px] md:text-xs text-muted font-bold uppercase tracking-wider">
@@ -174,7 +174,7 @@
 							</div>
 
 							<div
-								class="hidden md:flex items-center gap-2 text-white font-black text-[10px] uppercase tracking-widest group-hover:gap-3 transition-all"
+								class="hidden md:flex items-center gap-2 text-brand-fg font-black text-[10px] uppercase tracking-widest group-hover:gap-3 transition-all"
 							>
 								<span>{$LL.fleet_order()}</span>
 								<svg

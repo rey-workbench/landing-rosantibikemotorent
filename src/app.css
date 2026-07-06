@@ -1,56 +1,84 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 
 @theme {
 	--font-sans: 'Sora', 'Outfit', sans-serif;
 	--font-display: 'Bebas Neue', 'Anton', 'Impact', sans-serif;
+
+	/* Binding theme colors to CSS variables */
 	--color-brand-dark: #050505;
-	--color-brand-surface: #111317;
-	--color-brand-surface-soft: #171a20;
-	--color-brand-border: #2d313a;
-	--color-brand-accent: #ffffff;
-	--color-brand-muted: #a6adbb;
-	--color-brand-highlight: #6ca0ff;
+	--color-brand-background: var(--brand-bg);
+	--color-brand-foreground: var(--brand-fg);
+	--color-brand-surface: var(--brand-surface);
+	--color-brand-surface-soft: var(--brand-surface-soft);
+	--color-brand-border: var(--brand-border);
+	--color-brand-accent: var(--brand-accent);
+	--color-brand-muted: var(--brand-muted);
+	--color-brand-highlight: var(--brand-highlight);
 }
 
 :root {
-	--brand-dark: #050505;
+	/* Light Mode (Default) */
+	--brand-bg: #f9fafb;
+	--brand-fg: #111827;
+	--brand-surface: #ffffff;
+	--brand-surface-soft: #f3f4f6;
+	--brand-border: #e5e7eb;
+	--brand-accent: #050505;
+	--brand-muted: #6b7280;
+	--brand-highlight: #2563eb;
+
+	--background-start-rgb: 249, 250, 251;
+	--background-end-rgb: 243, 244, 246;
+
+	--ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+	--radius-panel: 1.5rem;
+	--radius-card: 2rem;
+}
+
+:root[data-theme='dark'] {
+	/* Dark Mode */
+	--brand-bg: #050505;
+	--brand-fg: #ffffff;
 	--brand-surface: #111317;
 	--brand-surface-soft: #171a20;
 	--brand-border: #2d313a;
 	--brand-accent: #ffffff;
 	--brand-muted: #a6adbb;
 	--brand-highlight: #6ca0ff;
-	--ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
-	--radius-panel: 1.5rem;
-	--radius-card: 2rem;
+
+	--background-start-rgb: 6, 7, 10;
+	--background-end-rgb: 6, 7, 10;
 }
 
 @layer utilities {
 	.glass-effect,
 	.glass-surface {
-		background: linear-gradient(160deg, rgba(23, 26, 32, 0.94), rgba(11, 12, 16, 0.94));
-		border: 1px solid rgba(166, 173, 187, 0.18);
-		backdrop-filter: none !important;
+		background: color-mix(in srgb, var(--brand-surface) 90%, transparent);
+		border: 1px solid color-mix(in srgb, var(--brand-border) 40%, transparent);
+		backdrop-filter: blur(12px) saturate(160%);
 	}
 
 	.surface-panel {
-		background: linear-gradient(150deg, rgba(23, 26, 32, 0.96), rgba(7, 8, 10, 0.96));
-		border: 1px solid rgba(166, 173, 187, 0.2);
+		background: color-mix(in srgb, var(--brand-surface-soft) 95%, transparent);
+		border: 1px solid color-mix(in srgb, var(--brand-border) 50%, transparent);
 		border-radius: var(--radius-panel);
 	}
 
 	.surface-card {
-		background: linear-gradient(165deg, rgba(17, 19, 23, 0.98), rgba(9, 10, 13, 0.98));
-		border: 1px solid rgba(166, 173, 187, 0.14);
+		background: var(--brand-surface);
+		border: 1px solid var(--brand-border);
 		border-radius: var(--radius-card);
 		transition:
 			transform 0.45s var(--ease-luxury),
-			border-color 0.35s var(--ease-luxury);
+			border-color 0.35s var(--ease-luxury),
+			box-shadow 0.35s var(--ease-luxury);
 	}
 
 	.surface-card:hover {
 		transform: translateY(-6px);
-		border-color: rgba(108, 160, 255, 0.38);
+		border-color: color-mix(in srgb, var(--brand-highlight) 50%, transparent);
+		box-shadow: 0 10px 40px -10px color-mix(in srgb, var(--brand-highlight) 15%, transparent);
 	}
 
 	.section-shell {
@@ -71,7 +99,7 @@
 		display: inline-flex;
 		height: 1px;
 		width: 2rem;
-		background: color-mix(in oklab, var(--brand-highlight) 75%, white 25%);
+		background: color-mix(in oklab, var(--brand-highlight) 75%, var(--brand-fg) 25%);
 	}
 
 	.section-kicker {
@@ -82,7 +110,7 @@
 		letter-spacing: 0.23em;
 		font-weight: 800;
 		text-transform: uppercase;
-		color: color-mix(in oklab, var(--brand-highlight) 82%, white 18%);
+		color: var(--brand-highlight);
 	}
 
 	@media (min-width: 768px) {
@@ -97,16 +125,15 @@
 		line-height: 0.9;
 		letter-spacing: 0.02em;
 		text-transform: uppercase;
-		color: white;
+		color: var(--brand-fg);
 	}
 
 	.section-title-highlight {
 		color: transparent;
 		background-image: linear-gradient(
 			105deg,
-			rgba(255, 255, 255, 1) 0%,
-			rgba(191, 209, 255, 0.92) 44%,
-			rgba(109, 163, 255, 0.45) 100%
+			var(--brand-highlight) 0%,
+			color-mix(in srgb, var(--brand-highlight) 70%, var(--brand-fg)) 100%
 		);
 		-webkit-background-clip: text;
 		background-clip: text;
@@ -130,33 +157,33 @@
 
 	.focus-ring {
 		outline: none;
-		border-color: rgba(166, 173, 187, 0.5);
+		border-color: color-mix(in srgb, var(--brand-muted) 50%, transparent);
 	}
 
 	.border-accent-soft {
-		border-color: rgba(166, 173, 187, 0.4);
+		border-color: color-mix(in srgb, var(--brand-muted) 40%, transparent);
 	}
 
 	.bg-accent-soft {
-		background: rgba(166, 173, 187, 0.12);
+		background: color-mix(in srgb, var(--brand-muted) 12%, transparent);
 	}
 }
 
 @layer base {
-	:root {
-		--foreground-rgb: 255, 255, 255;
-		--background-start-rgb: 6, 7, 10;
-		--background-end-rgb: 6, 7, 10;
-	}
-
 	body {
-		color: rgb(var(--foreground-rgb));
-		background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
-			rgb(var(--background-start-rgb));
+		color: var(--brand-fg);
+		background: linear-gradient(
+			to bottom,
+			rgb(var(--background-start-rgb)),
+			rgb(var(--background-end-rgb))
+		);
 		font-family: var(--font-sans);
 		overflow-x: hidden;
 		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;
+		transition:
+			background 0.3s ease,
+			color 0.3s ease;
 	}
 
 	a {

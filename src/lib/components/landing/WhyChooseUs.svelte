@@ -137,14 +137,14 @@
 	}
 </script>
 
-<div class="bg-brand-dark py-12 lg:py-32" bind:this={containerRef}>
+<div class="bg-brand-background py-12 lg:py-32" bind:this={containerRef}>
 	<div class={isMobile ? 'relative' : 'h-[250vh] relative'}>
 		<div
 			class={isMobile
 				? 'relative w-full flex flex-col justify-center overflow-hidden py-8'
 				: 'sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden'}
 		>
-			<div class="absolute inset-0 bg-brand-dark"></div>
+			<div class="absolute inset-0 bg-brand-background"></div>
 			<div
 				class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none"
 			></div>
@@ -162,17 +162,17 @@
 							<span class="w-8 h-px bg-blue-500"></span>
 						</h2>
 						<h3
-							class="text-4xl md:text-5xl lg:text-7xl font-black text-white mt-2 mb-6 leading-[0.9] uppercase tracking-tighter"
+							class="text-4xl md:text-5xl lg:text-7xl font-black text-brand-fg mt-2 mb-6 leading-[0.9] uppercase tracking-tighter"
 						>
 							{$LL.why_heading()} <br />
 							<span
-								class="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-300 to-gray-600"
+								class="text-transparent bg-clip-text bg-linear-to-r from-brand-fg via-brand-fg/80 to-brand-fg/40"
 							>
 								{$LL.why_heading_highlight()}
 							</span>
 						</h3>
 						<p
-							class="text-gray-400 text-base md:text-lg max-w-lg leading-relaxed border-l-2 border-white/10 pl-6"
+							class="text-brand-muted text-base md:text-lg max-w-lg leading-relaxed border-l-2 border-brand-border pl-6"
 						>
 							{$LL.why_desc()}
 						</p>
@@ -182,30 +182,30 @@
 						{#each features as feature, i}
 							<div
 								class="p-5 rounded-2xl border transition-all duration-500 group cursor-pointer relative overflow-hidden"
-								class:bg-white-5={isMobile || i === activeFeatureIndex}
-								class:border-white-10={isMobile || i === activeFeatureIndex}
+								class:bg-brand-surface={isMobile || i === activeFeatureIndex}
+								class:border-brand-border={isMobile || i === activeFeatureIndex}
 								class:bg-transparent={!isMobile && i !== activeFeatureIndex}
 								class:border-transparent={!isMobile && i !== activeFeatureIndex}
 							>
 								{#if isMobile || i === activeFeatureIndex}
-									<div class="absolute inset-0 bg-white/3 backdrop-blur-sm -z-10"></div>
+									<div class="absolute inset-0 bg-brand-surface/40 backdrop-blur-sm -z-10"></div>
 								{/if}
 
 								<div class="flex items-center gap-5">
 									<div
 										class="w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-500 {i ===
 										activeFeatureIndex
-											? 'text-blue-400 bg-blue-500/10'
-											: 'text-gray-500 bg-white/5'}"
+											? 'text-brand-highlight bg-brand-highlight/10'
+											: 'text-brand-muted bg-brand-surface-soft'}"
 									>
 										{@html feature.icon}
 									</div>
 									<div class="flex-1">
 										<h3
-											class="text-lg font-bold text-white transition-colors duration-300 {i ===
+											class="text-lg font-bold text-brand-fg transition-colors duration-300 {i ===
 											activeFeatureIndex
-												? 'text-blue-400'
-												: 'text-gray-400'}"
+												? 'text-brand-highlight'
+												: 'text-brand-fg'}"
 										>
 											{feature.title}
 										</h3>
@@ -215,7 +215,7 @@
 												? '1fr'
 												: '0fr'}; opacity: {isMobile || i === activeFeatureIndex ? '1' : '0'}"
 										>
-											<p class="text-gray-500 text-sm mt-1 leading-relaxed min-h-0">
+											<p class="text-brand-muted text-sm mt-1 leading-relaxed min-h-0">
 												{feature.description}
 											</p>
 										</div>
@@ -242,7 +242,7 @@
 
 				<div class="relative order-1 lg:order-2 flex justify-center lg:justify-end">
 					<div
-						class="relative w-full aspect-4/3 max-w-lg rounded-2xl overflow-hidden border border-white/5 bg-gray-900 group"
+						class="relative w-full aspect-4/3 max-w-lg rounded-2xl overflow-hidden border border-brand-border bg-brand-surface-soft group"
 					>
 						{#if isMobile}
 							<img
@@ -258,7 +258,7 @@
 						{/if}
 
 						<div
-							class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent pointer-events-none"
+							class="absolute inset-0 bg-linear-to-t from-brand-background/60 to-transparent pointer-events-none"
 						></div>
 					</div>
 
@@ -269,11 +269,4 @@
 	</div>
 </div>
 
-<style>
-	.bg-white-5 {
-		background-color: rgba(255, 255, 255, 0.05);
-	}
-	.border-white-10 {
-		border-color: rgba(255, 255, 255, 0.1);
-	}
-</style>
+
