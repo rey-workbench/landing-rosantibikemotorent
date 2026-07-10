@@ -1,34 +1,35 @@
-<script>
+<script lang="ts">
 	import { loadingProgress, isLoaded } from '$lib/stores/loading';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import { navigating } from '$app/stores';
 
 	let mounted = false;
+	let progressInterval: ReturnType<typeof setInterval> | undefined;
 
 	onMount(() => {
 		mounted = true;
-
-		// Simulated progress for non-home pages
-		if ($page.url.pathname !== '/') {
-			const interval = setInterval(() => {
-				loadingProgress.update((n) => {
-					if (n >= 100) {
-						clearInterval(interval);
-						setTimeout(() => isLoaded.set(true), 200);
-						return 100;
-					}
-					return n + 10; // Faster "sat set" speed
-				});
-			}, 20);
-		} else {
-			// Safety timeout for home page
-			const timeout = setTimeout(() => {
-				if (!$isLoaded) isLoaded.set(true);
-			}, 3000); // Shorter safety timeout
-			return () => clearTimeout(timeout);
+		
+		// Ensure initial load completes quickly
+		if (!$isLoaded) {
+			loadingProgress.set(100);
+			setTimeout(() => isLoaded.set(true), 200);
 		}
 	});
+
+	// Listen to SvelteKit navigation state
+	$: if ($navigating) {
+		isLoaded.set(false);
+		loadingProgress.set(15);
+		clearInterval(progressInterval);
+		progressInterval = setInterval(() => {
+			loadingProgress.update((n) => (n >= 90 ? 90 : n + 15));
+		}, 100);
+	} else if (mounted) {
+		loadingProgress.set(100);
+		clearInterval(progressInterval);
+		setTimeout(() => isLoaded.set(true), 300);
+	}
 </script>
 
 {#if !$isLoaded && mounted}
