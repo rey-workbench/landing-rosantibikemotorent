@@ -158,6 +158,8 @@
 					in:fade={{ duration: 800 }}
 				>
 					<img
+						loading="lazy"
+						decoding="async"
 						src={post.featuredImage || post.thumbnail}
 						alt={post.judul}
 						class="w-full h-full object-cover"

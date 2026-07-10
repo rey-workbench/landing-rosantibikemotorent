@@ -5,7 +5,7 @@ import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
 	plugins: [
-		sveltekit(), 
+		sveltekit(),
 		tailwindcss(),
 		viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),
 		viteCompression({ algorithm: 'gzip', ext: '.gz' })

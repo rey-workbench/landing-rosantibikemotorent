@@ -251,6 +251,8 @@
 					>
 						{#if isMobile}
 							<img
+								loading="lazy"
+								decoding="async"
 								src="/sequence/whychooseus_webp/00026.webp"
 								alt="Why Choose Us"
 								class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"

@@ -361,6 +361,8 @@
 							<div class="surface-panel p-4 flex items-center gap-4 mt-4">
 								{#if jenis?.gambar}
 									<img
+										loading="lazy"
+										decoding="async"
 										src={jenis.gambar}
 										alt={jenis.model}
 										class="w-24 h-24 object-cover rounded-xl"
@@ -511,6 +513,8 @@
 								<div class="p-4 flex items-center gap-4 border-b border-[rgba(166,173,187,0.16)]">
 									{#if jenis?.gambar}
 										<img
+											loading="lazy"
+											decoding="async"
 											src={jenis.gambar}
 											alt={jenis.model}
 											class="w-16 h-16 object-cover rounded-xl"

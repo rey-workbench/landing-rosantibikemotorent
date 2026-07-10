@@ -167,6 +167,8 @@
 					<div class="aspect-4/3 rounded-3xl overflow-hidden bg-gray-900 border border-white/10">
 						{#if jenis.gambar}
 							<img
+								loading="lazy"
+								decoding="async"
 								src={jenis.gambar}
 								alt={`${jenis.merk} ${jenis.model}`}
 								class="w-full h-full object-cover"

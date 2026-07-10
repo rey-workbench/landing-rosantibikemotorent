@@ -186,6 +186,7 @@
 						>
 							{#if jenis.gambar}
 								<img
+									decoding="async"
 									src={jenis.gambar}
 									alt={`${jenis.merk} ${jenis.model}`}
 									loading="lazy"

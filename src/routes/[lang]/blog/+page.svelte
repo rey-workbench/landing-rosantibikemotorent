@@ -213,6 +213,8 @@
 								<div class="aspect-16/10 rounded-3xl overflow-hidden bg-gray-800 relative mb-6">
 									{#if featuredPost.featuredImage || featuredPost.thumbnail}
 										<img
+											loading="lazy"
+											decoding="async"
 											src={featuredPost.featuredImage || featuredPost.thumbnail}
 											alt={featuredPost.judul}
 											class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
@@ -259,6 +261,8 @@
 									>
 										{#if post.featuredImage || post.thumbnail}
 											<img
+												loading="lazy"
+												decoding="async"
 												src={post.featuredImage || post.thumbnail}
 												alt={post.judul}
 												class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -315,6 +319,8 @@
 							<div class="aspect-16/10 overflow-hidden bg-gray-800 relative">
 								{#if post.featuredImage || post.thumbnail}
 									<img
+										loading="lazy"
+										decoding="async"
 										src={post.featuredImage || post.thumbnail}
 										alt={post.judul}
 										class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
