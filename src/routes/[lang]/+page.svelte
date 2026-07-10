@@ -1,6 +1,5 @@
 <script lang="ts">
 	import HeroVideo from '$lib/components/landing/HeroVideo.svelte';
-	import BookingBar from '$lib/components/landing/BookingBar.svelte';
 	import WhyChooseUs from '$lib/components/landing/WhyChooseUs.svelte';
 	import AdventureMap from '$lib/components/landing/AdventureMap.svelte';
 	import FleetGrid from '$lib/components/landing/Fleet.svelte';
@@ -102,5 +101,3 @@
 	<FleetGrid jenisMotors={data.featuredMotors} />
 	<Faq {lang} />
 </div>
-
-<BookingBar {lang} />
