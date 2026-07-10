@@ -155,6 +155,12 @@
 							>
 								{jenis.model}
 							</h3>
+							<!-- Star Rating for Trust -->
+							<div class="flex items-center gap-1 mt-1 text-yellow-400">
+								<span class="text-xs">★</span>
+								<span class="text-[10px] font-mono font-bold text-white/95">4.9</span>
+								<span class="text-[8px] font-mono text-white/50 font-medium">(120+)</span>
+							</div>
 						</div>
 
 						<div class="flex items-end justify-between mt-2">
@@ -174,16 +180,16 @@
 							</div>
 
 							<div
-								class="hidden md:flex items-center gap-2 text-brand-fg font-black text-[10px] uppercase tracking-widest group-hover:gap-3 transition-all"
+								class="flex items-center gap-1.5 px-3 py-1.5 bg-brand-highlight text-black font-black text-[9px] md:text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 group-hover:bg-white group-hover:text-black shadow-md"
 							>
 								<span>{$LL.fleet_order()}</span>
 								<svg
-									width="12"
-									height="12"
+									width="10"
+									height="10"
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
-									stroke-width="3"
+									stroke-width="3.5"
 									><line x1="5" y1="12" x2="19" y2="12"></line><polyline
 										points="12 5 19 12 12 19"
 									/></svg

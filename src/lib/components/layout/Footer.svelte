@@ -94,8 +94,8 @@
 							{siteConfig.address}
 						</p>
 					</div>
-					<div class="flex items-center gap-4">
-						<div class="text-green-500">
+					<div class="flex items-start gap-4">
+						<div class="mt-1 text-green-500">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="18"
@@ -111,15 +111,18 @@
 								/></svg
 							>
 						</div>
-						<a
-							href="mailto:{siteConfig.email}"
-							class="text-muted hover:text-brand-fg transition-colors text-sm"
-						>
-							{siteConfig.email}
-						</a>
+						<div class="flex flex-col">
+							<a
+								href="mailto:{siteConfig.email}"
+								class="text-brand-fg hover:text-(--brand-highlight) transition-colors text-sm font-bold"
+							>
+								{siteConfig.email}
+							</a>
+							<span class="text-[10px] text-muted font-mono uppercase tracking-wider mt-0.5">Email Booking Request</span>
+						</div>
 					</div>
-					<div class="flex items-center gap-4">
-						<div class="text-blue-400">
+					<div class="flex items-start gap-4">
+						<div class="mt-1 text-blue-400">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="18"
@@ -135,12 +138,41 @@
 								/></svg
 							>
 						</div>
-						<a
-							href="https://wa.me/{siteConfig.whatsapp}"
-							class="text-muted hover:text-brand-fg transition-colors text-sm"
-						>
-							{siteConfig.phone}
-						</a>
+						<div class="flex flex-col">
+							<a
+								href="tel:{siteConfig.phone.replace(/[\\s-]+/g, '')}"
+								class="text-brand-fg hover:text-(--brand-highlight) transition-colors text-sm font-bold"
+							>
+								{siteConfig.phone}
+							</a>
+							<span class="text-[10px] text-muted font-mono uppercase tracking-wider mt-0.5">Call to Book</span>
+						</div>
+					</div>
+					<div class="flex items-start gap-4">
+						<div class="mt-1 text-green-400">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="18"
+								height="18"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 7h8"/><path d="M8 11h6"/></svg>
+						</div>
+						<div class="flex flex-col">
+							<a
+								href="https://wa.me/{siteConfig.whatsapp}"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-brand-fg hover:text-(--brand-highlight) transition-colors text-sm font-bold"
+							>
+								WhatsApp Chat
+							</a>
+							<span class="text-[10px] text-muted font-mono uppercase tracking-wider mt-0.5">Fast Response</span>
+						</div>
 					</div>
 				</div>
 			</div>
