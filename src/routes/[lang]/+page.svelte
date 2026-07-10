@@ -8,7 +8,7 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { page } from '$app/stores';
 	import { LL } from '$i18n/i18n-svelte';
-	import { buildFaqSchema } from '$lib/seo/schema';
+	import { buildFaqSchema, buildOrganizationSchema } from '$lib/seo/schema';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -16,6 +16,7 @@
 	const lang = $derived(($page.params.lang || 'id') as 'id' | 'en');
 	const currentUrl = $derived($page.url.href);
 
+	const orgSchema = $derived(buildOrganizationSchema());
 	const faqSchema = $derived(
 		buildFaqSchema(
 			lang === 'en'
@@ -85,7 +86,7 @@
 		description: $LL.hero_tagline(),
 		ogType: 'website'
 	}}
-	schemas={[faqSchema]}
+	schemas={[orgSchema, faqSchema]}
 />
 
 <!-- Hero / video background -->
