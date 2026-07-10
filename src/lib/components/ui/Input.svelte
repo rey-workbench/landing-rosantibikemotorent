@@ -278,9 +278,7 @@
 											: 'text-brand-muted hover:text-brand-fg'}">{h}</button
 									>{/each}
 							</div>
-							<div
-								class="overflow-y-auto scrollbar-custom pr-1 border-l border-brand-border pl-2"
-							>
+							<div class="overflow-y-auto scrollbar-custom pr-1 border-l border-brand-border pl-2">
 								{#each mins as m}<button
 										on:click|stopPropagation={() =>
 											select(`${value.toString().split(':')[0] || '08'}:${m}`)}

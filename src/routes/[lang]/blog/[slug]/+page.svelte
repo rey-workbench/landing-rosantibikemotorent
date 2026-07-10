@@ -125,12 +125,18 @@
 
 			<!-- Meta Data with Author Avatar -->
 			<div class="flex items-center gap-4 border-t border-b border-brand-border/40 py-5">
-				<div class="w-10 h-10 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-500 font-black text-sm">
+				<div
+					class="w-10 h-10 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-500 font-black text-sm"
+				>
 					R
 				</div>
 				<div class="flex flex-col">
-					<span class="text-xs font-extrabold text-brand-fg uppercase tracking-wider">Rosantibike Team</span>
-					<div class="flex items-center gap-2 text-[10px] text-brand-muted font-bold uppercase tracking-wider mt-0.5">
+					<span class="text-xs font-extrabold text-brand-fg uppercase tracking-wider"
+						>Rosantibike Team</span
+					>
+					<div
+						class="flex items-center gap-2 text-[10px] text-brand-muted font-bold uppercase tracking-wider mt-0.5"
+					>
 						{#if post.formattedDate && post.formattedDate !== '-'}
 							<time datetime={post.createdAt}>{post.formattedDate}</time>
 							<span class="text-brand-muted/40 font-light">/</span>
@@ -167,7 +173,9 @@
 			</div>
 
 			<!-- Share & CTA Footer Box -->
-			<div class="mt-20 p-8 glass-surface rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 border border-brand-border/30">
+			<div
+				class="mt-20 p-8 glass-surface rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 border border-brand-border/30"
+			>
 				<div class="text-center md:text-left">
 					<h3 class="text-xs font-black text-brand-muted uppercase tracking-widest mb-3">
 						{$LL.blog_share()}

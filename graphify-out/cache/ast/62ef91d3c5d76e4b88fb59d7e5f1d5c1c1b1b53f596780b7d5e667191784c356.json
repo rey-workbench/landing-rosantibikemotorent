@@ -1,1 +1,383 @@
-{"nodes": [{"id": "d_koding_projek_self_rosantibike_landing_agents_skills_vite_references_core_config_md", "label": "core-config.md", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L1"}, {"id": "references_core_config_vite_configuration", "label": "Vite Configuration", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L6"}, {"id": "references_core_config_basic_setup", "label": "Basic Setup", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L8"}, {"id": "references_core_config_codeblock_1", "label": "code:ts (// vite.config.ts)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L10"}, {"id": "references_core_config_conditional_config", "label": "Conditional Config", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L21"}, {"id": "references_core_config_codeblock_2", "label": "code:ts (export default defineConfig(({ command, mode, isSsrBuild, is)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L25"}, {"id": "references_core_config_async_config", "label": "Async Config", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L38"}, {"id": "references_core_config_codeblock_3", "label": "code:ts (export default defineConfig(async ({ command, mode }) => {)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L40"}, {"id": "references_core_config_using_environment_variables_in_config", "label": "Using Environment Variables in Config", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L47"}, {"id": "references_core_config_codeblock_4", "label": "code:ts (import { defineConfig, loadEnv } from 'vite')", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L51"}, {"id": "references_core_config_key_config_options", "label": "Key Config Options", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L69"}, {"id": "references_core_config_resolve_alias", "label": "resolve.alias", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L71"}, {"id": "references_core_config_codeblock_5", "label": "code:ts (export default defineConfig({)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L73"}, {"id": "references_core_config_define_global_constants", "label": "define (Global Constants)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L84"}, {"id": "references_core_config_codeblock_6", "label": "code:ts (export default defineConfig({)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L86"}, {"id": "references_core_config_plugins", "label": "plugins", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L97"}, {"id": "references_core_config_codeblock_7", "label": "code:ts (import vue from '@vitejs/plugin-vue')", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L99"}, {"id": "references_core_config_server_proxy", "label": "server.proxy", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L109"}, {"id": "references_core_config_codeblock_8", "label": "code:ts (export default defineConfig({)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L111"}, {"id": "references_core_config_build_target", "label": "build.target", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L125"}, {"id": "references_core_config_codeblock_9", "label": "code:ts (export default defineConfig({)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L129"}, {"id": "references_core_config_typescript_intellisense", "label": "TypeScript Intellisense", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L137"}, {"id": "references_core_config_codeblock_10", "label": "code:js (/** @type {import('vite').UserConfig} */)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L141"}, {"id": "references_core_config_codeblock_11", "label": "code:ts (import type { UserConfig } from 'vite')", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L150"}], "edges": [{"source": "d_koding_projek_self_rosantibike_landing_agents_skills_vite_references_core_config_md", "target": "references_core_config_vite_configuration", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L6", "weight": 1.0}, {"source": "references_core_config_vite_configuration", "target": "references_core_config_basic_setup", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L8", "weight": 1.0}, {"source": "references_core_config_basic_setup", "target": "references_core_config_codeblock_1", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L10", "weight": 1.0}, {"source": "references_core_config_vite_configuration", "target": "references_core_config_conditional_config", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L21", "weight": 1.0}, {"source": "references_core_config_conditional_config", "target": "references_core_config_codeblock_2", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L25", "weight": 1.0}, {"source": "references_core_config_vite_configuration", "target": "references_core_config_async_config", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L38", "weight": 1.0}, {"source": "references_core_config_async_config", "target": "references_core_config_codeblock_3", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L40", "weight": 1.0}, {"source": "references_core_config_vite_configuration", "target": "references_core_config_using_environment_variables_in_config", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L47", "weight": 1.0}, {"source": "references_core_config_using_environment_variables_in_config", "target": "references_core_config_codeblock_4", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L51", "weight": 1.0}, {"source": "references_core_config_vite_configuration", "target": "references_core_config_key_config_options", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L69", "weight": 1.0}, {"source": "references_core_config_key_config_options", "target": "references_core_config_resolve_alias", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L71", "weight": 1.0}, {"source": "references_core_config_resolve_alias", "target": "references_core_config_codeblock_5", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L73", "weight": 1.0}, {"source": "references_core_config_key_config_options", "target": "references_core_config_define_global_constants", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L84", "weight": 1.0}, {"source": "references_core_config_define_global_constants", "target": "references_core_config_codeblock_6", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L86", "weight": 1.0}, {"source": "references_core_config_key_config_options", "target": "references_core_config_plugins", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L97", "weight": 1.0}, {"source": "references_core_config_plugins", "target": "references_core_config_codeblock_7", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L99", "weight": 1.0}, {"source": "references_core_config_key_config_options", "target": "references_core_config_server_proxy", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L109", "weight": 1.0}, {"source": "references_core_config_server_proxy", "target": "references_core_config_codeblock_8", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L111", "weight": 1.0}, {"source": "references_core_config_key_config_options", "target": "references_core_config_build_target", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L125", "weight": 1.0}, {"source": "references_core_config_build_target", "target": "references_core_config_codeblock_9", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L129", "weight": 1.0}, {"source": "references_core_config_vite_configuration", "target": "references_core_config_typescript_intellisense", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L137", "weight": 1.0}, {"source": "references_core_config_typescript_intellisense", "target": "references_core_config_codeblock_10", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L141", "weight": 1.0}, {"source": "references_core_config_typescript_intellisense", "target": "references_core_config_codeblock_11", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md", "source_location": "L150", "weight": 1.0}], "input_tokens": 0, "output_tokens": 0}
+{
+	"nodes": [
+		{
+			"id": "d_koding_projek_self_rosantibike_landing_agents_skills_vite_references_core_config_md",
+			"label": "core-config.md",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L1"
+		},
+		{
+			"id": "references_core_config_vite_configuration",
+			"label": "Vite Configuration",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L6"
+		},
+		{
+			"id": "references_core_config_basic_setup",
+			"label": "Basic Setup",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L8"
+		},
+		{
+			"id": "references_core_config_codeblock_1",
+			"label": "code:ts (// vite.config.ts)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L10"
+		},
+		{
+			"id": "references_core_config_conditional_config",
+			"label": "Conditional Config",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L21"
+		},
+		{
+			"id": "references_core_config_codeblock_2",
+			"label": "code:ts (export default defineConfig(({ command, mode, isSsrBuild, is)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L25"
+		},
+		{
+			"id": "references_core_config_async_config",
+			"label": "Async Config",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L38"
+		},
+		{
+			"id": "references_core_config_codeblock_3",
+			"label": "code:ts (export default defineConfig(async ({ command, mode }) => {)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L40"
+		},
+		{
+			"id": "references_core_config_using_environment_variables_in_config",
+			"label": "Using Environment Variables in Config",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L47"
+		},
+		{
+			"id": "references_core_config_codeblock_4",
+			"label": "code:ts (import { defineConfig, loadEnv } from 'vite')",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L51"
+		},
+		{
+			"id": "references_core_config_key_config_options",
+			"label": "Key Config Options",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L69"
+		},
+		{
+			"id": "references_core_config_resolve_alias",
+			"label": "resolve.alias",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L71"
+		},
+		{
+			"id": "references_core_config_codeblock_5",
+			"label": "code:ts (export default defineConfig({)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L73"
+		},
+		{
+			"id": "references_core_config_define_global_constants",
+			"label": "define (Global Constants)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L84"
+		},
+		{
+			"id": "references_core_config_codeblock_6",
+			"label": "code:ts (export default defineConfig({)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L86"
+		},
+		{
+			"id": "references_core_config_plugins",
+			"label": "plugins",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L97"
+		},
+		{
+			"id": "references_core_config_codeblock_7",
+			"label": "code:ts (import vue from '@vitejs/plugin-vue')",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L99"
+		},
+		{
+			"id": "references_core_config_server_proxy",
+			"label": "server.proxy",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L109"
+		},
+		{
+			"id": "references_core_config_codeblock_8",
+			"label": "code:ts (export default defineConfig({)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L111"
+		},
+		{
+			"id": "references_core_config_build_target",
+			"label": "build.target",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L125"
+		},
+		{
+			"id": "references_core_config_codeblock_9",
+			"label": "code:ts (export default defineConfig({)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L129"
+		},
+		{
+			"id": "references_core_config_typescript_intellisense",
+			"label": "TypeScript Intellisense",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L137"
+		},
+		{
+			"id": "references_core_config_codeblock_10",
+			"label": "code:js (/** @type {import('vite').UserConfig} */)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L141"
+		},
+		{
+			"id": "references_core_config_codeblock_11",
+			"label": "code:ts (import type { UserConfig } from 'vite')",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L150"
+		}
+	],
+	"edges": [
+		{
+			"source": "d_koding_projek_self_rosantibike_landing_agents_skills_vite_references_core_config_md",
+			"target": "references_core_config_vite_configuration",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L6",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_vite_configuration",
+			"target": "references_core_config_basic_setup",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L8",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_basic_setup",
+			"target": "references_core_config_codeblock_1",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L10",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_vite_configuration",
+			"target": "references_core_config_conditional_config",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L21",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_conditional_config",
+			"target": "references_core_config_codeblock_2",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L25",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_vite_configuration",
+			"target": "references_core_config_async_config",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L38",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_async_config",
+			"target": "references_core_config_codeblock_3",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L40",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_vite_configuration",
+			"target": "references_core_config_using_environment_variables_in_config",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L47",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_using_environment_variables_in_config",
+			"target": "references_core_config_codeblock_4",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L51",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_vite_configuration",
+			"target": "references_core_config_key_config_options",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L69",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_key_config_options",
+			"target": "references_core_config_resolve_alias",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L71",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_resolve_alias",
+			"target": "references_core_config_codeblock_5",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L73",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_key_config_options",
+			"target": "references_core_config_define_global_constants",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L84",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_define_global_constants",
+			"target": "references_core_config_codeblock_6",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L86",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_key_config_options",
+			"target": "references_core_config_plugins",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L97",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_plugins",
+			"target": "references_core_config_codeblock_7",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L99",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_key_config_options",
+			"target": "references_core_config_server_proxy",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L109",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_server_proxy",
+			"target": "references_core_config_codeblock_8",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L111",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_key_config_options",
+			"target": "references_core_config_build_target",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L125",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_build_target",
+			"target": "references_core_config_codeblock_9",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L129",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_vite_configuration",
+			"target": "references_core_config_typescript_intellisense",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L137",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_typescript_intellisense",
+			"target": "references_core_config_codeblock_10",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L141",
+			"weight": 1.0
+		},
+		{
+			"source": "references_core_config_typescript_intellisense",
+			"target": "references_core_config_codeblock_11",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\vite\\references\\core-config.md",
+			"source_location": "L150",
+			"weight": 1.0
+		}
+	],
+	"input_tokens": 0,
+	"output_tokens": 0
+}

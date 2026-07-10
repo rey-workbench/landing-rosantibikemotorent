@@ -45,9 +45,10 @@ function buildHeadersAndBody(data?: any, customHeaders?: any) {
 
 async function parseResponse(response: Response) {
 	const contentType = response.headers.get('content-type');
-	const responseData = contentType && contentType.includes('application/json')
-		? await response.json()
-		: await response.text();
+	const responseData =
+		contentType && contentType.includes('application/json')
+			? await response.json()
+			: await response.text();
 
 	if (!response.ok) {
 		const error: any = new Error(responseData?.message || 'Request failed');

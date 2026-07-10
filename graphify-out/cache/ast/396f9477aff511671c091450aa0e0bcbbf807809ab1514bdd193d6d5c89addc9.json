@@ -1,1 +1,685 @@
-{"nodes": [{"id": "d_koding_projek_self_rosantibike_landing_skills_lock_json", "label": "skills-lock.json", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L1"}, {"id": "landing_skills_lock_version", "label": "version", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L2"}, {"id": "landing_skills_lock_skills", "label": "skills", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L3"}, {"id": "landing_skills_lock_skills_accessibility", "label": "accessibility", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L4"}, {"id": "landing_skills_lock_accessibility_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L5"}, {"id": "landing_skills_lock_accessibility_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L6"}, {"id": "landing_skills_lock_accessibility_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L7"}, {"id": "landing_skills_lock_skills_frontend_design", "label": "frontend-design", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L9"}, {"id": "landing_skills_lock_frontend_design_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L10"}, {"id": "landing_skills_lock_frontend_design_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L11"}, {"id": "landing_skills_lock_frontend_design_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L12"}, {"id": "landing_skills_lock_skills_nodejs_backend_patterns", "label": "nodejs-backend-patterns", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L14"}, {"id": "landing_skills_lock_nodejs_backend_patterns_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L15"}, {"id": "landing_skills_lock_nodejs_backend_patterns_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L16"}, {"id": "landing_skills_lock_nodejs_backend_patterns_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L17"}, {"id": "landing_skills_lock_skills_nodejs_best_practices", "label": "nodejs-best-practices", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L19"}, {"id": "landing_skills_lock_nodejs_best_practices_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L20"}, {"id": "landing_skills_lock_nodejs_best_practices_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L21"}, {"id": "landing_skills_lock_nodejs_best_practices_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L22"}, {"id": "landing_skills_lock_skills_seo", "label": "seo", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L24"}, {"id": "landing_skills_lock_seo_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L25"}, {"id": "landing_skills_lock_seo_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L26"}, {"id": "landing_skills_lock_seo_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L27"}, {"id": "landing_skills_lock_skills_svelte_code_writer", "label": "svelte-code-writer", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L29"}, {"id": "landing_skills_lock_svelte_code_writer_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L30"}, {"id": "landing_skills_lock_svelte_code_writer_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L31"}, {"id": "landing_skills_lock_svelte_code_writer_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L32"}, {"id": "landing_skills_lock_skills_svelte5_best_practices", "label": "svelte5-best-practices", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L34"}, {"id": "landing_skills_lock_svelte5_best_practices_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L35"}, {"id": "landing_skills_lock_svelte5_best_practices_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L36"}, {"id": "landing_skills_lock_svelte5_best_practices_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L37"}, {"id": "landing_skills_lock_skills_tailwind_css_patterns", "label": "tailwind-css-patterns", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L39"}, {"id": "landing_skills_lock_tailwind_css_patterns_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L40"}, {"id": "landing_skills_lock_tailwind_css_patterns_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L41"}, {"id": "landing_skills_lock_tailwind_css_patterns_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L42"}, {"id": "landing_skills_lock_skills_typescript_advanced_types", "label": "typescript-advanced-types", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L44"}, {"id": "landing_skills_lock_typescript_advanced_types_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L45"}, {"id": "landing_skills_lock_typescript_advanced_types_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L46"}, {"id": "landing_skills_lock_typescript_advanced_types_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L47"}, {"id": "landing_skills_lock_skills_vite", "label": "vite", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L49"}, {"id": "landing_skills_lock_vite_source", "label": "source", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L50"}, {"id": "landing_skills_lock_vite_sourcetype", "label": "sourceType", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L51"}, {"id": "landing_skills_lock_vite_computedhash", "label": "computedHash", "file_type": "code", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L52"}], "edges": [{"source": "d_koding_projek_self_rosantibike_landing_skills_lock_json", "target": "landing_skills_lock_version", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L2", "weight": 1.0}, {"source": "d_koding_projek_self_rosantibike_landing_skills_lock_json", "target": "landing_skills_lock_skills", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L3", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_accessibility", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L4", "weight": 1.0}, {"source": "landing_skills_lock_skills_accessibility", "target": "landing_skills_lock_accessibility_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L5", "weight": 1.0}, {"source": "landing_skills_lock_skills_accessibility", "target": "landing_skills_lock_accessibility_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L6", "weight": 1.0}, {"source": "landing_skills_lock_skills_accessibility", "target": "landing_skills_lock_accessibility_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L7", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_frontend_design", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L9", "weight": 1.0}, {"source": "landing_skills_lock_skills_frontend_design", "target": "landing_skills_lock_frontend_design_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L10", "weight": 1.0}, {"source": "landing_skills_lock_skills_frontend_design", "target": "landing_skills_lock_frontend_design_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L11", "weight": 1.0}, {"source": "landing_skills_lock_skills_frontend_design", "target": "landing_skills_lock_frontend_design_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L12", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_nodejs_backend_patterns", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L14", "weight": 1.0}, {"source": "landing_skills_lock_skills_nodejs_backend_patterns", "target": "landing_skills_lock_nodejs_backend_patterns_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L15", "weight": 1.0}, {"source": "landing_skills_lock_skills_nodejs_backend_patterns", "target": "landing_skills_lock_nodejs_backend_patterns_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L16", "weight": 1.0}, {"source": "landing_skills_lock_skills_nodejs_backend_patterns", "target": "landing_skills_lock_nodejs_backend_patterns_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L17", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_nodejs_best_practices", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L19", "weight": 1.0}, {"source": "landing_skills_lock_skills_nodejs_best_practices", "target": "landing_skills_lock_nodejs_best_practices_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L20", "weight": 1.0}, {"source": "landing_skills_lock_skills_nodejs_best_practices", "target": "landing_skills_lock_nodejs_best_practices_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L21", "weight": 1.0}, {"source": "landing_skills_lock_skills_nodejs_best_practices", "target": "landing_skills_lock_nodejs_best_practices_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L22", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_seo", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L24", "weight": 1.0}, {"source": "landing_skills_lock_skills_seo", "target": "landing_skills_lock_seo_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L25", "weight": 1.0}, {"source": "landing_skills_lock_skills_seo", "target": "landing_skills_lock_seo_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L26", "weight": 1.0}, {"source": "landing_skills_lock_skills_seo", "target": "landing_skills_lock_seo_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L27", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_svelte_code_writer", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L29", "weight": 1.0}, {"source": "landing_skills_lock_skills_svelte_code_writer", "target": "landing_skills_lock_svelte_code_writer_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L30", "weight": 1.0}, {"source": "landing_skills_lock_skills_svelte_code_writer", "target": "landing_skills_lock_svelte_code_writer_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L31", "weight": 1.0}, {"source": "landing_skills_lock_skills_svelte_code_writer", "target": "landing_skills_lock_svelte_code_writer_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L32", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_svelte5_best_practices", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L34", "weight": 1.0}, {"source": "landing_skills_lock_skills_svelte5_best_practices", "target": "landing_skills_lock_svelte5_best_practices_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L35", "weight": 1.0}, {"source": "landing_skills_lock_skills_svelte5_best_practices", "target": "landing_skills_lock_svelte5_best_practices_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L36", "weight": 1.0}, {"source": "landing_skills_lock_skills_svelte5_best_practices", "target": "landing_skills_lock_svelte5_best_practices_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L37", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_tailwind_css_patterns", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L39", "weight": 1.0}, {"source": "landing_skills_lock_skills_tailwind_css_patterns", "target": "landing_skills_lock_tailwind_css_patterns_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L40", "weight": 1.0}, {"source": "landing_skills_lock_skills_tailwind_css_patterns", "target": "landing_skills_lock_tailwind_css_patterns_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L41", "weight": 1.0}, {"source": "landing_skills_lock_skills_tailwind_css_patterns", "target": "landing_skills_lock_tailwind_css_patterns_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L42", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_typescript_advanced_types", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L44", "weight": 1.0}, {"source": "landing_skills_lock_skills_typescript_advanced_types", "target": "landing_skills_lock_typescript_advanced_types_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L45", "weight": 1.0}, {"source": "landing_skills_lock_skills_typescript_advanced_types", "target": "landing_skills_lock_typescript_advanced_types_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L46", "weight": 1.0}, {"source": "landing_skills_lock_skills_typescript_advanced_types", "target": "landing_skills_lock_typescript_advanced_types_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L47", "weight": 1.0}, {"source": "landing_skills_lock_skills", "target": "landing_skills_lock_skills_vite", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L49", "weight": 1.0}, {"source": "landing_skills_lock_skills_vite", "target": "landing_skills_lock_vite_source", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L50", "weight": 1.0}, {"source": "landing_skills_lock_skills_vite", "target": "landing_skills_lock_vite_sourcetype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L51", "weight": 1.0}, {"source": "landing_skills_lock_skills_vite", "target": "landing_skills_lock_vite_computedhash", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json", "source_location": "L52", "weight": 1.0}]}
+{
+	"nodes": [
+		{
+			"id": "d_koding_projek_self_rosantibike_landing_skills_lock_json",
+			"label": "skills-lock.json",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L1"
+		},
+		{
+			"id": "landing_skills_lock_version",
+			"label": "version",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L2"
+		},
+		{
+			"id": "landing_skills_lock_skills",
+			"label": "skills",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L3"
+		},
+		{
+			"id": "landing_skills_lock_skills_accessibility",
+			"label": "accessibility",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L4"
+		},
+		{
+			"id": "landing_skills_lock_accessibility_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L5"
+		},
+		{
+			"id": "landing_skills_lock_accessibility_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L6"
+		},
+		{
+			"id": "landing_skills_lock_accessibility_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L7"
+		},
+		{
+			"id": "landing_skills_lock_skills_frontend_design",
+			"label": "frontend-design",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L9"
+		},
+		{
+			"id": "landing_skills_lock_frontend_design_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L10"
+		},
+		{
+			"id": "landing_skills_lock_frontend_design_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L11"
+		},
+		{
+			"id": "landing_skills_lock_frontend_design_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L12"
+		},
+		{
+			"id": "landing_skills_lock_skills_nodejs_backend_patterns",
+			"label": "nodejs-backend-patterns",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L14"
+		},
+		{
+			"id": "landing_skills_lock_nodejs_backend_patterns_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L15"
+		},
+		{
+			"id": "landing_skills_lock_nodejs_backend_patterns_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L16"
+		},
+		{
+			"id": "landing_skills_lock_nodejs_backend_patterns_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L17"
+		},
+		{
+			"id": "landing_skills_lock_skills_nodejs_best_practices",
+			"label": "nodejs-best-practices",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L19"
+		},
+		{
+			"id": "landing_skills_lock_nodejs_best_practices_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L20"
+		},
+		{
+			"id": "landing_skills_lock_nodejs_best_practices_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L21"
+		},
+		{
+			"id": "landing_skills_lock_nodejs_best_practices_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L22"
+		},
+		{
+			"id": "landing_skills_lock_skills_seo",
+			"label": "seo",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L24"
+		},
+		{
+			"id": "landing_skills_lock_seo_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L25"
+		},
+		{
+			"id": "landing_skills_lock_seo_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L26"
+		},
+		{
+			"id": "landing_skills_lock_seo_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L27"
+		},
+		{
+			"id": "landing_skills_lock_skills_svelte_code_writer",
+			"label": "svelte-code-writer",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L29"
+		},
+		{
+			"id": "landing_skills_lock_svelte_code_writer_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L30"
+		},
+		{
+			"id": "landing_skills_lock_svelte_code_writer_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L31"
+		},
+		{
+			"id": "landing_skills_lock_svelte_code_writer_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L32"
+		},
+		{
+			"id": "landing_skills_lock_skills_svelte5_best_practices",
+			"label": "svelte5-best-practices",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L34"
+		},
+		{
+			"id": "landing_skills_lock_svelte5_best_practices_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L35"
+		},
+		{
+			"id": "landing_skills_lock_svelte5_best_practices_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L36"
+		},
+		{
+			"id": "landing_skills_lock_svelte5_best_practices_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L37"
+		},
+		{
+			"id": "landing_skills_lock_skills_tailwind_css_patterns",
+			"label": "tailwind-css-patterns",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L39"
+		},
+		{
+			"id": "landing_skills_lock_tailwind_css_patterns_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L40"
+		},
+		{
+			"id": "landing_skills_lock_tailwind_css_patterns_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L41"
+		},
+		{
+			"id": "landing_skills_lock_tailwind_css_patterns_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L42"
+		},
+		{
+			"id": "landing_skills_lock_skills_typescript_advanced_types",
+			"label": "typescript-advanced-types",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L44"
+		},
+		{
+			"id": "landing_skills_lock_typescript_advanced_types_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L45"
+		},
+		{
+			"id": "landing_skills_lock_typescript_advanced_types_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L46"
+		},
+		{
+			"id": "landing_skills_lock_typescript_advanced_types_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L47"
+		},
+		{
+			"id": "landing_skills_lock_skills_vite",
+			"label": "vite",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L49"
+		},
+		{
+			"id": "landing_skills_lock_vite_source",
+			"label": "source",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L50"
+		},
+		{
+			"id": "landing_skills_lock_vite_sourcetype",
+			"label": "sourceType",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L51"
+		},
+		{
+			"id": "landing_skills_lock_vite_computedhash",
+			"label": "computedHash",
+			"file_type": "code",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L52"
+		}
+	],
+	"edges": [
+		{
+			"source": "d_koding_projek_self_rosantibike_landing_skills_lock_json",
+			"target": "landing_skills_lock_version",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L2",
+			"weight": 1.0
+		},
+		{
+			"source": "d_koding_projek_self_rosantibike_landing_skills_lock_json",
+			"target": "landing_skills_lock_skills",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L3",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_accessibility",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L4",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_accessibility",
+			"target": "landing_skills_lock_accessibility_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L5",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_accessibility",
+			"target": "landing_skills_lock_accessibility_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L6",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_accessibility",
+			"target": "landing_skills_lock_accessibility_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L7",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_frontend_design",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L9",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_frontend_design",
+			"target": "landing_skills_lock_frontend_design_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L10",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_frontend_design",
+			"target": "landing_skills_lock_frontend_design_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L11",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_frontend_design",
+			"target": "landing_skills_lock_frontend_design_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L12",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_nodejs_backend_patterns",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L14",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_nodejs_backend_patterns",
+			"target": "landing_skills_lock_nodejs_backend_patterns_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L15",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_nodejs_backend_patterns",
+			"target": "landing_skills_lock_nodejs_backend_patterns_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L16",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_nodejs_backend_patterns",
+			"target": "landing_skills_lock_nodejs_backend_patterns_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L17",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_nodejs_best_practices",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L19",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_nodejs_best_practices",
+			"target": "landing_skills_lock_nodejs_best_practices_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L20",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_nodejs_best_practices",
+			"target": "landing_skills_lock_nodejs_best_practices_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L21",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_nodejs_best_practices",
+			"target": "landing_skills_lock_nodejs_best_practices_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L22",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_seo",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L24",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_seo",
+			"target": "landing_skills_lock_seo_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L25",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_seo",
+			"target": "landing_skills_lock_seo_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L26",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_seo",
+			"target": "landing_skills_lock_seo_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L27",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_svelte_code_writer",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L29",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_svelte_code_writer",
+			"target": "landing_skills_lock_svelte_code_writer_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L30",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_svelte_code_writer",
+			"target": "landing_skills_lock_svelte_code_writer_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L31",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_svelte_code_writer",
+			"target": "landing_skills_lock_svelte_code_writer_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L32",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_svelte5_best_practices",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L34",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_svelte5_best_practices",
+			"target": "landing_skills_lock_svelte5_best_practices_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L35",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_svelte5_best_practices",
+			"target": "landing_skills_lock_svelte5_best_practices_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L36",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_svelte5_best_practices",
+			"target": "landing_skills_lock_svelte5_best_practices_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L37",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_tailwind_css_patterns",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L39",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_tailwind_css_patterns",
+			"target": "landing_skills_lock_tailwind_css_patterns_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L40",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_tailwind_css_patterns",
+			"target": "landing_skills_lock_tailwind_css_patterns_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L41",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_tailwind_css_patterns",
+			"target": "landing_skills_lock_tailwind_css_patterns_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L42",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_typescript_advanced_types",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L44",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_typescript_advanced_types",
+			"target": "landing_skills_lock_typescript_advanced_types_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L45",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_typescript_advanced_types",
+			"target": "landing_skills_lock_typescript_advanced_types_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L46",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_typescript_advanced_types",
+			"target": "landing_skills_lock_typescript_advanced_types_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L47",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills",
+			"target": "landing_skills_lock_skills_vite",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L49",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_vite",
+			"target": "landing_skills_lock_vite_source",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L50",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_vite",
+			"target": "landing_skills_lock_vite_sourcetype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L51",
+			"weight": 1.0
+		},
+		{
+			"source": "landing_skills_lock_skills_vite",
+			"target": "landing_skills_lock_vite_computedhash",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\skills-lock.json",
+			"source_location": "L52",
+			"weight": 1.0
+		}
+	]
+}

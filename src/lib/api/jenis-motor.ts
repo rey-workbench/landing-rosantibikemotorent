@@ -54,11 +54,16 @@ export const jenisMotorApi = {
 		return processJenis(body.data);
 	},
 	getBySlug: async (slug: string, customFetch?: typeof fetch): Promise<ProcessedJenisMotor> => {
-		const { data: body } = await api.get(`${API_ENDPOINTS.JENIS_MOTOR}/slug/${slug}`, { customFetch });
+		const { data: body } = await api.get(`${API_ENDPOINTS.JENIS_MOTOR}/slug/${slug}`, {
+			customFetch
+		});
 		return processJenis(body.data);
 	},
 	getBrands: async (customFetch?: typeof fetch): Promise<{ id: string; merk: string }[]> => {
-		const { data: body } = await api.get(API_ENDPOINTS.JENIS_MOTOR, { params: { limit: 1000 }, customFetch });
+		const { data: body } = await api.get(API_ENDPOINTS.JENIS_MOTOR, {
+			params: { limit: 1000 },
+			customFetch
+		});
 		const brands = new Map<string, string>();
 		for (const jenis of body.data || []) {
 			if (jenis.merk && !brands.has(jenis.merk)) {

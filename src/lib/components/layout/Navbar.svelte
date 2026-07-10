@@ -13,10 +13,10 @@
 
 	const isHomepage = $derived(
 		$page.url.pathname === '/' ||
-		$page.url.pathname === '/id' ||
-		$page.url.pathname === '/en' ||
-		$page.url.pathname === '/id/' ||
-		$page.url.pathname === '/en/'
+			$page.url.pathname === '/id' ||
+			$page.url.pathname === '/en' ||
+			$page.url.pathname === '/id/' ||
+			$page.url.pathname === '/en/'
 	);
 
 	const isTransparentNavbar = $derived(!isScrolled && isHomepage);
@@ -49,7 +49,8 @@
 >
 	<a href="/{$page.params.lang || $locale}" class="flex flex-col text-left group">
 		<span
-			class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase {isScrolled || !isHomepage
+			class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase {isScrolled ||
+			!isHomepage
 				? 'text-brand-fg'
 				: 'text-white'} font-black leading-none"
 		>

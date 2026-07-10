@@ -1,1 +1,319 @@
-{"nodes": [{"id": "d_koding_projek_self_rosantibike_landing_agents_skills_accessibility_references_a11y_patterns_md", "label": "A11Y-PATTERNS.md", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L1"}, {"id": "references_a11y_patterns_accessibility_code_patterns", "label": "Accessibility Code Patterns", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L1"}, {"id": "references_a11y_patterns_modal_focus_trap", "label": "Modal focus trap", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L7"}, {"id": "references_a11y_patterns_codeblock_1", "label": "code:javascript (function openModal(modal) {)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L11"}, {"id": "references_a11y_patterns_skip_link", "label": "Skip link", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L42"}, {"id": "references_a11y_patterns_codeblock_2", "label": "code:html (<body>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L46"}, {"id": "references_a11y_patterns_codeblock_3", "label": "code:css (.skip-link {)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L56"}, {"id": "references_a11y_patterns_error_handling", "label": "Error handling", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L74"}, {"id": "references_a11y_patterns_codeblock_4", "label": "code:html (<form novalidate>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L78"}, {"id": "references_a11y_patterns_codeblock_5", "label": "code:javascript (form.addEventListener('submit', (e) => {)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L92"}, {"id": "references_a11y_patterns_form_labels", "label": "Form labels", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L109"}, {"id": "references_a11y_patterns_codeblock_6", "label": "code:html (<!-- \u274c No label association -->)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L113"}, {"id": "references_a11y_patterns_dragging_movements", "label": "Dragging movements", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L139"}, {"id": "references_a11y_patterns_codeblock_7", "label": "code:html (<!-- \u274c Drag-only reorder -->)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L143"}, {"id": "references_a11y_patterns_aria_tabs", "label": "ARIA tabs", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L169"}, {"id": "references_a11y_patterns_codeblock_8", "label": "code:html (<div role=\"tablist\" aria-label=\"Product information\">)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L173"}, {"id": "references_a11y_patterns_live_regions_and_notifications", "label": "Live regions and notifications", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L192"}, {"id": "references_a11y_patterns_codeblock_9", "label": "code:html (<!-- Status updates (polite \u2014 waits for pause in speech) -->)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L196"}, {"id": "references_a11y_patterns_codeblock_10", "label": "code:javascript (function showNotification(message, type = 'polite') {)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L208"}, {"id": "references_a11y_patterns_screen_reader_commands", "label": "Screen reader commands", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L222"}], "edges": [{"source": "d_koding_projek_self_rosantibike_landing_agents_skills_accessibility_references_a11y_patterns_md", "target": "references_a11y_patterns_accessibility_code_patterns", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L1", "weight": 1.0}, {"source": "references_a11y_patterns_accessibility_code_patterns", "target": "references_a11y_patterns_modal_focus_trap", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L7", "weight": 1.0}, {"source": "references_a11y_patterns_modal_focus_trap", "target": "references_a11y_patterns_codeblock_1", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L11", "weight": 1.0}, {"source": "references_a11y_patterns_accessibility_code_patterns", "target": "references_a11y_patterns_skip_link", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L42", "weight": 1.0}, {"source": "references_a11y_patterns_skip_link", "target": "references_a11y_patterns_codeblock_2", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L46", "weight": 1.0}, {"source": "references_a11y_patterns_skip_link", "target": "references_a11y_patterns_codeblock_3", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L56", "weight": 1.0}, {"source": "references_a11y_patterns_accessibility_code_patterns", "target": "references_a11y_patterns_error_handling", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L74", "weight": 1.0}, {"source": "references_a11y_patterns_error_handling", "target": "references_a11y_patterns_codeblock_4", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L78", "weight": 1.0}, {"source": "references_a11y_patterns_error_handling", "target": "references_a11y_patterns_codeblock_5", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L92", "weight": 1.0}, {"source": "references_a11y_patterns_accessibility_code_patterns", "target": "references_a11y_patterns_form_labels", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L109", "weight": 1.0}, {"source": "references_a11y_patterns_form_labels", "target": "references_a11y_patterns_codeblock_6", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L113", "weight": 1.0}, {"source": "references_a11y_patterns_accessibility_code_patterns", "target": "references_a11y_patterns_dragging_movements", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L139", "weight": 1.0}, {"source": "references_a11y_patterns_dragging_movements", "target": "references_a11y_patterns_codeblock_7", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L143", "weight": 1.0}, {"source": "references_a11y_patterns_accessibility_code_patterns", "target": "references_a11y_patterns_aria_tabs", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L169", "weight": 1.0}, {"source": "references_a11y_patterns_aria_tabs", "target": "references_a11y_patterns_codeblock_8", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L173", "weight": 1.0}, {"source": "references_a11y_patterns_accessibility_code_patterns", "target": "references_a11y_patterns_live_regions_and_notifications", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L192", "weight": 1.0}, {"source": "references_a11y_patterns_live_regions_and_notifications", "target": "references_a11y_patterns_codeblock_9", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L196", "weight": 1.0}, {"source": "references_a11y_patterns_live_regions_and_notifications", "target": "references_a11y_patterns_codeblock_10", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L208", "weight": 1.0}, {"source": "references_a11y_patterns_accessibility_code_patterns", "target": "references_a11y_patterns_screen_reader_commands", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md", "source_location": "L222", "weight": 1.0}], "input_tokens": 0, "output_tokens": 0}
+{
+	"nodes": [
+		{
+			"id": "d_koding_projek_self_rosantibike_landing_agents_skills_accessibility_references_a11y_patterns_md",
+			"label": "A11Y-PATTERNS.md",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L1"
+		},
+		{
+			"id": "references_a11y_patterns_accessibility_code_patterns",
+			"label": "Accessibility Code Patterns",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L1"
+		},
+		{
+			"id": "references_a11y_patterns_modal_focus_trap",
+			"label": "Modal focus trap",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L7"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_1",
+			"label": "code:javascript (function openModal(modal) {)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L11"
+		},
+		{
+			"id": "references_a11y_patterns_skip_link",
+			"label": "Skip link",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L42"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_2",
+			"label": "code:html (<body>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L46"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_3",
+			"label": "code:css (.skip-link {)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L56"
+		},
+		{
+			"id": "references_a11y_patterns_error_handling",
+			"label": "Error handling",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L74"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_4",
+			"label": "code:html (<form novalidate>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L78"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_5",
+			"label": "code:javascript (form.addEventListener('submit', (e) => {)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L92"
+		},
+		{
+			"id": "references_a11y_patterns_form_labels",
+			"label": "Form labels",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L109"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_6",
+			"label": "code:html (<!-- \u274c No label association -->)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L113"
+		},
+		{
+			"id": "references_a11y_patterns_dragging_movements",
+			"label": "Dragging movements",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L139"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_7",
+			"label": "code:html (<!-- \u274c Drag-only reorder -->)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L143"
+		},
+		{
+			"id": "references_a11y_patterns_aria_tabs",
+			"label": "ARIA tabs",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L169"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_8",
+			"label": "code:html (<div role=\"tablist\" aria-label=\"Product information\">)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L173"
+		},
+		{
+			"id": "references_a11y_patterns_live_regions_and_notifications",
+			"label": "Live regions and notifications",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L192"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_9",
+			"label": "code:html (<!-- Status updates (polite \u2014 waits for pause in speech) -->)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L196"
+		},
+		{
+			"id": "references_a11y_patterns_codeblock_10",
+			"label": "code:javascript (function showNotification(message, type = 'polite') {)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L208"
+		},
+		{
+			"id": "references_a11y_patterns_screen_reader_commands",
+			"label": "Screen reader commands",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L222"
+		}
+	],
+	"edges": [
+		{
+			"source": "d_koding_projek_self_rosantibike_landing_agents_skills_accessibility_references_a11y_patterns_md",
+			"target": "references_a11y_patterns_accessibility_code_patterns",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L1",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_accessibility_code_patterns",
+			"target": "references_a11y_patterns_modal_focus_trap",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L7",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_modal_focus_trap",
+			"target": "references_a11y_patterns_codeblock_1",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L11",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_accessibility_code_patterns",
+			"target": "references_a11y_patterns_skip_link",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L42",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_skip_link",
+			"target": "references_a11y_patterns_codeblock_2",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L46",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_skip_link",
+			"target": "references_a11y_patterns_codeblock_3",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L56",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_accessibility_code_patterns",
+			"target": "references_a11y_patterns_error_handling",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L74",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_error_handling",
+			"target": "references_a11y_patterns_codeblock_4",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L78",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_error_handling",
+			"target": "references_a11y_patterns_codeblock_5",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L92",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_accessibility_code_patterns",
+			"target": "references_a11y_patterns_form_labels",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L109",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_form_labels",
+			"target": "references_a11y_patterns_codeblock_6",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L113",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_accessibility_code_patterns",
+			"target": "references_a11y_patterns_dragging_movements",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L139",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_dragging_movements",
+			"target": "references_a11y_patterns_codeblock_7",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L143",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_accessibility_code_patterns",
+			"target": "references_a11y_patterns_aria_tabs",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L169",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_aria_tabs",
+			"target": "references_a11y_patterns_codeblock_8",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L173",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_accessibility_code_patterns",
+			"target": "references_a11y_patterns_live_regions_and_notifications",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L192",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_live_regions_and_notifications",
+			"target": "references_a11y_patterns_codeblock_9",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L196",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_live_regions_and_notifications",
+			"target": "references_a11y_patterns_codeblock_10",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L208",
+			"weight": 1.0
+		},
+		{
+			"source": "references_a11y_patterns_accessibility_code_patterns",
+			"target": "references_a11y_patterns_screen_reader_commands",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\accessibility\\references\\A11Y-PATTERNS.md",
+			"source_location": "L222",
+			"weight": 1.0
+		}
+	],
+	"input_tokens": 0,
+	"output_tokens": 0
+}

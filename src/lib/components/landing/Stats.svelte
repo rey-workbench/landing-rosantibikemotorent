@@ -6,7 +6,7 @@
 	const stats = $derived([
 		{ label: $LL.stats_customers(), value: 1500, suffix: '+' },
 		{ label: $LL.stats_units(), value: 50, suffix: '' },
-		{ label: $LL.stats_experience(), value: 5, suffix: '+'}
+		{ label: $LL.stats_experience(), value: 5, suffix: '+' }
 	]);
 
 	let visible = $state(false);

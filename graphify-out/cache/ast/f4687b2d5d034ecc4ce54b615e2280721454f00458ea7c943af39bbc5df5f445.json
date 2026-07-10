@@ -1,1 +1,575 @@
-{"nodes": [{"id": "d_koding_projek_self_rosantibike_landing_agents_skills_svelte5_best_practices_references_snippets_md", "label": "snippets.md", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L1"}, {"id": "references_snippets_svelte_5_snippets_reference", "label": "Svelte 5 Snippets Reference", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L1"}, {"id": "references_snippets_table_of_contents", "label": "Table of Contents", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L3"}, {"id": "references_snippets_replacing_slots_with_snippets", "label": "Replacing Slots with Snippets", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L9"}, {"id": "references_snippets_default_content_children", "label": "Default Content (children)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L13"}, {"id": "references_snippets_codeblock_1", "label": "code:svelte (<div class=\"card\"><slot /></div>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L16"}, {"id": "references_snippets_codeblock_2", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L21"}, {"id": "references_snippets_named_slots_to_named_snippets", "label": "Named Slots to Named Snippets", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L29"}, {"id": "references_snippets_codeblock_3", "label": "code:svelte (<header><slot name=\"header\" /></header>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L32"}, {"id": "references_snippets_codeblock_4", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L46"}, {"id": "references_snippets_slot_props_to_snippet_parameters", "label": "Slot Props to Snippet Parameters", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L63"}, {"id": "references_snippets_codeblock_5", "label": "code:svelte (<ul>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L66"}, {"id": "references_snippets_codeblock_6", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L79"}, {"id": "references_snippets_slot_fallback_to_snippet_fallback", "label": "Slot Fallback to Snippet Fallback", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L97"}, {"id": "references_snippets_codeblock_7", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L99"}, {"id": "references_snippets_defining_snippets_within_components", "label": "Defining Snippets Within Components", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L111"}, {"id": "references_snippets_codeblock_8", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L113"}, {"id": "references_snippets_typescript_typing", "label": "TypeScript Typing", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L140"}, {"id": "references_snippets_codeblock_9", "label": "code:svelte (<script lang=\"ts\">)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L142"}, {"id": "references_snippets_rendering_with_render", "label": "Rendering with @render", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L160"}, {"id": "references_snippets_basic_snippet_rendering", "label": "Basic Snippet Rendering", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L164"}, {"id": "references_snippets_codeblock_10", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L166"}, {"id": "references_snippets_optional_snippets", "label": "Optional Snippets", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L174"}, {"id": "references_snippets_codeblock_11", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L178"}, {"id": "references_snippets_conditional_rendering", "label": "Conditional Rendering", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L186"}, {"id": "references_snippets_codeblock_12", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L188"}, {"id": "references_snippets_rendering_with_arguments", "label": "Rendering with Arguments", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L204"}, {"id": "references_snippets_codeblock_13", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L206"}, {"id": "references_snippets_rendering_multiple_times", "label": "Rendering Multiple Times", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L225"}, {"id": "references_snippets_codeblock_14", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L229"}, {"id": "references_snippets_rendering_dynamic_snippets", "label": "Rendering Dynamic Snippets", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L241"}, {"id": "references_snippets_codeblock_15", "label": "code:svelte (<script>)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L243"}, {"id": "references_snippets_typescript_with_render", "label": "TypeScript with @render", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L252"}, {"id": "references_snippets_codeblock_16", "label": "code:svelte (<script lang=\"ts\">)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L254"}, {"id": "references_snippets_passing_snippets_to_child_components", "label": "Passing Snippets to Child Components", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L272"}, {"id": "references_snippets_codeblock_17", "label": "code:svelte (<!-- Wrapper.svelte -->)", "file_type": "document", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L274"}], "edges": [{"source": "d_koding_projek_self_rosantibike_landing_agents_skills_svelte5_best_practices_references_snippets_md", "target": "references_snippets_svelte_5_snippets_reference", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L1", "weight": 1.0}, {"source": "references_snippets_svelte_5_snippets_reference", "target": "references_snippets_table_of_contents", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L3", "weight": 1.0}, {"source": "references_snippets_svelte_5_snippets_reference", "target": "references_snippets_replacing_slots_with_snippets", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L9", "weight": 1.0}, {"source": "references_snippets_replacing_slots_with_snippets", "target": "references_snippets_default_content_children", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L13", "weight": 1.0}, {"source": "references_snippets_default_content_children", "target": "references_snippets_codeblock_1", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L16", "weight": 1.0}, {"source": "references_snippets_default_content_children", "target": "references_snippets_codeblock_2", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L21", "weight": 1.0}, {"source": "references_snippets_replacing_slots_with_snippets", "target": "references_snippets_named_slots_to_named_snippets", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L29", "weight": 1.0}, {"source": "references_snippets_named_slots_to_named_snippets", "target": "references_snippets_codeblock_3", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L32", "weight": 1.0}, {"source": "references_snippets_named_slots_to_named_snippets", "target": "references_snippets_codeblock_4", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L46", "weight": 1.0}, {"source": "references_snippets_replacing_slots_with_snippets", "target": "references_snippets_slot_props_to_snippet_parameters", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L63", "weight": 1.0}, {"source": "references_snippets_slot_props_to_snippet_parameters", "target": "references_snippets_codeblock_5", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L66", "weight": 1.0}, {"source": "references_snippets_slot_props_to_snippet_parameters", "target": "references_snippets_codeblock_6", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L79", "weight": 1.0}, {"source": "references_snippets_replacing_slots_with_snippets", "target": "references_snippets_slot_fallback_to_snippet_fallback", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L97", "weight": 1.0}, {"source": "references_snippets_slot_fallback_to_snippet_fallback", "target": "references_snippets_codeblock_7", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L99", "weight": 1.0}, {"source": "references_snippets_replacing_slots_with_snippets", "target": "references_snippets_defining_snippets_within_components", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L111", "weight": 1.0}, {"source": "references_snippets_defining_snippets_within_components", "target": "references_snippets_codeblock_8", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L113", "weight": 1.0}, {"source": "references_snippets_replacing_slots_with_snippets", "target": "references_snippets_typescript_typing", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L140", "weight": 1.0}, {"source": "references_snippets_typescript_typing", "target": "references_snippets_codeblock_9", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L142", "weight": 1.0}, {"source": "references_snippets_svelte_5_snippets_reference", "target": "references_snippets_rendering_with_render", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L160", "weight": 1.0}, {"source": "references_snippets_rendering_with_render", "target": "references_snippets_basic_snippet_rendering", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L164", "weight": 1.0}, {"source": "references_snippets_basic_snippet_rendering", "target": "references_snippets_codeblock_10", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L166", "weight": 1.0}, {"source": "references_snippets_rendering_with_render", "target": "references_snippets_optional_snippets", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L174", "weight": 1.0}, {"source": "references_snippets_optional_snippets", "target": "references_snippets_codeblock_11", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L178", "weight": 1.0}, {"source": "references_snippets_rendering_with_render", "target": "references_snippets_conditional_rendering", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L186", "weight": 1.0}, {"source": "references_snippets_conditional_rendering", "target": "references_snippets_codeblock_12", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L188", "weight": 1.0}, {"source": "references_snippets_rendering_with_render", "target": "references_snippets_rendering_with_arguments", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L204", "weight": 1.0}, {"source": "references_snippets_rendering_with_arguments", "target": "references_snippets_codeblock_13", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L206", "weight": 1.0}, {"source": "references_snippets_rendering_with_render", "target": "references_snippets_rendering_multiple_times", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L225", "weight": 1.0}, {"source": "references_snippets_rendering_multiple_times", "target": "references_snippets_codeblock_14", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L229", "weight": 1.0}, {"source": "references_snippets_rendering_with_render", "target": "references_snippets_rendering_dynamic_snippets", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L241", "weight": 1.0}, {"source": "references_snippets_rendering_dynamic_snippets", "target": "references_snippets_codeblock_15", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L243", "weight": 1.0}, {"source": "references_snippets_rendering_with_render", "target": "references_snippets_typescript_with_render", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L252", "weight": 1.0}, {"source": "references_snippets_typescript_with_render", "target": "references_snippets_codeblock_16", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L254", "weight": 1.0}, {"source": "references_snippets_rendering_with_render", "target": "references_snippets_passing_snippets_to_child_components", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L272", "weight": 1.0}, {"source": "references_snippets_passing_snippets_to_child_components", "target": "references_snippets_codeblock_17", "relation": "contains", "confidence": "EXTRACTED", "source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md", "source_location": "L274", "weight": 1.0}], "input_tokens": 0, "output_tokens": 0}
+{
+	"nodes": [
+		{
+			"id": "d_koding_projek_self_rosantibike_landing_agents_skills_svelte5_best_practices_references_snippets_md",
+			"label": "snippets.md",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L1"
+		},
+		{
+			"id": "references_snippets_svelte_5_snippets_reference",
+			"label": "Svelte 5 Snippets Reference",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L1"
+		},
+		{
+			"id": "references_snippets_table_of_contents",
+			"label": "Table of Contents",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L3"
+		},
+		{
+			"id": "references_snippets_replacing_slots_with_snippets",
+			"label": "Replacing Slots with Snippets",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L9"
+		},
+		{
+			"id": "references_snippets_default_content_children",
+			"label": "Default Content (children)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L13"
+		},
+		{
+			"id": "references_snippets_codeblock_1",
+			"label": "code:svelte (<div class=\"card\"><slot /></div>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L16"
+		},
+		{
+			"id": "references_snippets_codeblock_2",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L21"
+		},
+		{
+			"id": "references_snippets_named_slots_to_named_snippets",
+			"label": "Named Slots to Named Snippets",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L29"
+		},
+		{
+			"id": "references_snippets_codeblock_3",
+			"label": "code:svelte (<header><slot name=\"header\" /></header>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L32"
+		},
+		{
+			"id": "references_snippets_codeblock_4",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L46"
+		},
+		{
+			"id": "references_snippets_slot_props_to_snippet_parameters",
+			"label": "Slot Props to Snippet Parameters",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L63"
+		},
+		{
+			"id": "references_snippets_codeblock_5",
+			"label": "code:svelte (<ul>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L66"
+		},
+		{
+			"id": "references_snippets_codeblock_6",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L79"
+		},
+		{
+			"id": "references_snippets_slot_fallback_to_snippet_fallback",
+			"label": "Slot Fallback to Snippet Fallback",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L97"
+		},
+		{
+			"id": "references_snippets_codeblock_7",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L99"
+		},
+		{
+			"id": "references_snippets_defining_snippets_within_components",
+			"label": "Defining Snippets Within Components",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L111"
+		},
+		{
+			"id": "references_snippets_codeblock_8",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L113"
+		},
+		{
+			"id": "references_snippets_typescript_typing",
+			"label": "TypeScript Typing",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L140"
+		},
+		{
+			"id": "references_snippets_codeblock_9",
+			"label": "code:svelte (<script lang=\"ts\">)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L142"
+		},
+		{
+			"id": "references_snippets_rendering_with_render",
+			"label": "Rendering with @render",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L160"
+		},
+		{
+			"id": "references_snippets_basic_snippet_rendering",
+			"label": "Basic Snippet Rendering",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L164"
+		},
+		{
+			"id": "references_snippets_codeblock_10",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L166"
+		},
+		{
+			"id": "references_snippets_optional_snippets",
+			"label": "Optional Snippets",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L174"
+		},
+		{
+			"id": "references_snippets_codeblock_11",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L178"
+		},
+		{
+			"id": "references_snippets_conditional_rendering",
+			"label": "Conditional Rendering",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L186"
+		},
+		{
+			"id": "references_snippets_codeblock_12",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L188"
+		},
+		{
+			"id": "references_snippets_rendering_with_arguments",
+			"label": "Rendering with Arguments",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L204"
+		},
+		{
+			"id": "references_snippets_codeblock_13",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L206"
+		},
+		{
+			"id": "references_snippets_rendering_multiple_times",
+			"label": "Rendering Multiple Times",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L225"
+		},
+		{
+			"id": "references_snippets_codeblock_14",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L229"
+		},
+		{
+			"id": "references_snippets_rendering_dynamic_snippets",
+			"label": "Rendering Dynamic Snippets",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L241"
+		},
+		{
+			"id": "references_snippets_codeblock_15",
+			"label": "code:svelte (<script>)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L243"
+		},
+		{
+			"id": "references_snippets_typescript_with_render",
+			"label": "TypeScript with @render",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L252"
+		},
+		{
+			"id": "references_snippets_codeblock_16",
+			"label": "code:svelte (<script lang=\"ts\">)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L254"
+		},
+		{
+			"id": "references_snippets_passing_snippets_to_child_components",
+			"label": "Passing Snippets to Child Components",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L272"
+		},
+		{
+			"id": "references_snippets_codeblock_17",
+			"label": "code:svelte (<!-- Wrapper.svelte -->)",
+			"file_type": "document",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L274"
+		}
+	],
+	"edges": [
+		{
+			"source": "d_koding_projek_self_rosantibike_landing_agents_skills_svelte5_best_practices_references_snippets_md",
+			"target": "references_snippets_svelte_5_snippets_reference",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L1",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_svelte_5_snippets_reference",
+			"target": "references_snippets_table_of_contents",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L3",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_svelte_5_snippets_reference",
+			"target": "references_snippets_replacing_slots_with_snippets",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L9",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_replacing_slots_with_snippets",
+			"target": "references_snippets_default_content_children",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L13",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_default_content_children",
+			"target": "references_snippets_codeblock_1",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L16",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_default_content_children",
+			"target": "references_snippets_codeblock_2",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L21",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_replacing_slots_with_snippets",
+			"target": "references_snippets_named_slots_to_named_snippets",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L29",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_named_slots_to_named_snippets",
+			"target": "references_snippets_codeblock_3",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L32",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_named_slots_to_named_snippets",
+			"target": "references_snippets_codeblock_4",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L46",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_replacing_slots_with_snippets",
+			"target": "references_snippets_slot_props_to_snippet_parameters",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L63",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_slot_props_to_snippet_parameters",
+			"target": "references_snippets_codeblock_5",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L66",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_slot_props_to_snippet_parameters",
+			"target": "references_snippets_codeblock_6",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L79",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_replacing_slots_with_snippets",
+			"target": "references_snippets_slot_fallback_to_snippet_fallback",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L97",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_slot_fallback_to_snippet_fallback",
+			"target": "references_snippets_codeblock_7",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L99",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_replacing_slots_with_snippets",
+			"target": "references_snippets_defining_snippets_within_components",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L111",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_defining_snippets_within_components",
+			"target": "references_snippets_codeblock_8",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L113",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_replacing_slots_with_snippets",
+			"target": "references_snippets_typescript_typing",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L140",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_typescript_typing",
+			"target": "references_snippets_codeblock_9",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L142",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_svelte_5_snippets_reference",
+			"target": "references_snippets_rendering_with_render",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L160",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_render",
+			"target": "references_snippets_basic_snippet_rendering",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L164",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_basic_snippet_rendering",
+			"target": "references_snippets_codeblock_10",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L166",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_render",
+			"target": "references_snippets_optional_snippets",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L174",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_optional_snippets",
+			"target": "references_snippets_codeblock_11",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L178",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_render",
+			"target": "references_snippets_conditional_rendering",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L186",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_conditional_rendering",
+			"target": "references_snippets_codeblock_12",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L188",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_render",
+			"target": "references_snippets_rendering_with_arguments",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L204",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_arguments",
+			"target": "references_snippets_codeblock_13",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L206",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_render",
+			"target": "references_snippets_rendering_multiple_times",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L225",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_multiple_times",
+			"target": "references_snippets_codeblock_14",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L229",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_render",
+			"target": "references_snippets_rendering_dynamic_snippets",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L241",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_dynamic_snippets",
+			"target": "references_snippets_codeblock_15",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L243",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_render",
+			"target": "references_snippets_typescript_with_render",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L252",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_typescript_with_render",
+			"target": "references_snippets_codeblock_16",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L254",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_rendering_with_render",
+			"target": "references_snippets_passing_snippets_to_child_components",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L272",
+			"weight": 1.0
+		},
+		{
+			"source": "references_snippets_passing_snippets_to_child_components",
+			"target": "references_snippets_codeblock_17",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "D:\\Koding\\Projek\\Self\\rosantibike\\landing\\.agents\\skills\\svelte5-best-practices\\references\\snippets.md",
+			"source_location": "L274",
+			"weight": 1.0
+		}
+	],
+	"input_tokens": 0,
+	"output_tokens": 0
+}

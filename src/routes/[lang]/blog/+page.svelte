@@ -170,7 +170,9 @@
 				{/each}
 			</div>
 		{:else if error}
-			<div class="text-center py-20 glass-surface rounded-3xl flex flex-col items-center justify-center">
+			<div
+				class="text-center py-20 glass-surface rounded-3xl flex flex-col items-center justify-center"
+			>
 				<div class="mb-4 text-red-500">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -216,7 +218,9 @@
 											class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
 										/>
 									{/if}
-									<div class="absolute inset-0 bg-linear-to-t from-gray-900/60 via-transparent to-transparent"></div>
+									<div
+										class="absolute inset-0 bg-linear-to-t from-gray-900/60 via-transparent to-transparent"
+									></div>
 								</div>
 								<div class="flex items-center gap-2 mb-3">
 									{#if featuredPost.tags && featuredPost.tags.length > 0}
@@ -227,14 +231,18 @@
 									<span class="text-xs text-brand-muted/40 font-light">/</span>
 									<span class="text-xs text-brand-muted">{featuredPost.readingTime}</span>
 								</div>
-								<h2 class="text-2xl md:text-3xl font-black text-brand-fg mb-4 group-hover:text-blue-500 transition-colors leading-tight">
+								<h2
+									class="text-2xl md:text-3xl font-black text-brand-fg mb-4 group-hover:text-blue-500 transition-colors leading-tight"
+								>
 									{featuredPost.judul}
 								</h2>
 								<p class="text-brand-muted text-sm leading-relaxed mb-4 line-clamp-3">
 									{featuredPost.excerpt}
 								</p>
 								{#if featuredPost.formattedDate && featuredPost.formattedDate !== '-'}
-									<span class="text-xs text-brand-muted font-semibold">{featuredPost.formattedDate}</span>
+									<span class="text-xs text-brand-muted font-semibold"
+										>{featuredPost.formattedDate}</span
+									>
 								{/if}
 							</a>
 						</div>
@@ -242,8 +250,13 @@
 						<!-- Vertical Story List (Right Side) -->
 						<div class="lg:col-span-5 flex flex-col gap-6 justify-between">
 							{#each listPosts as post}
-								<a href="/{lang}/blog/{post.slug}" class="group flex gap-5 items-center border-b border-brand-border/40 pb-6 last:border-0 last:pb-0">
-									<div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-gray-800 shrink-0 relative">
+								<a
+									href="/{lang}/blog/{post.slug}"
+									class="group flex gap-5 items-center border-b border-brand-border/40 pb-6 last:border-0 last:pb-0"
+								>
+									<div
+										class="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-gray-800 shrink-0 relative"
+									>
 										{#if post.featuredImage || post.thumbnail}
 											<img
 												src={post.featuredImage || post.thumbnail}
@@ -255,16 +268,22 @@
 									<div class="flex-1 min-w-0">
 										<div class="flex items-center gap-2 mb-1.5">
 											{#if post.tags && post.tags.length > 0}
-												<span class="text-[10px] font-black text-blue-500 uppercase tracking-widest">{post.tags[0].nama}</span>
+												<span class="text-[10px] font-black text-blue-500 uppercase tracking-widest"
+													>{post.tags[0].nama}</span
+												>
 											{/if}
 											<span class="text-[10px] text-brand-muted/40 font-light">/</span>
 											<span class="text-[10px] text-brand-muted">{post.readingTime}</span>
 										</div>
-										<h3 class="text-sm md:text-base font-extrabold text-brand-fg group-hover:text-blue-500 transition-colors line-clamp-2 leading-snug">
+										<h3
+											class="text-sm md:text-base font-extrabold text-brand-fg group-hover:text-blue-500 transition-colors line-clamp-2 leading-snug"
+										>
 											{post.judul}
 										</h3>
 										{#if post.formattedDate && post.formattedDate !== '-'}
-											<span class="text-[10px] text-brand-muted mt-2 block">{post.formattedDate}</span>
+											<span class="text-[10px] text-brand-muted mt-2 block"
+												>{post.formattedDate}</span
+											>
 										{/if}
 									</div>
 								</a>
@@ -454,7 +473,9 @@
 				</div>
 			{/if}
 		{:else}
-			<div class="text-center py-20 glass-surface rounded-3xl flex flex-col items-center justify-center">
+			<div
+				class="text-center py-20 glass-surface rounded-3xl flex flex-col items-center justify-center"
+			>
 				<div class="mb-4 text-brand-muted">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

@@ -56,23 +56,23 @@
 							question: 'Apa saja syarat sewa motor di Malang?',
 							answer:
 								'Syarat utama adalah wajib memiliki e-KTP asli dan SIM C yang masih berlaku. Untuk wisatawan asing, diwajibkan memiliki International Driving Permit atau SIM negara asal yang masih berlaku, beserta Paspor asli.'
-					},
-					{
-						question: 'Apakah menyediakan layanan antar jemput motor (delivery)?',
-						answer:
-							'Ya! Kami menyediakan layanan antar-jemput motor gratis ke Stasiun Malang, Terminal Arjosari, dan hotel-hotel di area pusat Kota Malang.'
-					},
-					{
-						question: 'Berapa durasi minimal penyewaan motor?',
-						answer:
-							'Durasi minimal penyewaan adalah 24 jam (1 hari). Kami juga melayani penyewaan mingguan dan bulanan dengan tarif khusus yang lebih hemat.'
-					},
-					{
-						question: 'Apakah sudah termasuk helm dan jas hujan?',
-						answer:
-							'Tentu. Setiap penyewaan motor sudah termasuk 2 helm SNI bersih dan 2 jas hujan model ponco atau setelan untuk kenyamanan Anda berkendara di Malang yang sering hujan.'
-					}
-				]
+						},
+						{
+							question: 'Apakah menyediakan layanan antar jemput motor (delivery)?',
+							answer:
+								'Ya! Kami menyediakan layanan antar-jemput motor gratis ke Stasiun Malang, Terminal Arjosari, dan hotel-hotel di area pusat Kota Malang.'
+						},
+						{
+							question: 'Berapa durasi minimal penyewaan motor?',
+							answer:
+								'Durasi minimal penyewaan adalah 24 jam (1 hari). Kami juga melayani penyewaan mingguan dan bulanan dengan tarif khusus yang lebih hemat.'
+						},
+						{
+							question: 'Apakah sudah termasuk helm dan jas hujan?',
+							answer:
+								'Tentu. Setiap penyewaan motor sudah termasuk 2 helm SNI bersih dan 2 jas hujan model ponco atau setelan untuk kenyamanan Anda berkendara di Malang yang sering hujan.'
+						}
+					]
 		)
 	);
 </script>
