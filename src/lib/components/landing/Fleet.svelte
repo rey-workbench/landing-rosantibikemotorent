@@ -102,6 +102,7 @@
 								src={jenis.gambar}
 								alt={`${jenis.merk} ${jenis.model}`}
 								loading="lazy"
+								decoding="async"
 								width="400"
 								height="300"
 								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"

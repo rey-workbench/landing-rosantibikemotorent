@@ -28,7 +28,8 @@
 		"typesafe-i18n": "^5.27.1",
 		"typescript": "^5.9.3",
 		"uuid": "^13.0.2",
-		"vite": "^7.3.6"
+		"vite": "^7.3.6",
+		"vite-plugin-compression": "^0.5.1"
 	},
 	"dependencies": {
 		"@lucide/svelte": "^1.23.0",
