@@ -18,7 +18,7 @@
 	function switchLanguage(lang: Locales) {
 		document.cookie = `locale=${lang}; path=/; max-age=31536000`;
 
-		const segments = window.location.pathname.split('/');
+		const segments = page.url.pathname.split('/');
 		// If the first segment is an existing locale, replace it
 		if (segments[1] && locales.includes(segments[1] as Locales)) {
 			segments[1] = lang;
@@ -27,7 +27,7 @@
 			segments.splice(1, 0, lang);
 		}
 
-		goto(segments.join('/') || `/${lang}`);
+		goto((segments.join('/') || `/${lang}`) + page.url.search);
 	}
 </script>
 

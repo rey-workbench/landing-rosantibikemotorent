@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
@@ -10,8 +10,8 @@
 	let { data } = $props();
 
 	const post = $derived(data.post);
-	const lang = $derived(($page.params.lang || 'id') as 'id' | 'en');
-	const currentUrl = $derived($page.url.href);
+	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+	const currentUrl = $derived(page.url.href);
 
 	const breadcrumbSchema = $derived(
 		post

@@ -6,26 +6,26 @@
 	import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
 	import ThemeSwitcher from '../ui/ThemeSwitcher.svelte';
 	import Button from '../ui/Button.svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let isOpen = $state(false);
 	let isScrolled = $state(false);
 
 	const isHomepage = $derived(
-		$page.url.pathname === '/' ||
-			$page.url.pathname === '/id' ||
-			$page.url.pathname === '/en' ||
-			$page.url.pathname === '/id/' ||
-			$page.url.pathname === '/en/'
+		page.url.pathname === '/' ||
+			page.url.pathname === '/id' ||
+			page.url.pathname === '/en' ||
+			page.url.pathname === '/id/' ||
+			page.url.pathname === '/en/'
 	);
 
 	const isTransparentNavbar = $derived(!isScrolled && isHomepage);
 
 	const navItems = $derived([
-		{ label: $LL.nav_home(), href: `/${$page.params.lang || $locale}` },
-		{ label: $LL.nav_fleet(), href: `/${$page.params.lang || $locale}/fleet` },
-		{ label: $LL.nav_blog(), href: `/${$page.params.lang || $locale}/blog` },
-		{ label: $LL.nav_booking(), href: `/${$page.params.lang || $locale}/booking` }
+		{ label: $LL.nav_home(), href: `/${page.params.lang || $locale}` },
+		{ label: $LL.nav_fleet(), href: `/${page.params.lang || $locale}/fleet` },
+		{ label: $LL.nav_blog(), href: `/${page.params.lang || $locale}/blog` },
+		{ label: $LL.nav_booking(), href: `/${page.params.lang || $locale}/booking` }
 	]);
 
 	onMount(() => {
@@ -47,7 +47,7 @@
 			? 'bg-transparent text-white border-transparent'
 			: 'bg-transparent text-brand-fg border-transparent'}"
 >
-	<a href="/{$page.params.lang || $locale}" class="flex flex-col text-left group">
+	<a href="/{page.params.lang || $locale}" class="flex flex-col text-left group">
 		<span
 			class="font-display text-[1.1rem] sm:text-[1.5rem] tracking-[0.03em] uppercase {isScrolled ||
 			!isHomepage
@@ -129,8 +129,8 @@
 			{#each navItems as item}
 				<a
 					href={item.href}
-					aria-current={$page.url.pathname === item.href ? 'page' : undefined}
-					class="text-3xl sm:text-5xl md:text-7xl font-display transition-colors uppercase tracking-[0.03em] {$page
+					aria-current={page.url.pathname === item.href ? 'page' : undefined}
+					class="text-3xl sm:text-5xl md:text-7xl font-display transition-colors uppercase tracking-[0.03em] {page
 						.url.pathname === item.href
 						? 'text-(--brand-highlight)'
 						: 'text-brand-fg hover:text-(--brand-highlight)'}"
@@ -142,7 +142,7 @@
 		</div>
 
 		<Button
-			href="/{$page.params.lang || $locale}/booking"
+			href="/{page.params.lang || $locale}/booking"
 			variant="primary"
 			size="lg"
 			className="mt-8 text-sm"

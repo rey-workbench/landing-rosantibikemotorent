@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import {
 		parsePhoneNumberFromString,
@@ -7,23 +7,39 @@
 		getCountryCallingCode
 	} from 'libphonenumber-js';
 
-	export let value: string = '';
-	export let label = '';
-	export let placeholder = '812 3456 7890';
-	export let id = '';
-	export let error = '';
-	export let hint = '';
-	export let required = false;
-	export let disabled = false;
-	export let className = '';
-	export let includeCountryCode = true;
+	interface Props {
+		value?: string;
+		label?: string;
+		placeholder?: string;
+		id?: string;
+		error?: string;
+		hint?: string;
+		required?: boolean;
+		disabled?: boolean;
+		className?: string;
+		includeCountryCode?: boolean;
+		onchange?: (value: string) => void;
+	}
 
-	$: actualId = id || `phone-${Math.random().toString(36).slice(2, 11)}`;
+	let {
+		value = $bindable(''),
+		label = '',
+		placeholder = '812 3456 7890',
+		id = '',
+		error = '',
+		hint = '',
+		required = false,
+		disabled = false,
+		className = '',
+		includeCountryCode = true,
+		onchange
+	}: Props = $props();
 
-	const dispatch = createEventDispatcher();
-	let isOpen = false;
-	let containerRef: HTMLElement;
-	let searchTerm = '';
+	let actualId = $derived(id || `phone-${Math.random().toString(36).slice(2, 11)}`);
+
+	let isOpen = $state(false);
+	let containerRef: HTMLElement | undefined = $state();
+	let searchTerm = $state('');
 
 	const countries = getCountries();
 	const countryData: { code: string; name: string; callingCode: string; flag: string }[] = countries
@@ -43,8 +59,8 @@
 		.sort((a, b) => (a!.name < b!.name ? -1 : 1)) as typeof countryData;
 
 	let selectedCountry: (typeof countryData)[0] =
-		countryData.find((c) => c.code === 'ID') || countryData[0];
-	let displayValue = '';
+		$state(countryData.find((c) => c.code === 'ID') || countryData[0]);
+	let displayValue = $state('');
 	let isInitialized = false;
 
 	function getFlag(code: string): string {
@@ -72,7 +88,7 @@
 		const raw = displayValue.trim();
 		if (!raw) {
 			value = '';
-			dispatch('change', { value });
+			onchange?.(value);
 			return;
 		}
 
@@ -99,7 +115,7 @@
 			const digits = raw.replace(/\D/g, '');
 			value = includeCountryCode ? `+${selectedCountry.callingCode}${digits}` : digits;
 		}
-		dispatch('change', { value });
+		onchange?.(value);
 	}
 
 	function handleInput(e: Event) {
@@ -171,14 +187,14 @@
 		updateValue();
 	}
 
-	$: filteredCountries = countryData.filter(
+	let filteredCountries = $derived(countryData.filter(
 		(c) =>
 			c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
 			c.callingCode.includes(searchTerm) ||
 			c.code.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+	));
 
-	$: displayNumber = displayValue ? `+${selectedCountry.callingCode} ${displayValue}` : '';
+	let displayNumber = $derived(displayValue ? `+${selectedCountry.callingCode} ${displayValue}` : '');
 </script>
 
 <div
@@ -197,7 +213,7 @@
 		<div class="flex">
 			<button
 				type="button"
-				on:click|stopPropagation={openDropdown}
+				onclick={(e) => { e.stopPropagation(); openDropdown(); }}
 				class="flex items-center gap-2 bg-brand-surface-soft border border-r-0 border-brand-border rounded-l-xl px-3 py-3 hover:bg-brand-surface-soft/80 transition-all {disabled
 					? 'opacity-50 cursor-not-allowed'
 					: 'cursor-pointer'} {isOpen ? 'bg-brand-highlight/5 border-brand-highlight' : ''}"
@@ -221,9 +237,9 @@
 				{placeholder}
 				{disabled}
 				value={displayValue}
-				on:input={handleInput}
-				on:blur={handleBlur}
-				on:click|stopPropagation={() => {}}
+				oninput={handleInput}
+				onblur={handleBlur}
+				onclick={(e) => e.stopPropagation()}
 				class="flex-1 bg-brand-surface-soft border border-brand-border rounded-r-xl rounded-l-none px-4 py-3 text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring focus:bg-brand-highlight/5 transition-all {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''}"
@@ -241,7 +257,7 @@
 						bind:value={searchTerm}
 						placeholder="Cari negara..."
 						class="w-full bg-brand-surface-soft border border-brand-border rounded-lg px-3 py-2 text-sm text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring"
-						on:click|stopPropagation={() => {}}
+						onclick={(e) => e.stopPropagation()}
 					/>
 				</div>
 
@@ -249,7 +265,7 @@
 					{#each filteredCountries as country}
 						<button
 							type="button"
-							on:click|stopPropagation={() => selectCountry(country)}
+							onclick={(e) => { e.stopPropagation(); selectCountry(country); }}
 							class="w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 {country.code ===
 							selectedCountry?.code
 								? 'bg-brand-highlight/10 text-brand-highlight font-bold'

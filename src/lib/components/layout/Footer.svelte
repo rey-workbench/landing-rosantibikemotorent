@@ -2,7 +2,11 @@
 	import { siteConfig } from '$lib/config';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { page } from '$app/state';
-	export let className = '';
+	interface Props {
+		className?: string;
+	}
+
+	let { className = '' }: Props = $props();
 </script>
 
 <footer

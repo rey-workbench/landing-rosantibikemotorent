@@ -5,13 +5,13 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { SeoHead } from '$lib/components/seo';
 
 	let { data } = $props();
 
-	const lang = $derived(($page.params.lang || 'id') as 'id' | 'en');
-	const currentUrl = $derived($page.url.href);
+	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+	const currentUrl = $derived(page.url.href);
 
 	let posts = $state<any[]>([]);
 	let tags = $state<BlogTag[]>([]);
@@ -124,7 +124,7 @@
 					bind:value={searchQuery}
 					placeholder={$LL.blog_search_placeholder()}
 					icon="search"
-					on:input={handleSearch}
+					oninput={handleSearch}
 				/>
 			</div>
 

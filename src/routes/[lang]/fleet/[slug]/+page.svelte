@@ -3,7 +3,7 @@
 	import { jenisMotorApi } from '$lib/api';
 	import { websocketService } from '$lib/services/websocket';
 	import { goto } from '$app/navigation';
-	import { page as pageStore } from '$app/stores';
+	import { page as pageStore } from '$app/state';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { SeoHead } from '$lib/components/seo';
 	import { LL } from '$i18n/i18n-svelte';
@@ -20,8 +20,8 @@
 
 	let jenis = $derived(motor?.jenisMotor);
 	let displayPrice = $derived(jenis?.hargaSewa || 0);
-	let lang = $derived(($pageStore.params.lang || 'id') as 'id' | 'en');
-	let currentUrl = $derived($pageStore.url.href);
+	let lang = $derived((pageStore.params.lang || 'id') as 'id' | 'en');
+	let currentUrl = $derived(pageStore.url.href);
 
 	async function fetchMotor() {
 		if (!jenis?.slug) return;

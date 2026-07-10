@@ -1,14 +1,31 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	interface Props {
+		type?: 'button' | 'submit' | 'reset';
+		variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'glass';
+		size?: 'sm' | 'md' | 'lg' | 'icon';
+		disabled?: boolean;
+		loading?: boolean;
+		href?: string | undefined;
+		fullWidth?: boolean;
+		className?: string;
+		onclick?: (e: MouseEvent) => void;
+		children?: import('svelte').Snippet;
+		[key: string]: any
+	}
 
-	export let type: 'button' | 'submit' | 'reset' = 'button';
-	export let variant: 'primary' | 'secondary' | 'outline' | 'ghost' | 'glass' = 'primary';
-	export let size: 'sm' | 'md' | 'lg' | 'icon' = 'md';
-	export let disabled = false;
-	export let loading = false;
-	export let href: string | undefined = undefined;
-	export let fullWidth = false;
-	export let className = '';
+	let {
+		type = 'button',
+		variant = 'primary',
+		size = 'md',
+		disabled = false,
+		loading = false,
+		href = undefined,
+		fullWidth = false,
+		className = '',
+		children,
+		onclick,
+		...rest
+	}: Props = $props();
 
 	// Styling base
 	const baseStyles =
@@ -35,21 +52,13 @@
 		icon: 'p-3 rounded-xl'
 	};
 
-	$: classes = [baseStyles, variants[variant], sizes[size], fullWidth ? 'w-full' : '', className]
+	let classes = $derived([baseStyles, variants[variant], sizes[size], fullWidth ? 'w-full' : '', className]
 		.filter(Boolean)
-		.join(' ');
-
-	const dispatch = createEventDispatcher();
-
-	function handleClick(e: MouseEvent) {
-		if (!disabled && !loading) {
-			dispatch('click', e);
-		}
-	}
+		.join(' '));
 </script>
 
 {#if href}
-	<a {href} class={classes} on:click={handleClick} {...$$restProps}>
+	<a {href} class={classes} {onclick} {...rest}>
 		{#if loading}
 			<svg
 				class="animate-spin -ml-1 mr-3 h-4 w-4 text-current"
@@ -66,10 +75,10 @@
 				></path>
 			</svg>
 		{/if}
-		<slot />
+		{@render children?.()}
 	</a>
 {:else}
-	<button {type} class={classes} {disabled} on:click={handleClick} {...$$restProps}>
+	<button {type} class={classes} {disabled} {onclick} {...rest}>
 		{#if loading}
 			<svg
 				class="animate-spin -ml-1 mr-3 h-4 w-4 text-current"
@@ -86,6 +95,6 @@
 				></path>
 			</svg>
 		{/if}
-		<slot />
+		{@render children?.()}
 	</button>
 {/if}

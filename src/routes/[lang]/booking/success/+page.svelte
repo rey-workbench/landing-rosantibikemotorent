@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { siteConfig } from '$lib/config';
 	import { LL } from '$i18n/i18n-svelte';
 	import { SeoHead } from '$lib/components/seo';
 	import Button from '$lib/components/ui/Button.svelte';
 
-	export let data;
-	$: transaksi = data.transaksi;
-	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
-	$: currentUrl = $page.url.href;
+	let { data } = $props();
+	let transaksi = $derived(data.transaksi);
+	let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+	let currentUrl = $derived(page.url.href);
 
 	function formatPrice(price: number): string {
 		return new Intl.NumberFormat('id-ID', {
@@ -134,7 +134,7 @@
 			<!-- WhatsApp CTA -->
 			<Button
 				href="https://wa.me/{siteConfig.whatsapp}?text={encodeURIComponent(
-					$LL.booking_success_whatsapp_message({ id: $page.url.searchParams.get('id') || '' })
+					$LL.booking_success_whatsapp_message({ id: page.url.searchParams.get('id') || '' })
 				)}"
 				variant="primary"
 				size="lg"

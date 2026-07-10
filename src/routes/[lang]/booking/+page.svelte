@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { transaksiApi } from '$lib/api';
 	import type { UnitMotor, PriceCalculation } from '$lib/types';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -12,65 +12,37 @@
 	import LL from '$i18n/i18n-svelte.js';
 	import { SeoHead } from '$lib/components/seo';
 
-	export let data;
-	$: lang = ($page.params.lang || 'id') as 'id' | 'en';
-	$: currentUrl = $page.url.href;
+	let { data } = $props();
 
 	// State
-	let availableMotors: UnitMotor[] = data.availableMotors;
-	let uniqueMotors: UnitMotor[] = [];
-	let selectedUnit: UnitMotor | null = null;
+	let availableMotors = $derived(data.availableMotors as UnitMotor[]);
+	let uniqueMotors: UnitMotor[] = $state([]);
+	let selectedUnit: UnitMotor | null = $state(null);
 
-	$: {
-		const seen = new Set();
-		uniqueMotors = availableMotors.filter((m) => {
-			const key = `${m.jenisId}`;
-			if (seen.has(key)) return false;
-			seen.add(key);
-			return true;
-		});
-	}
 
-	$: {
-		if (formData.jenisId) {
-			selectedUnit =
-				availableMotors.find((m) => (m.jenisId || m.jenis?.id) === formData.jenisId) || null;
-		} else if (formData.unitId) {
-			selectedUnit = availableMotors.find((m) => m.id === formData.unitId) || null;
-		} else {
-			selectedUnit = null;
-		}
-	}
 
-	// Steps configuration
-	$: steps = [
-		{ title: $LL.booking_steps_personal_title(), description: $LL.booking_steps_personal_desc() },
-		{ title: $LL.booking_steps_motor_title(), description: $LL.booking_steps_motor_desc() },
-		{ title: $LL.booking_steps_time_title(), description: $LL.booking_steps_time_desc() },
-		{ title: $LL.booking_steps_confirm_title(), description: $LL.booking_steps_confirm_desc() }
-	];
 
-	let currentStep = 0;
+	let currentStep = $state(0);
 
 	// Form State
-	let formData = {
+	let formData = $state({
 		namaPenyewa: '',
 		noWhatsapp: '',
-		unitId: data.selectedUnitFromUrl?.id || '',
-		jenisId: data.selectedUnitFromUrl?.jenisId || '',
-		tanggalMulai: data.defaultDates.mulai,
-		tanggalSelesai: data.defaultDates.selesai,
+		unitId: untrack(() => (data.selectedUnitFromUrl as any)?.id || ''),
+		jenisId: untrack(() => (data.selectedUnitFromUrl as any)?.jenisId || ''),
+		tanggalMulai: untrack(() => (data.defaultDates as any).mulai),
+		tanggalSelesai: untrack(() => (data.defaultDates as any).selesai),
 		jamMulai: '08:00',
 		jamSelesai: '08:00',
 		jasHujan: 0,
 		helm: 0
-	};
+	});
 
-	let priceBreakdown: PriceCalculation | null = null;
-	let isCalculating = false;
-	let isSubmitting = false;
-	let formError = '';
-	let success = false;
+	let priceBreakdown: PriceCalculation | null = $state(null);
+	let isCalculating = $state(false);
+	let isSubmitting = $state(false);
+	let formError = $state('');
+	let success = $state(false);
 
 	onMount(async () => {
 		if (data.selectedUnitFromUrl) {
@@ -223,6 +195,34 @@
 			day: 'numeric'
 		});
 	}
+	let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+	let currentUrl = $derived(page.url.href);
+	$effect(() => {
+		const seen = new Set();
+		uniqueMotors = availableMotors.filter((m) => {
+			const key = `${m.jenisId}`;
+			if (seen.has(key)) return false;
+			seen.add(key);
+			return true;
+		});
+	});
+	$effect(() => {
+		if (formData.jenisId) {
+			selectedUnit =
+				availableMotors.find((m) => (m.jenisId || m.jenis?.id) === formData.jenisId) || null;
+		} else if (formData.unitId) {
+			selectedUnit = availableMotors.find((m) => m.id === formData.unitId) || null;
+		} else {
+			selectedUnit = null;
+		}
+	});
+	// Steps configuration
+	let steps = $derived([
+		{ title: $LL.booking_steps_personal_title(), description: $LL.booking_steps_personal_desc() },
+		{ title: $LL.booking_steps_motor_title(), description: $LL.booking_steps_motor_desc() },
+		{ title: $LL.booking_steps_time_title(), description: $LL.booking_steps_time_desc() },
+		{ title: $LL.booking_steps_confirm_title(), description: $LL.booking_steps_confirm_desc() }
+	]);
 </script>
 
 <SeoHead
@@ -353,7 +353,7 @@
 								};
 							})}
 							placeholder={$LL.booking_motor_placeholder()}
-							on:change={handleMotorChange}
+							onchange={handleMotorChange}
 						/>
 
 						{#if selectedUnit}
@@ -421,7 +421,7 @@
 								label={$LL.booking_start_date_label()}
 								type="date"
 								bind:value={formData.tanggalMulai}
-								on:change={handleCalculatePrice}
+								onchange={handleCalculatePrice}
 								required
 							/>
 							<Input
@@ -429,7 +429,7 @@
 								label={$LL.booking_start_time_label()}
 								type="time"
 								bind:value={formData.jamMulai}
-								on:change={handleCalculatePrice}
+								onchange={handleCalculatePrice}
 								required
 							/>
 							<Input
@@ -437,7 +437,7 @@
 								label={$LL.booking_end_date_label()}
 								type="date"
 								bind:value={formData.tanggalSelesai}
-								on:change={handleCalculatePrice}
+								onchange={handleCalculatePrice}
 								required
 							/>
 							<Input
@@ -445,7 +445,7 @@
 								label={$LL.booking_end_time_label()}
 								type="time"
 								bind:value={formData.jamSelesai}
-								on:change={handleCalculatePrice}
+								onchange={handleCalculatePrice}
 								required
 							/>
 						</div>
@@ -460,7 +460,7 @@
 									type="dropdown"
 									label={$LL.booking_raincoat_label()}
 									bind:value={formData.jasHujan}
-									on:change={handleCalculatePrice}
+									onchange={handleCalculatePrice}
 									options={[
 										{ value: 0, label: $LL.booking_not_needed() },
 										{ value: 1, label: $LL.booking_pieces_1() },
@@ -473,7 +473,7 @@
 									type="dropdown"
 									label={$LL.booking_helmet_label()}
 									bind:value={formData.helm}
-									on:change={handleCalculatePrice}
+									onchange={handleCalculatePrice}
 									options={[
 										{ value: 0, label: $LL.booking_not_needed() },
 										{ value: 1, label: $LL.booking_pieces_1() },

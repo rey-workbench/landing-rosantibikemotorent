@@ -1,21 +1,42 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
 
-	export let value: string | number = '';
-	export let placeholder = '',
-		label = '';
-	export let id = '';
-	$: actualId = id || `input-${Math.random().toString(36).slice(2, 11)}`;
-	export let error = '',
-		className = '';
-	export let type: 'text' | 'number' | 'date' | 'time' | 'tel' | 'email' | 'dropdown' = 'text';
-	export let required = false,
+	interface Props {
+		value?: string | number;
+		placeholder?: string;
+		label?: string;
+		id?: string;
+		error?: string;
+		className?: string;
+		type?: 'text' | 'number' | 'date' | 'time' | 'tel' | 'email' | 'dropdown';
+		required?: boolean;
+		disabled?: boolean;
+		searchable?: boolean;
+		options?: { value: string | number; label: string }[];
+		icon?: 'search' | 'user' | 'phone' | 'email' | 'calendar' | 'clock' | 'none';
+		hint?: string;
+		onchange?: (value: string | number) => void;
+		oninput?: (value: string | number) => void;
+	}
+
+	let {
+		value = $bindable(''),
+		placeholder = '',
+		label = '',
+		id = '',
+		error = '',
+		className = '',
+		type = 'text',
+		required = false,
 		disabled = false,
-		searchable = true;
-	export let options: { value: string | number; label: string }[] = [];
-	export let icon: 'search' | 'user' | 'phone' | 'email' | 'calendar' | 'clock' | 'none' = 'none';
-	export let hint = '';
+		searchable = true,
+		options = [],
+		icon = 'none',
+		hint = '',
+		onchange,
+		oninput
+	}: Props = $props();
 
 	const iconPaths = {
 		search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
@@ -29,15 +50,14 @@
 		clock: 'M12 22a10 10 0 100-20 10 10 0 000 20z M12 6v6l4 2'
 	};
 
-	const dispatch = createEventDispatcher();
-	let isOpen = false,
-		containerRef: HTMLElement,
-		searchTerm = '',
+	let isOpen = $state(false),
+		containerRef: HTMLElement | undefined = $state(),
+		searchTerm = $state(''),
 		inputRef: HTMLInputElement | undefined;
 
 	// Date/Time State
 	let current = new Date();
-	let view = { month: current.getMonth(), year: current.getFullYear() };
+	let view = $state({ month: current.getMonth(), year: current.getFullYear() });
 	const months = [
 		'January',
 		'February',
@@ -55,33 +75,13 @@
 	const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
 	const mins = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
 
-	$: selectedLabel =
-		type === 'dropdown'
-			? options.find((o) => o.value == value)?.label || ''
-			: value?.toString() || '';
 
-	$: filteredOptions = options.filter((o) =>
-		o.label.toLowerCase().includes(searchTerm.toLowerCase())
-	);
 
-	$: calendarDays = (() => {
-		const start = new Date(view.year, view.month, 1).getDay();
-		const daysInMo = new Date(view.year, view.month + 1, 0).getDate();
-		const prevDaysInMo = new Date(view.year, view.month, 0).getDate();
-		return [
-			...Array.from({ length: start }, (_, i) => ({
-				d: prevDaysInMo - start + i + 1,
-				curr: false
-			})),
-			...Array.from({ length: daysInMo }, (_, i) => ({ d: i + 1, curr: true })),
-			...Array.from({ length: 42 - (start + daysInMo) }, (_, i) => ({ d: i + 1, curr: false }))
-		];
-	})();
 
 	const select = (v: any) => {
 		value = v;
 		isOpen = false;
-		dispatch('change', { value });
+		onchange?.(value);
 	};
 	const adjustMonth = (d: number) => {
 		view.month += d;
@@ -95,7 +95,7 @@
 	};
 	const step = (d: number) => {
 		value = Number(value) + d;
-		dispatch('input', { target: { value } });
+		oninput?.(value);
 	};
 
 	onMount(() => {
@@ -104,6 +104,27 @@
 		document.addEventListener('click', hide);
 		return () => document.removeEventListener('click', hide);
 	});
+	let actualId = $derived(id || `input-${Math.random().toString(36).slice(2, 11)}`);
+	let selectedLabel =
+		$derived(type === 'dropdown'
+			? options.find((o) => o.value == value)?.label || ''
+			: value?.toString() || '');
+	let filteredOptions = $derived(options.filter((o) =>
+		o.label.toLowerCase().includes(searchTerm.toLowerCase())
+	));
+	let calendarDays = $derived((() => {
+		const start = new Date(view.year, view.month, 1).getDay();
+		const daysInMo = new Date(view.year, view.month + 1, 0).getDate();
+		const prevDaysInMo = new Date(view.year, view.month, 0).getDate();
+		return [
+			...Array.from({ length: start }, (_, i) => ({
+				d: prevDaysInMo - start + i + 1,
+				curr: false
+			})),
+			...Array.from({ length: daysInMo }, (_, i) => ({ d: i + 1, curr: true })),
+			...Array.from({ length: 42 - (start + daysInMo) }, (_, i) => ({ d: i + 1, curr: false }))
+		];
+	})());
 </script>
 
 <div
@@ -124,7 +145,7 @@
 				id={actualId}
 				type="button"
 				{disabled}
-				on:click={() => !disabled && ((isOpen = !isOpen), (searchTerm = ''))}
+				onclick={() => !disabled && ((isOpen = !isOpen), (searchTerm = ''))}
 				class="w-full bg-brand-surface-soft border border-brand-border rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-brand-surface-soft/80 hover:border-brand-border/80 focus-visible:focus-ring {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''} {isOpen
@@ -178,7 +199,7 @@
 									placeholder="Cari..."
 									aria-label="Cari opsi"
 									class="w-full bg-brand-surface-soft border border-brand-border rounded-lg px-3 py-2 text-sm text-brand-fg focus-visible:focus-ring"
-									on:click|stopPropagation
+									onclick={(e) => e.stopPropagation()}
 								/>
 							</div>
 						{/if}
@@ -186,7 +207,7 @@
 							{#each filteredOptions as opt}
 								<button
 									type="button"
-									on:click={() => select(opt.value)}
+									onclick={() => select(opt.value)}
 									class="w-full px-4 py-2.5 text-left text-sm flex items-center justify-between {opt.value ==
 									value
 										? 'bg-brand-highlight/10 text-brand-highlight font-bold'
@@ -209,7 +230,7 @@
 							<div class="flex items-center justify-between mb-3 px-1">
 								<button
 									type="button"
-									on:click|stopPropagation={() => adjustMonth(-1)}
+									onclick={(e) => { e.stopPropagation(); adjustMonth(-1); }}
 									class="p-1 hover:bg-brand-surface-soft rounded text-brand-fg"
 									aria-label="Bulan sebelumnya"
 									><svg
@@ -227,7 +248,7 @@
 								</div>
 								<button
 									type="button"
-									on:click|stopPropagation={() => adjustMonth(1)}
+									onclick={(e) => { e.stopPropagation(); adjustMonth(1); }}
 									class="p-1 hover:bg-brand-surface-soft rounded text-brand-fg"
 									aria-label="Bulan berikutnya"
 									><svg
@@ -251,11 +272,10 @@
 								{#each calendarDays as { d, curr }}
 									<button
 										type="button"
-										on:click|stopPropagation={() =>
-											curr &&
-											select(
-												`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
-											)}
+										onclick={(e) => {
+											e.stopPropagation();
+											if (curr) select(`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`);
+										}}
 										class="aspect-square flex items-center justify-center text-[10px] rounded-md {curr
 											? 'text-brand-fg hover:bg-brand-surface-soft'
 											: 'text-brand-muted/30 pointer-events-none'} {curr &&
@@ -271,8 +291,10 @@
 						<div class="p-2 grid grid-cols-2 gap-2 h-48 uppercase font-bold tracking-[0.08em]">
 							<div class="overflow-y-auto scrollbar-custom pr-1">
 								{#each hours as h}<button
-										on:click|stopPropagation={() =>
-											select(`${h}:${value.toString().split(':')[1] || '00'}`)}
+										onclick={(e) => {
+											e.stopPropagation();
+											select(`${h}:${value.toString().split(':')[1] || '00'}`);
+										}}
 										class="w-full py-1.5 text-[10px] rounded {value.toString().startsWith(h + ':')
 											? 'bg-brand-fg text-brand-surface'
 											: 'text-brand-muted hover:text-brand-fg'}">{h}</button
@@ -280,8 +302,10 @@
 							</div>
 							<div class="overflow-y-auto scrollbar-custom pr-1 border-l border-brand-border pl-2">
 								{#each mins as m}<button
-										on:click|stopPropagation={() =>
-											select(`${value.toString().split(':')[0] || '08'}:${m}`)}
+										onclick={(e) => {
+											e.stopPropagation();
+											select(`${value.toString().split(':')[0] || '08'}:${m}`);
+										}}
 										class="w-full py-1.5 text-[10px] rounded {value.toString().endsWith(':' + m)
 											? 'bg-brand-fg text-brand-surface'
 											: 'text-brand-muted hover:text-brand-fg'}">{m}</button
@@ -299,7 +323,7 @@
 				{placeholder}
 				{required}
 				{disabled}
-				on:input={(e) => (value = e.currentTarget.value)}
+				oninput={(e) => (value = e.currentTarget.value)}
 				class="w-full bg-brand-surface-soft border border-brand-border rounded-xl px-4 py-3 text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring focus:bg-brand-highlight/5 transition-all {type ===
 				'number'
 					? 'pr-12'
@@ -309,7 +333,7 @@
 				<div class="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-px">
 					<button
 						type="button"
-						on:click={() => step(1)}
+						onclick={() => step(1)}
 						class="p-1 hover:text-brand-fg text-brand-muted"
 						aria-label="Tambah"
 						><svg
@@ -323,7 +347,7 @@
 					>
 					<button
 						type="button"
-						on:click={() => step(-1)}
+						onclick={() => step(-1)}
 						class="p-1 hover:text-brand-fg text-brand-muted"
 						aria-label="Kurangi"
 						><svg

@@ -1,10 +1,14 @@
 <script lang="ts">
-	export let steps: { title: string; description?: string }[] = [];
-	export let currentStep = 0;
+	interface Props {
+		steps?: { title: string; description?: string }[];
+		currentStep?: number;
+	}
 
-	$: isCompleted = (index: number) => index < currentStep;
-	$: isCurrent = (index: number) => index === currentStep;
-	$: progressWidth = currentStep === 0 ? 0 : (currentStep / (steps.length - 1)) * 100;
+	let { steps = [], currentStep = 0 }: Props = $props();
+
+	let isCompleted = $derived((index: number) => index < currentStep);
+	let isCurrent = $derived((index: number) => index === currentStep);
+	let progressWidth = $derived(currentStep === 0 ? 0 : (currentStep / (steps.length - 1)) * 100);
 </script>
 
 <div class="w-full mb-8">

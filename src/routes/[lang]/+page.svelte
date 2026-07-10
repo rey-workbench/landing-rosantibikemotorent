@@ -6,15 +6,15 @@
 	import Stats from '$lib/components/landing/Stats.svelte';
 	import Faq from '$lib/components/landing/Faq.svelte';
 	import { SeoHead } from '$lib/components/seo';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { LL } from '$i18n/i18n-svelte';
 	import { buildFaqSchema, buildOrganizationSchema } from '$lib/seo/schema';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
-	const lang = $derived(($page.params.lang || 'id') as 'id' | 'en');
-	const currentUrl = $derived($page.url.href);
+	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+	const currentUrl = $derived(page.url.href);
 
 	const orgSchema = $derived(buildOrganizationSchema());
 	const faqSchema = $derived(

@@ -7,7 +7,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { SeoHead } from '$lib/components/seo';
 	import LL from '$i18n/i18n-svelte.js';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { locale } from '$i18n/i18n-svelte';
 	import { websocketService } from '$lib/services/websocket';
 
@@ -27,8 +27,8 @@
 	let searchQuery = $state('');
 	let selectedBrand = $state('');
 	let priceRange = $state({ min: 0, max: 1000000 });
-	let lang = $derived(($page.params.lang || $locale) as 'id' | 'en');
-	let currentUrl = $derived($page.url.href);
+	let lang = $derived((page.params.lang || $locale) as 'id' | 'en');
+	let currentUrl = $derived(page.url.href);
 
 	async function fetchFleet() {
 		loading = true;
