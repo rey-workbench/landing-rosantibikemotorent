@@ -10,39 +10,61 @@ if (!rawUrl) {
 }
 const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;
 
+function buildUrl(url: string, params?: any): string {
+	let fetchUrl = `${API_BASE_URL}${url}`;
+	if (!params) return fetchUrl;
+
+	const searchParams = new URLSearchParams();
+	for (const key in params) {
+		const val = params[key];
+		if (val !== undefined && val !== null) {
+			searchParams.append(key, String(val));
+		}
+	}
+	const qs = searchParams.toString();
+	return qs ? `${fetchUrl}?${qs}` : fetchUrl;
+}
+
+function buildHeadersAndBody(data?: any, customHeaders?: any) {
+	const headers: Record<string, string> = {
+		'Content-Type': 'application/json',
+		...(customHeaders || {})
+	};
+
+	let body = undefined;
+	if (data) {
+		if (data instanceof FormData) {
+			delete headers['Content-Type'];
+			body = data;
+		} else {
+			body = JSON.stringify(data);
+		}
+	}
+	return { headers, body };
+}
+
+async function parseResponse(response: Response) {
+	const contentType = response.headers.get('content-type');
+	const responseData = contentType && contentType.includes('application/json')
+		? await response.json()
+		: await response.text();
+
+	if (!response.ok) {
+		const error: any = new Error(responseData?.message || 'Request failed');
+		error.response = {
+			status: response.status,
+			data: responseData
+		};
+		throw error;
+	}
+
+	return { data: responseData, status: response.status };
+}
+
 class ApiClient {
 	async request(method: string, url: string, data?: any, config: any = {}) {
-		let fetchUrl = `${API_BASE_URL}${url}`;
-
-		if (config.params) {
-			const searchParams = new URLSearchParams();
-			for (const key in config.params) {
-				if (config.params[key] !== undefined && config.params[key] !== null) {
-					searchParams.append(key, String(config.params[key]));
-				}
-			}
-			const qs = searchParams.toString();
-			if (qs) {
-				fetchUrl += `?${qs}`;
-			}
-		}
-
-		const headers: Record<string, string> = {
-			'Content-Type': 'application/json',
-			...(config.headers || {})
-		};
-
-		let body = undefined;
-		if (data) {
-			if (data instanceof FormData) {
-				delete headers['Content-Type'];
-				body = data;
-			} else {
-				body = JSON.stringify(data);
-			}
-		}
-
-		// ponytail: use SvelteKit fetch when provided (load functions), else global fetch
+		const fetchUrl = buildUrl(url, config.params);
+		const { headers, body } = buildHeadersAndBody(data, config.headers);
 		const fetchFn: typeof fetch = config.customFetch ?? fetch;
 
 		try {
@@ -51,25 +73,7 @@ class ApiClient {
 				headers,
 				body
 			});
-
-			let responseData: any;
-			const contentType = response.headers.get('content-type');
-			if (contentType && contentType.includes('application/json')) {
-				responseData = await response.json();
-			} else {
-				responseData = await response.text();
-			}
-
-			if (!response.ok) {
-				const error: any = new Error(responseData?.message || 'Request failed');
-				error.response = {
-					status: response.status,
-					data: responseData
-				};
-				throw error;
-			}
-
-			return { data: responseData, status: response.status };
+			return await parseResponse(response);
 		} catch (error: any) {
 			if (browser) {
 				console.error(
