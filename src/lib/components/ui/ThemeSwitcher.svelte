@@ -2,10 +2,10 @@
 	import { onMount } from 'svelte';
 
 	let { isTransparent = false } = $props();
-	let theme = $state('dark');
+	let theme = $state('light');
 
 	onMount(() => {
-		const savedTheme = localStorage.getItem('theme') || 'dark';
+		const savedTheme = localStorage.getItem('theme') || 'light';
 		theme = savedTheme;
 		document.documentElement.setAttribute('data-theme', theme);
 	});
