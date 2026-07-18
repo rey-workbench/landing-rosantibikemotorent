@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
-	import { getCachedImage, setCachedImage } from '$lib/stores/imageCache';
 	import { LL } from '$i18n/i18n-svelte';
 
-	let canvas = $state<HTMLCanvasElement>();
-	let context: CanvasRenderingContext2D | null;
-	let frameCount = 52;
-	const images: HTMLImageElement[] = [];
-	let imagesLoaded = $state(0);
+	let videoRef = $state<HTMLVideoElement>();
 	let scrollProgress = $state(0);
 	let containerRef = $state<HTMLElement>();
 
@@ -36,55 +31,14 @@
 	let activeFeatureIndex = $state(-1);
 	let isMobile = $state(false);
 
+
+
 	onMount(() => {
 		const checkMobile = () => {
 			isMobile = window.innerWidth < 1024;
 		};
 		checkMobile();
 		window.addEventListener('resize', checkMobile);
-
-		if (isMobile) {
-			return () => {
-				window.removeEventListener('resize', checkMobile);
-			};
-		}
-
-		if (canvas) context = canvas.getContext('2d');
-		resize();
-
-		const updateProgress = () => {
-			imagesLoaded++;
-			if (imagesLoaded === 1) render(0);
-		};
-
-		for (let i = 1; i <= frameCount; i++) {
-			const frameIndex = i.toString().padStart(5, '0');
-			const src = `/sequence/whychooseus_webp/${frameIndex}.webp`;
-
-			const cached = getCachedImage(src);
-			if (cached && cached.complete) {
-				images.push(cached);
-				updateProgress();
-				continue;
-			}
-
-			const idx = i - 1;
-			const img = new Image();
-			img.src = src;
-			img.onload = () => {
-				setCachedImage(src, img);
-				updateProgress();
-				const currentFrame = Math.min(frameCount - 1, Math.floor(scrollProgress * frameCount));
-				if (idx === currentFrame) {
-					render(currentFrame);
-				}
-			};
-			img.onerror = () => {
-				console.warn(`Failed to load frame: ${frameIndex}`);
-				updateProgress();
-			};
-			images.push(img);
-		}
 
 		const handleScroll = () => {
 			if (!containerRef) return;
@@ -97,9 +51,6 @@
 			let progress = Math.max(0, Math.min(1, progressRaw));
 			scrollProgress = progress;
 
-			const frameIndex = Math.min(frameCount - 1, Math.floor(progress * frameCount));
-			requestAnimationFrame(() => render(frameIndex));
-
 			activeFeatureIndex = features.findIndex((_, i) => {
 				const step = 1 / features.length;
 				return progress >= i * step && progress < (i + 1) * step;
@@ -108,38 +59,13 @@
 		};
 
 		window.addEventListener('scroll', handleScroll);
-		window.addEventListener('resize', resize);
+		handleScroll();
+
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
-			window.removeEventListener('resize', resize);
 			window.removeEventListener('resize', checkMobile);
 		};
 	});
-
-	function render(index: number) {
-		if (isMobile || !context || !canvas || !images[index]) return;
-		const width = canvas.clientWidth;
-		const height = canvas.clientHeight;
-
-		const dpr = window.devicePixelRatio || 1;
-		if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
-			canvas.width = width * dpr;
-			canvas.height = height * dpr;
-			context.scale(dpr, dpr);
-		}
-
-		context.clearRect(0, 0, width, height);
-		const img = images[index];
-		const scale = Math.max(width / img.width, height / img.height);
-		const x = width / 2 - (img.width / 2) * scale;
-		const y = height / 2 - (img.height / 2) * scale;
-		context.drawImage(img, x, y, img.width * scale, img.height * scale);
-	}
-
-	function resize() {
-		if (isMobile) return;
-		if (images.length > 0) render(Math.floor(scrollProgress * frameCount) || 0);
-	}
 </script>
 
 <div class="bg-brand-background py-12 lg:py-32" bind:this={containerRef}>
@@ -233,7 +159,7 @@
 										? Math.min(
 												100,
 												Math.max(
-													0,
+												0,
 													((scrollProgress - i * (1 / features.length)) / (1 / features.length)) *
 														100
 												)
@@ -249,20 +175,15 @@
 					<div
 						class="relative w-full aspect-4/3 max-w-lg rounded-2xl overflow-hidden border border-brand-border bg-brand-surface-soft group"
 					>
-						{#if isMobile}
-							<img
-								loading="lazy"
-								decoding="async"
-								src="/sequence/whychooseus_webp/00026.webp"
-								alt="Why Choose Us"
-								class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
-							/>
-						{:else}
-							<canvas
-								bind:this={canvas}
-								class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
-							></canvas>
-						{/if}
+						<video
+							src="/video/whychooseus.mp4"
+							class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+							autoplay
+							muted
+							loop
+							playsinline
+							preload="auto"
+						></video>
 
 						<div
 							class="absolute inset-0 bg-linear-to-t from-brand-background/60 to-transparent pointer-events-none"
@@ -275,3 +196,4 @@
 		</div>
 	</div>
 </div>
+
