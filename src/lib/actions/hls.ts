@@ -7,10 +7,14 @@ export const hls: Action<HTMLVideoElement, string> = (node, initialSrc) => {
 	let observer: IntersectionObserver | null = null;
 	let isVisible = false;
 	let src = initialSrc;
+	let loadTimeout: number | null = null;
 
 	let playPromise: Promise<void> | null = null;
 
 	const playVideo = () => {
+		if (hlsInstance) {
+			hlsInstance.startLoad();
+		}
 		if (node.paused && !playPromise) {
 			playPromise = node.play();
 			playPromise
@@ -26,6 +30,10 @@ export const hls: Action<HTMLVideoElement, string> = (node, initialSrc) => {
 	};
 
 	const pauseVideo = () => {
+		if (hlsInstance) {
+			hlsInstance.stopLoad(); // Stop downloading video segments to free network bandwidth
+		}
+		
 		if (playPromise) {
 			playPromise
 				.then(() => {
@@ -33,9 +41,7 @@ export const hls: Action<HTMLVideoElement, string> = (node, initialSrc) => {
 						node.pause();
 					}
 				})
-				.catch(() => {
-					// Play request failed, no need to pause
-				});
+				.catch(() => {});
 		} else {
 			if (!node.paused) {
 				node.pause();
@@ -63,7 +69,7 @@ export const hls: Action<HTMLVideoElement, string> = (node, initialSrc) => {
 			}
 			hlsInstance = new Hls({
 				capLevelToPlayerSize: true,
-				autoStartLoad: true,
+				autoStartLoad: isVisible, // Only start downloading if currently visible
 				maxBufferSize: 1.5 * 1024 * 1024,
 				maxBufferLength: 2,
 				lowLatencyMode: true,
@@ -100,6 +106,10 @@ export const hls: Action<HTMLVideoElement, string> = (node, initialSrc) => {
 	};
 
 	const cleanup = () => {
+		if (loadTimeout) {
+			clearTimeout(loadTimeout);
+			loadTimeout = null;
+		}
 		if (hlsInstance) {
 			hlsInstance.destroy();
 			hlsInstance = null;
@@ -109,12 +119,21 @@ export const hls: Action<HTMLVideoElement, string> = (node, initialSrc) => {
 		node.load();
 	};
 
-	// Set up IntersectionObserver to only load/play when in viewport
+	// Set up IntersectionObserver with debouncing for fast scrolling
 	observer = new IntersectionObserver((entries) => {
 		for (const entry of entries) {
 			isVisible = entry.isIntersecting;
+			
+			if (loadTimeout) {
+				clearTimeout(loadTimeout);
+				loadTimeout = null;
+			}
+
 			if (isVisible) {
-				init(src);
+				// Debounce loading by 150ms. If user scrolls past quickly, we don't load anything!
+				loadTimeout = window.setTimeout(() => {
+					init(src);
+				}, 150);
 			} else {
 				pauseVideo();
 			}
