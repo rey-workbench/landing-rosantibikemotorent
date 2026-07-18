@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
 
 	let videoRef = $state<HTMLVideoElement>();
@@ -67,6 +66,10 @@
 		};
 	});
 </script>
+
+<svelte:head>
+	<link rel="preload" as="video" href="/video/whychooseus.mp4" type="video/mp4" fetchpriority="low" />
+</svelte:head>
 
 <div class="bg-brand-background py-12 lg:py-32" bind:this={containerRef}>
 	<div class={isMobile ? 'relative' : 'h-[250vh] relative'}>

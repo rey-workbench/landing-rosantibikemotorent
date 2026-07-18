@@ -1,2 +1,2 @@
-export { loadingProgress, isLoaded } from './loading';
+export { loadingState } from './loading.svelte';
 export { imageCache } from './imageCache';

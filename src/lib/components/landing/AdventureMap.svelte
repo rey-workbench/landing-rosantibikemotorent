@@ -86,6 +86,12 @@
 	});
 </script>
 
+<svelte:head>
+	{#each panels as panel}
+		<link rel="preload" as="video" href={panel.video} type="video/mp4" fetchpriority="low" />
+	{/each}
+</svelte:head>
+
 <div class="bg-brand-dark relative" bind:this={containerRef}>
 	<div class="relative" style="height: {panels.length * 100}vh">
 		<div class="absolute inset-0 flex flex-col pointer-events-none">
@@ -161,6 +167,7 @@
 							muted
 							loop
 							playsinline
+							preload="auto"
 						></video>
 						<div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
 					</div>

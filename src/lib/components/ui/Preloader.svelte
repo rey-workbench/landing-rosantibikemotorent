@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { loadingProgress, isLoaded } from '$lib/stores/loading';
+	import { loadingState } from '$lib/stores';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { navigating } from '$app/state';
@@ -11,30 +11,30 @@
 		mounted = true;
 		
 		// Ensure initial load completes quickly
-		if (!$isLoaded) {
-			loadingProgress.set(100);
-			setTimeout(() => isLoaded.set(true), 200);
+		if (!loadingState.isLoaded) {
+			loadingState.progress = 100;
+			setTimeout(() => (loadingState.isLoaded = true), 200);
 		}
 	});
 
 	// Listen to SvelteKit navigation state
 	$effect(() => {
 		if (navigating.to) {
-			isLoaded.set(false);
-			loadingProgress.set(15);
+			loadingState.isLoaded = false;
+			loadingState.progress = 15;
 			clearInterval(progressInterval);
 			progressInterval = setInterval(() => {
-				loadingProgress.update((n) => (n >= 90 ? 90 : n + 15));
+				loadingState.progress = loadingState.progress >= 90 ? 90 : loadingState.progress + 15;
 			}, 100);
 		} else if (mounted) {
-			loadingProgress.set(100);
+			loadingState.progress = 100;
 			clearInterval(progressInterval);
-			setTimeout(() => isLoaded.set(true), 300);
+			setTimeout(() => (loadingState.isLoaded = true), 300);
 		}
 	});
 </script>
 
-{#if !$isLoaded && mounted}
+{#if !loadingState.isLoaded && mounted}
 	<!-- 
         Top Progress Bar (Sat Set Style)
         No overlay, immediate content visibility.
@@ -42,7 +42,7 @@
 	<div class="fixed top-0 left-0 w-full h-0.75 z-200 pointer-events-none">
 		<div
 			class="h-full bg-brand-highlight transition-all duration-150 ease-out"
-			style="width: {$loadingProgress}%"
+			style="width: {loadingState.progress}%"
 		></div>
 
 		<!-- No glow overlay -->

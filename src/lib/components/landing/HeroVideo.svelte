@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { isLoaded } from '$lib/stores/loading';
+	import { loadingState } from '$lib/stores/loading.svelte';
 	import TextOverlay from './HeroOverlay.svelte';
 
 	let scrollProgress = $state(0);
 	let isMobile = $state(false);
 
 	onMount(() => {
-		setTimeout(() => isLoaded.set(true), 1000);
+		setTimeout(() => (loadingState.isLoaded = true), 1000);
 
 		const handleScroll = () => {
 			const scrollTop = window.scrollY;
@@ -33,11 +33,14 @@
 	});
 </script>
 
+<svelte:head>
+	<link rel="preload" as="video" href="/video/hero.mp4" type="video/mp4" fetchpriority="high" />
+</svelte:head>
+
 <div class="bg-brand-dark">
 	<div class="h-[500vh] relative">
 		<div class="sticky top-0 h-screen w-full overflow-hidden">
-			<!-- Video Background -->
-			<video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+			<video autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
 				<source src="/video/hero.mp4" type="video/mp4" />
 			</video>
 
