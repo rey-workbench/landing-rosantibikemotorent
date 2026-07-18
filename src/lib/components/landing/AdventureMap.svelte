@@ -71,10 +71,16 @@
 			const rect = containerRef.getBoundingClientRect();
 			const viewportHeight = window.innerHeight;
 
-			const totalHeight = rect.height - viewportHeight;
-
-			const raw = -rect.top / totalHeight;
-			scrollProgress = Math.max(0, Math.min(0.999, raw));
+			// Only calculate progress if the container is currently visible in the viewport
+			if (rect.top <= 0 && rect.bottom >= viewportHeight) {
+				const totalHeight = rect.height - viewportHeight;
+				const raw = -rect.top / totalHeight;
+				scrollProgress = Math.max(0, Math.min(0.999, raw));
+			} else if (rect.top > 0) {
+				scrollProgress = 0;
+			} else if (rect.bottom < viewportHeight) {
+				scrollProgress = 0.999;
+			}
 		};
 
 		window.addEventListener('scroll', handleScroll);
@@ -138,7 +144,7 @@
 						if (containerRef) {
 							const sectionHeight = window.innerHeight;
 							const targetY = containerRef.offsetTop + i * sectionHeight;
-							window.scrollTo({ top: targetY, behavior: 'smooth' });
+							window.scrollTo({ top: targetY + 2, behavior: 'smooth' });
 						}
 					}}
 					onkeydown={(e) => {
@@ -146,7 +152,7 @@
 							if (containerRef) {
 								const sectionHeight = window.innerHeight;
 								const targetY = containerRef.offsetTop + i * sectionHeight;
-								window.scrollTo({ top: targetY, behavior: 'smooth' });
+								window.scrollTo({ top: targetY + 2, behavior: 'smooth' });
 							}
 						}
 					}}
@@ -163,8 +169,8 @@
 							src={panel.video}
 							class="w-full h-full object-cover"
 							muted
-							loop
 							playsinline
+							loop
 						></video>
 						<div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
 					</div>
