@@ -40,7 +40,7 @@
 <div class="bg-brand-dark" bind:this={containerRef}>
 	<div class="h-[500vh] relative">
 		<div class="sticky top-0 h-screen w-full overflow-hidden">
-			<video autoplay muted loop playsinline use:hls={"/video/hero.m3u8"} class="absolute inset-0 w-full h-full object-cover">
+			<video autoplay muted loop playsinline use:hls={"/video/hero.m3u8"} poster="/video/posters/hero.jpg" class="absolute inset-0 w-full h-full object-cover">
 				<source src="/video/hero.mp4" type="video/mp4" />
 			</video>
 

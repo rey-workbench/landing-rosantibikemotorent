@@ -177,6 +177,7 @@
 					>
 						<video
 							use:hls={"/video/whychooseus.m3u8"}
+							poster="/video/posters/whychooseus.jpg"
 							src="/video/whychooseus.mp4"
 							class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
 							autoplay

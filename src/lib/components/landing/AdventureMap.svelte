@@ -158,6 +158,7 @@
 						<video
 							bind:this={videoRefs[i]}
 							use:hls={panel.video.replace('.mp4', '.m3u8')}
+							poster={panel.video.replace('.mp4', '.jpg').replace('/video/', '/video/posters/')}
 							src={panel.video}
 							class="w-full h-full object-cover"
 							muted
