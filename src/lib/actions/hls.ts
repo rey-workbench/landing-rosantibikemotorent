@@ -26,7 +26,11 @@ export const hls: Action<HTMLVideoElement, string> = (node, src) => {
 			}
 			hlsInstance = new Hls({
 				capLevelToPlayerSize: true,
-				autoStartLoad: true
+				autoStartLoad: true,
+				maxBufferSize: 1.5 * 1024 * 1024, // 1.5MB max buffer (default: 60MB)
+				maxBufferLength: 2,               // 2 seconds buffer (default: 30s)
+				lowLatencyMode: true,             // Optimize for low latency / quick start
+				enableWorker: true                // Use web worker to offload processing
 			});
 			hlsInstance.loadSource(url);
 			hlsInstance.attachMedia(node);
