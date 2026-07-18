@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { LL } from '$i18n/i18n-svelte';
+	import { hls } from '$lib/actions/hls';
 
 	let videoRef = $state<HTMLVideoElement>();
 	let scrollProgress = $state(0);
@@ -66,10 +67,6 @@
 		};
 	});
 </script>
-
-<svelte:head>
-	<link rel="preload" as="video" href="/video/whychooseus.mp4" type="video/mp4" fetchpriority="low" />
-</svelte:head>
 
 <div class="bg-brand-background py-12 lg:py-32" bind:this={containerRef}>
 	<div class={isMobile ? 'relative' : 'h-[250vh] relative'}>
@@ -179,13 +176,13 @@
 						class="relative w-full aspect-4/3 max-w-lg rounded-2xl overflow-hidden border border-brand-border bg-brand-surface-soft group"
 					>
 						<video
+							use:hls={"/video/whychooseus.m3u8"}
 							src="/video/whychooseus.mp4"
 							class="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
 							autoplay
 							muted
 							loop
 							playsinline
-							preload="auto"
 						></video>
 
 						<div

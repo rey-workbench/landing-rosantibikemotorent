@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
+	import { hls } from '$lib/actions/hls';
 
 	let scrollProgress = $state(0);
 	let containerRef = $state<HTMLElement>();
@@ -86,12 +87,6 @@
 	});
 </script>
 
-<svelte:head>
-	{#each panels as panel}
-		<link rel="preload" as="video" href={panel.video} type="video/mp4" fetchpriority="low" />
-	{/each}
-</svelte:head>
-
 <div class="bg-brand-dark relative" bind:this={containerRef}>
 	<div class="relative" style="height: {panels.length * 100}vh">
 		<div class="absolute inset-0 flex flex-col pointer-events-none">
@@ -162,12 +157,12 @@
 					>
 						<video
 							bind:this={videoRefs[i]}
+							use:hls={panel.video.replace('.mp4', '.m3u8')}
 							src={panel.video}
 							class="w-full h-full object-cover"
 							muted
 							loop
 							playsinline
-							preload="auto"
 						></video>
 						<div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
 					</div>

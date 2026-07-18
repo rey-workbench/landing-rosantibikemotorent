@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { loadingState } from '$lib/stores/loading.svelte';
+	import { hls } from '$lib/actions/hls';
 	import TextOverlay from './HeroOverlay.svelte';
 
+	let containerRef: HTMLElement;
+	let scrollTop = $state(0);
 	let scrollProgress = $state(0);
 	let isMobile = $state(false);
 
@@ -10,7 +13,8 @@
 		setTimeout(() => (loadingState.isLoaded = true), 1000);
 
 		const handleScroll = () => {
-			const scrollTop = window.scrollY;
+			if (!containerRef) return;
+			scrollTop = window.scrollY;
 			const vh = window.innerHeight;
 			// Container: 500vh sticky. Effective scroll range: 500vh - 100vh(overlap) - 1vh = ~3vh
 			const effectiveRange = vh * 3;
@@ -33,14 +37,10 @@
 	});
 </script>
 
-<svelte:head>
-	<link rel="preload" as="video" href="/video/hero.mp4" type="video/mp4" fetchpriority="high" />
-</svelte:head>
-
-<div class="bg-brand-dark">
+<div class="bg-brand-dark" bind:this={containerRef}>
 	<div class="h-[500vh] relative">
 		<div class="sticky top-0 h-screen w-full overflow-hidden">
-			<video autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
+			<video autoplay muted loop playsinline use:hls={"/video/hero.m3u8"} class="absolute inset-0 w-full h-full object-cover">
 				<source src="/video/hero.mp4" type="video/mp4" />
 			</video>
 
