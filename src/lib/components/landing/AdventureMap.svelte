@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
-	import { hls } from '$lib/actions/hls';
+	import { lazyVideo } from '$lib/actions/lazyVideo';
 
 	let scrollProgress = $state(0);
 	let containerRef = $state<HTMLElement>();
@@ -157,7 +157,8 @@
 					>
 						<video
 							bind:this={videoRefs[i]}
-							use:hls={panel.video.replace('.mp4', '.m3u8')}
+							use:lazyVideo
+							preload="metadata"
 							poster={panel.video.replace('.mp4', '.jpg').replace('/video/', '/video/posters/')}
 							src={panel.video}
 							class="w-full h-full object-cover"

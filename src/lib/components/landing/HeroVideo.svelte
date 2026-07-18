@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { loadingState } from '$lib/stores/loading.svelte';
-	import { hls } from '$lib/actions/hls';
+	import { lazyVideo } from '$lib/actions/lazyVideo';
 	import TextOverlay from './HeroOverlay.svelte';
 
 	let containerRef: HTMLElement;
@@ -40,8 +40,7 @@
 <div class="bg-brand-dark" bind:this={containerRef}>
 	<div class="h-[500vh] relative">
 		<div class="sticky top-0 h-screen w-full overflow-hidden">
-			<video autoplay muted loop playsinline use:hls={"/video/hero.m3u8"} poster="/video/posters/hero.jpg" class="absolute inset-0 w-full h-full object-cover">
-				<source src="/video/hero.mp4" type="video/mp4" />
+			<video muted loop playsinline preload="metadata" src="/video/hero.mp4" use:lazyVideo poster="/video/posters/hero.jpg" class="absolute inset-0 w-full h-full object-cover">
 			</video>
 
 			<!-- Cinematic Overlays -->
