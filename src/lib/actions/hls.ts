@@ -3,9 +3,11 @@ import type { Action } from 'svelte/action';
 
 export const hls: Action<HTMLVideoElement, string> = (node, src) => {
 	let hlsInstance: Hls | null = null;
+	let currentUrl: string = '';
 
 	const init = (url: string) => {
-		if (!url) return;
+		if (!url || url === currentUrl) return;
+		currentUrl = url;
 		
 		if (Hls.isSupported()) {
 			if (hlsInstance) {
@@ -17,8 +19,17 @@ export const hls: Action<HTMLVideoElement, string> = (node, src) => {
 			});
 			hlsInstance.loadSource(url);
 			hlsInstance.attachMedia(node);
+			
+			hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+				node.play().catch((err) => {
+					console.warn("HLS autoplay blocked:", err);
+				});
+			});
 		} else if (node.canPlayType('application/vnd.apple.mpegurl')) {
 			node.src = url;
+			node.play().catch((err) => {
+				console.warn("Native HLS autoplay blocked:", err);
+			});
 		}
 	};
 
