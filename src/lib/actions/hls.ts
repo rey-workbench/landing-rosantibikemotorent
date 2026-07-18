@@ -8,20 +8,38 @@ export const hls: Action<HTMLVideoElement, string> = (node, initialSrc) => {
 	let isVisible = false;
 	let src = initialSrc;
 
+	let playPromise: Promise<void> | null = null;
+
 	const playVideo = () => {
-		if (node.paused) {
-			node.play().catch((err) => {
-				// Ignore abort errors from rapid scroll/visibility changes
-				if (err.name !== 'AbortError') {
-					console.warn("Autoplay block averted:", err);
-				}
-			});
+		if (node.paused && !playPromise) {
+			playPromise = node.play();
+			playPromise
+				.catch((err) => {
+					if (err.name !== 'AbortError') {
+						console.warn("Autoplay block averted:", err);
+					}
+				})
+				.finally(() => {
+					playPromise = null;
+				});
 		}
 	};
 
 	const pauseVideo = () => {
-		if (!node.paused) {
-			node.pause();
+		if (playPromise) {
+			playPromise
+				.then(() => {
+					if (!node.paused) {
+						node.pause();
+					}
+				})
+				.catch(() => {
+					// Play request failed, no need to pause
+				});
+		} else {
+			if (!node.paused) {
+				node.pause();
+			}
 		}
 	};
 
