@@ -52,11 +52,11 @@
 
 				<!-- Radial Vignette -->
 				<div
-					class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"
+					class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.7)_100%)]"
 				></div>
 
 				<!-- Darken wash -->
-				<div class="absolute inset-0 bg-black/30"></div>
+				<div class="absolute inset-0 bg-black/60"></div>
 			</div>
 
 			{#if scrollProgress < 0.95}
