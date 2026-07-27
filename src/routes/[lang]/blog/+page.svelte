@@ -244,7 +244,7 @@
 						</div>
 
 						<!-- Vertical Story List (Right Side) -->
-						<div class="lg:col-span-5 flex flex-col gap-6 justify-between">
+						<div class="lg:col-span-5 flex flex-col gap-8">
 							{#each listPosts as post}
 								<a
 									href="/{lang}/blog/{post.slug}"
