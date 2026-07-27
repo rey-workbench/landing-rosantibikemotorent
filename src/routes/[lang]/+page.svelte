@@ -95,7 +95,7 @@
 </div>
 
 <!-- Content Overlap -->
-<div class="relative z-10 mt-[-100vh] bg-brand-background">
+<div class="relative z-10 bg-white">
 	<WhyChooseUs />
 	<AdventureMap />
 	<Stats />

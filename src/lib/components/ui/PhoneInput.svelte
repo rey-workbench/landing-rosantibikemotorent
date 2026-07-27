@@ -58,8 +58,9 @@
 		.filter(Boolean)
 		.sort((a, b) => (a!.name < b!.name ? -1 : 1)) as typeof countryData;
 
-	let selectedCountry: (typeof countryData)[0] =
-		$state(countryData.find((c) => c.code === 'ID') || countryData[0]);
+	let selectedCountry: (typeof countryData)[0] = $state(
+		countryData.find((c) => c.code === 'ID') || countryData[0]
+	);
 	let displayValue = $state('');
 	let isInitialized = false;
 
@@ -187,14 +188,18 @@
 		updateValue();
 	}
 
-	let filteredCountries = $derived(countryData.filter(
-		(c) =>
-			c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			c.callingCode.includes(searchTerm) ||
-			c.code.toLowerCase().includes(searchTerm.toLowerCase())
-	));
+	let filteredCountries = $derived(
+		countryData.filter(
+			(c) =>
+				c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+				c.callingCode.includes(searchTerm) ||
+				c.code.toLowerCase().includes(searchTerm.toLowerCase())
+		)
+	);
 
-	let displayNumber = $derived(displayValue ? `+${selectedCountry.callingCode} ${displayValue}` : '');
+	let displayNumber = $derived(
+		displayValue ? `+${selectedCountry.callingCode} ${displayValue}` : ''
+	);
 </script>
 
 <div
@@ -213,7 +218,10 @@
 		<div class="flex">
 			<button
 				type="button"
-				onclick={(e) => { e.stopPropagation(); openDropdown(); }}
+				onclick={(e) => {
+					e.stopPropagation();
+					openDropdown();
+				}}
 				class="flex items-center gap-2 bg-brand-surface-soft border border-r-0 border-brand-border rounded-l-xl px-3 py-3 hover:bg-brand-surface-soft/80 transition-all {disabled
 					? 'opacity-50 cursor-not-allowed'
 					: 'cursor-pointer'} {isOpen ? 'bg-brand-highlight/5 border-brand-highlight' : ''}"
@@ -265,7 +273,10 @@
 					{#each filteredCountries as country}
 						<button
 							type="button"
-							onclick={(e) => { e.stopPropagation(); selectCountry(country); }}
+							onclick={(e) => {
+								e.stopPropagation();
+								selectCountry(country);
+							}}
 							class="w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 {country.code ===
 							selectedCountry?.code
 								? 'bg-brand-highlight/10 text-brand-highlight font-bold'

@@ -28,13 +28,13 @@
 	}}
 />
 
-<section class="pt-32 pb-20 section-shell">
+<section class="pt-32 pb-20 px-4 md:px-10">
 	<div class="max-w-2xl mx-auto text-center">
 		{#if transaksi}
 			<!-- Success Header -->
 			<div class="mb-12">
 				<div
-					class="w-24 h-24 bg-green-500/20 border-2 border-green-500 rounded-full flex items-center justify-center mx-auto mb-6"
+					class="w-24 h-24 bg-green-50 border-2 border-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -44,22 +44,24 @@
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
-						class="text-green-400"
+						class="text-green-500"
 					>
 						<polyline points="20 6 9 17 4 12" />
 					</svg>
 				</div>
-				<h1 class="text-3xl md:text-4xl font-black text-brand-fg uppercase tracking-tighter mb-4">
+				<h1 class="text-[32px] md:text-[40px] font-semibold text-[#1d1d1f] tracking-tight mb-4">
 					{$LL.booking_success_title()}
 				</h1>
-				<p class="text-muted text-lg">
+				<p class="text-[#86868b] text-[17px] leading-relaxed">
 					{$LL.booking_success_subtitle()}
 				</p>
 			</div>
 
 			<!-- Booking Details -->
-			<div class="surface-panel p-8 text-left mb-8">
-				<h3 class="text-lg font-bold text-brand-fg mb-6 flex items-center gap-2">
+			<div
+				class="bg-white border border-black/5 rounded-3xl p-8 text-left mb-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+			>
+				<h3 class="text-[17px] font-semibold text-[#1d1d1f] mb-6 flex items-center gap-2">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="20"
@@ -68,7 +70,7 @@
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
-						class="text-blue-400"
+						class="text-[#0071e3]"
 					>
 						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
 						<polyline points="14 2 14 8 20 8" />
@@ -80,55 +82,58 @@
 				</h3>
 
 				<div class="space-y-4">
-					<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
-						<span class="text-muted">{$LL.booking_success_renter_name()}</span>
-						<span class="text-brand-fg font-medium">{transaksi.namaPenyewa}</span>
+					<div class="flex justify-between items-center py-3 border-b border-black/5">
+						<span class="text-[#86868b] text-[15px]">{$LL.booking_success_renter_name()}</span>
+						<span class="text-[#1d1d1f] font-medium">{transaksi.namaPenyewa}</span>
 					</div>
-					<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
-						<span class="text-muted">{$LL.booking_success_whatsapp()}</span>
-						<span class="text-brand-fg font-medium">{transaksi.noWhatsapp}</span>
+					<div class="flex justify-between items-center py-3 border-b border-black/5">
+						<span class="text-[#86868b] text-[15px]">{$LL.booking_whatsapp_label()}</span>
+						<span class="text-[#1d1d1f] font-medium">{transaksi.noWhatsapp}</span>
 					</div>
-					<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
-						<span class="text-muted">{$LL.booking_success_start_date()}</span>
-						<span class="text-brand-fg font-medium">{transaksi.formatted.mulai}</span>
+					<div class="flex justify-between items-center py-3 border-b border-black/5">
+						<span class="text-[#86868b] text-[15px]">{$LL.booking_start_date_label()}</span>
+						<span class="text-[#1d1d1f] font-medium">{transaksi.formatted.mulai}</span>
 					</div>
-					<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
-						<span class="text-muted">{$LL.booking_success_end_date()}</span>
-						<span class="text-brand-fg font-medium">{transaksi.formatted.selesai}</span>
+					<div class="flex justify-between items-center py-3 border-b border-black/5">
+						<span class="text-[#86868b] text-[15px]">{$LL.booking_end_date_label()}</span>
+						<span class="text-[#1d1d1f] font-medium">{transaksi.formatted.selesai}</span>
 					</div>
 					{#if transaksi.jasHujan > 0}
-						<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
-							<span class="text-muted">{$LL.booking_success_raincoat()}</span>
-							<span class="text-brand-fg font-medium"
+						<div class="flex justify-between items-center py-3 border-b border-black/5">
+							<span class="text-[#86868b] text-[15px]">{$LL.booking_raincoat_field()}</span>
+							<span class="text-[#0071e3] font-medium"
 								>{transaksi.jasHujan} {$LL.booking_confirm_pieces()}</span
 							>
 						</div>
 					{/if}
 					{#if transaksi.helm > 0}
-						<div class="flex justify-between py-3 border-b border-[rgba(166,173,187,0.16)]">
-							<span class="text-muted">{$LL.booking_success_helmet()}</span>
-							<span class="text-brand-fg font-medium"
+						<div class="flex justify-between items-center py-3 border-b border-black/5">
+							<span class="text-[#86868b] text-[15px]">{$LL.booking_helmet_field()}</span>
+							<span class="text-[#0071e3] font-medium"
 								>{transaksi.helm} {$LL.booking_confirm_pieces()}</span
 							>
 						</div>
 					{/if}
-					<div class="flex justify-between py-3">
-						<span class="text-muted">{$LL.booking_success_total()}</span>
-						<span class="text-2xl font-bold text-brand-fg">{formatPrice(transaksi.totalBiaya)}</span
+					<div class="flex justify-between items-center py-3 pt-5">
+						<span class="text-[13px] font-semibold text-[#86868b] tracking-wide uppercase"
+							>{$LL.booking_total_cost()}</span
+						>
+						<span class="text-3xl font-semibold text-[#1d1d1f]"
+							>{formatPrice(transaksi.totalBiaya)}</span
 						>
 					</div>
 				</div>
 			</div>
 
 			<!-- Status Badge -->
-			<div class="bg-yellow-500/20 border border-yellow-500/30 rounded-2xl p-6 mb-8">
+			<div class="bg-[#fef9c3] border border-yellow-400 rounded-3xl p-6 mb-8 text-[#854d0e]">
 				<div class="flex items-center justify-center gap-3">
-					<div class="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
-					<span class="text-yellow-400 font-medium uppercase tracking-wider">
+					<div class="w-3 h-3 bg-yellow-500 rounded-full animate-pulse shadow-sm"></div>
+					<span class="font-semibold uppercase tracking-wider text-[13px]">
 						{$LL.booking_success_status()}: {transaksi.status}
 					</span>
 				</div>
-				<p class="text-muted text-sm mt-2">{$LL.booking_success_pending()}</p>
+				<p class="text-[15px] mt-2 opacity-90 font-medium">{$LL.booking_success_pending()}</p>
 			</div>
 
 			<!-- WhatsApp CTA -->
@@ -155,7 +160,7 @@
 			</Button>
 
 			<div class="mt-8">
-				<a href="/{lang}/" class="text-muted hover:text-brand-fg transition-colors">
+				<a href="/{lang}/" class="text-[#0071e3] hover:underline font-medium transition-colors">
 					{$LL.booking_success_back_home()}
 				</a>
 			</div>

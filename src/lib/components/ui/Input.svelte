@@ -75,9 +75,6 @@
 	const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
 	const mins = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
 
-
-
-
 	const select = (v: any) => {
 		value = v;
 		isOpen = false;
@@ -105,26 +102,29 @@
 		return () => document.removeEventListener('click', hide);
 	});
 	let actualId = $derived(id || `input-${Math.random().toString(36).slice(2, 11)}`);
-	let selectedLabel =
-		$derived(type === 'dropdown'
+	let selectedLabel = $derived(
+		type === 'dropdown'
 			? options.find((o) => o.value == value)?.label || ''
-			: value?.toString() || '');
-	let filteredOptions = $derived(options.filter((o) =>
-		o.label.toLowerCase().includes(searchTerm.toLowerCase())
-	));
-	let calendarDays = $derived((() => {
-		const start = new Date(view.year, view.month, 1).getDay();
-		const daysInMo = new Date(view.year, view.month + 1, 0).getDate();
-		const prevDaysInMo = new Date(view.year, view.month, 0).getDate();
-		return [
-			...Array.from({ length: start }, (_, i) => ({
-				d: prevDaysInMo - start + i + 1,
-				curr: false
-			})),
-			...Array.from({ length: daysInMo }, (_, i) => ({ d: i + 1, curr: true })),
-			...Array.from({ length: 42 - (start + daysInMo) }, (_, i) => ({ d: i + 1, curr: false }))
-		];
-	})());
+			: value?.toString() || ''
+	);
+	let filteredOptions = $derived(
+		options.filter((o) => o.label.toLowerCase().includes(searchTerm.toLowerCase()))
+	);
+	let calendarDays = $derived(
+		(() => {
+			const start = new Date(view.year, view.month, 1).getDay();
+			const daysInMo = new Date(view.year, view.month + 1, 0).getDate();
+			const prevDaysInMo = new Date(view.year, view.month, 0).getDate();
+			return [
+				...Array.from({ length: start }, (_, i) => ({
+					d: prevDaysInMo - start + i + 1,
+					curr: false
+				})),
+				...Array.from({ length: daysInMo }, (_, i) => ({ d: i + 1, curr: true })),
+				...Array.from({ length: 42 - (start + daysInMo) }, (_, i) => ({ d: i + 1, curr: false }))
+			];
+		})()
+	);
 </script>
 
 <div
@@ -230,7 +230,10 @@
 							<div class="flex items-center justify-between mb-3 px-1">
 								<button
 									type="button"
-									onclick={(e) => { e.stopPropagation(); adjustMonth(-1); }}
+									onclick={(e) => {
+										e.stopPropagation();
+										adjustMonth(-1);
+									}}
 									class="p-1 hover:bg-brand-surface-soft rounded text-brand-fg"
 									aria-label="Bulan sebelumnya"
 									><svg
@@ -248,7 +251,10 @@
 								</div>
 								<button
 									type="button"
-									onclick={(e) => { e.stopPropagation(); adjustMonth(1); }}
+									onclick={(e) => {
+										e.stopPropagation();
+										adjustMonth(1);
+									}}
 									class="p-1 hover:bg-brand-surface-soft rounded text-brand-fg"
 									aria-label="Bulan berikutnya"
 									><svg
@@ -274,7 +280,10 @@
 										type="button"
 										onclick={(e) => {
 											e.stopPropagation();
-											if (curr) select(`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`);
+											if (curr)
+												select(
+													`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
+												);
 										}}
 										class="aspect-square flex items-center justify-center text-[10px] rounded-md {curr
 											? 'text-brand-fg hover:bg-brand-surface-soft'

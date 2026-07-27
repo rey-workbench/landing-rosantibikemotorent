@@ -63,27 +63,61 @@ async function parseResponse(response: Response) {
 }
 
 class ApiClient {
+	private pendingGets = new Map<string, Promise<any>>();
+
 	async request(method: string, url: string, data?: any, config: any = {}) {
 		const fetchUrl = buildUrl(url, config.params);
-		const { headers, body } = buildHeadersAndBody(data, config.headers);
-		const fetchFn: typeof fetch = config.customFetch ?? fetch;
 
-		try {
-			const response = await fetchFn(fetchUrl, {
-				method,
-				headers,
-				body
-			});
-			return await parseResponse(response);
-		} catch (error: any) {
-			if (browser) {
-				console.error(
-					'[API Error]',
-					error.response?.data?.userErrorMsg || error.response?.data?.message || error.message
-				);
+		// Deduplicate in-flight GET requests to the same URL
+		if (method === 'GET' && !config.customFetch) {
+			if (this.pendingGets.has(fetchUrl)) {
+				return this.pendingGets.get(fetchUrl);
 			}
-			throw error;
 		}
+
+		const execute = async () => {
+			const { headers, body } = buildHeadersAndBody(data, config.headers);
+			const fetchFn: typeof fetch = config.customFetch ?? fetch;
+
+			let attempts = 0;
+			const maxAttempts = method === 'GET' ? 2 : 1;
+
+			while (attempts < maxAttempts) {
+				attempts++;
+				try {
+					const response = await fetchFn(fetchUrl, {
+						method,
+						headers,
+						body,
+						signal: config.signal
+					});
+					return await parseResponse(response);
+				} catch (error: any) {
+					if (error.name === 'AbortError') throw error;
+					if (attempts >= maxAttempts) {
+						if (browser) {
+							console.error(
+								'[API Error]',
+								error.response?.data?.userErrorMsg || error.response?.data?.message || error.message
+							);
+						}
+						throw error;
+					}
+					// Small delay before retry for GET requests
+					await new Promise((resolve) => setTimeout(resolve, 300));
+				}
+			}
+		};
+
+		if (method === 'GET' && !config.customFetch) {
+			const promise = execute().finally(() => {
+				this.pendingGets.delete(fetchUrl);
+			});
+			this.pendingGets.set(fetchUrl, promise);
+			return promise;
+		}
+
+		return execute();
 	}
 
 	get(url: string, config?: any) {

@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
 	import { formatCurrency } from '$lib/utils/format';
+	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { page } from '$app/state';
 	import { websocketService } from '$lib/services/websocket';
@@ -11,6 +12,8 @@
 	let loading = $state(jenisMotors.length === 0);
 	let error = $state('');
 	let unsubscribe: (() => void) | null = null;
+	// Swap Vario 125 and Beat FI to match their generated image backgrounds with the dark/light grid slots
+	// Removed hardcoded swap logic.
 
 	async function fetchFleet() {
 		try {
@@ -58,156 +61,126 @@
 	}
 </script>
 
-<section id="fleet" class="py-20 md:py-32 bg-brand-background section-shell overflow-hidden">
-	<div class="max-w-7xl mx-auto mb-10 md:mb-16 flex flex-col items-start gap-6">
-		<div>
-			<h2 class="section-kicker mb-2 md:mb-4">
-				<span class="kicker-line"></span>
-				{$LL.fleet_title()}
-				<span class="kicker-line"></span>
-			</h2>
-			<h3 class="section-title mt-2 mb-2 md:mb-6">
-				{$LL.fleet_heading()} <br />
-				<span class="section-title-highlight">{$LL.fleet_heading_highlight()}</span>
-			</h3>
-		</div>
-		<a
-			href="/{lang}/fleet"
-			class="text-xs md:text-base text-brand-fg border-b border-[rgba(166,173,187,0.5)] pb-1 hover:text-(--brand-highlight) hover:border-(--brand-highlight) transition-colors"
-		>
-			{$LL.fleet_view_all()} →
-		</a>
+<section id="fleet" class="py-20 md:py-28 bg-[#f5f5f7]">
+	<div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+		<h2 class="text-4xl md:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-3">
+			{$LL.fleet_heading()}
+		</h2>
+		<p class="text-xl md:text-2xl text-[#86868b] font-normal max-w-2xl mx-auto">
+			{$LL.fleet_heading_highlight()}
+		</p>
 	</div>
 
 	{#if loading}
-		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+		<div class="max-w-345 mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 			{#each [1, 2, 3, 4] as _}
-				<div class="h-62.5 md:h-112.5 surface-card animate-pulse"></div>
+				<div class="h-130 rounded-3xl bg-white animate-pulse"></div>
 			{/each}
 		</div>
 	{:else if error}
 		<div class="text-center py-12">
-			<p class="text-muted">{error}</p>
+			<p class="text-[#86868b]">{error}</p>
 		</div>
 	{:else if jenisMotors.length > 0}
-		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-			{#each jenisMotors as jenis}
-				<a
-					href="/{lang}/fleet/{jenis.slug}"
-					class="group relative h-70 md:h-112.5 flex flex-col surface-card overflow-hidden"
+		<div class="max-w-345 mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+			{#each jenisMotors as jenis, index}
+				<div
+					class="group relative flex flex-col rounded-3xl overflow-hidden {index % 3 === 0
+						? 'text-white md:col-span-2'
+						: 'text-[#1d1d1f] border border-black/5'}"
 				>
-					<div class="relative h-[60%] md:h-[60%] overflow-hidden bg-(--brand-surface-soft)">
-						{#if jenis.gambar}
-							<img
-								src={jenis.gambar}
-								alt={`${jenis.merk} ${jenis.model}`}
-								loading="lazy"
-								decoding="async"
-								width="400"
-								height="300"
-								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
-							/>
-						{:else}
-							<div
-								class="w-full h-full bg-[rgba(166,173,187,0.12)] flex items-center justify-center"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="40"
-									height="40"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1"
-									class="text-[rgba(166,173,187,0.62)]"
-								>
-									<rect x="3" y="3" width="18" height="18" rx="2" />
-									<circle cx="8.5" cy="8.5" r="1.5" />
-									<path d="m21 15-5-5L5 21" />
-								</svg>
-							</div>
-						{/if}
-						<div
-							class="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-60"
-						></div>
+					<!-- The image IS the entire card background. Height follows image exactly. -->
+					{#if getMotorImage(jenis)}
+						<img
+							src={getMotorImage(jenis)}
+							alt={`${jenis.merk} ${jenis.model}`}
+							data-fallback={getFallbackImage(jenis)}
+							onerror={handleImageError}
+							loading="lazy"
+							decoding="async"
+							class="w-full h-auto object-cover z-0 pointer-events-none transition-transform duration-700 group-hover:scale-105"
+						/>
+					{:else}
+						<div class="w-full aspect-21/9"></div>
+					{/if}
 
-						<div class="absolute top-2 left-2 md:top-4 md:left-4">
-							{#if !jenis.computed.hasAvailable}
-								<span class="label-pill bg-red-500/80 text-white">
-									{$LL.fleet_empty()}
-								</span>
-							{:else}
-								<span class="label-pill bg-green-500/20 border border-green-500/30 text-green-300">
-									{$LL.fleet_available()}
-								</span>
-							{/if}
-						</div>
-					</div>
-
-					<div class="flex-1 p-3 md:p-6 flex flex-col justify-between bg-brand-surface">
-						<div>
+					<!-- Top Content (Title, Price, CTA) - Conditional compact absolute overlay -->
+					<div
+						class="absolute top-0 left-0 right-0 {index % 3 === 0
+							? 'pt-6 px-4 md:pt-8 md:px-8'
+							: 'pt-4 px-4 md:pt-5 md:px-6'} z-10 flex flex-col items-center w-full"
+					>
+						<span
+							class="{index % 3 === 0
+								? 'text-[10px] md:text-xs mb-1'
+								: 'text-[10px] mb-0.5'} font-semibold uppercase tracking-[0.2em] text-[#86868b]"
+						>
+							{jenis.merk}
+						</span>
+						<h3
+							class="{index % 3 === 0
+								? 'text-2xl md:text-4xl mb-1 text-white'
+								: 'text-xl md:text-3xl mb-0.5 text-[#1d1d1f]'} font-bold tracking-tight"
+						>
+							{jenis.model}
+						</h3>
+						{#if jenis.computed.minPrice > 0}
 							<p
-								class="text-[8px] md:text-xs text-(--brand-highlight) font-black uppercase tracking-widest mb-0.5 md:mb-1"
+								class="{index % 3 === 0
+									? 'text-base md:text-lg mb-3 md:mb-4'
+									: 'text-sm md:text-base mb-2 md:mb-3'} text-[#86868b] font-normal"
 							>
-								{jenis.merk}
+								{$LL.fleet_start_from()}
+								{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
+								{$LL.fleet_per_day().toLowerCase()}
 							</p>
-							<h3
-								class="text-sm md:text-2xl font-black text-brand-fg leading-tight uppercase line-clamp-1 md:line-clamp-none"
+						{:else}
+							<p
+								class="{index % 3 === 0
+									? 'text-base mb-3 md:mb-4'
+									: 'text-sm mb-2 md:mb-3'} text-[#86868b] font-normal"
 							>
-								{jenis.model}
-							</h3>
-						</div>
+								{$LL.fleet_contact_us()}
+							</p>
+						{/if}
 
-						<div class="flex items-end justify-between mt-2">
-							<div>
-								{#if jenis.computed.minPrice > 0}
-									<p class="text-sm md:text-2xl font-black text-brand-fg">
-										{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
-									</p>
-									<p class="text-[8px] md:text-xs text-muted font-bold uppercase tracking-wider">
-										{$LL.fleet_per_day()}
-									</p>
-								{:else}
-									<span class="text-xs text-muted font-bold uppercase"
-										>{$LL.fleet_contact_us()}</span
-									>
-								{/if}
-							</div>
-
-							<div
-								class="hidden md:flex items-center gap-2 text-brand-fg font-black text-[10px] uppercase tracking-widest group-hover:gap-3 transition-all"
+						<!-- CTA Buttons (Pills) -->
+						<div
+							class="flex items-center gap-2 md:gap-3 {index % 3 === 0
+								? ''
+								: 'scale-90 md:scale-100 origin-top'}"
+						>
+							<a
+								href="/{lang}/fleet/{jenis.slug}"
+								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-sm"
 							>
-								<span>{$LL.fleet_order()}</span>
-								<svg
-									width="12"
-									height="12"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="3"
-									><line x1="5" y1="12" x2="19" y2="12"></line><polyline
-										points="12 5 19 12 12 19"
-									/></svg
-								>
-							</div>
+								{$LL.fleet_order()}
+							</a>
+							<a
+								href="/{lang}/fleet/{jenis.slug}"
+								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border {index % 3 === 0
+									? 'border-white text-white hover:bg-white/10'
+									: 'border-[#0071e3] text-[#0071e3] hover:bg-[#0071e3]/10'} font-medium text-xs md:text-sm transition-colors shadow-sm"
+							>
+								{$LL.fleet_see_detail()}
+							</a>
 						</div>
 					</div>
-				</a>
+				</div>
 			{/each}
+		</div>
+
+		<div class="text-center mt-12">
+			<a
+				href="/{lang}/fleet"
+				class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-[#1d1d1f] text-white font-medium text-base hover:opacity-90 transition-opacity"
+			>
+				{$LL.fleet_view_all()} &rarr;
+			</a>
 		</div>
 	{:else}
 		<div class="text-center py-12">
-			<p class="text-muted">{$LL.fleet_empty_desc()}</p>
+			<p class="text-[#86868b]">{$LL.fleet_empty_desc()}</p>
 		</div>
 	{/if}
 </section>
-
-<style>
-	.line-clamp-1 {
-		display: -webkit-box;
-		-webkit-line-clamp: 1;
-		line-clamp: 1;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-</style>

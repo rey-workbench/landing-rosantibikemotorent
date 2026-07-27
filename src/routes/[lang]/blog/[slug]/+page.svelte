@@ -75,32 +75,34 @@
 
 {#if post}
 	<!-- Header Section -->
-	<header class="relative pt-44 md:pt-48 pb-16 px-4 md:px-10">
-		<div class="max-w-3xl mx-auto">
+	<header class="relative pt-28 md:pt-32 pb-16 px-4 md:px-10">
+		<div class="max-w-3xl mx-auto text-center">
 			<!-- Back Button -->
-			<a
-				href="/{lang}/blog"
-				class="inline-flex items-center gap-2 text-blue-500 text-xs font-bold uppercase tracking-widest mb-10 hover:gap-4 transition-all"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2.5"
+			<div class="mb-10 text-left">
+				<a
+					href="/{lang}/blog"
+					class="inline-flex items-center gap-2 text-[#0071e3] text-[13px] font-medium transition-colors hover:underline"
 				>
-					<path d="M19 12H5M12 19l-7-7 7-7" />
-				</svg>
-				{$LL.blog_back_to_journal().replace(/^[←\s\-]+/g, '')}
-			</a>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2.5"
+					>
+						<path d="M19 12H5M12 19l-7-7 7-7" />
+					</svg>
+					{$LL.blog_back_to_journal().replace(/^[←\s\-]+/g, '')}
+				</a>
+			</div>
 
 			<!-- Categories & Tags -->
-			<div class="flex flex-wrap gap-2 mb-6">
+			<div class="flex flex-wrap justify-center gap-2 mb-6">
 				{#if post.kategori}
 					<span
-						class="px-3.5 py-1 bg-blue-600/10 text-blue-500 text-[10px] font-extrabold uppercase tracking-wider rounded-full border border-blue-500/20"
+						class="px-3.5 py-1 bg-white text-[#1d1d1f] text-[11px] font-semibold tracking-wider rounded-full border border-black/5 shadow-sm"
 					>
 						{post.kategori.nama}
 					</span>
@@ -108,7 +110,7 @@
 				{#if post.tags}
 					{#each post.tags as tag}
 						<span
-							class="px-3.5 py-1 bg-brand-surface border border-brand-border text-brand-fg/80 text-[10px] font-bold uppercase tracking-wider rounded-full"
+							class="px-3.5 py-1 bg-[#f5f5f7] border border-black/5 text-[#86868b] text-[11px] font-semibold tracking-wider rounded-full"
 						>
 							#{tag.nama}
 						</span>
@@ -118,28 +120,24 @@
 
 			<!-- Title -->
 			<h1
-				class="text-3xl md:text-5xl lg:text-6xl font-black text-brand-fg leading-tight tracking-tighter uppercase mb-8"
+				class="text-[40px] md:text-[56px] font-semibold text-[#1d1d1f] leading-[1.05] tracking-tight mb-8"
 			>
 				{post.judul}
 			</h1>
 
 			<!-- Meta Data with Author Avatar -->
-			<div class="flex items-center gap-4 border-t border-b border-brand-border/40 py-5">
+			<div class="flex items-center justify-center gap-4 border-t border-b border-black/5 py-5">
 				<div
-					class="w-10 h-10 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-500 font-black text-sm"
+					class="w-10 h-10 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[#1d1d1f] font-semibold text-sm"
 				>
 					R
 				</div>
-				<div class="flex flex-col">
-					<span class="text-xs font-extrabold text-brand-fg uppercase tracking-wider"
-						>Rosantibike Team</span
-					>
-					<div
-						class="flex items-center gap-2 text-[10px] text-brand-muted font-bold uppercase tracking-wider mt-0.5"
-					>
+				<div class="flex flex-col text-left">
+					<span class="text-[13px] font-medium text-[#1d1d1f]">Rosantibike Team</span>
+					<div class="flex items-center gap-2 text-[12px] text-[#86868b] font-normal mt-0.5">
 						{#if post.formattedDate && post.formattedDate !== '-'}
 							<time datetime={post.createdAt}>{post.formattedDate}</time>
-							<span class="text-brand-muted/40 font-light">/</span>
+							<span class="text-[#86868b]/40 font-light">|</span>
 						{/if}
 						<span>{post.readingTime}</span>
 					</div>
@@ -154,7 +152,7 @@
 			<!-- Featured Hero Image -->
 			{#if post.featuredImage || post.thumbnail}
 				<div
-					class="mb-16 rounded-4xl overflow-hidden glass-surface aspect-video"
+					class="mb-16 rounded-3xl overflow-hidden aspect-video border border-black/5"
 					in:fade={{ duration: 800 }}
 				>
 					<img
@@ -168,7 +166,7 @@
 			{/if}
 
 			<!-- Article Body Content -->
-			<div class="prose prose-lg max-w-none article-content">
+			<div class="prose max-w-none article-content">
 				{#await import('isomorphic-dompurify') then DOMPurify}
 					{@html DOMPurify.default.sanitize(post.konten)}
 				{/await}
@@ -176,10 +174,10 @@
 
 			<!-- Share & CTA Footer Box -->
 			<div
-				class="mt-20 p-8 glass-surface rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 border border-brand-border/30"
+				class="mt-20 p-8 bg-[#f5f5f7] rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 border border-black/5"
 			>
 				<div class="text-center md:text-left">
-					<h3 class="text-xs font-black text-brand-muted uppercase tracking-widest mb-3">
+					<h3 class="text-[13px] font-semibold text-[#86868b] tracking-wide mb-3">
 						{$LL.blog_share()}
 					</h3>
 					<div class="flex justify-center md:justify-start gap-3">
@@ -188,7 +186,7 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Share on WhatsApp"
-							class="w-10 h-10 glass-surface rounded-xl flex items-center justify-center hover:bg-green-600 hover:border-green-500 hover:text-white transition-all cursor-pointer"
+							class="w-10 h-10 bg-white border border-black/5 rounded-full flex items-center justify-center hover:bg-[#1d1d1f] hover:text-white hover:border-[#1d1d1f] shadow-sm transition-all cursor-pointer text-[#1d1d1f]"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +202,7 @@
 						<button
 							onclick={copyLink}
 							aria-label="Copy link"
-							class="w-10 h-10 glass-surface rounded-xl flex items-center justify-center hover:bg-white hover:text-black transition-all cursor-pointer"
+							class="w-10 h-10 bg-white border border-black/5 rounded-full flex items-center justify-center hover:bg-[#1d1d1f] hover:text-white hover:border-[#1d1d1f] shadow-sm transition-all cursor-pointer text-[#1d1d1f]"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +221,12 @@
 				</div>
 
 				<div class="flex items-center shrink-0">
-					<Button href="/{lang}/booking" variant="primary" size="lg">{$LL.blog_rent_now()}</Button>
+					<a
+						href="/{lang}/booking"
+						class="px-6 py-3 bg-[#0071e3] text-white rounded-full text-[15px] font-medium hover:bg-[#0077ed] transition-colors shadow-sm"
+					>
+						{$LL.blog_rent_now()}
+					</a>
 				</div>
 			</div>
 		</div>
@@ -232,21 +235,20 @@
 
 <style>
 	.article-content {
-		color: var(--brand-muted);
-		line-height: 1.85;
+		color: #1d1d1f;
+		line-height: 1.6;
 		font-size: 1.125rem;
-		letter-spacing: -0.01em;
 	}
 
-	/* Beautiful Magazine Dropcap */
+	/* Minimalist Dropcap */
 	.article-content :global(p:first-of-type::first-letter) {
 		float: left;
-		font-size: 4rem;
+		font-size: 3.5rem;
 		line-height: 0.8;
-		padding-top: 4px;
+		padding-top: 8px;
 		padding-right: 8px;
-		font-weight: 900;
-		color: var(--brand-highlight, #3b82f6);
+		font-weight: 600;
+		color: #1d1d1f;
 	}
 
 	:global(.article-content h1),
@@ -254,52 +256,49 @@
 	:global(.article-content h3),
 	:global(.article-content h4),
 	:global(.article-content strong) {
-		color: var(--brand-fg) !important;
-		font-weight: 900;
-		letter-spacing: -0.02em;
+		color: #1d1d1f !important;
+		font-weight: 600;
+		letter-spacing: -0.01em;
 	}
 
 	:global(.article-content h2) {
-		font-size: 2.25rem;
-		margin: 3.5rem 0 1.5rem;
-		text-transform: uppercase;
-		border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+		font-size: 2rem;
+		margin: 3rem 0 1.5rem;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 		padding-bottom: 0.5rem;
 	}
 
 	:global(.article-content h3) {
-		font-size: 1.75rem;
-		margin: 2.5rem 0 1.25rem;
-		text-transform: uppercase;
+		font-size: 1.5rem;
+		margin: 2rem 0 1rem;
 	}
 
 	:global(.article-content p) {
-		margin-bottom: 1.75rem;
-		color: var(--brand-muted);
+		margin-bottom: 1.5rem;
+		color: #1d1d1f;
 	}
 
 	:global(.article-content a) {
-		color: var(--brand-highlight) !important;
+		color: #0071e3 !important;
 		text-decoration: underline;
 	}
 
 	:global(.article-content a:hover) {
-		opacity: 0.8;
+		text-decoration: none;
 	}
 
 	:global(.article-content img) {
-		border-radius: 2rem;
-		margin: 3.5rem 0;
-		border: 1px solid var(--brand-border);
+		border-radius: 1.5rem;
+		margin: 3rem 0;
+		border: 1px solid rgba(0, 0, 0, 0.05);
 	}
 
 	:global(.article-content blockquote) {
-		border-left: 4px solid var(--brand-highlight, #3b82f6);
-		padding: 1.5rem 2rem;
-		background: var(--brand-surface-soft);
-		border-radius: 0 1.5rem 1.5rem 0;
+		border-left: 3px solid #1d1d1f;
+		padding: 1rem 1.5rem;
+		background: #f5f5f7;
+		border-radius: 0 1rem 1rem 0;
 		margin: 2.5rem 0;
-		font-style: italic;
-		color: var(--brand-fg);
+		color: #1d1d1f;
 	}
 </style>

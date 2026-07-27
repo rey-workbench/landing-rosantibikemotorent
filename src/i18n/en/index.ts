@@ -7,9 +7,22 @@ const en: Translation = {
 	nav_booking: 'Booking',
 	nav_book_now: 'Book Now',
 	nav_booking_now: 'Book Now',
+	nav_mega_explore_fleet: 'Explore Fleet',
+	nav_mega_all_motorcycles: 'All Motorcycles',
+	nav_mega_other_services: 'Other Services',
+	nav_mega_customer_support: 'Customer Support',
+	nav_mega_riding_gear: 'Riding Gear',
+	nav_mega_rental_info: 'Rental Information',
+	nav_mega_how_to_order: 'How to Order',
+	nav_mega_terms: 'Terms & Conditions',
+	nav_mega_faq: 'Frequently Asked Questions (FAQ)',
 	hero_title: 'Rosantibike',
 	hero_subtitle: 'Motorent',
-	hero_tagline: 'Premium Motorcycle Rental in Malang',
+	hero_tagline: 'Premium Motorcycle Rental in Malang', // For SEO
+	hero_tagline_1: 'Malang Motorbike Rental. Explore Without Limits.', // Visual Line 1 (Trust/Feeling)
+	hero_hook: 'No additional fees wherever you want to go.', // Subtitle
+	hero_rent_now: 'Rent Now',
+	hero_view_fleet: 'View Fleet',
 	hero_explore: 'Explore Malang',
 	hero_explore_sub: 'With boundless freedom',
 	hero_unit_well: 'Well-Maintained Units',
@@ -17,7 +30,6 @@ const en: Translation = {
 	hero_start: 'Start Your Adventure',
 	hero_start_sub: 'Rent your dream motorcycle now',
 	hero_book_whatsapp: 'Book via WhatsApp',
-	hero_partner: 'Official Malang Rental Partner',
 	hero_scroll: 'Scroll',
 
 	why_title: "Rosanti's Excellence",
@@ -63,6 +75,13 @@ const en: Translation = {
 	fleet_per_day: '/ Day',
 	fleet_contact_us: 'Contact Us',
 	fleet_error: 'Failed to load data',
+	fleet_explore_lineup: 'Explore the lineup.',
+	fleet_compare_all: 'Compare all models',
+	fleet_start_from: 'From',
+	fleet_look_closer: 'Take a closer look.',
+	fleet_experience_title: 'A rental experience <br/> like never before.',
+	fleet_experience_desc:
+		'Always well-maintained premium fleet, lightning fast booking process, and ready-to-go delivery service.',
 	footer_about:
 		'Premium motorcycle rental service provider in Malang. We prioritize fleet quality, safe riding, and wholehearted service for your journey.',
 	footer_explore: 'Explore',
@@ -227,6 +246,7 @@ const en: Translation = {
 	fleet_status_habis: 'Sold Out',
 	fleet_unit_ready: '{count} Units',
 	fleet_link_detail: 'Detail',
+	fleet_see_detail: 'See Details',
 	fleet_empty_search_title: 'Not Found',
 	fleet_empty_search_desc: 'Try resetting your filters.',
 	fleet_error_load_title: 'Failed to Load',

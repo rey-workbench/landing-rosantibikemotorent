@@ -19,9 +19,6 @@
 	let uniqueMotors: UnitMotor[] = $state([]);
 	let selectedUnit: UnitMotor | null = $state(null);
 
-
-
-
 	let currentStep = $state(0);
 
 	// Form State
@@ -110,10 +107,8 @@
 
 		try {
 			const normalized = value.startsWith('00') ? `+${value.slice(2)}` : value;
-			const parsed = normalized.startsWith('+')
-				? parsePhoneNumberFromString(normalized)
-				: parsePhoneNumberFromString(normalized);
-
+			// Pass 'ID' as default country code so local numbers like 0812... can be parsed
+			const parsed = parsePhoneNumberFromString(normalized, 'ID');
 			return !!parsed?.isValid();
 		} catch {
 			return false;
@@ -235,32 +230,34 @@
 	}}
 />
 
-<section class="pt-32 pb-20 section-shell">
+<section class="pt-32 pb-20 px-4 md:px-10">
 	<div class="max-w-3xl mx-auto">
 		<!-- Header -->
-		<div class="mb-10 text-center">
-			<h2 class="section-kicker mb-4 justify-center w-full">
-				<span class="kicker-line"></span>
+		<div class="mb-12 text-center">
+			<h2 class="text-[12px] font-semibold tracking-widest text-[#0071e3] mb-3 uppercase">
 				{$LL.booking_header_title()}
-				<span class="kicker-line"></span>
 			</h2>
-			<h1 class="section-title text-center">
+			<h1
+				class="text-[40px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight mb-4"
+			>
 				{$LL.booking_header_order()}
-				<span class="section-title-highlight">{$LL.booking_header_motor()}</span>
+				<span class="text-[#0071e3]">{$LL.booking_header_motor()}</span>
 			</h1>
-			<p class="text-muted mt-4 max-w-xl mx-auto">
+			<p class="text-[17px] leading-relaxed font-normal text-[#86868b] max-w-xl mx-auto">
 				{$LL.booking_header_subtitle()}
 			</p>
 		</div>
 
 		{#if success}
 			<!-- Success Message -->
-			<div class="surface-panel p-6 md:p-12 text-center">
+			<div
+				class="bg-white border border-black/5 rounded-3xl p-6 md:p-12 shadow-[0_2px_20px_rgba(0,0,0,0.04)] text-center"
+			>
 				<div
-					class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6"
+					class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6"
 				>
 					<svg
-						class="w-10 h-10 text-green-400"
+						class="w-10 h-10 text-green-500"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -273,15 +270,17 @@
 						/>
 					</svg>
 				</div>
-				<h3 class="text-2xl font-bold text-brand-fg mb-3">{$LL.booking_success_title()}</h3>
-				<p class="text-muted">{$LL.booking_success_message()}</p>
+				<h3 class="text-2xl font-semibold text-[#1d1d1f] mb-3">{$LL.booking_success_title()}</h3>
+				<p class="text-[#86868b]">{$LL.booking_success_message()}</p>
 			</div>
 		{:else}
 			<!-- Step Indicator -->
 			<StepIndicator {steps} {currentStep} />
 
 			<!-- Form Card -->
-			<div class="surface-panel p-6 md:p-8">
+			<div
+				class="bg-white border border-black/5 rounded-3xl p-6 md:p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+			>
 				{#if formError}
 					<div
 						class="bg-red-500/20 border border-red-500/30 rounded-xl p-4 mb-6 flex items-center gap-3"
@@ -307,8 +306,8 @@
 				{#if currentStep === 0}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
-							<h3 class="text-xl font-bold text-brand-fg">{$LL.booking_step1_title()}</h3>
-							<p class="text-muted text-sm mt-1">{$LL.booking_step1_desc()}</p>
+							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step1_title()}</h3>
+							<p class="text-[#86868b] text-sm mt-1">{$LL.booking_step1_desc()}</p>
 						</div>
 
 						<Input
@@ -335,8 +334,8 @@
 				{#if currentStep === 1}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
-							<h3 class="text-xl font-bold text-brand-fg">Pilih Motor</h3>
-							<p class="text-muted text-sm mt-1">Pilih motor yang ingin disewa</p>
+							<h3 class="text-xl font-semibold text-[#1d1d1f]">Pilih Motor</h3>
+							<p class="text-[#86868b] text-sm mt-1">Pilih motor yang ingin disewa</p>
 						</div>
 
 						<Input
@@ -358,7 +357,9 @@
 
 						{#if selectedUnit}
 							{@const jenis = selectedUnit.jenis}
-							<div class="surface-panel p-4 flex items-center gap-4 mt-4">
+							<div
+								class="bg-[#f5f5f7] border border-black/5 rounded-2xl p-4 flex items-center gap-4 mt-4"
+							>
 								{#if jenis?.gambar}
 									<img
 										loading="lazy"
@@ -369,21 +370,23 @@
 									/>
 								{/if}
 								<div class="flex-1">
-									<p class="text-muted text-sm">{jenis?.merk}</p>
-									<p class="text-brand-fg font-bold text-lg">{jenis?.model}</p>
+									<p class="text-[#86868b] text-sm">{jenis?.merk}</p>
+									<p class="text-[#1d1d1f] font-semibold text-lg">{jenis?.model}</p>
 									{#if jenis?.cc}
-										<p class="text-gray-500 text-sm">{jenis.cc} CC</p>
+										<p class="text-[#86868b] text-sm">{jenis.cc} CC</p>
 									{/if}
-									<p class="text-green-400 font-bold mt-1">
+									<p class="text-[#0071e3] font-semibold mt-1">
 										{formatPrice(jenis?.hargaSewa || 0)}
-										<span class="text-muted font-normal text-sm">/ {$LL.booking_day()}</span>
+										<span class="text-[#86868b] font-normal text-sm">/ {$LL.booking_day()}</span>
 									</p>
 								</div>
 							</div>
 						{:else}
-							<div class="surface-panel border-dashed p-8 text-center">
+							<div
+								class="border-2 border-dashed border-black/10 rounded-2xl p-8 text-center bg-[#f5f5f7]/50 mt-4"
+							>
 								<svg
-									class="w-12 h-12 text-muted mx-auto mb-3"
+									class="w-12 h-12 text-[#86868b] mx-auto mb-3"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"
@@ -401,7 +404,7 @@
 										d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
 									/>
 								</svg>
-								<p class="text-muted">{$LL.booking_motor_select()}</p>
+								<p class="text-[#86868b]">{$LL.booking_motor_select()}</p>
 							</div>
 						{/if}
 					</div>
@@ -411,8 +414,8 @@
 				{#if currentStep === 2}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
-							<h3 class="text-xl font-bold text-brand-fg">{$LL.booking_step3_title()}</h3>
-							<p class="text-muted text-sm mt-1">{$LL.booking_step3_desc()}</p>
+							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step3_title()}</h3>
+							<p class="text-[#86868b] text-sm mt-1">{$LL.booking_step3_desc()}</p>
 						</div>
 
 						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -501,16 +504,16 @@
 				{#if currentStep === 3}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h3 class="text-xl font-bold text-brand-fg">{$LL.booking_step4_title()}</h3>
-							<p class="text-muted text-sm mt-1">{$LL.booking_step4_desc()}</p>
+							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step4_title()}</h3>
+							<p class="text-[#86868b] text-sm mt-1">{$LL.booking_step4_desc()}</p>
 						</div>
 
 						<!-- Summary Card -->
-						<div class="surface-panel overflow-hidden">
+						<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl overflow-hidden mb-6">
 							<!-- Motor Info -->
 							{#if selectedUnit}
 								{@const jenis = selectedUnit.jenis}
-								<div class="p-4 flex items-center gap-4 border-b border-[rgba(166,173,187,0.16)]">
+								<div class="p-5 flex items-center gap-4 border-b border-black/5 bg-white">
 									{#if jenis?.gambar}
 										<img
 											loading="lazy"
@@ -521,51 +524,58 @@
 										/>
 									{/if}
 									<div>
-										<p class="text-muted text-xs uppercase">{$LL.booking_motor_label()}</p>
-										<p class="text-brand-fg font-bold">{jenis?.merk} {jenis?.model}</p>
+										<p
+											class="text-[#86868b] text-[11px] font-semibold tracking-wider uppercase mb-1"
+										>
+											{$LL.booking_motor_label()}
+										</p>
+										<p class="text-[#1d1d1f] font-semibold">{jenis?.merk} {jenis?.model}</p>
 									</div>
 								</div>
 							{:else if formData.jenisId || formData.unitId}
-								<div class="p-4 border-b border-[rgba(166,173,187,0.16)]">
-									<p class="text-muted text-xs uppercase">{$LL.booking_motor_label()}</p>
-									<p class="text-brand-fg font-bold">{$LL.booking_motor_selected()}</p>
+								<div class="p-5 border-b border-black/5 bg-white">
+									<p class="text-[#86868b] text-[11px] font-semibold tracking-wider uppercase mb-1">
+										{$LL.booking_motor_label()}
+									</p>
+									<p class="text-[#1d1d1f] font-semibold">{$LL.booking_motor_selected()}</p>
 								</div>
 							{/if}
 
 							<!-- Details -->
-							<div class="p-4 space-y-3">
-								<div class="flex justify-between">
-									<span class="text-muted">{$LL.booking_name_field()}</span>
-									<span class="text-brand-fg font-medium">{formData.namaPenyewa}</span>
+							<div class="p-5 space-y-3">
+								<div class="flex justify-between items-center">
+									<span class="text-[#86868b] text-sm">{$LL.booking_name_field()}</span>
+									<span class="text-[#1d1d1f] font-medium">{formData.namaPenyewa}</span>
 								</div>
-								<div class="flex justify-between">
-									<span class="text-muted">{$LL.booking_whatsapp_field()}</span>
-									<span class="text-brand-fg font-medium">{formData.noWhatsapp}</span>
+								<div class="flex justify-between items-center">
+									<span class="text-[#86868b] text-sm">{$LL.booking_whatsapp_field()}</span>
+									<span class="text-[#1d1d1f] font-medium">{formData.noWhatsapp}</span>
 								</div>
-								<div class="flex justify-between">
-									<span class="text-muted">{$LL.booking_date_field()}</span>
-									<span class="text-brand-fg font-medium">{formatDate(formData.tanggalMulai)}</span>
+								<div class="flex justify-between items-center">
+									<span class="text-[#86868b] text-sm">{$LL.booking_date_field()}</span>
+									<span class="text-[#1d1d1f] font-medium">{formatDate(formData.tanggalMulai)}</span
+									>
 								</div>
-								<div class="flex justify-between">
-									<span class="text-muted">{$LL.booking_time_field()}</span>
-									<span class="text-brand-fg font-medium"
+								<div class="flex justify-between items-center">
+									<span class="text-[#86868b] text-sm">{$LL.booking_time_field()}</span>
+									<span class="text-[#1d1d1f] font-medium"
 										>{formData.jamMulai} - {formData.jamSelesai}</span
 									>
 								</div>
 								{#if formData.jasHujan > 0 || formData.helm > 0}
-									<div class="border-t border-[rgba(166,173,187,0.16)] pt-3 mt-3">
+									<div class="border-t border-black/5 pt-3 mt-3">
 										{#if formData.jasHujan > 0}
-											<div class="flex justify-between">
-												<span class="text-muted">{$LL.booking_raincoat_field()}</span>
-												<span class="text-green-400"
+											<div class="flex justify-between items-center mt-2">
+												<span class="text-[#86868b] text-sm">{$LL.booking_raincoat_field()}</span>
+												<span class="text-[#0071e3] font-medium"
 													>{formData.jasHujan} {$LL.booking_confirm_pieces()}</span
 												>
 											</div>
 										{/if}
 										{#if formData.helm > 0}
-											<div class="flex justify-between">
-												<span class="text-muted">{$LL.booking_helmet_field()}</span>
-												<span class="text-green-400"
+											<div class="flex justify-between items-center mt-2">
+												<span class="text-[#86868b] text-sm">{$LL.booking_helmet_field()}</span>
+												<span class="text-[#0071e3] font-medium"
 													>{formData.helm} {$LL.booking_confirm_pieces()}</span
 												>
 											</div>
@@ -579,64 +589,74 @@
 						{#if priceBreakdown}
 							<div class="space-y-3">
 								<!-- Price Breakdown -->
-								<div class="surface-panel p-5 space-y-3">
-									<h4 class="text-sm font-semibold text-muted uppercase tracking-wider">
+								<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5 space-y-3">
+									<h4
+										class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2"
+									>
 										{$LL.booking_price_breakdown()}
 									</h4>
 									<div class="space-y-2">
-										<div class="flex justify-between text-sm">
-											<span class="text-muted">
+										<div class="flex justify-between items-center text-sm">
+											<span class="text-[#86868b]">
 												{$LL.booking_rental_cost()} ({priceBreakdown.rincian.jumlahHari}
 												{$LL.booking_day()} × {formatPrice(priceBreakdown.rincian.hargaPerHari)})
 											</span>
-											<span class="text-brand-fg font-medium">
+											<span class="text-[#1d1d1f] font-medium">
 												{formatPrice(
 													priceBreakdown.rincian.jumlahHari * priceBreakdown.rincian.hargaPerHari
 												)}
 											</span>
 										</div>
 										{#if priceBreakdown.rincian.jamTambahan > 0}
-											<div class="flex justify-between text-sm">
-												<span class="text-muted">
+											<div class="flex justify-between items-center text-sm">
+												<span class="text-[#86868b]">
 													{$LL.booking_additional_fee()} ({priceBreakdown.rincian.jamTambahan} jam × {formatPrice(
 														priceBreakdown.rincian.dendaPerJam
 													)})
 												</span>
-												<span class="text-brand-fg font-medium">
-													{formatPrice(priceBreakdown.rincian.biayaJamTambahan)}
+												<span class="text-[#1d1d1f] font-medium">
+													{formatPrice(
+														priceBreakdown.rincian.jamTambahan * priceBreakdown.rincian.dendaPerJam
+													)}
 												</span>
 											</div>
 										{/if}
-										<div class="text-xs text-muted pt-2 border-t border-[rgba(166,173,187,0.16)]">
+										<div
+											class="text-xs text-[#86868b] pt-2 border-t border-[rgba(166,173,187,0.16)]"
+										>
 											{$LL.booking_total_duration()}: {priceBreakdown.rincian.totalJam} jam
 										</div>
 									</div>
 								</div>
 
 								<!-- Total -->
-								<div
-									class="bg-linear-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-5"
-								>
+								<div class="bg-[#f5f5f7] rounded-3xl p-6">
 									<div class="flex justify-between items-center">
 										<div>
-											<p class="text-muted text-sm">{$LL.booking_total_cost()}</p>
+											<p
+												class="text-[#86868b] text-[13px] font-medium tracking-wide uppercase mb-1"
+											>
+												{$LL.booking_total_cost()}
+											</p>
 										</div>
-										<p class="text-2xl font-bold text-brand-fg">
+										<p class="text-3xl font-semibold text-[#1d1d1f]">
 											{formatPrice(priceBreakdown.totalBiaya)}
 										</p>
 									</div>
 								</div>
 							</div>
 						{:else}
-							<div class="surface-panel p-5 text-center">
-								<p class="text-muted">{$LL.booking_calculating()}</p>
+							<div
+								class="bg-white border border-black/5 rounded-3xl p-5 text-center shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+							>
+								<p class="text-[#86868b]">{$LL.booking_calculating()}</p>
 							</div>
 						{/if}
 
 						<!-- Note -->
-						<div class="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 flex gap-3">
+						<div class="bg-[#f5f5f7] rounded-2xl p-5 flex gap-4">
 							<svg
-								class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"
+								class="w-5 h-5 text-[#0071e3] shrink-0 mt-0.5"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -648,9 +668,9 @@
 									d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 								/>
 							</svg>
-							<div class="text-sm">
-								<p class="text-blue-300 font-medium">{$LL.booking_note_title()}</p>
-								<p class="text-muted mt-1">
+							<div class="text-[14px]">
+								<p class="text-[#1d1d1f] font-semibold">{$LL.booking_note_title()}</p>
+								<p class="text-[#86868b] mt-1 leading-relaxed">
 									{$LL.booking_note_desc()}
 								</p>
 							</div>
@@ -661,7 +681,7 @@
 				<!-- Navigation Buttons -->
 				<div class="flex gap-4 mt-8">
 					{#if currentStep > 0}
-						<Button variant="outline" on:click={prevStep} className="flex-1">
+						<Button variant="outline" onclick={prevStep} className="flex-1">
 							<svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path
 									stroke-linecap="round"
@@ -675,7 +695,7 @@
 					{/if}
 
 					{#if currentStep < steps.length - 1}
-						<Button variant="primary" on:click={nextStep} className="flex-1">
+						<Button variant="primary" onclick={nextStep} className="flex-1">
 							{$LL.booking_next()}
 							<svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path
@@ -689,7 +709,7 @@
 					{:else}
 						<Button
 							variant="primary"
-							on:click={handleSubmit}
+							onclick={handleSubmit}
 							loading={isSubmitting || isCalculating}
 							disabled={isSubmitting || isCalculating}
 							className="flex-1"

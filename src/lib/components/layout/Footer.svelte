@@ -10,27 +10,27 @@
 </script>
 
 <footer
-	class="bg-brand-background border-t border-[rgba(166,173,187,0.14)] pt-20 pb-10 {className}"
+	class="bg-[#f5f5f7] text-[#86868b] text-[11px] pt-8 pb-12 border-t border-black/5 {className}"
 >
-	<div class="max-w-7xl mx-auto px-6">
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-			<div class="space-y-6">
-				<h2 class="font-display text-[2rem] uppercase tracking-[0.03em] text-brand-fg">
+	<div class="max-w-5xl mx-auto px-4">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-black/10">
+			<div class="space-y-3">
+				<h2 class="font-semibold text-[#1d1d1f] text-xs">
 					{siteConfig.shortName}
 				</h2>
-				<p class="text-muted text-sm leading-relaxed max-w-xs">
+				<p class="leading-relaxed text-xs">
 					{$LL.footer_about()}
 				</p>
-				<div class="flex gap-4">
+				<div class="flex gap-3 pt-2">
 					{#each [{ name: 'Instagram', url: siteConfig.socials.instagram, icon: 'M16.7 3h-9.4C4.4 3 2 5.4 2 8.3v9.4c0 2.9 2.4 5.3 5.3 5.3h9.4c2.9 0 5.3-2.4 5.3-5.3V8.3c0-2.9-2.4-5.3-5.3-5.3zm-4.7 15c-3.1 0-5.7-2.5-5.7-5.7s2.5-5.7 5.7-5.7 5.7 2.5 5.7 5.7-2.6 5.7-5.7 5.7zm5.5-10.4c-.7 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2 1.2.5 1.2 1.2-.5 1.2-1.2 1.2z' }, { name: 'Facebook', url: siteConfig.socials.facebook, icon: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z' }] as social}
 						<a
 							href={social.url}
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label={social.name}
-							class="w-10 h-10 rounded-xl surface-panel flex items-center justify-center text-muted hover:text-brand-fg hover:border-accent-soft transition-all duration-300"
+							class="hover:text-[#1d1d1f] transition-colors"
 						>
-							<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+							<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
 								<path d={social.icon} />
 							</svg>
 						</a>
@@ -39,16 +39,13 @@
 			</div>
 
 			<div>
-				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
+				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-xs">
 					{$LL.footer_explore()}
 				</h3>
-				<ul class="space-y-4">
-					{#each [{ label: $LL.footer_home(), href: `/${page.params.lang || $locale}` }, { label: $LL.footer_catalog(), href: `/${page.params.lang || $locale}/fleet` }, { label: $LL.footer_blog(), href: `/${page.params.lang || $locale}/blog` }, { label: $LL.footer_procedure(), href: `/${page.params.lang || $locale}/booking` }] as link}
+				<ul class="space-y-2">
+					{#each [{ label: $LL.nav_home(), href: `/${page.params.lang || $locale}` }, { label: $LL.footer_catalog(), href: `/${page.params.lang || $locale}/fleet` }, { label: $LL.footer_blog(), href: `/${page.params.lang || $locale}/blog` }, { label: $LL.footer_procedure(), href: `/${page.params.lang || $locale}/booking` }] as link}
 						<li>
-							<a
-								href={link.href}
-								class="text-muted hover:text-brand-fg hover:translate-x-1 transition-all duration-300 inline-block text-sm"
-							>
+							<a href={link.href} class="hover:underline hover:text-[#1d1d1f] transition-colors">
 								{link.label}
 							</a>
 						</li>
@@ -57,13 +54,12 @@
 			</div>
 
 			<div>
-				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
+				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-xs">
 					{$LL.footer_services()}
 				</h3>
-				<ul class="space-y-4">
+				<ul class="space-y-2">
 					{#each [$LL.footer_daily_rental(), $LL.footer_delivery(), $LL.footer_equipment(), $LL.footer_insurance()] as service}
-						<li class="flex items-center gap-3 text-muted text-sm">
-							<span class="w-1.5 h-1.5 rounded-full bg-(--brand-highlight)"></span>
+						<li>
 							{service}
 						</li>
 					{/each}
@@ -71,104 +67,40 @@
 			</div>
 
 			<div>
-				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
+				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-xs">
 					{$LL.footer_office()}
 				</h3>
-				<div class="space-y-6">
-					<div class="flex items-start gap-4">
-						<div class="mt-1 text-(--brand-highlight)">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle
-									cx="12"
-									cy="10"
-									r="3"
-								/></svg
-							>
-						</div>
-						<p class="text-muted text-sm leading-relaxed">
-							{siteConfig.address}
-						</p>
-					</div>
-					<div class="flex items-center gap-4">
-						<div class="text-green-500">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><rect width="20" height="16" x="2" y="4" rx="2" /><path
-									d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
-								/></svg
-							>
-						</div>
-						<a
-							href="mailto:{siteConfig.email}"
-							class="text-muted hover:text-brand-fg transition-colors text-sm"
+				<div class="space-y-2">
+					<p>{siteConfig.address}</p>
+					<p>
+						<a href="mailto:{siteConfig.email}" class="hover:underline hover:text-[#1d1d1f]"
+							>{siteConfig.email}</a
 						>
-							{siteConfig.email}
-						</a>
-					</div>
-					<div class="flex items-center gap-4">
-						<div class="text-blue-400">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><path
-									d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-								/></svg
-							>
-						</div>
+					</p>
+					<p>
 						<a
 							href="https://wa.me/{siteConfig.whatsapp}"
-							class="text-muted hover:text-brand-fg transition-colors text-sm"
+							class="hover:underline hover:text-[#1d1d1f]">{siteConfig.phone}</a
 						>
-							{siteConfig.phone}
-						</a>
-					</div>
+					</p>
 				</div>
 			</div>
 		</div>
 
-		<div
-			class="pt-10 border-t border-[rgba(166,173,187,0.14)] flex flex-col md:flex-row justify-between items-center gap-6"
-		>
-			<div class="text-[11px] uppercase tracking-[0.2em] text-[rgba(166,173,187,0.68)] font-bold">
-				&copy; {new Date().getFullYear()}
+		<div class="pt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+			<div>
+				Copyright &copy; {new Date().getFullYear()}
 				{siteConfig.name}. {$LL.footer_all_rights()}
 			</div>
-			<div class="flex items-center gap-8">
+			<div class="flex items-center gap-4">
 				<a
 					href="/{page.params.lang || $locale}/privacy"
-					aria-label={$LL.footer_privacy()}
-					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-brand-fg transition-colors"
+					class="hover:underline hover:text-[#1d1d1f] transition-colors border-r border-black/20 pr-4"
 					>{$LL.footer_privacy()}</a
 				>
 				<a
 					href="/{page.params.lang || $locale}/terms"
-					aria-label={$LL.footer_terms()}
-					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-brand-fg transition-colors"
-					>{$LL.footer_terms()}</a
+					class="hover:underline hover:text-[#1d1d1f] transition-colors">{$LL.footer_terms()}</a
 				>
 			</div>
 		</div>

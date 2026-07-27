@@ -139,7 +139,7 @@
 	<div class="max-w-7xl mx-auto">
 		<a
 			href="/{lang}/fleet"
-			class="inline-flex items-center gap-2 text-gray-400 hover:text-brand-fg transition-colors"
+			class="inline-flex items-center gap-2 text-[#0071e3] text-[15px] font-medium transition-colors hover:underline"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -164,17 +164,17 @@
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 				<!-- Image Section -->
 				<div class="relative">
-					<div class="aspect-4/3 rounded-3xl overflow-hidden bg-gray-900 border border-white/10">
+					<div class="aspect-4/3 rounded-4xl overflow-hidden bg-[#f5f5f7] border border-black/5">
 						{#if jenis.gambar}
 							<img
 								loading="lazy"
 								decoding="async"
 								src={jenis.gambar}
 								alt={`${jenis.merk} ${jenis.model}`}
-								class="w-full h-full object-cover"
+								class="w-full h-full object-cover mix-blend-multiply"
 							/>
 						{:else}
-							<div class="w-full h-full flex items-center justify-center text-gray-600">
+							<div class="w-full h-full flex items-center justify-center text-[#86868b]">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="128"
@@ -196,56 +196,66 @@
 				<!-- Details Section -->
 				<div class="flex flex-col justify-center">
 					<!-- Breadcrumb -->
-					<p class="text-blue-500 font-mono text-sm uppercase tracking-widest mb-2">
+					<p class="text-[#86868b] font-semibold text-[13px] uppercase tracking-wider mb-2">
 						{jenis.merk}
 					</p>
 
 					<h1
-						class="text-4xl md:text-5xl lg:text-6xl font-black text-brand-fg uppercase tracking-tighter mb-6"
+						class="text-[40px] md:text-[56px] font-semibold text-[#1d1d1f] leading-[1.05] tracking-tight mb-6"
 					>
 						Sewa Motor {jenis.model} Malang
 					</h1>
 
-					<p class="text-gray-400 text-lg mb-8 leading-relaxed">
+					<p class="text-[#86868b] text-[17px] leading-relaxed mb-8">
 						{$LL.fleet_detail_description({ merk: jenis.merk, model: jenis.model, cc: jenis.cc })}
 					</p>
 
 					<!-- Specs Grid -->
 					<div class="grid grid-cols-2 gap-4 mb-8">
-						<div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">
+						<div
+							class="bg-white border border-black/5 rounded-3xl p-5 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+						>
+							<p class="text-[#86868b] text-[13px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_engine()}
 							</p>
-							<p class="text-2xl font-bold text-brand-fg">
-								{jenis.cc} <span class="text-sm text-gray-400">CC</span>
+							<p class="text-3xl font-semibold text-[#1d1d1f] tracking-tight">
+								{jenis.cc}
+								<span class="text-lg text-[#86868b] font-medium tracking-normal">CC</span>
 							</p>
 						</div>
-						<div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-							<p class="text-gray-500 text-xs uppercase tracking-wider mb-1">
+						<div
+							class="bg-white border border-black/5 rounded-3xl p-5 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+						>
+							<p class="text-[#86868b] text-[13px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_year()}
 							</p>
-							<p class="text-2xl font-bold text-brand-fg">{motor.tahunPembuatan || '-'}</p>
+							<p class="text-3xl font-semibold text-[#1d1d1f] tracking-tight">
+								{motor.tahunPembuatan || '-'}
+							</p>
 						</div>
 					</div>
 
 					<!-- Price & Booking -->
-					<div
-						class="bg-linear-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-3xl p-8"
-					>
+					<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-8">
 						<div class="flex items-end justify-between mb-6">
 							<div>
-								<p class="text-gray-400 text-sm uppercase tracking-wider mb-1">
+								<p class="text-[#86868b] text-[13px] font-semibold uppercase tracking-wider mb-1">
 									{$LL.fleet_detail_price()}
 								</p>
-								<p class="text-4xl font-black text-brand-fg">
+								<p class="text-[40px] leading-none font-semibold text-[#1d1d1f] tracking-tight">
 									{formatPrice(displayPrice)}
 								</p>
-								<p class="text-gray-400 text-sm">{$LL.fleet_detail_per_day()}</p>
+								<p class="text-[#86868b] text-[15px] mt-1 font-medium">
+									{$LL.fleet_detail_per_day()}
+								</p>
 							</div>
 						</div>
 
-						<Button on:click={handleBooking} fullWidth size="lg"
-							>{$LL.fleet_detail_book_now()}</Button
+						<Button
+							onclick={handleBooking}
+							variant="primary"
+							size="lg"
+							className="w-full text-[17px] py-4">{$LL.fleet_detail_book_now()}</Button
 						>
 
 						<p class="text-center text-gray-500 text-sm mt-4">

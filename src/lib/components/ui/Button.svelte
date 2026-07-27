@@ -10,7 +10,7 @@
 		className?: string;
 		onclick?: (e: MouseEvent) => void;
 		children?: import('svelte').Snippet;
-		[key: string]: any
+		[key: string]: any;
 	}
 
 	let {
@@ -52,9 +52,11 @@
 		icon: 'p-3 rounded-xl'
 	};
 
-	let classes = $derived([baseStyles, variants[variant], sizes[size], fullWidth ? 'w-full' : '', className]
-		.filter(Boolean)
-		.join(' '));
+	let classes = $derived(
+		[baseStyles, variants[variant], sizes[size], fullWidth ? 'w-full' : '', className]
+			.filter(Boolean)
+			.join(' ')
+	);
 </script>
 
 {#if href}

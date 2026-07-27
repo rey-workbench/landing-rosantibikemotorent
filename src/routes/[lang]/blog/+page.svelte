@@ -93,29 +93,24 @@
 	<div class="max-w-7xl mx-auto">
 		<!-- Header -->
 		<div class="mb-12">
-			<h2
-				class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
-			>
-				<span class="w-8 h-px bg-blue-500"></span>
+			<h2 class="text-[12px] font-semibold tracking-widest text-[#0071e3] mb-3 uppercase">
 				{$LL.blog_title()}
-				<span class="w-8 h-px bg-blue-500"></span>
 			</h2>
 			<h1
-				class="text-4xl md:text-6xl lg:text-7xl font-black text-brand-fg uppercase tracking-tighter leading-none"
+				class="text-[40px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight mb-4"
 			>
-				{$LL.blog_heading()} <br />
-				<span
-					class="text-transparent bg-clip-text bg-linear-to-r from-brand-fg via-brand-fg to-brand-fg/50"
-					>{$LL.blog_heading_highlight()}</span
-				>
+				{$LL.blog_heading()} <br class="hidden md:block" />
+				<span class="text-[#1d1d1f]">{$LL.blog_heading_highlight()}</span>
 			</h1>
-			<p class="text-brand-muted mt-6 max-w-xl text-lg">
+			<p class="text-[17px] leading-relaxed font-normal text-[#86868b] max-w-xl">
 				{$LL.blog_subtitle()}
 			</p>
 		</div>
 
 		<!-- Filter Section -->
-		<div class="relative z-20 glass-surface rounded-2xl p-6 mb-12 flex flex-col md:flex-row gap-6">
+		<div
+			class="relative z-20 bg-white rounded-3xl p-6 mb-12 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-black/5 flex flex-col md:flex-row gap-6"
+		>
 			<!-- Search -->
 			<div class="flex-1">
 				<Input
@@ -130,26 +125,28 @@
 
 			<!-- Tags Filter -->
 			<div class="flex-2 min-w-0">
-				<label for="tag-filter" class="block text-sm text-brand-muted mb-2 uppercase tracking-wider"
+				<label
+					for="tag-filter"
+					class="block text-[13px] font-medium text-[#86868b] mb-2 uppercase tracking-wider"
 					>{$LL.blog_filter_label()}</label
 				>
 				<div class="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-none max-w-full">
 					<button
 						onclick={() => selectTag('')}
-						class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer {selectedTagId ===
+						class="px-5 py-2.5 rounded-full text-[13px] font-medium transition-all cursor-pointer {selectedTagId ===
 						''
-							? 'bg-brand-fg text-brand-surface'
-							: 'bg-brand-surface text-brand-fg border border-brand-border hover:border-gray-500'}"
+							? 'bg-[#1d1d1f] text-white'
+							: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
 					>
 						{$LL.blog_filter_all()}
 					</button>
 					{#each tags as tag}
 						<button
 							onclick={() => selectTag(tag.id)}
-							class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer {selectedTagId ===
+							class="px-5 py-2.5 rounded-full text-[13px] font-medium transition-all cursor-pointer {selectedTagId ===
 							tag.id
-								? 'bg-blue-600 text-white'
-								: 'bg-brand-surface text-brand-fg border border-brand-border hover:border-gray-500'}"
+								? 'bg-[#0071e3] text-white'
+								: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
 						>
 							{tag.nama}
 						</button>
@@ -192,17 +189,15 @@
 				</div>
 				<h3 class="text-2xl font-bold text-brand-fg mb-2">{$LL.blog_error_title()}</h3>
 				<p class="text-brand-muted mb-8">{error}</p>
-				<Button on:click={loadPosts} variant="secondary">{$LL.blog_try_again()}</Button>
+				<Button onclick={loadPosts} variant="secondary">{$LL.blog_try_again()}</Button>
 			</div>
 		{:else if posts.length > 0}
-			<!-- Dwinawan-inspired Editorial Layout for Latest Stories (Page 1 only) -->
+			<!-- Featured Post (Page 1 only) -->
 			{#if featuredPost}
 				<div class="mb-16" in:fade={{ duration: 600 }}>
 					<!-- Section Header -->
-					<div class="mb-8 border-b border-brand-border/40 pb-4 flex justify-between items-center">
-						<h3 class="font-display text-2xl uppercase tracking-wider text-brand-fg">
-							Latest Stories
-						</h3>
+					<div class="mb-8 border-b border-black/5 pb-4 flex justify-between items-center">
+						<h3 class="font-semibold text-lg text-[#1d1d1f]">Latest Stories</h3>
 					</div>
 
 					<!-- Split Layout -->
@@ -210,7 +205,7 @@
 						<!-- Big Featured Card (Left Side) -->
 						<div class="lg:col-span-7 flex flex-col">
 							<a href="/{lang}/blog/{featuredPost.slug}" class="group block">
-								<div class="aspect-16/10 rounded-3xl overflow-hidden bg-gray-800 relative mb-6">
+								<div class="aspect-16/10 rounded-3xl overflow-hidden bg-[#f5f5f7] relative mb-6">
 									{#if featuredPost.featuredImage || featuredPost.thumbnail}
 										<img
 											loading="lazy"
@@ -220,29 +215,28 @@
 											class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
 										/>
 									{/if}
-									<div
-										class="absolute inset-0 bg-linear-to-t from-gray-900/60 via-transparent to-transparent"
-									></div>
 								</div>
 								<div class="flex items-center gap-2 mb-3">
 									{#if featuredPost.tags && featuredPost.tags.length > 0}
-										<span class="text-xs font-black text-blue-500 uppercase tracking-widest">
+										<span class="text-[11px] font-semibold text-[#0071e3] uppercase tracking-wider">
 											{featuredPost.tags[0].nama}
 										</span>
 									{/if}
-									<span class="text-xs text-brand-muted/40 font-light">/</span>
-									<span class="text-xs text-brand-muted">{featuredPost.readingTime}</span>
+									<span class="text-[11px] text-[#86868b] font-light">|</span>
+									<span class="text-[11px] text-[#86868b] font-medium"
+										>{featuredPost.readingTime}</span
+									>
 								</div>
 								<h2
-									class="text-2xl md:text-3xl font-black text-brand-fg mb-4 group-hover:text-blue-500 transition-colors leading-tight"
+									class="text-2xl md:text-3xl font-semibold text-[#1d1d1f] mb-3 group-hover:text-[#0071e3] transition-colors leading-[1.15]"
 								>
 									{featuredPost.judul}
 								</h2>
-								<p class="text-brand-muted text-sm leading-relaxed mb-4 line-clamp-3">
+								<p class="text-[#86868b] text-[15px] leading-relaxed mb-4 line-clamp-3">
 									{featuredPost.excerpt}
 								</p>
 								{#if featuredPost.formattedDate && featuredPost.formattedDate !== '-'}
-									<span class="text-xs text-brand-muted font-semibold"
+									<span class="text-[13px] text-[#86868b] font-medium"
 										>{featuredPost.formattedDate}</span
 									>
 								{/if}
@@ -254,10 +248,10 @@
 							{#each listPosts as post}
 								<a
 									href="/{lang}/blog/{post.slug}"
-									class="group flex gap-5 items-center border-b border-brand-border/40 pb-6 last:border-0 last:pb-0"
+									class="group flex gap-5 items-center border-b border-black/5 pb-6 last:border-0 last:pb-0"
 								>
 									<div
-										class="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-gray-800 shrink-0 relative"
+										class="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-[#f5f5f7] shrink-0 relative"
 									>
 										{#if post.featuredImage || post.thumbnail}
 											<img
@@ -272,20 +266,21 @@
 									<div class="flex-1 min-w-0">
 										<div class="flex items-center gap-2 mb-1.5">
 											{#if post.tags && post.tags.length > 0}
-												<span class="text-[10px] font-black text-blue-500 uppercase tracking-widest"
+												<span
+													class="text-[10px] font-semibold text-[#0071e3] uppercase tracking-wider"
 													>{post.tags[0].nama}</span
 												>
 											{/if}
-											<span class="text-[10px] text-brand-muted/40 font-light">/</span>
-											<span class="text-[10px] text-brand-muted">{post.readingTime}</span>
+											<span class="text-[10px] text-[#86868b] font-light">|</span>
+											<span class="text-[10px] text-[#86868b]">{post.readingTime}</span>
 										</div>
 										<h3
-											class="text-sm md:text-base font-extrabold text-brand-fg group-hover:text-blue-500 transition-colors line-clamp-2 leading-snug"
+											class="text-[15px] font-semibold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-snug"
 										>
 											{post.judul}
 										</h3>
 										{#if post.formattedDate && post.formattedDate !== '-'}
-											<span class="text-[10px] text-brand-muted mt-2 block"
+											<span class="text-[11px] text-[#86868b] mt-2 block font-medium"
 												>{post.formattedDate}</span
 											>
 										{/if}
@@ -300,10 +295,8 @@
 			{#if displayPosts.length > 0}
 				<!-- Grid Title -->
 				{#if featuredPost}
-					<div class="mb-8 border-b border-brand-border/40 pb-4">
-						<h3 class="font-display text-2xl uppercase tracking-wider text-brand-fg">
-							More Stories
-						</h3>
+					<div class="mb-8 border-b border-black/5 pb-4">
+						<h3 class="font-semibold text-lg text-[#1d1d1f]">More Stories</h3>
 					</div>
 				{/if}
 
@@ -312,11 +305,11 @@
 					{#each displayPosts as post, i}
 						<a
 							href="/{lang}/blog/{post.slug}"
-							class="group glass-surface rounded-4xl overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-brand-highlight/20"
+							class="group bg-white border border-black/5 rounded-3xl overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
 							in:fly={{ y: 20, duration: 600, delay: i * 50 }}
 						>
 							<!-- Image -->
-							<div class="aspect-16/10 overflow-hidden bg-gray-800 relative">
+							<div class="aspect-16/10 overflow-hidden bg-[#f5f5f7] relative">
 								{#if post.featuredImage || post.thumbnail}
 									<img
 										loading="lazy"
@@ -326,7 +319,7 @@
 										class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
 									/>
 								{:else}
-									<div class="w-full h-full flex items-center justify-center text-gray-600">
+									<div class="w-full h-full flex items-center justify-center text-[#86868b]">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="32"
@@ -345,15 +338,12 @@
 										>
 									</div>
 								{/if}
-								<div
-									class="absolute inset-0 bg-linear-to-t from-gray-950/70 via-transparent to-transparent"
-								></div>
 
 								<!-- Date & Reading Time Badge -->
 								<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
 									{#if post.formattedDate && post.formattedDate !== '-'}
 										<span
-											class="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[9px] font-bold text-white uppercase tracking-wider"
+											class="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-semibold text-[#1d1d1f] uppercase tracking-wider shadow-sm"
 										>
 											{post.formattedDate}
 										</span>
@@ -361,7 +351,7 @@
 										<div></div>
 									{/if}
 									<span
-										class="px-2.5 py-0.5 bg-black/60 backdrop-blur-md rounded-full text-[9px] font-bold text-white/80 tracking-wide"
+										class="px-2.5 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-semibold text-[#1d1d1f] tracking-wide shadow-sm"
 									>
 										{post.readingTime}
 									</span>
@@ -374,7 +364,9 @@
 								{#if post.tags && post.tags.length > 0}
 									<div class="flex flex-wrap gap-2 mb-3">
 										{#each post.tags.slice(0, 2) as tag}
-											<span class="text-[10px] font-black text-blue-500 uppercase tracking-widest">
+											<span
+												class="text-[10px] font-semibold text-[#0071e3] uppercase tracking-wider"
+											>
 												{tag.nama}
 											</span>
 										{/each}
@@ -382,17 +374,17 @@
 								{/if}
 
 								<h3
-									class="text-lg font-extrabold text-brand-fg mb-3 group-hover:text-blue-500 transition-colors line-clamp-2 leading-snug"
+									class="text-[17px] font-semibold text-[#1d1d1f] mb-2 group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-[1.2]"
 								>
 									{post.judul}
 								</h3>
 
-								<p class="text-brand-muted text-xs md:text-sm mb-6 line-clamp-3 leading-relaxed">
+								<p class="text-[#86868b] text-[14px] mb-6 line-clamp-3 leading-relaxed font-normal">
 									{post.excerpt}
 								</p>
 
 								<div
-									class="mt-auto flex items-center gap-2 text-brand-fg font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all"
+									class="mt-auto flex items-center gap-2 text-[#0071e3] font-medium text-[13px] group-hover:gap-3 transition-all"
 								>
 									<span>{$LL.blog_read_more()}</span>
 									<svg
@@ -402,7 +394,7 @@
 										viewBox="0 0 24 24"
 										fill="none"
 										stroke="currentColor"
-										stroke-width="2.5"
+										stroke-width="2"
 										><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
 										></polyline></svg
 									>
@@ -418,7 +410,7 @@
 				<div class="flex justify-center items-center gap-4 mt-16">
 					<button
 						aria-label="Previous page"
-						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-brand-fg disabled:opacity-20 hover:border-blue-500 transition-all cursor-pointer"
+						class="p-3 rounded-full bg-white border border-black/5 text-[#1d1d1f] disabled:opacity-30 hover:border-[#0071e3] transition-all cursor-pointer shadow-sm"
 						disabled={currentPage === 1}
 						onclick={() => {
 							currentPage--;
@@ -445,10 +437,10 @@
 									currentPage = i + 1;
 									loadPosts();
 								}}
-								class="w-10 h-10 flex items-center justify-center rounded-xl text-sm font-bold transition-all cursor-pointer {currentPage ===
+								class="w-10 h-10 flex items-center justify-center rounded-full text-[15px] font-medium transition-all cursor-pointer {currentPage ===
 								i + 1
-									? 'bg-blue-600 text-white'
-									: 'bg-brand-surface text-gray-500 border border-brand-border hover:border-blue-500 hover:text-blue-500'}"
+									? 'bg-[#1d1d1f] text-white shadow-sm'
+									: 'bg-white text-[#86868b] border border-black/5 hover:border-[#1d1d1f] hover:text-[#1d1d1f]'}"
 							>
 								{i + 1}
 							</button>
@@ -457,7 +449,7 @@
 
 					<button
 						aria-label="Next page"
-						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-brand-fg disabled:opacity-20 hover:border-blue-500 transition-all cursor-pointer"
+						class="p-3 rounded-full bg-white border border-black/5 text-[#1d1d1f] disabled:opacity-30 hover:border-[#0071e3] transition-all cursor-pointer shadow-sm"
 						disabled={currentPage === totalPages}
 						onclick={() => {
 							currentPage++;
@@ -503,7 +495,7 @@
 				<h3 class="text-2xl font-bold text-brand-fg mb-2">{$LL.blog_empty_title()}</h3>
 				<p class="text-brand-muted mb-8">{$LL.blog_empty_desc()}</p>
 				<Button
-					on:click={() => {
+					onclick={() => {
 						searchQuery = '';
 						selectedTagId = '';
 						loadPosts();

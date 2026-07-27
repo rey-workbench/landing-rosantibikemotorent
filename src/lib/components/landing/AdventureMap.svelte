@@ -105,26 +105,20 @@
 			class="sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row bg-black"
 			style="perspective: 1000px;"
 		>
-			<div
-				class="absolute top-0 left-0 w-full z-20 pointer-events-none mix-blend-difference text-white"
-			>
+			<div class="absolute top-0 left-0 w-full z-20 pointer-events-none text-white drop-shadow-lg">
 				<div
 					class="absolute top-20 md:top-28 left-1/2 -translate-x-1/2 text-center w-full px-4 pt-4"
 				>
-					<h2
-						class="text-[10px] md:text-sm font-bold text-blue-400 tracking-[0.2em] mb-2 md:mb-4 uppercase flex items-center justify-center gap-2"
+					<p
+						class="text-xs md:text-sm font-semibold tracking-wide text-white/80 uppercase mb-2 drop-shadow-md"
 					>
-						<span class="w-4 md:w-8 h-px bg-blue-400"></span>
 						{$LL.adventure_title()}
-						<span class="w-4 md:w-8 h-px bg-blue-400"></span>
-					</h2>
+					</p>
 					<h3
-						class="text-2xl md:text-5xl lg:text-7xl font-black text-white leading-[0.9] uppercase tracking-tighter"
+						class="text-3xl md:text-6xl font-semibold text-white leading-tight tracking-tight drop-shadow-xl"
 					>
 						{$LL.adventure_heading()} <br />
-						<span
-							class="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-300 to-gray-500"
-						>
+						<span class="text-white/70">
 							{$LL.adventure_heading_highlight()}
 						</span>
 					</h3>
