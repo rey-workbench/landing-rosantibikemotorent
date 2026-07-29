@@ -139,7 +139,9 @@
 			<!-- WhatsApp CTA -->
 			<Button
 				href="https://wa.me/{siteConfig.whatsapp}?text={encodeURIComponent(
-					$LL.booking_success_whatsapp_message({ id: page.url.searchParams.get('id') || '' })
+					$LL.booking_success_whatsapp_message({
+						id: (page.url.searchParams.get('id') || '').replace(/[^a-zA-Z0-9-]/g, '').slice(0, 36)
+					})
 				)}"
 				variant="primary"
 				size="lg"

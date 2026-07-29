@@ -1,5 +1,6 @@
 import type { BreadcrumbItem, FaqItem, SupportedLocale } from './types';
 import { BASE_URL, SITE_NAME } from './types';
+import { siteConfig } from '$lib/config';
 
 export function buildOrganizationSchema() {
 	return {
@@ -22,7 +23,7 @@ export function buildOrganizationSchema() {
 		},
 		contactPoint: {
 			'@type': 'ContactPoint',
-			telephone: '+62-811-3535-122',
+			telephone: siteConfig.phone,
 			contactType: 'customer service',
 			availableLanguage: ['Indonesian', 'English']
 		},
@@ -61,8 +62,6 @@ export function buildProductSchema(params: {
 	currency?: string;
 	inStock?: boolean;
 	url: string;
-	ratingValue?: string;
-	reviewCount?: string;
 }) {
 	const {
 		name,
@@ -74,9 +73,7 @@ export function buildProductSchema(params: {
 		price,
 		currency = 'IDR',
 		inStock = true,
-		url,
-		ratingValue = '4.8',
-		reviewCount = '120'
+		url
 	} = params;
 
 	return {
@@ -94,8 +91,7 @@ export function buildProductSchema(params: {
 			priceCurrency: currency,
 			availability: `https://schema.org/${inStock ? 'InStock' : 'OutOfStock'}`,
 			url
-		},
-		aggregateRating: { '@type': 'AggregateRating', ratingValue, reviewCount }
+		}
 	};
 }
 

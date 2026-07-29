@@ -2,6 +2,7 @@ import { io, type Socket } from 'socket.io-client';
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 import type { MotorStatusUpdate, UnitMotorUpdate, ConnectionState } from '$lib/types';
+import { z } from 'zod';
 
 export const socketConnected = writable<boolean>(false);
 export const motorAvailability = writable<MotorStatusUpdate | null>(null);
@@ -10,6 +11,12 @@ export const transactionUpdate = writable<any | null>(null);
 type MotorStatusUpdateHandler = (data: MotorStatusUpdate) => void;
 type UnitMotorUpdateHandler = (data: UnitMotorUpdate) => void;
 type TransactionUpdateHandler = (data: any) => void;
+
+const MotorStatusSchema = z.object({
+	id: z.string().regex(/^\d{16,20}$/, 'Invalid ID'),
+	platNomor: z.string(),
+	message: z.string()
+});
 
 class WebSocketService {
 	private socket: Socket | null = null;
@@ -90,7 +97,9 @@ class WebSocketService {
 		if (!this.socket) return;
 
 		this.socket.on('connect', () => {
-			console.log('[Landing Socket] Connected with ID:', this.socket?.id);
+			if (import.meta.env.DEV) {
+				console.log('[Landing Socket] Connected with ID:', this.socket?.id);
+			}
 			this.updateState(true, this.socket?.id || null);
 		});
 
@@ -102,9 +111,14 @@ class WebSocketService {
 			console.error('[Landing Socket] Connection error:', error.message);
 		});
 
-		this.socket.on('motor-status-update', (data: MotorStatusUpdate) => {
-			motorAvailability.set(data);
-			this.motorStatusUpdateHandlers.forEach((handler) => handler(data));
+		this.socket.on('motor-status-update', (raw: unknown) => {
+			const parsed = MotorStatusSchema.safeParse(raw);
+			if (!parsed.success) {
+				console.warn('[WS] Rejected malformed motor-status-update:', parsed.error.issues);
+				return;
+			}
+			motorAvailability.set(parsed.data as MotorStatusUpdate);
+			this.motorStatusUpdateHandlers.forEach((handler) => handler(parsed.data as MotorStatusUpdate));
 		});
 
 		this.socket.on('unit-motor:update', (data: UnitMotorUpdate) => {
@@ -121,7 +135,9 @@ class WebSocketService {
 
 		transactionEvents.forEach((event) => {
 			this.socket?.on(event, (data) => {
-				console.log(`[Landing Socket] Event ${event} received:`, data);
+				if (import.meta.env.DEV) {
+					console.log(`[Landing Socket] Event ${event} received:`, data);
+				}
 				transactionUpdate.set({ event, data });
 				this.transactionUpdateHandlers.forEach((handler) => handler({ event, data }));
 			});

@@ -6,7 +6,7 @@ export const siteConfig = {
 	address: 'Jl. Bauksit No.90C, Malang, Jawa Timur 65142',
 	email: 'hello@rosantibike.com',
 	phone: '+62 823-2152-313',
-	whatsapp: '628123456789',
+	whatsapp: '628232152313',
 	socials: {
 		instagram: 'https://instagram.com/rosantibike',
 		facebook: 'https://facebook.com/rosantibike',

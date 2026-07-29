@@ -2,6 +2,7 @@ import api from './client';
 import { API_ENDPOINTS } from '$lib/constants';
 import type { Transaksi, PaginationMeta, PriceCalculation } from '$lib/types';
 import { formatDate } from '$lib/utils/format';
+import { z } from 'zod';
 
 export interface CreateTransaksiDto {
 	namaPenyewa: string;
@@ -15,6 +16,19 @@ export interface CreateTransaksiDto {
 	jasHujan?: number;
 	helm?: number;
 }
+
+const CreateTransaksiSchema = z.object({
+	namaPenyewa: z.string().min(2).max(100).regex(/^[\p{L}\s'-]+$/u, 'Invalid name'),
+	noWhatsapp: z.string().regex(/^628\d{8,13}$/, 'Must be Indonesian WA number (628...)'),
+	unitId: z.string().regex(/^\d{16,20}$/, 'Invalid ID').optional(),
+	jenisId: z.string().regex(/^\d{16,20}$/, 'Invalid ID').optional(),
+	tanggalMulai: z.string().date(),
+	tanggalSelesai: z.string().date(),
+	jamMulai: z.string().regex(/^\d{2}:\d{2}$/),
+	jamSelesai: z.string().regex(/^\d{2}:\d{2}$/),
+	jasHujan: z.number().int().min(0).max(10).optional(),
+	helm: z.number().int().min(0).max(10).optional()
+});
 
 export interface CalculatePriceDto {
 	unitId?: string;
@@ -48,6 +62,7 @@ export const transaksiApi = {
 	create: async (
 		transaksi: CreateTransaksiDto
 	): Promise<ProcessedTransaksi & { qrisBase64?: string }> => {
+		CreateTransaksiSchema.parse(transaksi);
 		const { data: body } = await api.post(API_ENDPOINTS.TRANSAKSI, transaksi);
 		return {
 			...processTransaksi(body.data),

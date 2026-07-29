@@ -98,7 +98,7 @@ class ApiClient {
 						if (browser) {
 							console.error(
 								'[API Error]',
-								error.response?.data?.userErrorMsg || error.response?.data?.message || error.message
+								error.response?.status ?? 'network error'
 							);
 						}
 						throw error;
