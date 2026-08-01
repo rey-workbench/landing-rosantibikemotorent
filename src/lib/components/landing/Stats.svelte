@@ -20,7 +20,7 @@
 		const observer = new IntersectionObserver(
 			(entries) => {
 				if (entries[0].isIntersecting && !visible) {
-					true;
+					visible = true;
 					const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 					if (prefersReduced) {
 						spring1.set(stats[0].value, { hard: true });
@@ -31,6 +31,7 @@
 						spring2.set(stats[1].value);
 						spring3.set(stats[2].value);
 					}
+					observer.disconnect();
 				}
 			},
 			{ threshold: 0.2 }

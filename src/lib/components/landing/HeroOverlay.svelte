@@ -12,7 +12,7 @@
 	class="absolute inset-0 pointer-events-none z-20 flex flex-col justify-center items-center text-center px-4 md:px-20 overflow-hidden pt-12"
 >
 	<div class="relative inline-block overflow-hidden py-2 sm:py-4">
-		<h2
+		<h1
 			in:fly={{ y: 30, duration: 800 }}
 			class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold text-white tracking-tight leading-[1.05]"
 		>
@@ -21,7 +21,7 @@
 					{$LL.hero_tagline_1()}
 				</span>
 			</span>
-		</h2>
+		</h1>
 
 		<p
 			in:fly={{ y: 20, duration: 800, delay: 100 }}

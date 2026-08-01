@@ -18,8 +18,10 @@ const id: BaseTranslation = {
 	nav_mega_faq: 'Pertanyaan Umum (FAQ)',
 	hero_title: 'Rosantibike',
 	hero_subtitle: 'Motorent',
+	seo_title: 'Sewa Motor Malang Murah & Premium | Rosantibike Motorent',
+	seo_description: 'Sewa motor di Malang murah & berkualitas dengan Rosantibike. Armada Honda PCX, Vario, Lexi terawat. Free helm & jas hujan. Pesan via WhatsApp now!',
 	hero_tagline: 'Sewa Motor Premium di Malang', // Digunakan oleh sistem (SEO & Meta Tags)
-	hero_tagline_1: 'Sewa Motor Malang. Jelajahi Tanpa Batas.', // Teks besar baris pertama (Untuk Perasaan & Kepercayaan)
+	hero_tagline_1: 'Sewa Motor Malang Terbaik - Armada Premium & Terawat', // Teks besar baris pertama (Untuk Perasaan & Kepercayaan)
 	hero_hook: 'Tanpa biaya tambahan kemanapun kamu mau.', // Teks deskripsi kecil
 	hero_rent_now: 'Sewa Sekarang',
 	hero_view_fleet: 'Lihat Armada',
@@ -138,7 +140,7 @@ const id: BaseTranslation = {
 	blog_read_time: 'menit baca',
 	blog_share: 'Bagikan',
 	blog_rent_now: 'Sewa Sekarang',
-	fleet_detail_back: '← Kembali ke Armada',
+	fleet_detail_back: '← Lihat Unit Sewa Motor Malang Lainnya',
 	fleet_detail_status_available: 'Tersedia',
 	fleet_detail_status_rented: 'Disewa',
 	fleet_detail_status_maintenance: 'Perawatan',
@@ -251,7 +253,18 @@ const id: BaseTranslation = {
 	fleet_empty_search_title: 'Tidak Ditemukan',
 	fleet_empty_search_desc: 'Coba atur ulang filter Anda.',
 	fleet_error_load_title: 'Gagal Memuat',
-	fleet_refresh: 'Refresh'
+	fleet_refresh: 'Refresh',
+	details_title: 'Informasi Rental & Tarif Sewa Motor Malang',
+	details_subtitle: 'Detail harga, syarat sewa, dan area layanan antar-jemput',
+	details_pricing_title: 'Pilihan Kelas Armada & Tarif Harian',
+	details_pricing_col_type: 'Tipe Motor',
+	details_pricing_col_rate: 'Tarif Harian',
+	details_pricing_col_inclusions: 'Inklusi & Fasilitas',
+	details_pricing_inclusions: '2 Helm SNI, 2 Jas Hujan, Layanan Darurat 24/7',
+	details_reqs_title: 'Syarat & Ketentuan Sewa',
+	details_reqs_list: 'Wajib memiliki SIM C aktif;Menyerahkan minimal 2 identitas asli (E-KTP, KTM, KK, Passport);Jaminan identitas disimpan selama masa sewa;Tersedia opsi delivery ke stasiun/terminal',
+	details_area_title: 'Cakupan Area Antar Jemput',
+	details_area_desc: 'Kami melayani pengantaran dan penjemputan gratis untuk lokasi-lokasi strategis di Malang:'
 };
 
 export default id;

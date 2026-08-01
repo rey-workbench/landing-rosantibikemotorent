@@ -96,7 +96,7 @@
 						{#if getMotorImage(motor)}
 							<img
 								src={getMotorImage(motor)}
-								alt={motor.model}
+								alt={`Sewa Motor ${motor.merk} ${motor.model} Malang - Rosantibike`}
 								data-fallback={getFallbackImage(motor)}
 								class="max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
 								onerror={handleImageError}
@@ -171,7 +171,7 @@
 							{#if getMotorImage(motor)}
 								<img
 									src={getMotorImage(motor)}
-									alt={motor.model}
+									alt={`Sewa Motor ${motor.merk} ${motor.model} Malang - Rosantibike`}
 									data-fallback={getFallbackImage(motor)}
 									class="w-full h-auto object-cover transition-transform duration-700 hover:scale-105"
 									onerror={handleImageError}

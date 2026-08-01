@@ -170,7 +170,7 @@
 								loading="lazy"
 								decoding="async"
 								src={jenis.gambar}
-								alt={`${jenis.merk} ${jenis.model}`}
+								alt={`Sewa Motor ${jenis.merk} ${jenis.model} Malang - Rosantibike`}
 								class="w-full h-full object-cover mix-blend-multiply"
 							/>
 						{:else}

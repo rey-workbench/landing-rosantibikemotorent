@@ -93,7 +93,7 @@
 					{#if getMotorImage(jenis)}
 						<img
 							src={getMotorImage(jenis)}
-							alt={`${jenis.merk} ${jenis.model}`}
+							alt={`Sewa Motor ${jenis.merk} ${jenis.model} Malang - Rosantibike`}
 							data-fallback={getFallbackImage(jenis)}
 							onerror={handleImageError}
 							loading="lazy"

@@ -18,8 +18,10 @@ const en: Translation = {
 	nav_mega_faq: 'Frequently Asked Questions (FAQ)',
 	hero_title: 'Rosantibike',
 	hero_subtitle: 'Motorent',
+	seo_title: 'Cheap & Premium Malang Motorcycle Rental | Rosantibike Motorent',
+	seo_description: 'Rent a motorcycle in Malang cheap & quality with Rosantibike. Well-maintained Honda PCX, Vario, Lexi. Free helmet & raincoat. Book via WhatsApp now!',
 	hero_tagline: 'Premium Motorcycle Rental in Malang', // For SEO
-	hero_tagline_1: 'Malang Motorbike Rental. Explore Without Limits.', // Visual Line 1 (Trust/Feeling)
+	hero_tagline_1: 'Malang Motorcycle Rental Best - Premium & Well-Maintained Fleet', // Visual Line 1 (Trust/Feeling)
 	hero_hook: 'No additional fees wherever you want to go.', // Subtitle
 	hero_rent_now: 'Rent Now',
 	hero_view_fleet: 'View Fleet',
@@ -137,7 +139,7 @@ const en: Translation = {
 	blog_read_time: 'min read',
 	blog_share: 'Share',
 	blog_rent_now: 'Rent Now',
-	fleet_detail_back: '← Back to Fleet',
+	fleet_detail_back: '← View Other Malang Motorcycle Rentals',
 	fleet_detail_status_available: 'Available',
 	fleet_detail_status_rented: 'Rented',
 	fleet_detail_status_maintenance: 'Under Maintenance',
@@ -250,7 +252,18 @@ const en: Translation = {
 	fleet_empty_search_title: 'Not Found',
 	fleet_empty_search_desc: 'Try resetting your filters.',
 	fleet_error_load_title: 'Failed to Load',
-	fleet_refresh: 'Refresh'
+	fleet_refresh: 'Refresh',
+	details_title: 'Malang Motorcycle Rental Information & Rates',
+	details_subtitle: 'Detailed pricing, rental requirements, and delivery area coverage',
+	details_pricing_title: 'Fleet Categories & Daily Rates',
+	details_pricing_col_type: 'Motorcycle Type',
+	details_pricing_col_rate: 'Daily Rate',
+	details_pricing_col_inclusions: 'Inclusions & Amenities',
+	details_pricing_inclusions: '2 SNI Helmets, 2 Raincoats, 24/7 Roadside Assistance',
+	details_reqs_title: 'Rental Requirements & Conditions',
+	details_reqs_list: 'Valid driver\'s license (SIM C / IDP);Provide at least 2 original IDs (E-KTP, KTM, KK, Passport);ID cards are held during the rental period;Free delivery to stations, terminals, and central hotels',
+	details_area_title: 'Free Delivery & Pickup Area Coverage',
+	details_area_desc: 'We provide free delivery and pickup service at these strategic locations in Malang:'
 };
 
 export default en;

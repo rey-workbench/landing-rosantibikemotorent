@@ -28,13 +28,28 @@ export function buildOrganizationSchema() {
 			availableLanguage: ['Indonesian', 'English']
 		},
 		sameAs: ['https://www.instagram.com/rosantibike', 'https://share.google/txOxHDzSGQxVfc1ql'],
-		priceRange: '$$',
-		openingHoursSpecification: {
-			'@type': 'OpeningHoursSpecification',
-			dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-			opens: '07:30',
-			closes: '17:00'
-		}
+		priceRange: 'Rp 80.000 - Rp 150.000',
+		geo: {
+			'@type': 'GeoCoordinates',
+			latitude: -7.9463,
+			longitude: 112.6565
+		},
+		openingHoursSpecification: [
+			{
+				'@type': 'OpeningHoursSpecification',
+				dayOfWeek: [
+					'Monday',
+					'Tuesday',
+					'Wednesday',
+					'Thursday',
+					'Friday',
+					'Saturday',
+					'Sunday'
+				],
+				opens: '08:00',
+				closes: '20:00'
+			}
+		]
 	};
 }
 

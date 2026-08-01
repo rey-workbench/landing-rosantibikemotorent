@@ -5,6 +5,7 @@
 	import FleetGrid from '$lib/components/landing/Fleet.svelte';
 	import Stats from '$lib/components/landing/Stats.svelte';
 	import Faq from '$lib/components/landing/Faq.svelte';
+	import RentalDetails from '$lib/components/landing/RentalDetails.svelte';
 	import { SeoHead } from '$lib/components/seo';
 	import { page } from '$app/state';
 	import { LL } from '$i18n/i18n-svelte';
@@ -82,8 +83,8 @@
 	{lang}
 	path="/"
 	meta={{
-		title: `${$LL.hero_title()} | ${$LL.hero_tagline()}`,
-		description: $LL.hero_tagline(),
+		title: $LL.seo_title(),
+		description: $LL.seo_description(),
 		ogType: 'website'
 	}}
 	schemas={[orgSchema, faqSchema]}
@@ -100,5 +101,6 @@
 	<AdventureMap />
 	<Stats />
 	<FleetGrid jenisMotors={data.featuredMotors} />
+	<RentalDetails {lang} />
 	<Faq {lang} />
 </div>

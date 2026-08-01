@@ -83,11 +83,19 @@ type RootTranslation = {
 	 */
 	hero_subtitle: string
 	/**
+	 * C​h​e​a​p​ ​&​ ​P​r​e​m​i​u​m​ ​M​a​l​a​n​g​ ​M​o​t​o​r​c​y​c​l​e​ ​R​e​n​t​a​l​ ​|​ ​R​o​s​a​n​t​i​b​i​k​e​ ​M​o​t​o​r​e​n​t
+	 */
+	seo_title: string
+	/**
+	 * R​e​n​t​ ​a​ ​m​o​t​o​r​c​y​c​l​e​ ​i​n​ ​M​a​l​a​n​g​ ​c​h​e​a​p​ ​&​ ​q​u​a​l​i​t​y​ ​w​i​t​h​ ​R​o​s​a​n​t​i​b​i​k​e​.​ ​W​e​l​l​-​m​a​i​n​t​a​i​n​e​d​ ​H​o​n​d​a​ ​P​C​X​,​ ​V​a​r​i​o​,​ ​L​e​x​i​.​ ​F​r​e​e​ ​h​e​l​m​e​t​ ​&​ ​r​a​i​n​c​o​a​t​.​ ​B​o​o​k​ ​v​i​a​ ​W​h​a​t​s​A​p​p​ ​n​o​w​!
+	 */
+	seo_description: string
+	/**
 	 * P​r​e​m​i​u​m​ ​M​o​t​o​r​c​y​c​l​e​ ​R​e​n​t​a​l​ ​i​n​ ​M​a​l​a​n​g
 	 */
 	hero_tagline: string
 	/**
-	 * M​a​l​a​n​g​ ​M​o​t​o​r​b​i​k​e​ ​R​e​n​t​a​l​.​ ​E​x​p​l​o​r​e​ ​W​i​t​h​o​u​t​ ​L​i​m​i​t​s​.
+	 * M​a​l​a​n​g​ ​M​o​t​o​r​c​y​c​l​e​ ​R​e​n​t​a​l​ ​B​e​s​t​ ​-​ ​P​r​e​m​i​u​m​ ​&​ ​W​e​l​l​-​M​a​i​n​t​a​i​n​e​d​ ​F​l​e​e​t
 	 */
 	hero_tagline_1: string
 	/**
@@ -507,7 +515,7 @@ type RootTranslation = {
 	 */
 	blog_rent_now: string
 	/**
-	 * ←​ ​B​a​c​k​ ​t​o​ ​F​l​e​e​t
+	 * ←​ ​V​i​e​w​ ​O​t​h​e​r​ ​M​a​l​a​n​g​ ​M​o​t​o​r​c​y​c​l​e​ ​R​e​n​t​a​l​s
 	 */
 	fleet_detail_back: string
 	/**
@@ -951,6 +959,50 @@ type RootTranslation = {
 	 * R​e​f​r​e​s​h
 	 */
 	fleet_refresh: string
+	/**
+	 * M​a​l​a​n​g​ ​M​o​t​o​r​c​y​c​l​e​ ​R​e​n​t​a​l​ ​I​n​f​o​r​m​a​t​i​o​n​ ​&​ ​R​a​t​e​s
+	 */
+	details_title: string
+	/**
+	 * D​e​t​a​i​l​e​d​ ​p​r​i​c​i​n​g​,​ ​r​e​n​t​a​l​ ​r​e​q​u​i​r​e​m​e​n​t​s​,​ ​a​n​d​ ​d​e​l​i​v​e​r​y​ ​a​r​e​a​ ​c​o​v​e​r​a​g​e
+	 */
+	details_subtitle: string
+	/**
+	 * F​l​e​e​t​ ​C​a​t​e​g​o​r​i​e​s​ ​&​ ​D​a​i​l​y​ ​R​a​t​e​s
+	 */
+	details_pricing_title: string
+	/**
+	 * M​o​t​o​r​c​y​c​l​e​ ​T​y​p​e
+	 */
+	details_pricing_col_type: string
+	/**
+	 * D​a​i​l​y​ ​R​a​t​e
+	 */
+	details_pricing_col_rate: string
+	/**
+	 * I​n​c​l​u​s​i​o​n​s​ ​&​ ​A​m​e​n​i​t​i​e​s
+	 */
+	details_pricing_col_inclusions: string
+	/**
+	 * 2​ ​S​N​I​ ​H​e​l​m​e​t​s​,​ ​2​ ​R​a​i​n​c​o​a​t​s​,​ ​2​4​/​7​ ​R​o​a​d​s​i​d​e​ ​A​s​s​i​s​t​a​n​c​e
+	 */
+	details_pricing_inclusions: string
+	/**
+	 * R​e​n​t​a​l​ ​R​e​q​u​i​r​e​m​e​n​t​s​ ​&​ ​C​o​n​d​i​t​i​o​n​s
+	 */
+	details_reqs_title: string
+	/**
+	 * V​a​l​i​d​ ​d​r​i​v​e​r​'​s​ ​l​i​c​e​n​s​e​ ​(​S​I​M​ ​C​ ​/​ ​I​D​P​)​;​P​r​o​v​i​d​e​ ​a​t​ ​l​e​a​s​t​ ​2​ ​o​r​i​g​i​n​a​l​ ​I​D​s​ ​(​E​-​K​T​P​,​ ​K​T​M​,​ ​K​K​,​ ​P​a​s​s​p​o​r​t​)​;​I​D​ ​c​a​r​d​s​ ​a​r​e​ ​h​e​l​d​ ​d​u​r​i​n​g​ ​t​h​e​ ​r​e​n​t​a​l​ ​p​e​r​i​o​d​;​F​r​e​e​ ​d​e​l​i​v​e​r​y​ ​t​o​ ​s​t​a​t​i​o​n​s​,​ ​t​e​r​m​i​n​a​l​s​,​ ​a​n​d​ ​c​e​n​t​r​a​l​ ​h​o​t​e​l​s
+	 */
+	details_reqs_list: string
+	/**
+	 * F​r​e​e​ ​D​e​l​i​v​e​r​y​ ​&​ ​P​i​c​k​u​p​ ​A​r​e​a​ ​C​o​v​e​r​a​g​e
+	 */
+	details_area_title: string
+	/**
+	 * W​e​ ​p​r​o​v​i​d​e​ ​f​r​e​e​ ​d​e​l​i​v​e​r​y​ ​a​n​d​ ​p​i​c​k​u​p​ ​s​e​r​v​i​c​e​ ​a​t​ ​t​h​e​s​e​ ​s​t​r​a​t​e​g​i​c​ ​l​o​c​a​t​i​o​n​s​ ​i​n​ ​M​a​l​a​n​g​:
+	 */
+	details_area_desc: string
 }
 
 export type TranslationFunctions = {
@@ -1023,11 +1075,19 @@ export type TranslationFunctions = {
 	 */
 	hero_subtitle: () => LocalizedString
 	/**
+	 * Cheap & Premium Malang Motorcycle Rental | Rosantibike Motorent
+	 */
+	seo_title: () => LocalizedString
+	/**
+	 * Rent a motorcycle in Malang cheap & quality with Rosantibike. Well-maintained Honda PCX, Vario, Lexi. Free helmet & raincoat. Book via WhatsApp now!
+	 */
+	seo_description: () => LocalizedString
+	/**
 	 * Premium Motorcycle Rental in Malang
 	 */
 	hero_tagline: () => LocalizedString
 	/**
-	 * Malang Motorbike Rental. Explore Without Limits.
+	 * Malang Motorcycle Rental Best - Premium & Well-Maintained Fleet
 	 */
 	hero_tagline_1: () => LocalizedString
 	/**
@@ -1447,7 +1507,7 @@ export type TranslationFunctions = {
 	 */
 	blog_rent_now: () => LocalizedString
 	/**
-	 * ← Back to Fleet
+	 * ← View Other Malang Motorcycle Rentals
 	 */
 	fleet_detail_back: () => LocalizedString
 	/**
@@ -1886,6 +1946,50 @@ export type TranslationFunctions = {
 	 * Refresh
 	 */
 	fleet_refresh: () => LocalizedString
+	/**
+	 * Malang Motorcycle Rental Information & Rates
+	 */
+	details_title: () => LocalizedString
+	/**
+	 * Detailed pricing, rental requirements, and delivery area coverage
+	 */
+	details_subtitle: () => LocalizedString
+	/**
+	 * Fleet Categories & Daily Rates
+	 */
+	details_pricing_title: () => LocalizedString
+	/**
+	 * Motorcycle Type
+	 */
+	details_pricing_col_type: () => LocalizedString
+	/**
+	 * Daily Rate
+	 */
+	details_pricing_col_rate: () => LocalizedString
+	/**
+	 * Inclusions & Amenities
+	 */
+	details_pricing_col_inclusions: () => LocalizedString
+	/**
+	 * 2 SNI Helmets, 2 Raincoats, 24/7 Roadside Assistance
+	 */
+	details_pricing_inclusions: () => LocalizedString
+	/**
+	 * Rental Requirements & Conditions
+	 */
+	details_reqs_title: () => LocalizedString
+	/**
+	 * Valid driver's license (SIM C / IDP);Provide at least 2 original IDs (E-KTP, KTM, KK, Passport);ID cards are held during the rental period;Free delivery to stations, terminals, and central hotels
+	 */
+	details_reqs_list: () => LocalizedString
+	/**
+	 * Free Delivery & Pickup Area Coverage
+	 */
+	details_area_title: () => LocalizedString
+	/**
+	 * We provide free delivery and pickup service at these strategic locations in Malang:
+	 */
+	details_area_desc: () => LocalizedString
 }
 
 export type Formatters = {}
