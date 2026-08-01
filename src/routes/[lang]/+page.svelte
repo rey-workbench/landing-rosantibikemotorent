@@ -9,7 +9,7 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { page } from '$app/state';
 	import { LL } from '$i18n/i18n-svelte';
-	import { buildFaqSchema, buildOrganizationSchema } from '$lib/seo/schema';
+	import { buildFaqSchema, buildOrganizationSchema, buildWebsiteSchema } from '$lib/seo/schema';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -18,6 +18,7 @@
 	const currentUrl = $derived(page.url.href);
 
 	const orgSchema = $derived(buildOrganizationSchema());
+	const webSchema = $derived(buildWebsiteSchema());
 	const faqSchema = $derived(
 		buildFaqSchema(
 			lang === 'en'
@@ -87,7 +88,7 @@
 		description: $LL.seo_description(),
 		ogType: 'website'
 	}}
-	schemas={[orgSchema, faqSchema]}
+	schemas={[orgSchema, webSchema, faqSchema]}
 />
 
 <!-- Hero / video background -->

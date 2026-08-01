@@ -1,33 +1,43 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
+	let { lang }: { lang?: string } = $props();
 
 	// Split requirements list by semicolon
 	const reqList = $derived($LL.details_reqs_list().split(';'));
 
 	const pricingMatrix = [
 		{
-			type: 'Matic Standar (110cc - 125cc)',
-			models: 'Honda Beat, Honda Scoopy, Yamaha Fazzio, Honda Vario 125',
-			rate: 'Rp 80.000 - Rp 95.000'
+			type: 'Yamaha Soul GT',
+			capacity: '125 cc',
+			rate: 'Rp 80.000',
+			route: 'Dalam Kota Malang & Batu'
 		},
 		{
-			type: 'Matic Premium / Maxi (150cc - 160cc)',
-			models: 'Honda PCX 160, Yamaha NMAX, Yamaha Aerox, Honda Vario 160',
-			rate: 'Rp 110.000 - Rp 135.000'
+			type: 'Honda Vario 150',
+			capacity: '150 cc',
+			rate: 'Rp 120.000',
+			route: 'Malang, Batu, & Pegunungan'
 		},
 		{
-			type: 'Sport & Maxi Premium',
-			models: 'Vespa Sprint 150, Honda ADV 160, Kawasaki W175',
-			rate: 'Rp 140.000 - Rp 150.000'
+			type: 'Yamaha Lexi',
+			capacity: '125 cc',
+			rate: 'Rp 125.000',
+			route: 'Tour Santai Kota & Kuliner'
+		},
+		{
+			type: 'Honda PCX 160',
+			capacity: '160 cc',
+			rate: 'Rp 150.000',
+			route: 'Long Trip / Bromo Tour'
 		}
 	];
 
 	const locations = [
 		{ name: 'Stasiun Malang (Kota Baru)', desc: 'Gratis delivery & pickup dekat pintu stasiun utama.' },
-		{ name: 'Purwantoro / Bauksit Hub', desc: 'Lokasi garasi utama dekat pusat perkantoran Malang.' },
-		{ name: 'Universitas Brawijaya (UB) & UM', desc: 'Layanan antar jemput cepat ke area kampus.' },
 		{ name: 'Terminal Arjosari', desc: 'Pengantaran armada langsung ke terminal bus Malang.' },
-		{ name: 'Rute Wisata Kota Batu', desc: 'Titik awal perjalanan ke Batu, Bromo & sekitarnya.' }
+		{ name: 'Universitas Brawijaya (UB)', desc: 'Layanan antar jemput cepat ke area kampus.' },
+		{ name: 'Kota Wisata Batu', desc: 'Titik awal perjalanan wisata keluarga.' },
+		{ name: 'Gunung Bromo & Tumpak Sewu', desc: 'Konsultasikan rute pegunungan dengan armada khusus.' }
 	];
 </script>
 
@@ -46,27 +56,30 @@
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
 			<!-- Table / Pricing Matrix (Takes 2 cols on desktop) -->
 			<div class="lg:col-span-2 space-y-6">
-				<h3 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
+				<h2 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
 					{$LL.details_pricing_title()}
-				</h3>
+				</h2>
 				<div class="overflow-x-auto rounded-3xl border border-black/5 bg-[#f5f5f7] p-4 sm:p-6">
-					<table class="w-full text-left border-collapse">
+					<table class="w-full text-left border-collapse min-w-150">
 						<thead>
 							<tr class="border-b border-black/10 text-xs font-semibold uppercase tracking-wider text-[#86868b]">
 								<th class="py-4 px-4">{$LL.details_pricing_col_type()}</th>
+								<th class="py-4 px-4">Kapasitas Mesin</th>
 								<th class="py-4 px-4">{$LL.details_pricing_col_rate()}</th>
 								<th class="py-4 px-4">{$LL.details_pricing_col_inclusions()}</th>
+								<th class="py-4 px-4">Peruntukan Rute</th>
 							</tr>
 						</thead>
 						<tbody class="divide-y divide-black/5 text-[#1d1d1f]">
 							{#each pricingMatrix as item}
 								<tr class="transition-colors hover:bg-black/2">
 									<td class="py-5 px-4 font-semibold">
-										{item.type}
-										<span class="block text-xs font-normal text-[#86868b] mt-1">{item.models}</span>
+										<h3 class="text-sm font-bold m-0 p-0 text-[#1d1d1f]">{item.type}</h3>
 									</td>
-									<td class="py-5 px-4 font-bold text-[#0071e3] whitespace-nowrap">{item.rate} <span class="text-xs font-normal text-[#86868b]">/ hari</span></td>
+									<td class="py-5 px-4 text-sm font-medium">{item.capacity}</td>
+									<td class="py-5 px-4 font-bold text-[#0071e3] whitespace-nowrap">{item.rate}</td>
 									<td class="py-5 px-4 text-sm text-[#86868b]">{$LL.details_pricing_inclusions()}</td>
+									<td class="py-5 px-4 text-sm font-medium">{item.route}</td>
 								</tr>
 							{/each}
 						</tbody>
@@ -78,9 +91,9 @@
 			<div class="space-y-12">
 				<!-- Requirements -->
 				<div class="space-y-6">
-					<h3 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
+					<h2 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
 						{$LL.details_reqs_title()}
-					</h3>
+					</h2>
 					<ul class="space-y-4">
 						{#each reqList as req}
 							<li class="flex items-start gap-3 text-base text-[#1d1d1f]">
@@ -95,9 +108,9 @@
 
 				<!-- Locations -->
 				<div class="space-y-6">
-					<h3 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
+					<h2 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
 						{$LL.details_area_title()}
-					</h3>
+					</h2>
 					<p class="text-sm text-[#86868b]">
 						{$LL.details_area_desc()}
 					</p>

@@ -26,17 +26,32 @@
 			<p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#86868b] mb-3">
 				Experience The Ride
 			</p>
-			<h3
-				class="text-5xl md:text-6xl lg:text-7xl font-bold text-[#1d1d1f] tracking-tight leading-tight mb-6"
+			<h2
+				class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight leading-tight mb-6"
 			>
 				{$LL.why_heading()} <br />
 				<span class="text-[#86868b]">
 					{$LL.why_heading_highlight()}
 				</span>
-			</h3>
+			</h2>
 			<p class="text-[#86868b] text-xl md:text-2xl font-normal leading-relaxed max-w-lg mb-8">
 				{$LL.why_desc()}
 			</p>
+
+			<div class="space-y-6 max-w-lg mt-8">
+				<div class="flex flex-col">
+					<h3 class="text-lg font-bold text-[#1d1d1f] tracking-tight">{$LL.why_unit_title()}</h3>
+					<p class="text-base text-[#86868b]">{$LL.why_unit_desc()}</p>
+				</div>
+				<div class="flex flex-col">
+					<h3 class="text-lg font-bold text-[#1d1d1f] tracking-tight">{$LL.why_delivery_title()}</h3>
+					<p class="text-base text-[#86868b]">{$LL.why_delivery_desc()}</p>
+				</div>
+				<div class="flex flex-col">
+					<h3 class="text-lg font-bold text-[#1d1d1f] tracking-tight">{$LL.why_price_title()}</h3>
+					<p class="text-base text-[#86868b]">{$LL.why_price_desc()}</p>
+				</div>
+			</div>
 		</div>
 
 		<!-- Right: Video -->

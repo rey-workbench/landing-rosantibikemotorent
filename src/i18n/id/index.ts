@@ -18,10 +18,10 @@ const id: BaseTranslation = {
 	nav_mega_faq: 'Pertanyaan Umum (FAQ)',
 	hero_title: 'Rosantibike',
 	hero_subtitle: 'Motorent',
-	seo_title: 'Sewa Motor Malang Murah & Premium | Rosantibike Motorent',
-	seo_description: 'Sewa motor di Malang murah & berkualitas dengan Rosantibike. Armada Honda PCX, Vario, Lexi terawat. Free helm & jas hujan. Pesan via WhatsApp now!',
+	seo_title: 'Rosantibike Motorent - Sewa Motor Malang Murah & Premium',
+	seo_description: 'Sewa motor Malang murah mulai Rp 80rb/hari. Unit Vario, PCX, Lexi & NMax terawat. Gratis 2 helm & jas hujan + layanan antar jemput. Pesan via WA sekarang!',
 	hero_tagline: 'Sewa Motor Premium di Malang', // Digunakan oleh sistem (SEO & Meta Tags)
-	hero_tagline_1: 'Sewa Motor Malang Terbaik - Armada Premium & Terawat', // Teks besar baris pertama (Untuk Perasaan & Kepercayaan)
+	hero_tagline_1: 'Sewa Motor Malang Murah & Rental Motor Premium — Rosantibike Motorent', // Teks besar baris pertama (Untuk Perasaan & Kepercayaan)
 	hero_hook: 'Tanpa biaya tambahan kemanapun kamu mau.', // Teks deskripsi kecil
 	hero_rent_now: 'Sewa Sekarang',
 	hero_view_fleet: 'Lihat Armada',
@@ -36,17 +36,17 @@ const id: BaseTranslation = {
 	hero_scroll: 'Gulir',
 
 	why_title: 'Keunggulan Rosanti',
-	why_heading: 'Dirancang untuk',
-	why_heading_highlight: 'Kesempurnaan.',
+	why_heading: 'Mengapa Memilih Sewa Motor di',
+	why_heading_highlight: 'Rosantibike Malang?',
 	why_desc:
 		'Rasakan sensasi berkendara yang berbeda dengan armada premium kami. Setiap detail diperhatikan demi kepuasan Anda.',
 	why_price_title: 'Harga Terbaik',
 	why_price_desc:
 		'Tarif sewa kompetitif mulai dari 75rb/24 jam. Hemat budget liburanmu tanpa kompromi kualitas.',
-	why_unit_title: 'Unit Terawat',
+	why_unit_title: 'Armada Terbaru & Terawat Routine',
 	why_unit_desc:
 		'Setiap motor melalui pengecekan rutin standar bengkel resmi. Dijamin prima & aman.',
-	why_delivery_title: 'Antar Jemput Gratis',
+	why_delivery_title: 'Layanan Antar Jemput Unit di Kota Malang',
 	why_delivery_desc:
 		'Layanan antar jemput gratis ke Stasiun, Terminal, dan Hotel di area Malang Kota.',
 	adventure_title: 'Pilih Petualanganmu',
@@ -254,14 +254,14 @@ const id: BaseTranslation = {
 	fleet_empty_search_desc: 'Coba atur ulang filter Anda.',
 	fleet_error_load_title: 'Gagal Memuat',
 	fleet_refresh: 'Refresh',
-	details_title: 'Informasi Rental & Tarif Sewa Motor Malang',
+	details_title: 'Pilihan Armada & Price List Sewa Motor Malang',
 	details_subtitle: 'Detail harga, syarat sewa, dan area layanan antar-jemput',
 	details_pricing_title: 'Pilihan Kelas Armada & Tarif Harian',
-	details_pricing_col_type: 'Tipe Motor',
-	details_pricing_col_rate: 'Tarif Harian',
-	details_pricing_col_inclusions: 'Inklusi & Fasilitas',
+	details_pricing_col_type: 'Model Motor',
+	details_pricing_col_rate: 'Harga / 24 Jam',
+	details_pricing_col_inclusions: 'Fasilitas Included',
 	details_pricing_inclusions: '2 Helm SNI, 2 Jas Hujan, Layanan Darurat 24/7',
-	details_reqs_title: 'Syarat & Ketentuan Sewa',
+	details_reqs_title: 'Syarat & Ketentuan Sewa Motor Malang',
 	details_reqs_list: 'Wajib memiliki SIM C aktif;Menyerahkan minimal 2 identitas asli (E-KTP, KTM, KK, Passport);Jaminan identitas disimpan selama masa sewa;Tersedia opsi delivery ke stasiun/terminal',
 	details_area_title: 'Cakupan Area Antar Jemput',
 	details_area_desc: 'Kami melayani pengantaran dan penjemputan gratis untuk lokasi-lokasi strategis di Malang:'

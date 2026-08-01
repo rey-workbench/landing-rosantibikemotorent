@@ -2,6 +2,15 @@ import type { BreadcrumbItem, FaqItem, SupportedLocale } from './types';
 import { BASE_URL, SITE_NAME } from './types';
 import { siteConfig } from '$lib/config';
 
+export function buildWebsiteSchema() {
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: SITE_NAME,
+		url: `${BASE_URL}/`
+	};
+}
+
 export function buildOrganizationSchema() {
 	return {
 		'@context': 'https://schema.org',
@@ -11,7 +20,8 @@ export function buildOrganizationSchema() {
 		url: BASE_URL,
 		logo: `${BASE_URL}/favicon.svg`,
 		description:
-			'Premium motorcycle rental service in Malang, East Java, Indonesia. Well-maintained units, 24/7 service, and free delivery to stations, terminals, and hotels.',
+			'Penyedia layanan sewa motor murah dan rental motor premium di Malang. Menyediakan armada Beat, Vario, Lexi, dan PCX dengan fasilitas 2 helm dan jas hujan.',
+		email: 'hello@rosantibike.com',
 		areaServed: { '@type': 'City', name: 'Malang' },
 		address: {
 			'@type': 'PostalAddress',
@@ -46,8 +56,8 @@ export function buildOrganizationSchema() {
 					'Saturday',
 					'Sunday'
 				],
-				opens: '08:00',
-				closes: '20:00'
+				opens: '06:00',
+				closes: '22:00'
 			}
 		]
 	};

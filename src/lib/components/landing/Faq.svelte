@@ -65,9 +65,9 @@
 <section class="py-24 md:py-36 relative z-10 border-t border-black/5 bg-white">
 	<div class="container mx-auto px-6 md:px-10 max-w-245">
 		<div class="text-left md:text-center mb-16">
-			<h3 class="text-5xl md:text-7xl font-bold text-[#1d1d1f] tracking-tight leading-tight">
-				{lang === 'en' ? 'Frequently Asked Questions.' : 'Pertanyaan Umum.'}
-			</h3>
+			<h2 class="text-4xl md:text-6xl font-bold text-[#1d1d1f] tracking-tight leading-tight">
+				{lang === 'en' ? 'Frequently Asked Questions.' : 'Pertanyaan Umum (FAQ) Sewa Motor Malang'}
+			</h2>
 		</div>
 
 		<div class="divide-y divide-black/10 border-y border-black/10">
