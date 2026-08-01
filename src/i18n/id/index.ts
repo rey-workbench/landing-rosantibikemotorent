@@ -21,7 +21,8 @@ const id: BaseTranslation = {
 	seo_title: 'Rosantibike Motorent - Sewa Motor Malang Murah & Premium',
 	seo_description: 'Sewa motor Malang murah mulai Rp 80rb/hari. Unit Vario, PCX, Lexi & NMax terawat. Gratis 2 helm & jas hujan + layanan antar jemput. Pesan via WA sekarang!',
 	hero_tagline: 'Sewa Motor Premium di Malang', // Digunakan oleh sistem (SEO & Meta Tags)
-	hero_tagline_1: 'Sewa Motor Malang Murah & Rental Motor Premium — Rosantibike Motorent', // Teks besar baris pertama (Untuk Perasaan & Kepercayaan)
+	hero_tagline_1: 'Sewa Motor Malang Murah & Premium', // Teks besar baris pertama (Untuk Perasaan & Kepercayaan)
+	hero_tagline_2: 'Harga Terjangkau & Pelayanan Terbaik.', // Teks besar baris kedua (Opsional)
 	hero_hook: 'Tanpa biaya tambahan kemanapun kamu mau.', // Teks deskripsi kecil
 	hero_rent_now: 'Sewa Sekarang',
 	hero_view_fleet: 'Lihat Armada',
@@ -42,7 +43,7 @@ const id: BaseTranslation = {
 		'Rasakan sensasi berkendara yang berbeda dengan armada premium kami. Setiap detail diperhatikan demi kepuasan Anda.',
 	why_price_title: 'Harga Terbaik',
 	why_price_desc:
-		'Tarif sewa kompetitif mulai dari 75rb/24 jam. Hemat budget liburanmu tanpa kompromi kualitas.',
+		'Tarif sewa kompetitif mulai dari 80rb/24 jam. Hemat budget liburanmu tanpa kompromi kualitas.',
 	why_unit_title: 'Armada Terbaru & Terawat Routine',
 	why_unit_desc:
 		'Setiap motor melalui pengecekan rutin standar bengkel resmi. Dijamin prima & aman.',
@@ -264,7 +265,21 @@ const id: BaseTranslation = {
 	details_reqs_title: 'Syarat & Ketentuan Sewa Motor Malang',
 	details_reqs_list: 'Wajib memiliki SIM C aktif;Menyerahkan minimal 2 identitas asli (E-KTP, KTM, KK, Passport);Jaminan identitas disimpan selama masa sewa;Tersedia opsi delivery ke stasiun/terminal',
 	details_area_title: 'Cakupan Area Antar Jemput',
-	details_area_desc: 'Kami melayani pengantaran dan penjemputan gratis untuk lokasi-lokasi strategis di Malang:'
+	details_area_desc: 'Kami melayani pengantaran dan penjemputan gratis untuk lokasi-lokasi strategis di Malang:',
+	details_pricing_col_capacity: 'Kapasitas Mesin',
+	details_pricing_col_route: 'Peruntukan Rute',
+	route_city: 'Dalam Kota Malang & Batu',
+	route_all: 'Batu, Bromo, Tumpak Sewu, Tanjakan & Perjalanan Jauh',
+	loc_stasiun_name: 'Stasiun Malang (Kota Baru)',
+	loc_stasiun_desc: 'Gratis delivery & pickup dekat pintu stasiun utama.',
+	loc_terminal_name: 'Terminal Arjosari',
+	loc_terminal_desc: 'Pengantaran armada langsung ke terminal bus Malang.',
+	loc_ub_name: 'Universitas Brawijaya (UB)',
+	loc_ub_desc: 'Layanan antar jemput cepat ke area kampus.',
+	loc_batu_name: 'Kota Wisata Batu',
+	loc_batu_desc: 'Titik awal perjalanan wisata keluarga.',
+	loc_bromo_name: 'Gunung Bromo & Tumpak Sewu',
+	loc_bromo_desc: 'Konsultasikan rute pegunungan dengan armada khusus.'
 };
 
 export default id;

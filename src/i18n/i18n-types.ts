@@ -1003,6 +1003,62 @@ type RootTranslation = {
 	 * W​e​ ​p​r​o​v​i​d​e​ ​f​r​e​e​ ​d​e​l​i​v​e​r​y​ ​a​n​d​ ​p​i​c​k​u​p​ ​s​e​r​v​i​c​e​ ​a​t​ ​t​h​e​s​e​ ​s​t​r​a​t​e​g​i​c​ ​l​o​c​a​t​i​o​n​s​ ​i​n​ ​M​a​l​a​n​g​:
 	 */
 	details_area_desc: string
+	/**
+	 * E​n​g​i​n​e​ ​C​a​p​a​c​i​t​y
+	 */
+	details_pricing_col_capacity: string
+	/**
+	 * R​o​u​t​e​ ​S​u​i​t​a​b​i​l​i​t​y
+	 */
+	details_pricing_col_route: string
+	/**
+	 * M​a​l​a​n​g​ ​C​i​t​y​ ​&​ ​B​a​t​u​ ​A​r​e​a
+	 */
+	route_city: string
+	/**
+	 * B​a​t​u​,​ ​B​r​o​m​o​,​ ​T​u​m​p​a​k​ ​S​e​w​u​,​ ​U​p​h​i​l​l​ ​&​ ​L​o​n​g​ ​T​r​i​p​s
+	 */
+	route_all: string
+	/**
+	 * M​a​l​a​n​g​ ​S​t​a​t​i​o​n​ ​(​K​o​t​a​ ​B​a​r​u​)
+	 */
+	loc_stasiun_name: string
+	/**
+	 * F​r​e​e​ ​d​e​l​i​v​e​r​y​ ​&​ ​p​i​c​k​u​p​ ​n​e​a​r​ ​t​h​e​ ​m​a​i​n​ ​s​t​a​t​i​o​n​ ​e​n​t​r​a​n​c​e​.
+	 */
+	loc_stasiun_desc: string
+	/**
+	 * A​r​j​o​s​a​r​i​ ​T​e​r​m​i​n​a​l
+	 */
+	loc_terminal_name: string
+	/**
+	 * D​i​r​e​c​t​ ​f​l​e​e​t​ ​d​e​l​i​v​e​r​y​ ​t​o​ ​t​h​e​ ​M​a​l​a​n​g​ ​b​u​s​ ​t​e​r​m​i​n​a​l​.
+	 */
+	loc_terminal_desc: string
+	/**
+	 * B​r​a​w​i​j​a​y​a​ ​U​n​i​v​e​r​s​i​t​y​ ​(​U​B​)
+	 */
+	loc_ub_name: string
+	/**
+	 * F​a​s​t​ ​d​e​l​i​v​e​r​y​ ​a​n​d​ ​p​i​c​k​u​p​ ​s​e​r​v​i​c​e​ ​t​o​ ​t​h​e​ ​c​a​m​p​u​s​ ​a​r​e​a​.
+	 */
+	loc_ub_desc: string
+	/**
+	 * B​a​t​u​ ​T​o​u​r​i​s​m​ ​C​i​t​y
+	 */
+	loc_batu_name: string
+	/**
+	 * T​h​e​ ​p​e​r​f​e​c​t​ ​s​t​a​r​t​i​n​g​ ​p​o​i​n​t​ ​f​o​r​ ​y​o​u​r​ ​f​a​m​i​l​y​ ​v​a​c​a​t​i​o​n​.
+	 */
+	loc_batu_desc: string
+	/**
+	 * M​o​u​n​t​ ​B​r​o​m​o​ ​&​ ​T​u​m​p​a​k​ ​S​e​w​u
+	 */
+	loc_bromo_name: string
+	/**
+	 * C​o​n​s​u​l​t​ ​o​u​r​ ​t​e​a​m​ ​f​o​r​ ​s​p​e​c​i​a​l​i​z​e​d​ ​m​o​u​n​t​a​i​n​ ​f​l​e​e​t​ ​r​o​u​t​e​s​.
+	 */
+	loc_bromo_desc: string
 }
 
 export type TranslationFunctions = {
@@ -1990,6 +2046,62 @@ export type TranslationFunctions = {
 	 * We provide free delivery and pickup service at these strategic locations in Malang:
 	 */
 	details_area_desc: () => LocalizedString
+	/**
+	 * Engine Capacity
+	 */
+	details_pricing_col_capacity: () => LocalizedString
+	/**
+	 * Route Suitability
+	 */
+	details_pricing_col_route: () => LocalizedString
+	/**
+	 * Malang City & Batu Area
+	 */
+	route_city: () => LocalizedString
+	/**
+	 * Batu, Bromo, Tumpak Sewu, Uphill & Long Trips
+	 */
+	route_all: () => LocalizedString
+	/**
+	 * Malang Station (Kota Baru)
+	 */
+	loc_stasiun_name: () => LocalizedString
+	/**
+	 * Free delivery & pickup near the main station entrance.
+	 */
+	loc_stasiun_desc: () => LocalizedString
+	/**
+	 * Arjosari Terminal
+	 */
+	loc_terminal_name: () => LocalizedString
+	/**
+	 * Direct fleet delivery to the Malang bus terminal.
+	 */
+	loc_terminal_desc: () => LocalizedString
+	/**
+	 * Brawijaya University (UB)
+	 */
+	loc_ub_name: () => LocalizedString
+	/**
+	 * Fast delivery and pickup service to the campus area.
+	 */
+	loc_ub_desc: () => LocalizedString
+	/**
+	 * Batu Tourism City
+	 */
+	loc_batu_name: () => LocalizedString
+	/**
+	 * The perfect starting point for your family vacation.
+	 */
+	loc_batu_desc: () => LocalizedString
+	/**
+	 * Mount Bromo & Tumpak Sewu
+	 */
+	loc_bromo_name: () => LocalizedString
+	/**
+	 * Consult our team for specialized mountain fleet routes.
+	 */
+	loc_bromo_desc: () => LocalizedString
 }
 
 export type Formatters = {}

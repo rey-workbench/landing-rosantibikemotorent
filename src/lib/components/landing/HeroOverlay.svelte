@@ -14,7 +14,7 @@
 	<div class="relative inline-block overflow-hidden py-2 sm:py-4">
 		<h1
 			in:fly={{ y: 30, duration: 800 }}
-			class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold text-white tracking-tight leading-[1.05]"
+			class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-white tracking-tight leading-[1.05]"
 		>
 			<span class="block relative">
 				<span class="text-transparent bg-clip-text bg-linear-to-b from-white via-white to-white/70">

@@ -5,40 +5,40 @@
 	// Split requirements list by semicolon
 	const reqList = $derived($LL.details_reqs_list().split(';'));
 
-	const pricingMatrix = [
+	const pricingMatrix = $derived([
 		{
 			type: 'Yamaha Soul GT',
 			capacity: '125 cc',
 			rate: 'Rp 80.000',
-			route: 'Dalam Kota Malang & Batu'
+			route: $LL.route_city()
 		},
 		{
 			type: 'Honda Vario 150',
 			capacity: '150 cc',
 			rate: 'Rp 120.000',
-			route: 'Malang, Batu, & Pegunungan'
+			route: $LL.route_all()
 		},
 		{
 			type: 'Yamaha Lexi',
 			capacity: '125 cc',
 			rate: 'Rp 125.000',
-			route: 'Tour Santai Kota & Kuliner'
+			route: $LL.route_all()
 		},
 		{
 			type: 'Honda PCX 160',
 			capacity: '160 cc',
 			rate: 'Rp 150.000',
-			route: 'Long Trip / Bromo Tour'
+			route: $LL.route_all()
 		}
-	];
+	]);
 
-	const locations = [
-		{ name: 'Stasiun Malang (Kota Baru)', desc: 'Gratis delivery & pickup dekat pintu stasiun utama.' },
-		{ name: 'Terminal Arjosari', desc: 'Pengantaran armada langsung ke terminal bus Malang.' },
-		{ name: 'Universitas Brawijaya (UB)', desc: 'Layanan antar jemput cepat ke area kampus.' },
-		{ name: 'Kota Wisata Batu', desc: 'Titik awal perjalanan wisata keluarga.' },
-		{ name: 'Gunung Bromo & Tumpak Sewu', desc: 'Konsultasikan rute pegunungan dengan armada khusus.' }
-	];
+	const locations = $derived([
+		{ name: $LL.loc_stasiun_name(), desc: $LL.loc_stasiun_desc() },
+		{ name: $LL.loc_terminal_name(), desc: $LL.loc_terminal_desc() },
+		{ name: $LL.loc_ub_name(), desc: $LL.loc_ub_desc() },
+		{ name: $LL.loc_batu_name(), desc: $LL.loc_batu_desc() },
+		{ name: $LL.loc_bromo_name(), desc: $LL.loc_bromo_desc() }
+	]);
 </script>
 
 <section class="py-24 md:py-36 relative bg-white z-20 border-t border-black/5">
@@ -53,21 +53,21 @@
 			</p>
 		</div>
 
-		<div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-			<!-- Table / Pricing Matrix (Takes 2 cols on desktop) -->
-			<div class="lg:col-span-2 space-y-6">
+		<div class="space-y-16 lg:space-y-24">
+			<!-- Table / Pricing Matrix (Full Width) -->
+			<div class="space-y-6">
 				<h2 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
 					{$LL.details_pricing_title()}
 				</h2>
 				<div class="overflow-x-auto rounded-3xl border border-black/5 bg-[#f5f5f7] p-4 sm:p-6">
-					<table class="w-full text-left border-collapse min-w-150">
+					<table class="w-full text-left border-collapse min-w-200">
 						<thead>
 							<tr class="border-b border-black/10 text-xs font-semibold uppercase tracking-wider text-[#86868b]">
 								<th class="py-4 px-4">{$LL.details_pricing_col_type()}</th>
-								<th class="py-4 px-4">Kapasitas Mesin</th>
+								<th class="py-4 px-4">{$LL.details_pricing_col_capacity()}</th>
 								<th class="py-4 px-4">{$LL.details_pricing_col_rate()}</th>
 								<th class="py-4 px-4">{$LL.details_pricing_col_inclusions()}</th>
-								<th class="py-4 px-4">Peruntukan Rute</th>
+								<th class="py-4 px-4">{$LL.details_pricing_col_route()}</th>
 							</tr>
 						</thead>
 						<tbody class="divide-y divide-black/5 text-[#1d1d1f]">
@@ -87,8 +87,8 @@
 				</div>
 			</div>
 
-			<!-- Requirements & Locations (Takes 1 col on desktop) -->
-			<div class="space-y-12">
+			<!-- Requirements & Locations (Side by side on desktop) -->
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
 				<!-- Requirements -->
 				<div class="space-y-6">
 					<h2 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">

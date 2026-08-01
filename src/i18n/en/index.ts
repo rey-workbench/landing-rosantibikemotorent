@@ -263,7 +263,21 @@ const en: Translation = {
 	details_reqs_title: 'Rental Requirements & Conditions',
 	details_reqs_list: 'Valid driver\'s license (SIM C / IDP);Provide at least 2 original IDs (E-KTP, KTM, KK, Passport);ID cards are held during the rental period;Free delivery to stations, terminals, and central hotels',
 	details_area_title: 'Free Delivery & Pickup Area Coverage',
-	details_area_desc: 'We provide free delivery and pickup service at these strategic locations in Malang:'
+	details_area_desc: 'We provide free delivery and pickup service at these strategic locations in Malang:',
+	details_pricing_col_capacity: 'Engine Capacity',
+	details_pricing_col_route: 'Route Suitability',
+	route_city: 'Malang City & Batu Area',
+	route_all: 'Batu, Bromo, Tumpak Sewu, Uphill & Long Trips',
+	loc_stasiun_name: 'Malang Station (Kota Baru)',
+	loc_stasiun_desc: 'Free delivery & pickup near the main station entrance.',
+	loc_terminal_name: 'Arjosari Terminal',
+	loc_terminal_desc: 'Direct fleet delivery to the Malang bus terminal.',
+	loc_ub_name: 'Brawijaya University (UB)',
+	loc_ub_desc: 'Fast delivery and pickup service to the campus area.',
+	loc_batu_name: 'Batu Tourism City',
+	loc_batu_desc: 'The perfect starting point for your family vacation.',
+	loc_bromo_name: 'Mount Bromo & Tumpak Sewu',
+	loc_bromo_desc: 'Consult our team for specialized mountain fleet routes.'
 };
 
 export default en;
