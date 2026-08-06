@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@lucide/svelte':
-        specifier: ^1.23.0
-        version: 1.23.0(svelte@5.56.4)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       isomorphic-dompurify:
         specifier: ^3.18.0
         version: 3.18.0
@@ -26,12 +20,6 @@ importers:
       socket.io-client:
         specifier: ^4.8.3
         version: 4.8.3
-      tailwind-merge:
-        specifier: ^3.6.0
-        version: 3.6.0
-      unplugin:
-        specifier: ^3.3.0
-        version: 3.3.0(esbuild@0.28.1)(rollup@4.62.2)(vite@7.3.6(@types/node@25.5.0)(jiti@2.7.0)(lightningcss@1.32.0))
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -72,9 +60,6 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
-      uuid:
-        specifier: ^13.0.2
-        version: 13.0.2
       vite:
         specifier: ^7.3.6
         version: 7.3.6(@types/node@25.5.0)(jiti@2.7.0)(lightningcss@1.32.0)
@@ -319,11 +304,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
-
-  '@lucide/svelte@1.23.0':
-    resolution: {integrity: sha512-3LQbKXx9vId6Nx4E2Nu2qwgJfdmr5+CVeVJbxe5cy+HcnCRd9QVVtZXqvgBYAV1OJrPmQAf9/3gJWLCpASC/Ng==}
-    peerDependencies:
-      svelte: ^5
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -1016,9 +996,6 @@ packages:
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
-  tailwind-merge@3.6.0:
-    resolution: {integrity: sha512-uxL7qAVQriqRQPAyK3pj66VqskWqoZ37PW94jwOTwNfq/z9oyu1V+eqrZqtR2+fCiXdYOZe/Modt8GtvqNzu+w==}
-
   tailwindcss@4.3.2:
     resolution: {integrity: sha512-WtctNNSH8A9jlMIqxzuYumOHU5uGZyRv0Q5svQl+oEPy5w84YpBxdb7MdqyiSPQge5jTJ6zFQLq0PFygdccSBA==}
 
@@ -1071,45 +1048,8 @@ packages:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
 
-  unplugin@3.3.0:
-    resolution: {integrity: sha512-qa66K+crbfyE6JK10GjvbJeRrOsuC/JpbnHctfyp/i4oBTxWOzJfRZyDiOk1PtErMFRu8JhsU/wPvOdBNWe5Rg==}
-    engines: {node: ^20.19.0 || >=22.12.0}
-    peerDependencies:
-      '@farmfe/core': '*'
-      '@rspack/core': '*'
-      bun-types-no-globals: '*'
-      esbuild: '*'
-      rolldown: '*'
-      rollup: '*'
-      unloader: '*'
-      vite: '*'
-      webpack: '*'
-    peerDependenciesMeta:
-      '@farmfe/core':
-        optional: true
-      '@rspack/core':
-        optional: true
-      bun-types-no-globals:
-        optional: true
-      esbuild:
-        optional: true
-      rolldown:
-        optional: true
-      rollup:
-        optional: true
-      unloader:
-        optional: true
-      vite:
-        optional: true
-      webpack:
-        optional: true
-
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-
-  uuid@13.0.2:
-    resolution: {integrity: sha512-vzi9uRZ926x4XV73S/4qQaTwPXM2JBj6/6lI/byHH1jOpCzb0zDbfytgA9LcN/hzb2l7WQSQnxITOVx5un/wGw==}
-    hasBin: true
 
   vite-plugin-compression@0.5.1:
     resolution: {integrity: sha512-5QJKBDc+gNYVqL/skgFAP81Yuzo9R+EAf19d+EtsMF/i8kFUpNi3J/H01QD3Oo8zBQn+NzoCIFkpPLynoOzaJg==}
@@ -1171,9 +1111,6 @@ packages:
   webidl-conversions@8.0.1:
     resolution: {integrity: sha512-BMhLD/Sw+GbJC21C/UgyaZX41nPt8bUTg+jWyDeg7e7YN4xOM05YPSIXceACnXVtqyEw/LMClUQMtMZ+PGGpqQ==}
     engines: {node: '>=20'}
-
-  webpack-virtual-modules@0.6.2:
-    resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
   whatwg-mimetype@5.0.0:
     resolution: {integrity: sha512-sXcNcHOC51uPGF0P/D4NVtrkjSU2fNsm9iog4ZvZJsL3rjoDAzXZhkm2MWt1y+PUdggKAYVoMAIYcs78wJ51Cw==}
@@ -1360,10 +1297,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  '@lucide/svelte@1.23.0(svelte@5.56.4)':
-    dependencies:
-      svelte: 5.56.4
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -1981,8 +1914,6 @@ snapshots:
 
   symbol-tree@3.2.4: {}
 
-  tailwind-merge@3.6.0: {}
-
   tailwindcss@4.3.2: {}
 
   tapable@2.3.3: {}
@@ -2021,19 +1952,7 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unplugin@3.3.0(esbuild@0.28.1)(rollup@4.62.2)(vite@7.3.6(@types/node@25.5.0)(jiti@2.7.0)(lightningcss@1.32.0)):
-    dependencies:
-      '@jridgewell/remapping': 2.3.5
-      picomatch: 4.0.4
-      webpack-virtual-modules: 0.6.2
-    optionalDependencies:
-      esbuild: 0.28.1
-      rollup: 4.62.2
-      vite: 7.3.6(@types/node@25.5.0)(jiti@2.7.0)(lightningcss@1.32.0)
-
   util-deprecate@1.0.2: {}
-
-  uuid@13.0.2: {}
 
   vite-plugin-compression@0.5.1(vite@7.3.6(@types/node@25.5.0)(jiti@2.7.0)(lightningcss@1.32.0)):
     dependencies:
@@ -2067,8 +1986,6 @@ snapshots:
       xml-name-validator: 5.0.0
 
   webidl-conversions@8.0.1: {}
-
-  webpack-virtual-modules@0.6.2: {}
 
   whatwg-mimetype@5.0.0: {}
 
