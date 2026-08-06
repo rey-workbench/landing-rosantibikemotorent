@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fly, fade } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	interface Props {
 		value?: string | number;
@@ -52,8 +52,7 @@
 
 	let isOpen = $state(false),
 		containerRef: HTMLElement | undefined = $state(),
-		searchTerm = $state(''),
-		inputRef: HTMLInputElement | undefined;
+		searchTerm = $state('');
 
 	// Date/Time State
 	let current = new Date();

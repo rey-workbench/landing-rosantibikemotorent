@@ -1,4 +1,4 @@
-import type { BreadcrumbItem, FaqItem, SupportedLocale } from './types';
+import type { BreadcrumbItem, FaqItem } from './types';
 import { BASE_URL, SITE_NAME } from './types';
 import { siteConfig } from '$lib/config';
 
@@ -152,18 +152,4 @@ export function buildArticleSchema(params: {
 		...(publishedTime && { datePublished: publishedTime }),
 		url
 	};
-}
-
-export function buildBreadcrumbItems(
-	lang: SupportedLocale,
-	pages: { name: string; path: string }[]
-): BreadcrumbItem[] {
-	return [
-		{ position: 1, name: 'Home', item: `${BASE_URL}/${lang}` },
-		...pages.map((page, index) => ({
-			position: index + 2,
-			name: page.name,
-			item: `${BASE_URL}/${lang}${page.path}`
-		}))
-	];
 }

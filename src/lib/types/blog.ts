@@ -1,4 +1,4 @@
-export type StatusArtikel = 'DRAFT' | 'TERBIT';
+type StatusArtikel = 'DRAFT' | 'TERBIT';
 
 export interface BlogPost {
 	id: string;
@@ -17,7 +17,7 @@ export interface BlogPost {
 	updatedAt: string;
 }
 
-export interface BlogKategori {
+interface BlogKategori {
 	id: string;
 	nama: string;
 	slug: string;

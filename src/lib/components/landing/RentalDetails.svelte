@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
-	let { lang }: { lang?: string } = $props();
+	let { lang: _lang }: { lang?: string } = $props();
 
 	// Split requirements list by semicolon
 	const reqList = $derived($LL.details_reqs_list().split(';'));

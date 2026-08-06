@@ -4,9 +4,9 @@ import { browser } from '$app/environment';
 import type { MotorStatusUpdate, UnitMotorUpdate, ConnectionState } from '$lib/types';
 import { z } from 'zod';
 
-export const socketConnected = writable<boolean>(false);
-export const motorAvailability = writable<MotorStatusUpdate | null>(null);
-export const transactionUpdate = writable<any | null>(null);
+const socketConnected = writable(false);
+const motorAvailability = writable<MotorStatusUpdate | null>(null);
+const transactionUpdate = writable<any>(null);
 
 type MotorStatusUpdateHandler = (data: MotorStatusUpdate) => void;
 type UnitMotorUpdateHandler = (data: UnitMotorUpdate) => void;
@@ -24,7 +24,6 @@ class WebSocketService {
 		isConnected: false,
 		socketId: null
 	});
-	private isInitialized = false;
 	private beforeUnloadHandler: (() => void) | null = null;
 
 	private motorStatusUpdateHandlers = new Set<MotorStatusUpdateHandler>();
@@ -62,7 +61,6 @@ class WebSocketService {
 		});
 
 		this.setupEventListeners();
-		this.isInitialized = true;
 
 		if (browser && !this.beforeUnloadHandler) {
 			this.beforeUnloadHandler = () => this.disconnect();
@@ -75,7 +73,6 @@ class WebSocketService {
 			this.socket.removeAllListeners();
 			this.socket.disconnect();
 			this.socket = null;
-			this.isInitialized = false;
 			this.updateState(false, null);
 		}
 
@@ -175,4 +172,3 @@ class WebSocketService {
 }
 
 export const websocketService = new WebSocketService();
-export default websocketService;

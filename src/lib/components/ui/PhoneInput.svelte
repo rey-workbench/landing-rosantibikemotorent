@@ -62,7 +62,6 @@
 		countryData.find((c) => c.code === 'ID') || countryData[0]
 	);
 	let displayValue = $state('');
-	let isInitialized = false;
 
 	function getFlag(code: string): string {
 		const codePoints = code
@@ -154,7 +153,6 @@
 
 	onMount(() => {
 		parseInitialValue();
-		isInitialized = true;
 
 		const hide = (e: MouseEvent) => {
 			if (containerRef && !containerRef.contains(e.target as Node)) {
@@ -195,10 +193,6 @@
 				c.callingCode.includes(searchTerm) ||
 				c.code.toLowerCase().includes(searchTerm.toLowerCase())
 		)
-	);
-
-	let displayNumber = $derived(
-		displayValue ? `+${selectedCountry.callingCode} ${displayValue}` : ''
 	);
 </script>
 

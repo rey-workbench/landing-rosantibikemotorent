@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
 	import { lazyVideo } from '$lib/actions/lazyVideo';
 
 	let scrollProgress = $state(0);
 	let containerRef = $state<HTMLElement>();
 	let activePanelIndex = $state(0);
-	let isMobile = $state(false);
 
 	const panels = $derived([
 		{
@@ -60,9 +58,7 @@
 	});
 
 	onMount(() => {
-		const checkMobile = () => {
-			isMobile = window.innerWidth < 768;
-		};
+		const checkMobile = () => {};
 		checkMobile();
 		window.addEventListener('resize', checkMobile);
 
@@ -96,7 +92,7 @@
 <div class="bg-brand-dark relative" bind:this={containerRef}>
 	<div class="relative" style="height: {panels.length * 100}vh">
 		<div class="absolute inset-0 flex flex-col pointer-events-none">
-			{#each panels as _, i}
+			{#each panels as _}
 				<div class="h-screen w-full snap-start"></div>
 			{/each}
 		</div>

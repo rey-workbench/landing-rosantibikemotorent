@@ -21,13 +21,6 @@ export interface BreadcrumbItem {
 	item: string;
 }
 
-export interface ProductOffer {
-	price: number;
-	priceCurrency: string;
-	availability: 'InStock' | 'OutOfStock';
-	url: string;
-}
-
 export interface FaqItem {
 	question: string;
 	answer: string;

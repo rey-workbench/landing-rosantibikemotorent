@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { fade, slide, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
-	import { siteConfig } from '$lib/config';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
 	import { page } from '$app/state';

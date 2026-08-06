@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
-	import Button from '$lib/components/ui/Button.svelte';
-	import { fade, fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
 	import { SeoHead } from '$lib/components/seo';
 	import { buildBreadcrumbSchema, buildArticleSchema } from '$lib/seo/schema';

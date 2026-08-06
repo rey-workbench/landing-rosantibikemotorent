@@ -41,7 +41,7 @@
 		websocketService.connect();
 
 		// Listen for transaction updates to refresh availability
-		unsubscribe = websocketService.onTransactionUpdate((data) => {
+		unsubscribe = websocketService.onTransactionUpdate((_data) => {
 			fetchFleet();
 		});
 

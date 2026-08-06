@@ -15,8 +15,6 @@
 	let { data }: { data: PageData } = $props();
 
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-	const currentUrl = $derived(page.url.href);
-
 	const orgSchema = $derived(buildOrganizationSchema());
 	const webSchema = $derived(buildWebsiteSchema());
 	const faqSchema = $derived(
