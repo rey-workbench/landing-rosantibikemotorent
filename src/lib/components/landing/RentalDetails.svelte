@@ -45,7 +45,9 @@
 	<div class="container mx-auto px-6 md:px-10 max-w-7xl">
 		<!-- Section Header -->
 		<div class="text-center max-w-3xl mx-auto mb-16 md:mb-24">
-			<h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-4">
+			<h2
+				class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-4"
+			>
 				{$LL.details_title()}
 			</h2>
 			<p class="text-lg md:text-xl text-[#86868b] leading-relaxed font-normal">
@@ -62,7 +64,9 @@
 				<div class="overflow-x-auto rounded-3xl border border-black/5 bg-[#f5f5f7] p-4 sm:p-6">
 					<table class="w-full text-left border-collapse min-w-200">
 						<thead>
-							<tr class="border-b border-black/10 text-xs font-semibold uppercase tracking-wider text-[#86868b]">
+							<tr
+								class="border-b border-black/10 text-xs font-semibold uppercase tracking-wider text-[#86868b]"
+							>
 								<th class="py-4 px-4">{$LL.details_pricing_col_type()}</th>
 								<th class="py-4 px-4">{$LL.details_pricing_col_capacity()}</th>
 								<th class="py-4 px-4">{$LL.details_pricing_col_rate()}</th>
@@ -78,7 +82,9 @@
 									</td>
 									<td class="py-5 px-4 text-sm font-medium">{item.capacity}</td>
 									<td class="py-5 px-4 font-bold text-[#0071e3] whitespace-nowrap">{item.rate}</td>
-									<td class="py-5 px-4 text-sm text-[#86868b]">{$LL.details_pricing_inclusions()}</td>
+									<td class="py-5 px-4 text-sm text-[#86868b]"
+										>{$LL.details_pricing_inclusions()}</td
+									>
 									<td class="py-5 px-4 text-sm font-medium">{item.route}</td>
 								</tr>
 							{/each}
@@ -97,7 +103,9 @@
 					<ul class="space-y-4">
 						{#each reqList as req}
 							<li class="flex items-start gap-3 text-base text-[#1d1d1f]">
-								<span class="shrink-0 w-6 h-6 rounded-full bg-black/5 flex items-center justify-center text-xs font-bold text-[#86868b] mt-0.5">
+								<span
+									class="shrink-0 w-6 h-6 rounded-full bg-black/5 flex items-center justify-center text-xs font-bold text-[#86868b] mt-0.5"
+								>
 									✓
 								</span>
 								<span class="leading-relaxed">{req}</span>
@@ -116,7 +124,9 @@
 					</p>
 					<div class="space-y-4">
 						{#each locations as loc}
-							<div class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 hover:border-black/10 transition-colors">
+							<div
+								class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 hover:border-black/10 transition-colors"
+							>
 								<h4 class="font-bold text-[#1d1d1f] text-sm">{loc.name}</h4>
 								<p class="text-xs text-[#86868b] mt-1">{loc.desc}</p>
 							</div>

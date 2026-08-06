@@ -44,7 +44,9 @@
 						<span class="text-[#86868b] text-xs font-bold tracking-[0.2em]">01</span>
 					</div>
 					<div>
-						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">{$LL.why_unit_title()}</h3>
+						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
+							{$LL.why_unit_title()}
+						</h3>
 						<p class="text-base text-[#86868b] leading-relaxed">{$LL.why_unit_desc()}</p>
 					</div>
 				</div>
@@ -54,7 +56,9 @@
 						<span class="text-[#86868b] text-xs font-bold tracking-[0.2em]">02</span>
 					</div>
 					<div>
-						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">{$LL.why_delivery_title()}</h3>
+						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
+							{$LL.why_delivery_title()}
+						</h3>
 						<p class="text-base text-[#86868b] leading-relaxed">{$LL.why_delivery_desc()}</p>
 					</div>
 				</div>
@@ -64,7 +68,9 @@
 						<span class="text-[#86868b] text-xs font-bold tracking-[0.2em]">03</span>
 					</div>
 					<div>
-						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">{$LL.why_price_title()}</h3>
+						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
+							{$LL.why_price_title()}
+						</h3>
 						<p class="text-base text-[#86868b] leading-relaxed">{$LL.why_price_desc()}</p>
 					</div>
 				</div>

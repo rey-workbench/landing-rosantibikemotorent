@@ -19,7 +19,8 @@ const en: Translation = {
 	hero_title: 'Rosantibike',
 	hero_subtitle: 'Motorent',
 	seo_title: 'Cheap & Premium Malang Motorcycle Rental | Rosantibike Motorent',
-	seo_description: 'Rent a motorcycle in Malang cheap & quality with Rosantibike. Well-maintained Honda PCX, Vario, Lexi. Free helmet & raincoat. Book via WhatsApp now!',
+	seo_description:
+		'Rent a motorcycle in Malang cheap & quality with Rosantibike. Well-maintained Honda PCX, Vario, Lexi. Free helmet & raincoat. Book via WhatsApp now!',
 	hero_tagline: 'Premium Motorcycle Rental in Malang', // For SEO
 	hero_tagline_1: 'Malang Motorcycle Rental Best - Premium & Well-Maintained Fleet', // Visual Line 1 (Trust/Feeling)
 	hero_hook: 'No additional fees wherever you want to go.', // Subtitle
@@ -261,9 +262,11 @@ const en: Translation = {
 	details_pricing_col_inclusions: 'Inclusions & Amenities',
 	details_pricing_inclusions: '2 SNI Helmets, 2 Raincoats, 24/7 Roadside Assistance',
 	details_reqs_title: 'Rental Requirements & Conditions',
-	details_reqs_list: 'Valid driver\'s license (SIM C / IDP);Provide at least 2 original IDs (E-KTP, KTM, KK, Passport);ID cards are held during the rental period;Free delivery to stations, terminals, and central hotels',
+	details_reqs_list:
+		"Valid driver's license (SIM C / IDP);Provide at least 2 original IDs (E-KTP, KTM, KK, Passport);ID cards are held during the rental period;Free delivery to stations, terminals, and central hotels",
 	details_area_title: 'Free Delivery & Pickup Area Coverage',
-	details_area_desc: 'We provide free delivery and pickup service at these strategic locations in Malang:',
+	details_area_desc:
+		'We provide free delivery and pickup service at these strategic locations in Malang:',
 	details_pricing_col_capacity: 'Engine Capacity',
 	details_pricing_col_route: 'Route Suitability',
 	route_city: 'Malang City & Batu Area',

@@ -47,15 +47,7 @@ export function buildOrganizationSchema() {
 		openingHoursSpecification: [
 			{
 				'@type': 'OpeningHoursSpecification',
-				dayOfWeek: [
-					'Monday',
-					'Tuesday',
-					'Wednesday',
-					'Thursday',
-					'Friday',
-					'Saturday',
-					'Sunday'
-				],
+				dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 				opens: '06:00',
 				closes: '22:00'
 			}

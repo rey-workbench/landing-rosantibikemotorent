@@ -118,7 +118,9 @@ class WebSocketService {
 				return;
 			}
 			motorAvailability.set(parsed.data as MotorStatusUpdate);
-			this.motorStatusUpdateHandlers.forEach((handler) => handler(parsed.data as MotorStatusUpdate));
+			this.motorStatusUpdateHandlers.forEach((handler) =>
+				handler(parsed.data as MotorStatusUpdate)
+			);
 		});
 
 		this.socket.on('unit-motor:update', (data: UnitMotorUpdate) => {

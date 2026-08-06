@@ -19,7 +19,8 @@ const id: BaseTranslation = {
 	hero_title: 'Rosantibike',
 	hero_subtitle: 'Motorent',
 	seo_title: 'Rosantibike Motorent - Sewa Motor Malang Murah & Premium',
-	seo_description: 'Sewa motor Malang murah mulai Rp 80rb/hari. Unit Vario, PCX, Lexi & NMax terawat. Gratis 2 helm & jas hujan + layanan antar jemput. Pesan via WA sekarang!',
+	seo_description:
+		'Sewa motor Malang murah mulai Rp 80rb/hari. Unit Vario, PCX, Lexi & NMax terawat. Gratis 2 helm & jas hujan + layanan antar jemput. Pesan via WA sekarang!',
 	hero_tagline: 'Sewa Motor Premium di Malang', // Digunakan oleh sistem (SEO & Meta Tags)
 	hero_tagline_1: 'Sewa Motor Malang Murah & Premium', // Teks besar baris pertama (Untuk Perasaan & Kepercayaan)
 	hero_tagline_2: 'Harga Terjangkau & Pelayanan Terbaik.', // Teks besar baris kedua (Opsional)
@@ -263,9 +264,11 @@ const id: BaseTranslation = {
 	details_pricing_col_inclusions: 'Fasilitas Included',
 	details_pricing_inclusions: '2 Helm SNI, 2 Jas Hujan, Layanan Darurat 24/7',
 	details_reqs_title: 'Syarat & Ketentuan Sewa Motor Malang',
-	details_reqs_list: 'Wajib memiliki SIM C aktif;Menyerahkan minimal 2 identitas asli (E-KTP, KTM, KK, Passport);Jaminan identitas disimpan selama masa sewa;Tersedia opsi delivery ke stasiun/terminal',
+	details_reqs_list:
+		'Wajib memiliki SIM C aktif;Menyerahkan minimal 2 identitas asli (E-KTP, KTM, KK, Passport);Jaminan identitas disimpan selama masa sewa;Tersedia opsi delivery ke stasiun/terminal',
 	details_area_title: 'Cakupan Area Antar Jemput',
-	details_area_desc: 'Kami melayani pengantaran dan penjemputan gratis untuk lokasi-lokasi strategis di Malang:',
+	details_area_desc:
+		'Kami melayani pengantaran dan penjemputan gratis untuk lokasi-lokasi strategis di Malang:',
 	details_pricing_col_capacity: 'Kapasitas Mesin',
 	details_pricing_col_route: 'Peruntukan Rute',
 	route_city: 'Dalam Kota Malang & Batu',

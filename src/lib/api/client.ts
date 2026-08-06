@@ -70,6 +70,55 @@ async function parseResponse(response: Response) {
 class ApiClient {
 	private pendingGets = new Map<string, Promise<any>>();
 
+	private async performFetchOnce(
+		fetchFn: typeof fetch,
+		fetchUrl: string,
+		method: string,
+		headers: any,
+		body: any,
+		config: any
+	) {
+		const response = await fetchFn(fetchUrl, {
+			method,
+			headers,
+			body,
+			signal: config.signal
+		});
+		return await parseResponse(response);
+	}
+
+	private handleFetchError(error: any, attempts: number, maxAttempts: number) {
+		if (error.name === 'AbortError') throw error;
+		if (attempts >= maxAttempts) {
+			if (browser) {
+				console.error('[API Error]', error.response?.status ?? 'network error');
+			}
+			throw error;
+		}
+	}
+
+	private async performFetch(
+		fetchFn: typeof fetch,
+		fetchUrl: string,
+		method: string,
+		headers: any,
+		body: any,
+		config: any
+	) {
+		let attempts = 0;
+		const maxAttempts = method === 'GET' ? 2 : 1;
+		while (attempts < maxAttempts) {
+			attempts++;
+			try {
+				return await this.performFetchOnce(fetchFn, fetchUrl, method, headers, body, config);
+			} catch (error: any) {
+				this.handleFetchError(error, attempts, maxAttempts);
+				// Small delay before retry for GET requests
+				await new Promise((resolve) => setTimeout(resolve, 300));
+			}
+		}
+	}
+
 	async request(method: string, url: string, data?: any, config: any = {}) {
 		const fetchUrl = buildUrl(url, config.params);
 
@@ -83,35 +132,7 @@ class ApiClient {
 		const execute = async () => {
 			const { headers, body } = buildHeadersAndBody(data, config.headers);
 			const fetchFn: typeof fetch = config.customFetch ?? fetch;
-
-			let attempts = 0;
-			const maxAttempts = method === 'GET' ? 2 : 1;
-
-			while (attempts < maxAttempts) {
-				attempts++;
-				try {
-					const response = await fetchFn(fetchUrl, {
-						method,
-						headers,
-						body,
-						signal: config.signal
-					});
-					return await parseResponse(response);
-				} catch (error: any) {
-					if (error.name === 'AbortError') throw error;
-					if (attempts >= maxAttempts) {
-						if (browser) {
-							console.error(
-								'[API Error]',
-								error.response?.status ?? 'network error'
-							);
-						}
-						throw error;
-					}
-					// Small delay before retry for GET requests
-					await new Promise((resolve) => setTimeout(resolve, 300));
-				}
-			}
+			return this.performFetch(fetchFn, fetchUrl, method, headers, body, config);
 		};
 
 		if (method === 'GET' && !config.customFetch) {
