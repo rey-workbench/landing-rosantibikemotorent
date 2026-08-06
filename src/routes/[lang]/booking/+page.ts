@@ -1,6 +1,48 @@
 import { unitMotorApi } from '$lib/api';
 import type { PageLoad } from './$types';
 
+async function resolveSelectedUnit(
+	availableMotors: any[],
+	urlUnitId: string | null,
+	urlUnitSlug: string | null,
+	fetch: typeof window.fetch
+): Promise<{ selectedUnit: any; updatedMotors: any[] }> {
+	let selectedUnit = null;
+	let updatedMotors = [...availableMotors];
+
+	if (urlUnitId) {
+		selectedUnit = updatedMotors.find((m: any) => m.id === urlUnitId) || null;
+		if (!selectedUnit) {
+			try {
+				const unit = await unitMotorApi.getById(urlUnitId, fetch);
+				if (unit) {
+					selectedUnit = unit;
+					updatedMotors = [selectedUnit, ...updatedMotors];
+				}
+			} catch (e) {
+				console.error('Failed to fetch unit by ID:', e);
+			}
+		}
+	} else if (urlUnitSlug) {
+		selectedUnit = updatedMotors.find(
+			(m: any) => m.jenisMotor?.slug === urlUnitSlug || m.jenis?.slug === urlUnitSlug
+		) || null;
+
+		if (!selectedUnit) {
+			try {
+				const jenis = await unitMotorApi.getBySlug(urlUnitSlug, fetch);
+				if (jenis) {
+					console.log(`Model ${urlUnitSlug} is fully booked.`);
+				}
+			} catch (e) {
+				console.error('Failed to fetch motor by slug:', e);
+			}
+		}
+	}
+
+	return { selectedUnit, updatedMotors };
+}
+
 export const load: PageLoad = async ({ url, fetch }) => {
 	const urlUnitId = url.searchParams.get('unitId');
 	const urlUnitSlug = url.searchParams.get('unit');
@@ -22,50 +64,25 @@ export const load: PageLoad = async ({ url, fetch }) => {
 			},
 			fetch
 		);
-		// Filter units that are available for the entire range
 		availableMotors = (availabilityData as any).units.filter((u: any) =>
 			u.availability.every((a: any) => a.isAvailable)
 		);
 	} catch (e) {
 		console.error('Failed to fetch availability:', e);
-		// Fallback to all units if availability check fails
 		const motorsResponse = await unitMotorApi.getAvailable(fetch);
 		availableMotors = motorsResponse.data || [];
 	}
 
-	let selectedUnitFromUrl = null;
-	if (urlUnitId) {
-		selectedUnitFromUrl = availableMotors.find((m: any) => m.id === urlUnitId) || null;
-		if (!selectedUnitFromUrl) {
-			try {
-				const unit = await unitMotorApi.getById(urlUnitId, fetch);
-				if (unit) {
-					selectedUnitFromUrl = unit;
-					availableMotors = [selectedUnitFromUrl, ...availableMotors];
-				}
-			} catch (e) {
-				console.error('Failed to fetch unit by ID:', e);
-			}
-		}
-	} else if (urlUnitSlug) {	
-		selectedUnitFromUrl =
-			availableMotors.find(
-				(m: any) => m.jenisMotor?.slug === urlUnitSlug || m.jenis?.slug === urlUnitSlug
-			) || null;
-
-		if (!selectedUnitFromUrl) {
-			try {
-				const jenis = await unitMotorApi.getBySlug(urlUnitSlug, fetch);
-				if (jenis) {
-					// If not found, it means it's fully booked. So we just leave it null.
-				}
-			} catch (e) {}
-		}
-	}
+	const { selectedUnit, updatedMotors } = await resolveSelectedUnit(
+		availableMotors,
+		urlUnitId,
+		urlUnitSlug,
+		fetch
+	);
 
 	return {
-		availableMotors,
-		selectedUnitFromUrl,
+		availableMotors: updatedMotors,
+		selectedUnitFromUrl: selectedUnit,
 		defaultDates: {
 			mulai: startDate,
 			selesai: endDate

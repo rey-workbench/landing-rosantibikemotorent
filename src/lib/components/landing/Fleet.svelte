@@ -55,10 +55,6 @@
 		if (unsubscribe) unsubscribe();
 		if (unsubUnit) unsubUnit();
 	});
-
-	function formatPrice(price: number): string {
-		return formatCurrency(price);
-	}
 </script>
 
 <section id="fleet" class="py-20 md:py-28 bg-[#f5f5f7]">
@@ -131,7 +127,7 @@
 									: 'text-sm md:text-base mb-2 md:mb-3'} text-[#86868b] font-normal"
 							>
 								{$LL.fleet_start_from()}
-								{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
+								{formatCurrency(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
 								{$LL.fleet_per_day().toLowerCase()}
 							</p>
 						{:else}
