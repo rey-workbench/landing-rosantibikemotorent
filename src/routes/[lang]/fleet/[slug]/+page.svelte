@@ -6,6 +6,7 @@
 	import { page as pageStore } from '$app/state';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { SeoHead } from '$lib/components/seo';
+	import { formatCurrency } from '$lib/utils/format';
 	import { LL } from '$i18n/i18n-svelte';
 	import { buildProductSchema, buildBreadcrumbSchema } from '$lib/seo/schema';
 
@@ -62,14 +63,6 @@
 	onDestroy(() => {
 		unsubs.forEach((unsub: () => void) => unsub());
 	});
-
-	function formatPrice(price: number): string {
-		return new Intl.NumberFormat('id-ID', {
-			style: 'currency',
-			currency: 'IDR',
-			minimumFractionDigits: 0
-		}).format(price);
-	}
 
 	function handleBooking() {
 		if (motor) {
@@ -243,7 +236,7 @@
 									{$LL.fleet_detail_price()}
 								</p>
 								<p class="text-[40px] leading-none font-semibold text-[#1d1d1f] tracking-tight">
-									{formatPrice(displayPrice)}
+									{formatCurrency(displayPrice)}
 								</p>
 								<p class="text-[#86868b] text-[15px] mt-1 font-medium">
 									{$LL.fleet_detail_per_day()}

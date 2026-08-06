@@ -54,10 +54,6 @@
 	onDestroy(() => {
 		unsubs.forEach((unsub) => unsub());
 	});
-
-	function formatPrice(price: number): string {
-		return formatCurrency(price);
-	}
 </script>
 
 <SeoHead
@@ -235,7 +231,7 @@
 							{#if motor.computed.minPrice > 0}
 								<p class="text-[15px] text-[#1d1d1f] font-normal mb-8">
 									{$LL.fleet_start_from()}
-									{formatPrice(motor.computed.minPrice)}{$LL.fleet_per_day()}
+									{formatCurrency(motor.computed.minPrice)}{$LL.fleet_per_day()}
 								</p>
 							{:else}
 								<p class="text-[15px] text-[#86868b] font-normal mb-8">{$LL.fleet_contact_us()}</p>

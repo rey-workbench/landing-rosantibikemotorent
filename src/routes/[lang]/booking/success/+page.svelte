@@ -3,20 +3,13 @@
 	import { siteConfig } from '$lib/config';
 	import { LL } from '$i18n/i18n-svelte';
 	import { SeoHead } from '$lib/components/seo';
+	import { formatCurrency } from '$lib/utils/format';
 	import Button from '$lib/components/ui/Button.svelte';
 
 	let { data } = $props();
 	let transaksi = $derived(data.transaksi);
 	let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 	let currentUrl = $derived(page.url.href);
-
-	function formatPrice(price: number): string {
-		return new Intl.NumberFormat('id-ID', {
-			style: 'currency',
-			currency: 'IDR',
-			minimumFractionDigits: 0
-		}).format(price);
-	}
 </script>
 
 <SeoHead
@@ -119,7 +112,7 @@
 							>{$LL.booking_total_cost()}</span
 						>
 						<span class="text-3xl font-semibold text-[#1d1d1f]"
-							>{formatPrice(transaksi.totalBiaya)}</span
+							>{formatCurrency(transaksi.totalBiaya)}</span
 						>
 					</div>
 				</div>

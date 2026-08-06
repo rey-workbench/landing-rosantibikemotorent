@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
+import { transaksiApi } from '$lib/api';
 
 export const load: PageLoad = async ({ url }) => {
 	const id = url.searchParams.get('id');
@@ -10,5 +11,16 @@ export const load: PageLoad = async ({ url }) => {
 		throw error(404, 'Not found');
 	}
 	
-	return {};
+	let transaksi = null;
+	if (id) {
+		try {
+			transaksi = await transaksiApi.getById(id);
+		} catch (err) {
+			console.error('Failed to load transaction:', err);
+		}
+	}
+	
+	return {
+		transaksi
+	};
 };
