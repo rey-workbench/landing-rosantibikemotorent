@@ -9,14 +9,26 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { page } from '$app/state';
 	import { LL } from '$i18n/i18n-svelte';
-	import { buildFaqSchema, buildOrganizationSchema, buildWebsiteSchema } from '$lib/seo/schema';
+	import { buildFaqSchema, buildVideoSchema, buildWebsiteSchema } from '$lib/seo/schema';
+	import { BASE_URL } from '$lib/seo/types';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-	const orgSchema = $derived(buildOrganizationSchema());
 	const webSchema = $derived(buildWebsiteSchema());
+	const videoSchema = $derived(
+		buildVideoSchema({
+			name:
+				lang === 'en'
+					? 'Malang Motorcycle Rental - Rosantibike Motorent Hero Video'
+					: 'Sewa Motor Malang Murah & Premium - Rosantibike Motorent',
+			description: $LL.seo_description(),
+			thumbnailUrl: `${BASE_URL}/video/posters/hero.jpg`,
+			contentUrl: `${BASE_URL}/video/hero.mp4`,
+			uploadDate: '2025-07-19'
+		})
+	);
 	const faqSchema = $derived(
 		buildFaqSchema(
 			lang === 'en'
@@ -86,7 +98,7 @@
 		description: $LL.seo_description(),
 		ogType: 'website'
 	}}
-	schemas={[orgSchema, webSchema, faqSchema]}
+	schemas={[webSchema, faqSchema, videoSchema]}
 />
 
 <!-- Hero / video background -->

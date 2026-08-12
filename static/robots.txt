@@ -27,4 +27,4 @@ Allow: /
 User-agent: CCBot
 Disallow: /
 
-Sitemap: https://rosantibike.com/sitemap.xml
+Sitemap: https://rosantibikemotorent.com/sitemap.xml

@@ -127,6 +127,28 @@ export function buildFaqSchema(faqs: FaqItem[]) {
 	};
 }
 
+export function buildVideoSchema(params: {
+	name: string;
+	description: string;
+	thumbnailUrl: string;
+	contentUrl: string;
+	uploadDate: string;
+	duration?: string;
+}) {
+	const { name, description, thumbnailUrl, contentUrl, uploadDate, duration } = params;
+
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'VideoObject',
+		name,
+		description,
+		thumbnailUrl,
+		contentUrl,
+		uploadDate,
+		...(duration && { duration })
+	};
+}
+
 export function buildArticleSchema(params: {
 	title: string;
 	description: string;
