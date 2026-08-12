@@ -11,6 +11,7 @@ export default defineConfig({
 		viteCompression({ algorithm: 'gzip', ext: '.gz' })
 	],
 	build: {
+		sourcemap: false,
 		chunkSizeWarningLimit: 1000,
 		rollupOptions: {
 			output: {
