@@ -94,10 +94,12 @@
 							onerror={handleImageError}
 							loading="lazy"
 							decoding="async"
+							width="800"
+							height="450"
 							class="w-full h-auto object-cover z-0 pointer-events-none transition-transform duration-700 group-hover:scale-105"
 						/>
 					{:else}
-						<div class="w-full aspect-21/9"></div>
+						<div class="w-full aspect-video"></div>
 					{/if}
 
 					<!-- Top Content (Title, Price, CTA) - Conditional compact absolute overlay -->

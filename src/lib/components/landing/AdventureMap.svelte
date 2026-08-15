@@ -155,7 +155,7 @@
 							bind:this={videoRefs[i]}
 							use:lazyVideo
 							preload="metadata"
-							poster={panel.video.replace('.mp4', '.jpg').replace('/video/', '/video/posters/')}
+							poster={panel.video.replace('.mp4', '.webp').replace('/video/', '/video/posters/')}
 							src={panel.video}
 							class="w-full h-full object-cover"
 							muted

@@ -84,11 +84,12 @@
 			class="relative w-full aspect-video rounded-3xl overflow-hidden border border-black/5 bg-black shadow-2xl group cursor-pointer order-1 lg:order-2"
 			onclick={togglePlay}
 		>
+			<!-- svelte-ignore a11y_media_has_caption -->
 			<video
 				preload="metadata"
 				src="/video/whychooseus.mp4"
 				use:lazyVideo
-				poster="/video/posters/whychooseus.jpg"
+				poster="/video/posters/whychooseus.webp"
 				class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
 				bind:this={videoRef}
 				playsinline

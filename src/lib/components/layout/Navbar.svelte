@@ -117,8 +117,10 @@
 			class="hover:opacity-80 transition-opacity flex items-center"
 		>
 			<img
-				src="/logo.png"
+				src="/logo.webp"
 				alt="Rosantibike Logo"
+				width="150"
+				height="56"
 				class="h-12 md:h-14 w-auto object-contain transition-all duration-300 {!isLight
 					? 'brightness-0 invert'
 					: ''}"

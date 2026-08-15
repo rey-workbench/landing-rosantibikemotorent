@@ -17,7 +17,7 @@
 		preload="metadata"
 		src="/video/hero.mp4"
 		use:lazyVideo
-		poster="/video/posters/hero.jpg"
+		poster="/video/posters/hero.webp"
 		class="absolute inset-0 w-full h-full object-cover"
 	></video>
 

@@ -1,13 +1,13 @@
 export function getFallbackImage(jenis: any): string {
 	const name = (jenis.model || '').toLowerCase();
-	if (name.includes('beat')) return '/images/honda-beat.jpeg';
-	if (name.includes('soul')) return '/images/yamaha-soul-gt.jpeg';
-	if (name.includes('pcx')) return '/images/honda-pcx.jpeg';
-	if (name.includes('scoopy')) return '/images/honda-scoopy.jpeg';
-	if (name.includes('vario')) return '/images/honda-vario-125.jpeg';
-	if (name.includes('lexi')) return '/images/yamaha-lexi.jpeg';
-	if (name.includes('nmax')) return '/images/yamaha-nmax.jpeg';
-	if (name.includes('aerox')) return '/images/yamaha-aerox.jpeg';
+	if (name.includes('beat')) return '/images/honda-beat.webp';
+	if (name.includes('soul')) return '/images/yamaha-soul-gt.webp';
+	if (name.includes('pcx')) return '/images/honda-pcx.webp';
+	if (name.includes('scoopy')) return '/images/honda-scoopy.webp';
+	if (name.includes('vario')) return '/images/honda-vario-125.webp';
+	if (name.includes('lexi')) return '/images/yamaha-lexi.webp';
+	if (name.includes('nmax')) return '/images/yamaha-nmax.webp';
+	if (name.includes('aerox')) return '/images/yamaha-aerox.webp';
 	return '';
 }
 

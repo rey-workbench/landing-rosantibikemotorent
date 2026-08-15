@@ -242,7 +242,7 @@
 				oninput={handleInput}
 				onblur={handleBlur}
 				onclick={(e) => e.stopPropagation()}
-				class="flex-1 bg-brand-surface-soft border border-brand-border rounded-r-xl rounded-l-none px-4 py-3 text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring focus:bg-brand-highlight/5 transition-all {error
+				class="flex-1 bg-brand-surface-soft border border-brand-border rounded-r-xl rounded-l-none px-4 py-3 text-brand-fg focus-visible:focus-ring transition-all {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''}"
 			/>
@@ -258,7 +258,7 @@
 						type="text"
 						bind:value={searchTerm}
 						placeholder="Cari negara..."
-						class="w-full bg-brand-surface-soft border border-brand-border rounded-lg px-3 py-2 text-sm text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring"
+						class="w-full bg-brand-surface-soft border border-brand-border rounded-lg px-3 py-2 text-sm text-brand-fg focus-visible:focus-ring"
 						onclick={(e) => e.stopPropagation()}
 					/>
 				</div>

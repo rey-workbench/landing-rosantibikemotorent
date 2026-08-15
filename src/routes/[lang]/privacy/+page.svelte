@@ -22,7 +22,7 @@
 		</h1>
 
 		<div
-			class="prose prose-lg text-[#86868b] max-w-none prose-headings:text-[#1d1d1f] prose-a:text-[#0071e3]"
+			class="prose prose-lg text-[#86868b] max-w-none"
 		>
 			<p>
 				{lang === 'en'

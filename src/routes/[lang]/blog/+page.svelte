@@ -248,7 +248,7 @@
 							{#each listPosts as post}
 								<a
 									href="/{lang}/blog/{post.slug}"
-									class="group flex gap-5 items-center border-b border-black/5 pb-6 last:border-0 last:pb-0"
+									class="group flex gap-5 items-center border-b border-black/5 pb-6 last:border-0"
 								>
 									<div
 										class="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-[#f5f5f7] shrink-0 relative"

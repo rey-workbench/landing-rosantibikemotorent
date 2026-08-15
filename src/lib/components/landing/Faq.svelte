@@ -70,7 +70,7 @@
 			</h2>
 		</div>
 
-		<div class="divide-y divide-black/10 border-y border-black/10">
+		<div class="divide-y divide-black/10 border-y">
 			{#each faqs as faq, i}
 				<div class="py-6 transition-colors">
 					<button

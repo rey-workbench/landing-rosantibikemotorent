@@ -332,7 +332,7 @@
 				{required}
 				{disabled}
 				oninput={(e) => (value = e.currentTarget.value)}
-				class="w-full bg-brand-surface-soft border border-brand-border rounded-xl px-4 py-3 text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring focus:bg-brand-highlight/5 transition-all {type ===
+				class="w-full bg-brand-surface-soft border border-brand-border rounded-xl px-4 py-3 text-brand-fg focus-visible:focus-ring transition-all {type ===
 				'number'
 					? 'pr-12'
 					: ''} {error ? 'border-red-500' : ''}"
