@@ -62,7 +62,7 @@
 		<h2 class="text-4xl md:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-3">
 			{$LL.fleet_heading()}
 		</h2>
-		<p class="text-xl md:text-2xl text-[#86868b] font-normal max-w-2xl mx-auto">
+		<p class="text-xl md:text-2xl text-[#6b6b70] font-normal max-w-2xl mx-auto">
 			{$LL.fleet_heading_highlight()}
 		</p>
 	</div>
@@ -75,7 +75,7 @@
 		</div>
 	{:else if error}
 		<div class="text-center py-12">
-			<p class="text-[#86868b]">{error}</p>
+			<p class="text-[#6b6b70]">{error}</p>
 		</div>
 	{:else if jenisMotors.length > 0}
 		<div class="max-w-345 mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -111,7 +111,7 @@
 						<span
 							class="{index % 3 === 0
 								? 'text-[10px] md:text-xs mb-1'
-								: 'text-[10px] mb-0.5'} font-semibold uppercase tracking-[0.2em] text-[#86868b]"
+								: 'text-[10px] mb-0.5'} font-semibold uppercase tracking-[0.2em] text-[#6b6b70]"
 						>
 							{jenis.merk}
 						</span>
@@ -126,7 +126,7 @@
 							<p
 								class="{index % 3 === 0
 									? 'text-base md:text-lg mb-3 md:mb-4'
-									: 'text-sm md:text-base mb-2 md:mb-3'} text-[#86868b] font-normal"
+									: 'text-sm md:text-base mb-2 md:mb-3'} text-[#6b6b70] font-normal"
 							>
 								{$LL.fleet_start_from()}
 								{formatCurrency(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
@@ -136,7 +136,7 @@
 							<p
 								class="{index % 3 === 0
 									? 'text-base mb-3 md:mb-4'
-									: 'text-sm mb-2 md:mb-3'} text-[#86868b] font-normal"
+									: 'text-sm mb-2 md:mb-3'} text-[#6b6b70] font-normal"
 							>
 								{$LL.fleet_contact_us()}
 							</p>
@@ -150,7 +150,7 @@
 						>
 							<a
 								href="/{lang}/fleet/{jenis.slug}"
-								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-sm"
+								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-[#0066cc] hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-sm"
 							>
 								{$LL.fleet_order()}
 							</a>
@@ -158,7 +158,7 @@
 								href="/{lang}/fleet/{jenis.slug}"
 								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border {index % 3 === 0
 									? 'border-white text-white hover:bg-white/10'
-									: 'border-[#0071e3] text-[#0071e3] hover:bg-[#0071e3]/10'} font-medium text-xs md:text-sm transition-colors shadow-sm"
+									: 'border-[#0066cc] text-[#0066cc] hover:bg-[#0066cc]/10'} font-medium text-xs md:text-sm transition-colors shadow-sm"
 							>
 								{$LL.fleet_see_detail()}
 							</a>
@@ -178,7 +178,7 @@
 		</div>
 	{:else}
 		<div class="text-center py-12">
-			<p class="text-[#86868b]">{$LL.fleet_empty_desc()}</p>
+			<p class="text-[#6b6b70]">{$LL.fleet_empty_desc()}</p>
 		</div>
 	{/if}
 </section>

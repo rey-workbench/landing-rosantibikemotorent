@@ -54,7 +54,7 @@
 				<div class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none">
 					{Math.round($spring1)}{stats[0].suffix}
 				</div>
-				<div class="text-sm md:text-lg text-[#86868b] font-medium tracking-wide">
+				<div class="text-sm md:text-lg text-[#6b6b70] font-medium tracking-wide">
 					{stats[0].label}
 				</div>
 			</div>
@@ -64,7 +64,7 @@
 				<div class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none">
 					{Math.round($spring2)}{stats[1].suffix}
 				</div>
-				<div class="text-sm md:text-lg text-[#86868b] font-medium tracking-wide">
+				<div class="text-sm md:text-lg text-[#6b6b70] font-medium tracking-wide">
 					{stats[1].label}
 				</div>
 			</div>
@@ -74,7 +74,7 @@
 				<div class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none">
 					{Math.round($spring3)}{stats[2].suffix}
 				</div>
-				<div class="text-sm md:text-lg text-[#86868b] font-medium tracking-wide">
+				<div class="text-sm md:text-lg text-[#6b6b70] font-medium tracking-wide">
 					{stats[2].label}
 				</div>
 			</div>

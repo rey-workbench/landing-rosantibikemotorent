@@ -167,7 +167,7 @@
 								class="w-full h-full object-cover mix-blend-multiply"
 							/>
 						{:else}
-							<div class="w-full h-full flex items-center justify-center text-[#86868b]">
+							<div class="w-full h-full flex items-center justify-center text-[#6b6b70]">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="128"
@@ -189,7 +189,7 @@
 				<!-- Details Section -->
 				<div class="flex flex-col justify-center">
 					<!-- Breadcrumb -->
-					<p class="text-[#86868b] font-semibold text-[13px] uppercase tracking-wider mb-2">
+					<p class="text-[#6b6b70] font-semibold text-[13px] uppercase tracking-wider mb-2">
 						{jenis.merk}
 					</p>
 
@@ -199,7 +199,7 @@
 						Sewa Motor {jenis.model} Malang
 					</h1>
 
-					<p class="text-[#86868b] text-[17px] leading-relaxed mb-8">
+					<p class="text-[#6b6b70] text-[17px] leading-relaxed mb-8">
 						{$LL.fleet_detail_description({ merk: jenis.merk, model: jenis.model, cc: jenis.cc })}
 					</p>
 
@@ -208,18 +208,18 @@
 						<div
 							class="bg-white border border-black/5 rounded-3xl p-5 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
 						>
-							<p class="text-[#86868b] text-[13px] font-semibold uppercase tracking-wider mb-1">
+							<p class="text-[#6b6b70] text-[13px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_engine()}
 							</p>
 							<p class="text-3xl font-semibold text-[#1d1d1f] tracking-tight">
 								{jenis.cc}
-								<span class="text-lg text-[#86868b] font-medium tracking-normal">CC</span>
+								<span class="text-lg text-[#6b6b70] font-medium tracking-normal">CC</span>
 							</p>
 						</div>
 						<div
 							class="bg-white border border-black/5 rounded-3xl p-5 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
 						>
-							<p class="text-[#86868b] text-[13px] font-semibold uppercase tracking-wider mb-1">
+							<p class="text-[#6b6b70] text-[13px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_year()}
 							</p>
 							<p class="text-3xl font-semibold text-[#1d1d1f] tracking-tight">
@@ -232,13 +232,13 @@
 					<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-8">
 						<div class="flex items-end justify-between mb-6">
 							<div>
-								<p class="text-[#86868b] text-[13px] font-semibold uppercase tracking-wider mb-1">
+								<p class="text-[#6b6b70] text-[13px] font-semibold uppercase tracking-wider mb-1">
 									{$LL.fleet_detail_price()}
 								</p>
 								<p class="text-[40px] leading-none font-semibold text-[#1d1d1f] tracking-tight">
 									{formatCurrency(displayPrice)}
 								</p>
-								<p class="text-[#86868b] text-[15px] mt-1 font-medium">
+								<p class="text-[#6b6b70] text-[15px] mt-1 font-medium">
 									{$LL.fleet_detail_per_day()}
 								</p>
 							</div>

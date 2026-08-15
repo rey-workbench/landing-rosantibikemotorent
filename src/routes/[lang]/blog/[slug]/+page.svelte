@@ -109,7 +109,7 @@
 				{#if post.tags}
 					{#each post.tags as tag}
 						<span
-							class="px-3.5 py-1 bg-[#f5f5f7] border border-black/5 text-[#86868b] text-[11px] font-semibold tracking-wider rounded-full"
+							class="px-3.5 py-1 bg-[#f5f5f7] border border-black/5 text-[#6b6b70] text-[11px] font-semibold tracking-wider rounded-full"
 						>
 							#{tag.nama}
 						</span>
@@ -133,10 +133,10 @@
 				</div>
 				<div class="flex flex-col text-left">
 					<span class="text-[13px] font-medium text-[#1d1d1f]">Rosantibike Team</span>
-					<div class="flex items-center gap-2 text-[12px] text-[#86868b] font-normal mt-0.5">
+					<div class="flex items-center gap-2 text-[12px] text-[#6b6b70] font-normal mt-0.5">
 						{#if post.formattedDate && post.formattedDate !== '-'}
 							<time datetime={post.createdAt}>{post.formattedDate}</time>
-							<span class="text-[#86868b]/40 font-light">|</span>
+							<span class="text-[#6b6b70]/40 font-light">|</span>
 						{/if}
 						<span>{post.readingTime}</span>
 					</div>
@@ -176,7 +176,7 @@
 				class="mt-20 p-8 bg-[#f5f5f7] rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 border border-black/5"
 			>
 				<div class="text-center md:text-left">
-					<h3 class="text-[13px] font-semibold text-[#86868b] tracking-wide mb-3">
+					<h3 class="text-[13px] font-semibold text-[#6b6b70] tracking-wide mb-3">
 						{$LL.blog_share()}
 					</h3>
 					<div class="flex justify-center md:justify-start gap-3">

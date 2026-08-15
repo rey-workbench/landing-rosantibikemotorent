@@ -236,7 +236,7 @@
 				{$LL.booking_header_order()}
 				<span class="text-[#0071e3]">{$LL.booking_header_motor()}</span>
 			</h1>
-			<p class="text-[17px] leading-relaxed font-normal text-[#86868b] max-w-xl mx-auto">
+			<p class="text-[17px] leading-relaxed font-normal text-[#6b6b70] max-w-xl mx-auto">
 				{$LL.booking_header_subtitle()}
 			</p>
 		</div>
@@ -264,7 +264,7 @@
 					</svg>
 				</div>
 				<h3 class="text-2xl font-semibold text-[#1d1d1f] mb-3">{$LL.booking_success_title()}</h3>
-				<p class="text-[#86868b]">{$LL.booking_success_message()}</p>
+				<p class="text-[#6b6b70]">{$LL.booking_success_message()}</p>
 			</div>
 		{:else}
 			<!-- Step Indicator -->
@@ -300,7 +300,7 @@
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
 							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step1_title()}</h3>
-							<p class="text-[#86868b] text-sm mt-1">{$LL.booking_step1_desc()}</p>
+							<p class="text-[#6b6b70] text-sm mt-1">{$LL.booking_step1_desc()}</p>
 						</div>
 
 						<Input
@@ -328,7 +328,7 @@
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
 							<h3 class="text-xl font-semibold text-[#1d1d1f]">Pilih Motor</h3>
-							<p class="text-[#86868b] text-sm mt-1">Pilih motor yang ingin disewa</p>
+							<p class="text-[#6b6b70] text-sm mt-1">Pilih motor yang ingin disewa</p>
 						</div>
 
 						<Input
@@ -363,14 +363,14 @@
 									/>
 								{/if}
 								<div class="flex-1">
-									<p class="text-[#86868b] text-sm">{jenis?.merk}</p>
+									<p class="text-[#6b6b70] text-sm">{jenis?.merk}</p>
 									<p class="text-[#1d1d1f] font-semibold text-lg">{jenis?.model}</p>
 									{#if jenis?.cc}
-										<p class="text-[#86868b] text-sm">{jenis.cc} CC</p>
+										<p class="text-[#6b6b70] text-sm">{jenis.cc} CC</p>
 									{/if}
 									<p class="text-[#0071e3] font-semibold mt-1">
 										{formatCurrency(jenis?.hargaSewa || 0)}
-										<span class="text-[#86868b] font-normal text-sm">/ {$LL.booking_day()}</span>
+										<span class="text-[#6b6b70] font-normal text-sm">/ {$LL.booking_day()}</span>
 									</p>
 								</div>
 							</div>
@@ -379,7 +379,7 @@
 								class="border-2 border-dashed border-black/10 rounded-2xl p-8 text-center bg-[#f5f5f7]/50 mt-4"
 							>
 								<svg
-									class="w-12 h-12 text-[#86868b] mx-auto mb-3"
+									class="w-12 h-12 text-[#6b6b70] mx-auto mb-3"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"
@@ -397,7 +397,7 @@
 										d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
 									/>
 								</svg>
-								<p class="text-[#86868b]">{$LL.booking_motor_select()}</p>
+								<p class="text-[#6b6b70]">{$LL.booking_motor_select()}</p>
 							</div>
 						{/if}
 					</div>
@@ -408,7 +408,7 @@
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-8">
 							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step3_title()}</h3>
-							<p class="text-[#86868b] text-sm mt-1">{$LL.booking_step3_desc()}</p>
+							<p class="text-[#6b6b70] text-sm mt-1">{$LL.booking_step3_desc()}</p>
 						</div>
 
 						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -498,7 +498,7 @@
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
 							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step4_title()}</h3>
-							<p class="text-[#86868b] text-sm mt-1">{$LL.booking_step4_desc()}</p>
+							<p class="text-[#6b6b70] text-sm mt-1">{$LL.booking_step4_desc()}</p>
 						</div>
 
 						<!-- Summary Card -->
@@ -518,7 +518,7 @@
 									{/if}
 									<div>
 										<p
-											class="text-[#86868b] text-[11px] font-semibold tracking-wider uppercase mb-1"
+											class="text-[#6b6b70] text-[11px] font-semibold tracking-wider uppercase mb-1"
 										>
 											{$LL.booking_motor_label()}
 										</p>
@@ -527,7 +527,7 @@
 								</div>
 							{:else if formData.jenisId || formData.unitId}
 								<div class="p-5 border-b border-black/5 bg-white">
-									<p class="text-[#86868b] text-[11px] font-semibold tracking-wider uppercase mb-1">
+									<p class="text-[#6b6b70] text-[11px] font-semibold tracking-wider uppercase mb-1">
 										{$LL.booking_motor_label()}
 									</p>
 									<p class="text-[#1d1d1f] font-semibold">{$LL.booking_motor_selected()}</p>
@@ -537,20 +537,20 @@
 							<!-- Details -->
 							<div class="p-5 space-y-3">
 								<div class="flex justify-between items-center">
-									<span class="text-[#86868b] text-sm">{$LL.booking_name_field()}</span>
+									<span class="text-[#6b6b70] text-sm">{$LL.booking_name_field()}</span>
 									<span class="text-[#1d1d1f] font-medium">{formData.namaPenyewa}</span>
 								</div>
 								<div class="flex justify-between items-center">
-									<span class="text-[#86868b] text-sm">{$LL.booking_whatsapp_field()}</span>
+									<span class="text-[#6b6b70] text-sm">{$LL.booking_whatsapp_field()}</span>
 									<span class="text-[#1d1d1f] font-medium">{formData.noWhatsapp}</span>
 								</div>
 								<div class="flex justify-between items-center">
-									<span class="text-[#86868b] text-sm">{$LL.booking_date_field()}</span>
+									<span class="text-[#6b6b70] text-sm">{$LL.booking_date_field()}</span>
 									<span class="text-[#1d1d1f] font-medium">{formatDate(formData.tanggalMulai)}</span
 									>
 								</div>
 								<div class="flex justify-between items-center">
-									<span class="text-[#86868b] text-sm">{$LL.booking_time_field()}</span>
+									<span class="text-[#6b6b70] text-sm">{$LL.booking_time_field()}</span>
 									<span class="text-[#1d1d1f] font-medium"
 										>{formData.jamMulai} - {formData.jamSelesai}</span
 									>
@@ -559,7 +559,7 @@
 									<div class="border-t border-black/5 pt-3 mt-3">
 										{#if formData.jasHujan > 0}
 											<div class="flex justify-between items-center mt-2">
-												<span class="text-[#86868b] text-sm">{$LL.booking_raincoat_field()}</span>
+												<span class="text-[#6b6b70] text-sm">{$LL.booking_raincoat_field()}</span>
 												<span class="text-[#0071e3] font-medium"
 													>{formData.jasHujan} {$LL.booking_confirm_pieces()}</span
 												>
@@ -567,7 +567,7 @@
 										{/if}
 										{#if formData.helm > 0}
 											<div class="flex justify-between items-center mt-2">
-												<span class="text-[#86868b] text-sm">{$LL.booking_helmet_field()}</span>
+												<span class="text-[#6b6b70] text-sm">{$LL.booking_helmet_field()}</span>
 												<span class="text-[#0071e3] font-medium"
 													>{formData.helm} {$LL.booking_confirm_pieces()}</span
 												>
@@ -584,13 +584,13 @@
 								<!-- Price Breakdown -->
 								<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5 space-y-3">
 									<h4
-										class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2"
+										class="text-[11px] font-semibold text-[#6b6b70] uppercase tracking-wider mb-2"
 									>
 										{$LL.booking_price_breakdown()}
 									</h4>
 									<div class="space-y-2">
 										<div class="flex justify-between items-center text-sm">
-											<span class="text-[#86868b]">
+											<span class="text-[#6b6b70]">
 												{$LL.booking_rental_cost()} ({priceBreakdown.rincian.jumlahHari}
 												{$LL.booking_day()} × {formatCurrency(priceBreakdown.rincian.hargaPerHari)})
 											</span>
@@ -602,7 +602,7 @@
 										</div>
 										{#if priceBreakdown.rincian.jamTambahan > 0}
 											<div class="flex justify-between items-center text-sm">
-												<span class="text-[#86868b]">
+												<span class="text-[#6b6b70]">
 													{$LL.booking_additional_fee()} ({priceBreakdown.rincian.jamTambahan} jam × {formatCurrency(
 														priceBreakdown.rincian.dendaPerJam
 													)})
@@ -615,7 +615,7 @@
 											</div>
 										{/if}
 										<div
-											class="text-xs text-[#86868b] pt-2 border-t border-[rgba(166,173,187,0.16)]"
+											class="text-xs text-[#6b6b70] pt-2 border-t border-[rgba(166,173,187,0.16)]"
 										>
 											{$LL.booking_total_duration()}: {priceBreakdown.rincian.totalJam} jam
 										</div>
@@ -627,7 +627,7 @@
 									<div class="flex justify-between items-center">
 										<div>
 											<p
-												class="text-[#86868b] text-[13px] font-medium tracking-wide uppercase mb-1"
+												class="text-[#6b6b70] text-[13px] font-medium tracking-wide uppercase mb-1"
 											>
 												{$LL.booking_total_cost()}
 											</p>
@@ -642,7 +642,7 @@
 							<div
 								class="bg-white border border-black/5 rounded-3xl p-5 text-center shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
 							>
-								<p class="text-[#86868b]">{$LL.booking_calculating()}</p>
+								<p class="text-[#6b6b70]">{$LL.booking_calculating()}</p>
 							</div>
 						{/if}
 
@@ -663,7 +663,7 @@
 							</svg>
 							<div class="text-[14px]">
 								<p class="text-[#1d1d1f] font-semibold">{$LL.booking_note_title()}</p>
-								<p class="text-[#86868b] mt-1 leading-relaxed">
+								<p class="text-[#6b6b70] mt-1 leading-relaxed">
 									{$LL.booking_note_desc()}
 								</p>
 							</div>

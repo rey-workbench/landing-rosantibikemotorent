@@ -98,14 +98,14 @@
 								onerror={handleImageError}
 							/>
 							<div
-								class="h-6 w-6 bg-[#f5f5f7] rounded-full items-center justify-center text-[8px] text-[#86868b] font-medium border border-black/5"
+								class="h-6 w-6 bg-[#f5f5f7] rounded-full items-center justify-center text-[8px] text-[#6b6b70] font-medium border border-black/5"
 								style="display: none;"
 							>
 								?
 							</div>
 						{:else}
 							<div
-								class="h-6 w-6 bg-[#f5f5f7] rounded-full flex items-center justify-center text-[8px] text-[#86868b] font-medium border border-black/5"
+								class="h-6 w-6 bg-[#f5f5f7] rounded-full flex items-center justify-center text-[8px] text-[#6b6b70] font-medium border border-black/5"
 							>
 								?
 							</div>
@@ -144,7 +144,7 @@
 				{/each}
 			</div>
 		{:else if error}
-			<div class="text-center py-20 text-[#86868b]">
+			<div class="text-center py-20 text-[#6b6b70]">
 				{error}
 			</div>
 		{:else if jenisMotors.length > 0}
@@ -234,7 +234,7 @@
 									{formatCurrency(motor.computed.minPrice)}{$LL.fleet_per_day()}
 								</p>
 							{:else}
-								<p class="text-[15px] text-[#86868b] font-normal mb-8">{$LL.fleet_contact_us()}</p>
+								<p class="text-[15px] text-[#6b6b70] font-normal mb-8">{$LL.fleet_contact_us()}</p>
 							{/if}
 
 							<!-- Buttons -->
@@ -257,7 +257,7 @@
 				{/each}
 			</div>
 		{:else}
-			<div class="text-center py-20 text-[#86868b] text-lg font-medium">
+			<div class="text-center py-20 text-[#6b6b70] text-lg font-medium">
 				{$LL.fleet_empty_desc()}
 			</div>
 		{/if}

@@ -38,7 +38,7 @@
 	--brand-surface-soft: #e8e8ed;
 	--brand-border: #d2d2d7;
 	--brand-accent: #000000;
-	--brand-muted: #86868b;
+	--brand-muted: #6b6b70;
 	--brand-highlight: #0066cc;
 
 	/* Background RGB channels for overlays */
@@ -62,6 +62,7 @@
 	--brand-surface-soft: #1d1d1f;
 	--brand-border: #333336;
 	--brand-accent: #ffffff;
+	/* Keep lighter gray in dark mode: #6b6b70 would drop below 4.5:1 on black */
 	--brand-muted: #86868b;
 	--brand-highlight: #2997ff;
 

@@ -45,7 +45,7 @@
 				<h1 class="text-[32px] md:text-[40px] font-semibold text-[#1d1d1f] tracking-tight mb-4">
 					{$LL.booking_success_title()}
 				</h1>
-				<p class="text-[#86868b] text-[17px] leading-relaxed">
+				<p class="text-[#6b6b70] text-[17px] leading-relaxed">
 					{$LL.booking_success_subtitle()}
 				</p>
 			</div>
@@ -76,24 +76,24 @@
 
 				<div class="space-y-4">
 					<div class="flex justify-between items-center py-3 border-b border-black/5">
-						<span class="text-[#86868b] text-[15px]">{$LL.booking_success_renter_name()}</span>
+						<span class="text-[#6b6b70] text-[15px]">{$LL.booking_success_renter_name()}</span>
 						<span class="text-[#1d1d1f] font-medium">{transaksi.namaPenyewa}</span>
 					</div>
 					<div class="flex justify-between items-center py-3 border-b border-black/5">
-						<span class="text-[#86868b] text-[15px]">{$LL.booking_whatsapp_label()}</span>
+						<span class="text-[#6b6b70] text-[15px]">{$LL.booking_whatsapp_label()}</span>
 						<span class="text-[#1d1d1f] font-medium">{transaksi.noWhatsapp}</span>
 					</div>
 					<div class="flex justify-between items-center py-3 border-b border-black/5">
-						<span class="text-[#86868b] text-[15px]">{$LL.booking_start_date_label()}</span>
+						<span class="text-[#6b6b70] text-[15px]">{$LL.booking_start_date_label()}</span>
 						<span class="text-[#1d1d1f] font-medium">{transaksi.formatted.mulai}</span>
 					</div>
 					<div class="flex justify-between items-center py-3 border-b border-black/5">
-						<span class="text-[#86868b] text-[15px]">{$LL.booking_end_date_label()}</span>
+						<span class="text-[#6b6b70] text-[15px]">{$LL.booking_end_date_label()}</span>
 						<span class="text-[#1d1d1f] font-medium">{transaksi.formatted.selesai}</span>
 					</div>
 					{#if transaksi.jasHujan > 0}
 						<div class="flex justify-between items-center py-3 border-b border-black/5">
-							<span class="text-[#86868b] text-[15px]">{$LL.booking_raincoat_field()}</span>
+							<span class="text-[#6b6b70] text-[15px]">{$LL.booking_raincoat_field()}</span>
 							<span class="text-[#0071e3] font-medium"
 								>{transaksi.jasHujan} {$LL.booking_confirm_pieces()}</span
 							>
@@ -101,14 +101,14 @@
 					{/if}
 					{#if transaksi.helm > 0}
 						<div class="flex justify-between items-center py-3 border-b border-black/5">
-							<span class="text-[#86868b] text-[15px]">{$LL.booking_helmet_field()}</span>
+							<span class="text-[#6b6b70] text-[15px]">{$LL.booking_helmet_field()}</span>
 							<span class="text-[#0071e3] font-medium"
 								>{transaksi.helm} {$LL.booking_confirm_pieces()}</span
 							>
 						</div>
 					{/if}
 					<div class="flex justify-between items-center py-3 pt-5">
-						<span class="text-[13px] font-semibold text-[#86868b] tracking-wide uppercase"
+						<span class="text-[13px] font-semibold text-[#6b6b70] tracking-wide uppercase"
 							>{$LL.booking_total_cost()}</span
 						>
 						<span class="text-3xl font-semibold text-[#1d1d1f]"

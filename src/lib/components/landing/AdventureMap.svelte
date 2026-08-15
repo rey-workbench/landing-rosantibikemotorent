@@ -113,14 +113,14 @@
 					>
 						{$LL.adventure_title()}
 					</p>
-					<h3
+					<h2
 						class="text-3xl md:text-6xl font-semibold text-white leading-tight tracking-tight drop-shadow-xl"
 					>
 						{$LL.adventure_heading()} <br />
 						<span class="text-white/70">
 							{$LL.adventure_heading_highlight()}
 						</span>
-					</h3>
+					</h2>
 				</div>
 			</div>
 			{#each panels as panel, i}
@@ -128,6 +128,7 @@
 					class="panel relative w-full md:w-auto md:h-full transition-all duration-700 md:duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden border-b border-white/10 md:border-b-0 md:border-r last:border-0 cursor-pointer"
 					role="button"
 					tabindex="0"
+					aria-label="{panel.title}"
 					style="
 						z-index: {i === activePanelIndex ? 10 : i};
 						flex: {i === activePanelIndex ? '6' : '1'};
@@ -267,11 +268,7 @@
 			>
 				{#each panels as panel, i}
 					<button
-						class="group relative w-1.5 h-1.5 md:w-3 md:h-3 rounded-full transition-all duration-300"
-						style="
-							background: {i === activePanelIndex ? panel.accentColor : 'rgba(255,255,255,0.2)'};
-							transform: scale({i === activePanelIndex ? 1.5 : 1});
-						"
+						class="group relative flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full"
 						aria-label="Go to {panel.title}"
 						onclick={() => {
 							if (containerRef) {
@@ -281,9 +278,16 @@
 							}
 						}}
 					>
+						<span
+							class="block w-1.5 h-1.5 md:w-3 md:h-3 rounded-full transition-all duration-300"
+							style="
+								background: {i === activePanelIndex ? panel.accentColor : 'rgba(255,255,255,0.2)'};
+								transform: scale({i === activePanelIndex ? 1.5 : 1});
+							"
+						></span>
 						{#if i === activePanelIndex}
 							<span
-								class="absolute inset-0 rounded-full animate-ping"
+								class="absolute w-1.5 h-1.5 md:w-3 md:h-3 rounded-full animate-ping"
 								style="background: {panel.accentColor}40"
 							></span>
 						{/if}

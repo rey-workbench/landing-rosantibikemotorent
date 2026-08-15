@@ -22,55 +22,55 @@
 	>
 		<!-- Left: Text -->
 		<div class="text-left order-2 lg:order-1">
-			<p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#86868b] mb-3">
+			<p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#6b6b70] mb-3">
 				Experience The Ride
 			</p>
 			<h2
 				class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight leading-tight mb-6"
 			>
 				{$LL.why_heading()} <br />
-				<span class="text-[#86868b]">
+				<span class="text-[#6b6b70]">
 					{$LL.why_heading_highlight()}
 				</span>
 			</h2>
-			<p class="text-[#86868b] text-xl md:text-2xl font-normal leading-relaxed max-w-lg mb-8">
+			<p class="text-[#6b6b70] text-xl md:text-2xl font-normal leading-relaxed max-w-lg mb-8">
 				{$LL.why_desc()}
 			</p>
 
 			<div class="flex flex-col mt-12 w-full max-w-lg">
 				<div class="flex gap-5 sm:gap-8 border-t border-black/10 py-6">
 					<div class="shrink-0 mt-1">
-						<span class="text-[#86868b] text-xs font-bold tracking-[0.2em]">01</span>
+						<span class="text-[#6b6b70] text-xs font-bold tracking-[0.2em]">01</span>
 					</div>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
 							{$LL.why_unit_title()}
 						</h3>
-						<p class="text-base text-[#86868b] leading-relaxed">{$LL.why_unit_desc()}</p>
+						<p class="text-base text-[#6b6b70] leading-relaxed">{$LL.why_unit_desc()}</p>
 					</div>
 				</div>
 
 				<div class="flex gap-5 sm:gap-8 border-t border-black/10 py-6">
 					<div class="shrink-0 mt-1">
-						<span class="text-[#86868b] text-xs font-bold tracking-[0.2em]">02</span>
+						<span class="text-[#6b6b70] text-xs font-bold tracking-[0.2em]">02</span>
 					</div>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
 							{$LL.why_delivery_title()}
 						</h3>
-						<p class="text-base text-[#86868b] leading-relaxed">{$LL.why_delivery_desc()}</p>
+						<p class="text-base text-[#6b6b70] leading-relaxed">{$LL.why_delivery_desc()}</p>
 					</div>
 				</div>
 
 				<div class="flex gap-5 sm:gap-8 border-t border-b border-black/10 py-6">
 					<div class="shrink-0 mt-1">
-						<span class="text-[#86868b] text-xs font-bold tracking-[0.2em]">03</span>
+						<span class="text-[#6b6b70] text-xs font-bold tracking-[0.2em]">03</span>
 					</div>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
 							{$LL.why_price_title()}
 						</h3>
-						<p class="text-base text-[#86868b] leading-relaxed">{$LL.why_price_desc()}</p>
+						<p class="text-base text-[#6b6b70] leading-relaxed">{$LL.why_price_desc()}</p>
 					</div>
 				</div>
 			</div>

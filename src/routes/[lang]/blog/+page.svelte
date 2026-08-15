@@ -102,7 +102,7 @@
 				{$LL.blog_heading()} <br class="hidden md:block" />
 				<span class="text-[#1d1d1f]">{$LL.blog_heading_highlight()}</span>
 			</h1>
-			<p class="text-[17px] leading-relaxed font-normal text-[#86868b] max-w-xl">
+			<p class="text-[17px] leading-relaxed font-normal text-[#6b6b70] max-w-xl">
 				{$LL.blog_subtitle()}
 			</p>
 		</div>
@@ -127,7 +127,7 @@
 			<div class="flex-2 min-w-0">
 				<label
 					for="tag-filter"
-					class="block text-[13px] font-medium text-[#86868b] mb-2 uppercase tracking-wider"
+					class="block text-[13px] font-medium text-[#6b6b70] mb-2 uppercase tracking-wider"
 					>{$LL.blog_filter_label()}</label
 				>
 				<div class="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-none max-w-full">
@@ -222,8 +222,8 @@
 											{featuredPost.tags[0].nama}
 										</span>
 									{/if}
-									<span class="text-[11px] text-[#86868b] font-light">|</span>
-									<span class="text-[11px] text-[#86868b] font-medium"
+									<span class="text-[11px] text-[#6b6b70] font-light">|</span>
+									<span class="text-[11px] text-[#6b6b70] font-medium"
 										>{featuredPost.readingTime}</span
 									>
 								</div>
@@ -232,11 +232,11 @@
 								>
 									{featuredPost.judul}
 								</h2>
-								<p class="text-[#86868b] text-[15px] leading-relaxed mb-4 line-clamp-3">
+								<p class="text-[#6b6b70] text-[15px] leading-relaxed mb-4 line-clamp-3">
 									{featuredPost.excerpt}
 								</p>
 								{#if featuredPost.formattedDate && featuredPost.formattedDate !== '-'}
-									<span class="text-[13px] text-[#86868b] font-medium"
+									<span class="text-[13px] text-[#6b6b70] font-medium"
 										>{featuredPost.formattedDate}</span
 									>
 								{/if}
@@ -271,8 +271,8 @@
 													>{post.tags[0].nama}</span
 												>
 											{/if}
-											<span class="text-[10px] text-[#86868b] font-light">|</span>
-											<span class="text-[10px] text-[#86868b]">{post.readingTime}</span>
+											<span class="text-[10px] text-[#6b6b70] font-light">|</span>
+											<span class="text-[10px] text-[#6b6b70]">{post.readingTime}</span>
 										</div>
 										<h3
 											class="text-[15px] font-semibold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-snug"
@@ -280,7 +280,7 @@
 											{post.judul}
 										</h3>
 										{#if post.formattedDate && post.formattedDate !== '-'}
-											<span class="text-[11px] text-[#86868b] mt-2 block font-medium"
+											<span class="text-[11px] text-[#6b6b70] mt-2 block font-medium"
 												>{post.formattedDate}</span
 											>
 										{/if}
@@ -319,7 +319,7 @@
 										class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
 									/>
 								{:else}
-									<div class="w-full h-full flex items-center justify-center text-[#86868b]">
+									<div class="w-full h-full flex items-center justify-center text-[#6b6b70]">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="32"
@@ -379,7 +379,7 @@
 									{post.judul}
 								</h3>
 
-								<p class="text-[#86868b] text-[14px] mb-6 line-clamp-3 leading-relaxed font-normal">
+								<p class="text-[#6b6b70] text-[14px] mb-6 line-clamp-3 leading-relaxed font-normal">
 									{post.excerpt}
 								</p>
 
@@ -440,7 +440,7 @@
 								class="w-10 h-10 flex items-center justify-center rounded-full text-[15px] font-medium transition-all cursor-pointer {currentPage ===
 								i + 1
 									? 'bg-[#1d1d1f] text-white shadow-sm'
-									: 'bg-white text-[#86868b] border border-black/5 hover:border-[#1d1d1f] hover:text-[#1d1d1f]'}"
+									: 'bg-white text-[#6b6b70] border border-black/5 hover:border-[#1d1d1f] hover:text-[#1d1d1f]'}"
 							>
 								{i + 1}
 							</button>

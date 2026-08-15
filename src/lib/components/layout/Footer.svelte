@@ -10,7 +10,7 @@
 </script>
 
 <footer
-	class="bg-[#f5f5f7] text-[#86868b] text-[11px] pt-8 pb-12 border-t border-black/5 {className}"
+	class="bg-[#f5f5f7] text-[#6b6b70] text-[11px] pt-8 pb-12 border-t border-black/5 {className}"
 >
 	<div class="max-w-5xl mx-auto px-4">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-black/10">

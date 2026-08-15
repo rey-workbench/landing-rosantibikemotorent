@@ -83,7 +83,7 @@
 							>{faq.question}</span
 						>
 						<span
-							class="text-2xl text-[#86868b] font-light transition-transform duration-300 {activeIndex ===
+							class="text-2xl text-[#6b6b70] font-light transition-transform duration-300 {activeIndex ===
 							i
 								? 'rotate-45'
 								: ''}"
@@ -92,7 +92,7 @@
 						</span>
 					</button>
 					{#if activeIndex === i}
-						<div class="mt-4 pr-8 text-lg md:text-xl text-[#86868b] leading-relaxed font-normal">
+						<div class="mt-4 pr-8 text-lg md:text-xl text-[#6b6b70] leading-relaxed font-normal">
 							<p>{faq.answer}</p>
 						</div>
 					{/if}
