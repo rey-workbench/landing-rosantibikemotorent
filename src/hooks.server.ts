@@ -60,3 +60,10 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 };
 
 export const handle: Handle = sequence(handleSecurity, handleLocale);
+
+export const handleError = ({ error }: { error: unknown }) => {
+	console.error('Landing server error:', error);
+	return {
+		message: 'Terjadi kesalahan sistem.'
+	};
+};

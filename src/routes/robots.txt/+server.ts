@@ -7,12 +7,7 @@ export const GET: RequestHandler = async () => {
 User-agent: *
 Allow: /
 
-# Block admin/private areas
-Disallow: /admin/
-Disallow: /api/
-Disallow: /private/
-
-# Block booking success page (contains sensitive info)
+# Block booking success page (contains customer booking receipt)
 Disallow: /*/booking/success
 
 # Sitemap

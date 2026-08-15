@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { LL } from '$i18n/i18n-svelte';
-	import { lazyVideo } from '$lib/actions/lazyVideo';
 
 	let scrollProgress = $state(0);
 	let containerRef = $state<HTMLElement>();
@@ -42,17 +41,21 @@
 	$effect(() => {
 		activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
 
+		// Only play videos while this section is actually on screen — prevents
+		// downloading all panel videos (and the huge hero-like payloads) on load.
+		const containerRect = containerRef?.getBoundingClientRect();
+		const containerInView = containerRect
+			? containerRect.bottom > 0 && containerRect.top < window.innerHeight
+			: false;
+
 		videoRefs.forEach((video, idx) => {
-			if (video) {
-				if (idx === activePanelIndex) {
-					if (video.paused) {
-						video.play().catch((err) => console.log('Video play failed:', err));
-					}
-				} else {
-					if (!video.paused) {
-						video.pause();
-					}
+			if (!video) return;
+			if (containerInView && idx === activePanelIndex) {
+				if (video.paused) {
+					video.play().catch((err) => console.log('Video play failed:', err));
 				}
+			} else if (!video.paused) {
+				video.pause();
 			}
 		});
 	});
@@ -153,8 +156,7 @@
 					>
 						<video
 							bind:this={videoRefs[i]}
-							use:lazyVideo
-							preload="metadata"
+							preload="none"
 							poster={panel.video.replace('.mp4', '.webp').replace('/video/', '/video/posters/')}
 							src={panel.video}
 							class="w-full h-full object-cover"

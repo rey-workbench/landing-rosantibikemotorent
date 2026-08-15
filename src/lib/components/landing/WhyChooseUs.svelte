@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
-	import { lazyVideo } from '$lib/actions/lazyVideo';
 
 	let videoRef = $state<HTMLVideoElement>();
 	let isPlaying = $state(false);
@@ -86,9 +85,8 @@
 		>
 			<!-- svelte-ignore a11y_media_has_caption -->
 			<video
-				preload="metadata"
+				preload="none"
 				src="/video/whychooseus.mp4"
-				use:lazyVideo
 				poster="/video/posters/whychooseus.webp"
 				class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
 				bind:this={videoRef}
