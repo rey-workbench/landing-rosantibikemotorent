@@ -2,37 +2,48 @@
 
 > Rosantibike Motorent adalah penyedia layanan rental dan sewa motor profesional di Kota Malang dan Batu, Jawa Timur, Indonesia. Menyediakan berbagai tipe motor matic, manual, dan trail dengan fasilitas helm SNI, jas hujan, dan layanan antar-jemput stasiun/terminal/hotel.
 
-## Halaman Utama & Pemesanan
+## Halaman Utama & Pemesanan (ID)
 
 - [Beranda / Home](https://rosantibikemotorent.com/id): Halaman utama layanan sewa motor Malang.
 - [Katalog Armada Motor](https://rosantibikemotorent.com/id/fleet): Seluruh daftar pilihan unit motor dan tarif rental harian/mingguan.
 - [Formulir Booking Online](https://rosantibikemotorent.com/id/booking): Pemesanan rental motor secara langsung dengan pemilihan tanggal sewa dan lokasi penyerahan unit.
 - [Blog & Artikel Wisata](https://rosantibikemotorent.com/id/blog): Daftar artikel, panduan wisata Malang & Bromo, serta tips berkendara.
-- [Syarat & Ketentuan Rental](https://rosantibikemotorent.com/id/terms): Ketentuan sewa motor, persyaratan identitas (KTP/SIM C), sistem deposit, dan aturan sewa.
-- [Kebijakan Privasi](https://rosantibikemotorent.com/id/privacy): Informasi mengenai perlindungan data pribadi dan privasi pelanggan.
 
-## Detail Armada Motor (Sesuai Katalog)
+### Detail Armada Motor (ID)
 
-- [Honda Beat](https://rosantibikemotorent.com/id/fleet/honda-beat-fi): Motor matic hemat bahan bakar untuk keliling kota Malang.
-- [Honda Vario 125](https://rosantibikemotorent.com/id/fleet/honda-vario-125): Motor matic bertenaga dan nyaman untuk wisata harian.
-- [Honda Scoopy](https://rosantibikemotorent.com/id/fleet/honda-scoopy): Motor matic retro stylish dan lincah.
-- [Honda PCX 160](https://rosantibikemotorent.com/id/fleet/honda-pcx): Motor matic premium untuk perjalanan jauh dan touring.
-- [Yamaha NMAX](https://rosantibikemotorent.com/id/fleet/yamaha-lexi): Motor matic maxi bertenaga dan nyaman untuk tanjakan.
+- [Honda Beat](https://rosantibikemotorent.com/id/fleet/honda-beat-fi): Motor matic hemat bahan bakar.
+- [Honda Vario 125](https://rosantibikemotorent.com/id/fleet/honda-vario-125): Motor matic bertenaga dan nyaman.
+- [Honda Scoopy](https://rosantibikemotorent.com/id/fleet/honda-scoopy): Motor matic retro stylish.
+- [Honda PCX 160](https://rosantibikemotorent.com/id/fleet/honda-pcx): Motor matic premium.
+- [Yamaha NMAX](https://rosantibikemotorent.com/id/fleet/yamaha-lexi): Motor matic maxi bertenaga.
 
-## Artikel & Panduan Wisata Terbaru
+### Artikel & Panduan Wisata (ID)
 
 - [Panduan Memilih Motor untuk Pemula](https://rosantibikemotorent.com/id/blog/panduan-memilih-motor-yang-tepat-untuk-pemula): Tips memilih motor yang sesuai medan wisata Malang & Batu.
 - [Tips Merawat Motor Musim Hujan](https://rosantibikemotorent.com/id/blog/tips-merawat-motor-agar-tetap-prima-selama-musim-hujan): Panduan keselamatan berkendara di kondisi hujan.
+
+## Main Pages & Booking (EN)
+
+- [Home (EN)](https://rosantibikemotorent.com/en): Motorcycle rental service in Malang & Batu.
+- [Fleet (EN)](https://rosantibikemotorent.com/en/fleet): Complete motorcycle catalogue and daily rental rates.
+- [Booking (EN)](https://rosantibikemotorent.com/en/booking): Online motorcycle reservation form.
+- [Blog (EN)](https://rosantibikemotorent.com/en/blog): Malang & Mount Bromo travel guides.
+
+### Motorcycle Fleet (EN)
+
+- [Honda Beat](https://rosantibikemotorent.com/en/fleet/honda-beat-fi): Fuel-efficient automatic scooter.
+- [Honda Vario 125](https://rosantibikemotorent.com/en/fleet/honda-vario-125): Powerful and comfortable automatic scooter.
+- [Honda Scoopy](https://rosantibikemotorent.com/en/fleet/honda-scoopy): Stylish retro automatic scooter.
+- [Honda PCX 160](https://rosantibikemotorent.com/en/fleet/honda-pcx): Premium automatic scooter.
+- [Yamaha NMAX](https://rosantibikemotorent.com/en/fleet/yamaha-lexi): Powerful maxi automatic scooter.
+
+### Travel Guides & Articles (EN)
+
+- [Guide to Choosing a Motorcycle for Beginners](https://rosantibikemotorent.com/en/blog/panduan-memilih-motor-yang-tepat-untuk-pemula): Tips for choosing the right motorcycle for Malang & Batu.
+- [Rainy Season Riding Tips](https://rosantibikemotorent.com/en/blog/tips-merawat-motor-agar-tetap-prima-selama-musim-hujan): Riding safety guide in rainy conditions.
 
 ## Informasi Kontak & Operasional
 
 - [Website Resmi](https://rosantibikemotorent.com): Website resmi Rosantibike Motorent.
 - [Chat WhatsApp](https://rosantibikemotorent.com/id/booking): Layanan pelanggan resmi (+62 823-2152-313).
 - [Peta Lokasi](https://maps.google.com/?q=-7.9463,112.6565): Jl. Bauksit No.90C, Malang, Jawa Timur.
-
-## Versi Bahasa Inggris (English Pages)
-
-- [Home (EN)](https://rosantibikemotorent.com/en): Motorcycle rental service in Malang & Batu.
-- [Fleet (EN)](https://rosantibikemotorent.com/en/fleet): Complete motorcycle catalogue and daily rental rates.
-- [Booking (EN)](https://rosantibikemotorent.com/en/booking): Online motorcycle reservation form.
-- [Blog (EN)](https://rosantibikemotorent.com/en/blog): Malang & Mount Bromo travel guides.
