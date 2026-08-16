@@ -31,7 +31,11 @@ const handleLocale: Handle = async ({ event, resolve }) => {
 	event.locals.locale = locale;
 
 	return resolve(event, {
-		transformPageChunk: ({ html }) => html.replace('%lang%', locale).replace('%dir%', 'ltr'),
+		transformPageChunk: ({ html }) =>
+			html
+				.replace('lang="id"', `lang="${locale}"`)
+				.replace('%lang%', locale)
+				.replace('%dir%', 'ltr'),
 		filterSerializedResponseHeaders: (name) => name === 'content-type'
 	});
 };
