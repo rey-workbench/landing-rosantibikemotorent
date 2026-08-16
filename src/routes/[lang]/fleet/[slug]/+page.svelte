@@ -81,7 +81,7 @@
 						cc: jenis.cc
 					}),
 					brand: jenis.merk,
-					image: jenis.gambar,
+					image: getMotorImage(jenis) || jenis.gambar,
 					sku: motor.id || '',
 					price: displayPrice,
 					inStock: true,
@@ -114,7 +114,7 @@
 				cc: jenis.cc
 			}),
 			ogType: 'product',
-			ogImage: jenis.gambar,
+			ogImage: getMotorImage(jenis) || jenis.gambar,
 			canonicalUrl: currentUrl
 		}}
 		{schemas}

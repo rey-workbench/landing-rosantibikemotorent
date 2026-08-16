@@ -549,12 +549,16 @@
 							{#if selectedUnit}
 								{@const jenis = selectedUnit.jenis}
 								<div class="p-5 flex items-center gap-4 border-b border-black/5 bg-white">
-									{#if jenis?.gambar}
+									{#if getMotorImage(jenis)}
 										<img
 											loading="lazy"
 											decoding="async"
-											src={jenis.gambar}
-											alt={jenis.model}
+											src={getMotorImage(jenis)}
+											data-fallback={getFallbackImage(jenis)}
+											onerror={handleImageError}
+											alt={jenis?.model || 'Motor'}
+											width="64"
+											height="64"
 											class="w-16 h-16 object-cover rounded-xl"
 										/>
 									{/if}
