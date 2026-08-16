@@ -19,7 +19,7 @@
 	onMount(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
-				if (entries[0].isIntersecting && !visible) {
+				if (entries[0].isIntersecting && !visible) { 
 					visible = true;
 					const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 					if (prefersReduced) {

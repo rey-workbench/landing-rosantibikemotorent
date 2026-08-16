@@ -25,12 +25,14 @@
 	const twitterCard = $derived(meta.twitterCard || 'summary_large_image');
 	const robots = $derived(meta.robots || 'index, follow');
 
-	const normalizedPath = $derived(path.startsWith('/') ? path : `/${path}`);
-	const currentUrl = $derived(meta.canonicalUrl || `${BASE_URL}/${lang}${normalizedPath}`);
+	const cleanPath = $derived(
+		!path || path === '/' ? '' : path.startsWith('/') ? path : `/${path}`
+	);
+	const currentUrl = $derived(meta.canonicalUrl || `${BASE_URL}/${lang}${cleanPath}`);
 	const alternateUrls = $derived({
-		id: `${BASE_URL}/id${normalizedPath}`,
-		en: `${BASE_URL}/en${normalizedPath}`,
-		xDefault: `${BASE_URL}/id${normalizedPath}`
+		id: `${BASE_URL}/id${cleanPath}`,
+		en: `${BASE_URL}/en${cleanPath}`,
+		xDefault: `${BASE_URL}/id${cleanPath}`
 	});
 </script>
 

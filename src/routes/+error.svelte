@@ -30,7 +30,7 @@
 </svelte:head>
 
 <section class="min-h-[80vh] flex items-center justify-center px-6 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-[#f5f5f7]">
-	<div class="max-w-lg w-full bg-white rounded-3xl p-8 sm:p-12 shadow-xl shadow-black/[0.03] border border-black/5">
+	<div class="max-w-lg w-full bg-white rounded-3xl p-8 sm:p-12 shadow-xl shadow-black/3 border border-black/5">
 		<!-- Status Code Badge -->
 		<div
 			class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-blue-50/80 text-apple-blue font-black text-3xl mb-6 shadow-xs"

@@ -23,8 +23,8 @@ const id: BaseTranslation = {
 		'Sewa motor Malang murah mulai Rp 80rb/hari. Unit Vario, PCX, Lexi & NMax terawat. Gratis 2 helm & jas hujan + layanan antar jemput. Pesan via WA sekarang!',
 	hero_tagline: 'Sewa Motor Premium di Malang', // Digunakan oleh sistem (SEO & Meta Tags)
 	hero_tagline_1: 'Sewa Motor Malang Murah & Premium', // Teks besar baris pertama (Untuk Perasaan & Kepercayaan)
-	hero_tagline_2: 'Harga Terjangkau & Pelayanan Terbaik.', // Teks besar baris kedua (Opsional)
-	hero_hook: 'Tanpa biaya tambahan kemanapun kamu mau.', // Teks deskripsi kecil
+	hero_hook:
+		'Layanan sewa motor Malang murah dan premium dengan armada terawat. Tanpa biaya tambahan kemanapun kamu mau.', // Teks deskripsi kecil
 	hero_rent_now: 'Sewa Sekarang',
 	hero_view_fleet: 'Lihat Armada',
 	hero_explore: 'Jelajahi Malang',

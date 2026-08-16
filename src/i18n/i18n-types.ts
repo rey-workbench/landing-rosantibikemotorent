@@ -99,7 +99,7 @@ type RootTranslation = {
 	 */
 	hero_tagline_1: string
 	/**
-	 * N​o​ ​a​d​d​i​t​i​o​n​a​l​ ​f​e​e​s​ ​w​h​e​r​e​v​e​r​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​g​o​.
+	 * P​r​e​m​i​u​m​ ​a​n​d​ ​a​f​f​o​r​d​a​b​l​e​ ​m​o​t​o​r​b​i​k​e​ ​r​e​n​t​a​l​ ​s​e​r​v​i​c​e​ ​i​n​ ​M​a​l​a​n​g​ ​w​i​t​h​ ​w​e​l​l​-​m​a​i​n​t​a​i​n​e​d​ ​f​l​e​e​t​.​ ​N​o​ ​e​x​t​r​a​ ​f​e​e​s​ ​w​h​e​r​e​v​e​r​ ​y​o​u​ ​r​i​d​e​.
 	 */
 	hero_hook: string
 	/**
@@ -1147,7 +1147,7 @@ export type TranslationFunctions = {
 	 */
 	hero_tagline_1: () => LocalizedString
 	/**
-	 * No additional fees wherever you want to go.
+	 * Premium and affordable motorbike rental service in Malang with well-maintained fleet. No extra fees wherever you ride.
 	 */
 	hero_hook: () => LocalizedString
 	/**
