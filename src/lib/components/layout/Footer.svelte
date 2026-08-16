@@ -7,6 +7,12 @@
 	}
 
 	let { className = '' }: Props = $props();
+
+	// Obfuscate email to prevent spam harvesting bots
+	const emailUser = 'hello';
+	const emailDomain = 'rosantibike.com';
+	const displayEmail = $derived(`${emailUser}&#64;${emailDomain}`);
+	const emailHref = $derived(`mailto:${emailUser}@${emailDomain}`);
 </script>
 
 <footer
@@ -99,9 +105,10 @@
 				<div class="space-y-2">
 					<p>{siteConfig.address}</p>
 					<p>
-						<a href="mailto:{siteConfig.email}" class="hover:underline hover:text-[#1d1d1f]"
-							>{siteConfig.email}</a
-						>
+						<a href={emailHref} class="hover:underline hover:text-[#1d1d1f]">
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+							{@html displayEmail}
+						</a>
 					</p>
 					<p>
 						<a

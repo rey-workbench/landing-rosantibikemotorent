@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Explicitly allow AI search & crawler bots for AEO citations
+# AI & Search Engine Crawlers
 User-agent: GPTBot
 Allow: /
 
@@ -22,9 +22,5 @@ Allow: /
 
 User-agent: Bingbot
 Allow: /
-
-# Block generic scraping bots that do not contribute to citations (optional)
-User-agent: CCBot
-Disallow: /
 
 Sitemap: https://rosantibikemotorent.com/sitemap.xml
