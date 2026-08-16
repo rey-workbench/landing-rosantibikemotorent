@@ -113,9 +113,13 @@
 />
 
 <!-- Hero Header -->
-<header class="pt-32 pb-12 md:pt-40 md:pb-16 px-6 md:px-10 bg-[#f5f5f7] border-b border-black/5 text-center">
+<header
+	class="pt-32 pb-12 md:pt-40 md:pb-16 px-6 md:px-10 bg-[#f5f5f7] border-b border-black/5 text-center"
+>
 	<div class="max-w-3xl mx-auto">
-		<span class="inline-block px-3.5 py-1 mb-4 rounded-full bg-white border border-black/5 text-[11px] font-semibold uppercase tracking-wider text-[#0071e3] shadow-xs">
+		<span
+			class="inline-block px-3.5 py-1 mb-4 rounded-full bg-white border border-black/5 text-[11px] font-semibold uppercase tracking-wider text-[#0071e3] shadow-xs"
+		>
 			{isEn ? 'Support & Help' : 'Pusat Bantuan & FAQ'}
 		</span>
 		<h1 class="text-4xl md:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-4">
