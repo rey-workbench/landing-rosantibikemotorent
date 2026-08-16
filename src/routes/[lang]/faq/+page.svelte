@@ -134,7 +134,7 @@
 </header>
 
 <!-- FAQ Accordion Component -->
-<Faq {lang} />
+<Faq {lang} showHeader={false} />
 
 <!-- Direct WhatsApp Help CTA -->
 <section class="py-20 px-6 bg-[#f5f5f7] border-t border-black/5 text-center">

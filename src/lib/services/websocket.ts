@@ -104,7 +104,10 @@ class WebSocketService {
 		});
 
 		this.socket.on('connect_error', (error) => {
-			console.error('[Landing Socket] Connection error:', error.message);
+			// Silent fallback - warn only in non-production
+			if (import.meta.env.DEV) {
+				console.warn('[Landing Socket] Connection warning:', error.message);
+			}
 		});
 
 		this.socket.on('motor-status-update', (raw: unknown) => {

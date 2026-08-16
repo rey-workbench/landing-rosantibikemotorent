@@ -16,7 +16,7 @@ async function resolveById(
 				updatedMotors = [selectedUnit, ...updatedMotors];
 			}
 		} catch (e) {
-			console.error('Failed to fetch unit by ID:', e);
+			if (import.meta.env.DEV) console.warn('Failed to fetch unit by ID:', e);
 		}
 	}
 	return { selectedUnit, updatedMotors };
@@ -35,11 +35,11 @@ async function resolveBySlug(
 	if (!selectedUnit) {
 		try {
 			const jenis = await unitMotorApi.getBySlug(urlUnitSlug, fetch);
-			if (jenis) {
+			if (jenis && import.meta.env.DEV) {
 				console.log(`Model ${urlUnitSlug} is fully booked.`);
 			}
 		} catch (e) {
-			console.error('Failed to fetch motor by slug:', e);
+			if (import.meta.env.DEV) console.warn('Failed to fetch motor by slug:', e);
 		}
 	}
 	return selectedUnit;
@@ -86,7 +86,7 @@ export const load: PageLoad = async ({ url, fetch }) => {
 			u.availability.every((a: any) => a.isAvailable)
 		);
 	} catch (e) {
-		console.error('Failed to fetch availability:', e);
+		if (import.meta.env.DEV) console.warn('Failed to fetch availability:', e);
 		const motorsResponse = await unitMotorApi.getAvailable(fetch);
 		availableMotors = motorsResponse.data || [];
 	}

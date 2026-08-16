@@ -9,6 +9,7 @@
 	import { formatCurrency } from '$lib/utils/format';
 	import { LL } from '$i18n/i18n-svelte';
 	import { buildProductSchema, buildBreadcrumbSchema } from '$lib/seo/schema';
+	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 
 	let { data } = $props();
 	let motor = $state(untrack(() => data.motor));
@@ -158,14 +159,16 @@
 				<!-- Image Section -->
 				<div class="relative">
 					<div class="aspect-4/3 rounded-4xl overflow-hidden bg-[#f5f5f7] border border-black/5">
-						{#if jenis.gambar}
+						{#if getMotorImage(jenis)}
 							<img
 								loading="eager"
 								fetchpriority="high"
 								decoding="async"
 								width="800"
 								height="600"
-								src={jenis.gambar}
+								src={getMotorImage(jenis)}
+								data-fallback={getFallbackImage(jenis)}
+								onerror={handleImageError}
 								alt={`Sewa Motor ${jenis.merk} ${jenis.model} Malang - Rosantibike`}
 								class="w-full h-full object-cover mix-blend-multiply"
 							/>

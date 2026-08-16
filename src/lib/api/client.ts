@@ -90,8 +90,8 @@ class ApiClient {
 	private handleFetchError(error: any, attempts: number, maxAttempts: number) {
 		if (error.name === 'AbortError') throw error;
 		if (attempts >= maxAttempts) {
-			if (browser) {
-				console.error('[API Error]', error.response?.status ?? 'network error');
+			if (browser && import.meta.env.DEV) {
+				console.warn('[API Warning]', error.response?.status ?? 'network error');
 			}
 			throw error;
 		}

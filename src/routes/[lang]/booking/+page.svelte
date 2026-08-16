@@ -13,6 +13,7 @@
 	import LL from '$i18n/i18n-svelte.js';
 	import { SeoHead } from '$lib/components/seo';
 	import { formatCurrency } from '$lib/utils/format';
+	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 
 	let { data } = $props();
 
@@ -390,12 +391,16 @@
 							<div
 								class="bg-[#f5f5f7] border border-black/5 rounded-2xl p-4 flex items-center gap-4 mt-4"
 							>
-								{#if jenis?.gambar}
+								{#if getMotorImage(jenis)}
 									<img
 										loading="lazy"
 										decoding="async"
-										src={jenis.gambar}
-										alt={jenis.model}
+										src={getMotorImage(jenis)}
+										data-fallback={getFallbackImage(jenis)}
+										onerror={handleImageError}
+										alt={jenis?.model}
+										width="96"
+										height="96"
 										class="w-24 h-24 object-cover rounded-xl"
 									/>
 								{/if}

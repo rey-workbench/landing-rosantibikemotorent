@@ -1,5 +1,6 @@
 export function getFallbackImage(jenis: any): string {
-	const name = (jenis.model || '').toLowerCase();
+	if (!jenis) return '';
+	const name = `${jenis.merk || ''} ${jenis.model || ''} ${jenis.nama || ''}`.toLowerCase();
 	if (name.includes('beat')) return '/images/honda-beat.webp';
 	if (name.includes('soul')) return '/images/yamaha-soul-gt.webp';
 	if (name.includes('pcx')) return '/images/honda-pcx.webp';
@@ -12,7 +13,17 @@ export function getFallbackImage(jenis: any): string {
 }
 
 export function getMotorImage(jenis: any): string {
-	if (jenis.gambar) return jenis.gambar;
+	if (!jenis) return '';
+	// If it has a remote/Cloudinary image or a valid local image from /images/
+	if (typeof jenis.gambar === 'string' && jenis.gambar.trim()) {
+		const img = jenis.gambar.trim();
+		if (img.startsWith('http://') || img.startsWith('https://')) {
+			return optimizeImageUrl(img);
+		}
+		if (img.startsWith('/images/')) {
+			return img;
+		}
+	}
 	return getFallbackImage(jenis);
 }
 

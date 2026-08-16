@@ -1,5 +1,11 @@
 <script lang="ts">
-	let { lang = 'id' }: { lang?: 'id' | 'en' } = $props();
+	let {
+		lang = 'id',
+		showHeader = true
+	}: {
+		lang?: 'id' | 'en';
+		showHeader?: boolean;
+	} = $props();
 
 	let activeIndex = $state<number | null>(null);
 
@@ -62,13 +68,15 @@
 	);
 </script>
 
-<section class="py-24 md:py-36 relative z-10 border-t border-black/5 bg-white">
+<section class="{showHeader ? 'py-24 md:py-36 border-t' : 'py-12 md:py-20'} relative z-10 border-black/5 bg-white">
 	<div class="container mx-auto px-6 md:px-10 max-w-245">
-		<div class="text-left md:text-center mb-16">
-			<h2 class="text-4xl md:text-6xl font-bold text-[#1d1d1f] tracking-tight leading-tight">
-				{lang === 'en' ? 'Frequently Asked Questions.' : 'Pertanyaan Umum (FAQ) Sewa Motor Malang'}
-			</h2>
-		</div>
+		{#if showHeader}
+			<div class="text-left md:text-center mb-16">
+				<h2 class="text-4xl md:text-6xl font-bold text-[#1d1d1f] tracking-tight leading-tight">
+					{lang === 'en' ? 'Frequently Asked Questions.' : 'Pertanyaan Umum (FAQ) Sewa Motor Malang'}
+				</h2>
+			</div>
+		{/if}
 
 		<div class="divide-y divide-black/10 border-y">
 			{#each faqs as faq, i}
