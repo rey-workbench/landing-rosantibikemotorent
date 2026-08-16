@@ -1,8 +1,27 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { LL } from '$i18n/i18n-svelte';
 
 	let videoRef = $state<HTMLVideoElement>();
+	let containerRef = $state<HTMLElement>();
 	let isPlaying = $state(false);
+	let isVisible = $state(false);
+
+	onMount(() => {
+		if (containerRef) {
+			const io = new IntersectionObserver(
+				(entries) => {
+					if (entries[0]?.isIntersecting) {
+						isVisible = true;
+						io.disconnect();
+					}
+				},
+				{ rootMargin: '300px' }
+			);
+			io.observe(containerRef);
+			return () => io.disconnect();
+		}
+	});
 
 	function togglePlay() {
 		if (!videoRef) return;
@@ -19,7 +38,7 @@
 	}
 </script>
 
-<div class="bg-white py-24 md:py-36" id="promotional-video">
+<div class="bg-white py-24 md:py-36" id="promotional-video" bind:this={containerRef}>
 	<div
 		class="w-full max-w-345 mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
 	>
@@ -89,7 +108,7 @@
 			<!-- svelte-ignore a11y_media_has_caption -->
 			<video
 				preload="none"
-				poster="/video/posters/whychooseus.webp"
+				poster={isVisible ? '/video/posters/whychooseus.webp' : undefined}
 				class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
 				bind:this={videoRef}
 				playsinline

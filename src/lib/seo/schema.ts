@@ -14,7 +14,7 @@ export function buildWebsiteSchema() {
 export function buildOrganizationSchema() {
 	return {
 		'@context': 'https://schema.org',
-		'@type': ['AutoRental', 'LocalBusiness'],
+		'@type': ['LocalBusiness', 'AutoRental'],
 		name: SITE_NAME,
 		alternateName: 'Rosantibike Motorent',
 		url: `${BASE_URL}/`,

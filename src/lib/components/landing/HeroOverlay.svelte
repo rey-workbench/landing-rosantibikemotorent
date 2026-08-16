@@ -1,5 +1,4 @@
 <script>
-	import { fly, fade } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
 	import { siteConfig } from '$lib/config';
 
@@ -13,7 +12,6 @@
 >
 	<div class="relative inline-block overflow-hidden py-2 sm:py-4">
 		<h1
-			in:fly={{ y: 30, duration: 800 }}
 			class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-white tracking-tight leading-[1.05]"
 		>
 			<span class="block relative">
@@ -24,7 +22,6 @@
 		</h1>
 
 		<p
-			in:fly={{ y: 20, duration: 800, delay: 100 }}
 			class="mt-6 md:mt-8 text-lg sm:text-xl md:text-2xl text-white/80 max-w-2xl mx-auto font-medium leading-relaxed tracking-wide"
 		>
 			{$LL.hero_hook()}
@@ -32,7 +29,6 @@
 	</div>
 
 	<div
-		in:fly={{ y: 20, duration: 800, delay: 200 }}
 		class="mt-8 flex flex-wrap gap-4 pointer-events-auto justify-center"
 	>
 		<a
@@ -52,7 +48,6 @@
 	</div>
 
 	<div
-		in:fade={{ delay: 300 }}
 		class="mt-8 sm:mt-12 flex flex-col items-center gap-3 sm:gap-4 pointer-events-auto"
 	></div>
 </div>

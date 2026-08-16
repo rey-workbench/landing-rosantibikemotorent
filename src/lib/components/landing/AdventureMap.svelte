@@ -37,6 +37,7 @@
 	]);
 
 	let videoRefs = $state<HTMLVideoElement[]>([]);
+	let isVisible = $state(false);
 
 	$effect(() => {
 		activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
@@ -67,6 +68,19 @@
 		const checkMobile = () => {};
 		checkMobile();
 		window.addEventListener('resize', checkMobile);
+
+		if (containerRef) {
+			const io = new IntersectionObserver(
+				(entries) => {
+					if (entries[0]?.isIntersecting) {
+						isVisible = true;
+						io.disconnect();
+					}
+				},
+				{ rootMargin: '300px' }
+			);
+			io.observe(containerRef);
+		}
 
 		const handleScroll = () => {
 			if (!containerRef) return;
@@ -161,7 +175,7 @@
 						<video
 							bind:this={videoRefs[i]}
 							preload="none"
-							poster={panel.video.replace('.mp4', '.webp').replace('/video/', '/video/posters/')}
+							poster={isVisible ? panel.video.replace('.mp4', '.webp').replace('/video/', '/video/posters/') : undefined}
 							class="w-full h-full object-cover"
 							muted
 							playsinline
