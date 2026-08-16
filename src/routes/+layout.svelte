@@ -6,7 +6,7 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import Preloader from '$lib/components/ui/Preloader.svelte';
 	import { setLocale } from '$i18n/i18n-svelte';
-	import { websocketService } from '$lib/services/websocket';
+
 	import type { Locales } from '$i18n/i18n-types';
 
 	let { data, children } = $props();
@@ -34,10 +34,8 @@
 
 		requestAnimationFrame(raf);
 
-		websocketService.connect();
-
 		return () => {
-			websocketService.disconnect();
+			lenis.destroy();
 		};
 	});
 </script>

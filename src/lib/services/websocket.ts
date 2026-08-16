@@ -55,8 +55,9 @@ class WebSocketService {
 		this.socket = io(`${apiUrl}/realtime`, {
 			transports: ['websocket'],
 			reconnection: true,
-			reconnectionAttempts: 5,
-			reconnectionDelay: 2000,
+			reconnectionAttempts: 2,
+			reconnectionDelay: 3000,
+			timeout: 5000,
 			autoConnect: true
 		});
 

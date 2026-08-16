@@ -14,20 +14,22 @@ export function buildWebsiteSchema() {
 export function buildOrganizationSchema() {
 	return {
 		'@context': 'https://schema.org',
-		'@type': 'AutoRental',
+		'@type': ['AutoRental', 'LocalBusiness'],
 		name: SITE_NAME,
 		alternateName: 'Rosantibike Motorent',
-		url: BASE_URL,
+		url: `${BASE_URL}/`,
 		logo: `${BASE_URL}/favicon.svg`,
+		image: `${BASE_URL}/logo.webp`,
+		telephone: siteConfig.phone,
 		description:
 			'Penyedia layanan sewa motor murah dan rental motor premium di Malang. Menyediakan armada Beat, Vario, Lexi, dan PCX dengan fasilitas 2 helm dan jas hujan.',
-		email: 'hello@rosantibike.com',
+		email: siteConfig.email,
 		areaServed: { '@type': 'City', name: 'Malang' },
 		address: {
 			'@type': 'PostalAddress',
-			streetAddress: 'Jl. Bauksit No.90C',
+			streetAddress: siteConfig.address,
 			addressLocality: 'Malang',
-			addressRegion: 'East Java',
+			addressRegion: 'Jawa Timur',
 			postalCode: '65142',
 			addressCountry: 'ID'
 		},
@@ -37,8 +39,12 @@ export function buildOrganizationSchema() {
 			contactType: 'customer service',
 			availableLanguage: ['Indonesian', 'English']
 		},
-		sameAs: ['https://www.instagram.com/rosantibike', 'https://share.google/txOxHDzSGQxVfc1ql'],
-		priceRange: 'Rp 80.000 - Rp 150.000',
+		sameAs: [
+			siteConfig.socials.facebook,
+			siteConfig.socials.instagram,
+			'https://share.google/txOxHDzSGQxVfc1ql'
+		],
+		priceRange: 'Rp 60.000 - Rp 150.000',
 		geo: {
 			'@type': 'GeoCoordinates',
 			latitude: -7.9463,
