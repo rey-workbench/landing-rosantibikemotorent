@@ -52,8 +52,7 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 			"img-src 'self' data: https:",
 			"connect-src 'self' wss: https:",
 			"media-src 'self'",
-			"frame-ancestors 'none'",
-			"require-trusted-types-for 'script'"
+			"frame-ancestors 'none'"
 		].join('; ')
 	);
 	response.headers.set('X-Frame-Options', 'DENY');

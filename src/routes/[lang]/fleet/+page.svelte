@@ -241,12 +241,14 @@
 							<div class="flex flex-col gap-3 w-full max-w-35 mt-auto">
 								<a
 									href="/{lang}/booking?unit={motor.slug}"
+									aria-label="{$LL.fleet_order()} {motor.merk} {motor.model}"
 									class="w-full py-2 bg-[#0071e3] text-white rounded-full text-[15px] font-normal hover:bg-[#0077ed] transition-colors shadow-sm"
 								>
 									{$LL.fleet_order()}
 								</a>
 								<a
 									href="/{lang}/fleet/{motor.slug}"
+									aria-label="{$LL.fleet_link_detail()} {motor.merk} {motor.model}"
 									class="w-full py-2 text-apple-blue text-[15px] font-normal hover:underline"
 								>
 									{$LL.fleet_link_detail()} &gt;

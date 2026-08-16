@@ -9,10 +9,15 @@
 		setTimeout(() => (loadingState.isLoaded = true), 1000);
 
 		const start = () => {
-			if (videoRef && videoRef.paused) {
-				videoRef.play().catch(() => {
-					/* autoplay blocked — poster stays visible */
-				});
+			if (videoRef) {
+				if (!videoRef.src) {
+					videoRef.src = '/video/hero.mp4';
+				}
+				if (videoRef.paused) {
+					videoRef.play().catch(() => {
+						/* autoplay blocked — poster stays visible */
+					});
+				}
 			}
 		};
 
@@ -49,7 +54,6 @@
 		loop
 		playsinline
 		preload="none"
-		src="/video/hero.mp4"
 		poster="/video/posters/hero.webp"
 		class="absolute inset-0 w-full h-full object-cover"
 	>

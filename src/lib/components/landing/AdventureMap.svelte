@@ -51,6 +51,9 @@
 		videoRefs.forEach((video, idx) => {
 			if (!video) return;
 			if (containerInView && idx === activePanelIndex) {
+				if (!video.src && panels[idx]) {
+					video.src = panels[idx].video;
+				}
 				if (video.paused) {
 					video.play().catch((err) => console.log('Video play failed:', err));
 				}
@@ -159,7 +162,6 @@
 							bind:this={videoRefs[i]}
 							preload="none"
 							poster={panel.video.replace('.mp4', '.webp').replace('/video/', '/video/posters/')}
-							src={panel.video}
 							class="w-full h-full object-cover"
 							muted
 							playsinline

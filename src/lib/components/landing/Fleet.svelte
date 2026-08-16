@@ -150,12 +150,14 @@
 						>
 							<a
 								href="/{lang}/fleet/{jenis.slug}"
+								aria-label="{$LL.fleet_order()} {jenis.merk} {jenis.model}"
 								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-apple-blue hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-sm"
 							>
 								{$LL.fleet_order()}
 							</a>
 							<a
 								href="/{lang}/fleet/{jenis.slug}"
+								aria-label="{$LL.fleet_see_detail()} {jenis.merk} {jenis.model}"
 								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border {index % 3 === 0
 									? 'border-white text-white hover:bg-white/10'
 									: 'border-apple-blue text-apple-blue hover:bg-apple-blue/10'} font-medium text-xs md:text-sm transition-colors shadow-sm"

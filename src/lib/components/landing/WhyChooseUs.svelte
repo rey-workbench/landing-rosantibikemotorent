@@ -10,6 +10,9 @@
 			videoRef.pause();
 			isPlaying = false;
 		} else {
+			if (!videoRef.src) {
+				videoRef.src = '/video/whychooseus.mp4';
+			}
 			videoRef.play();
 			isPlaying = true;
 		}
@@ -23,7 +26,7 @@
 		<!-- Left: Text -->
 		<div class="text-left order-2 lg:order-1">
 			<p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#6b6b70] mb-3">
-				Experience The Ride
+				{$LL.why_title()}
 			</p>
 			<h2
 				class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight leading-tight mb-6"
@@ -86,7 +89,6 @@
 			<!-- svelte-ignore a11y_media_has_caption -->
 			<video
 				preload="none"
-				src="/video/whychooseus.mp4"
 				poster="/video/posters/whychooseus.webp"
 				class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
 				bind:this={videoRef}
