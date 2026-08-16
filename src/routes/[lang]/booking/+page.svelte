@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { onMount, untrack } from 'svelte';
+	import { onMount, onDestroy, untrack } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { transaksiApi } from '$lib/api';
+	import { transaksiApi, unitMotorApi } from '$lib/api';
+	import { websocketService } from '$lib/services/websocket';
 	import type { UnitMotor, PriceCalculation } from '$lib/types';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
@@ -16,9 +17,16 @@
 	let { data } = $props();
 
 	// State
-	let availableMotors = $derived(data.availableMotors as UnitMotor[]);
+	let availableMotors = $state<UnitMotor[]>(untrack(() => (data.availableMotors || []) as UnitMotor[]));
 	let uniqueMotors: UnitMotor[] = $state([]);
 	let selectedUnit: UnitMotor | null = $state(null);
+	let unsubs: (() => void)[] = [];
+
+	$effect(() => {
+		if (data.availableMotors) {
+			availableMotors = data.availableMotors as UnitMotor[];
+		}
+	});
 
 	let currentStep = $state(0);
 
@@ -42,10 +50,39 @@
 	let formError = $state('');
 	let success = $state(false);
 
+	async function fetchAvailability() {
+		if (!formData.tanggalMulai || !formData.tanggalSelesai) return;
+		try {
+			const availabilityData = await unitMotorApi.checkAvailability({
+				startDate: formData.tanggalMulai,
+				endDate: formData.tanggalSelesai
+			});
+			const units =
+				(availabilityData as any).units?.filter((u: any) =>
+					u.availability?.every((a: any) => a.isAvailable)
+				) || [];
+			if (units.length > 0) {
+				availableMotors = units;
+			}
+		} catch (e) {
+			console.error('Live availability update error:', e);
+		}
+	}
+
 	onMount(async () => {
 		if (data.selectedUnitFromUrl) {
 			handleCalculatePrice();
 		}
+
+		websocketService.connect();
+		unsubs = [
+			websocketService.onTransactionUpdate(fetchAvailability),
+			websocketService.onUnitMotorUpdate(fetchAvailability)
+		];
+	});
+
+	onDestroy(() => {
+		unsubs.forEach((unsub) => unsub());
 	});
 
 	async function handleCalculatePrice() {
