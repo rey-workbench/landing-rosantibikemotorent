@@ -94,9 +94,7 @@ class WebSocketService {
 		if (!this.socket) return;
 
 		this.socket.on('connect', () => {
-			if (import.meta.env.DEV) {
-				console.log('[Landing Socket] Connected with ID:', this.socket?.id);
-			}
+			console.log('[Landing Socket] Connected with ID:', this.socket?.id);
 			this.updateState(true, this.socket?.id || null);
 		});
 
@@ -105,17 +103,13 @@ class WebSocketService {
 		});
 
 		this.socket.on('connect_error', (error) => {
-			if (import.meta.env.DEV) {
-				console.error('[Landing Socket] Connection error:', error.message);
-			}
+			console.error('[Landing Socket] Connection error:', error.message);
 		});
 
 		this.socket.on('motor-status-update', (raw: unknown) => {
 			const parsed = MotorStatusSchema.safeParse(raw);
 			if (!parsed.success) {
-				if (import.meta.env.DEV) {
-					console.warn('[WS] Rejected malformed motor-status-update:', parsed.error.issues);
-				}
+				console.warn('[WS] Rejected malformed motor-status-update:', parsed.error.issues);
 				return;
 			}
 			motorAvailability.set(parsed.data as MotorStatusUpdate);
@@ -138,9 +132,7 @@ class WebSocketService {
 
 		transactionEvents.forEach((event) => {
 			this.socket?.on(event, (data) => {
-				if (import.meta.env.DEV) {
-					console.log(`[Landing Socket] Event ${event} received:`, data);
-				}
+				console.log(`[Landing Socket] Event ${event} received:`, data);
 				transactionUpdate.set({ event, data });
 				this.transactionUpdateHandlers.forEach((handler) => handler({ event, data }));
 			});
