@@ -42,20 +42,22 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 		'Content-Security-Policy',
 		[
 			"default-src 'self'",
-			"script-src 'self' 'unsafe-inline'",
+			"script-src 'self' 'unsafe-inline' 'unsafe-eval'",
 			"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
 			"font-src 'self' https://fonts.gstatic.com",
 			"img-src 'self' data: https:",
 			"connect-src 'self' wss: https:",
 			"media-src 'self'",
-			"frame-ancestors 'none'"
+			"frame-ancestors 'none'",
+			"require-trusted-types-for 'script'"
 		].join('; ')
 	);
 	response.headers.set('X-Frame-Options', 'DENY');
 	response.headers.set('X-Content-Type-Options', 'nosniff');
 	response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 	response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-	response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains');
+	response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+	response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
 	response.headers.set('Link', '</llms.txt>; rel="describedby"');
 	return response;
 };

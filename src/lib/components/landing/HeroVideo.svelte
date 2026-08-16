@@ -60,7 +60,7 @@
 	<div class="absolute inset-0 pointer-events-none">
 		<!-- Grain/Noise Effect -->
 		<div
-			class="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"
+			class="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('/noise.svg')]"
 		></div>
 
 		<!-- Radial Vignette -->
