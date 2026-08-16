@@ -150,7 +150,7 @@
 						>
 							<a
 								href="/{lang}/fleet/{jenis.slug}"
-								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-[#0066cc] hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-sm"
+								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-apple-blue hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-sm"
 							>
 								{$LL.fleet_order()}
 							</a>
@@ -158,7 +158,7 @@
 								href="/{lang}/fleet/{jenis.slug}"
 								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border {index % 3 === 0
 									? 'border-white text-white hover:bg-white/10'
-									: 'border-[#0066cc] text-[#0066cc] hover:bg-[#0066cc]/10'} font-medium text-xs md:text-sm transition-colors shadow-sm"
+									: 'border-apple-blue text-apple-blue hover:bg-apple-blue/10'} font-medium text-xs md:text-sm transition-colors shadow-sm"
 							>
 								{$LL.fleet_see_detail()}
 							</a>
