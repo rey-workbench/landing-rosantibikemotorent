@@ -94,7 +94,9 @@
 				onplay={() => (isPlaying = true)}
 				onpause={() => (isPlaying = false)}
 				onended={() => (isPlaying = false)}
-			></video>
+			>
+				<track kind="captions" srclang="id" label="Bahasa Indonesia" default />
+			</video>
 
 			{#if !isPlaying}
 				<div

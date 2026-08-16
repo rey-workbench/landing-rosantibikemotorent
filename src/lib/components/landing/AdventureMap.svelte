@@ -164,7 +164,9 @@
 							muted
 							playsinline
 							loop
-						></video>
+						>
+							<track kind="captions" srclang="id" label="Bahasa Indonesia" default />
+						</video>
 						<div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
 					</div>
 

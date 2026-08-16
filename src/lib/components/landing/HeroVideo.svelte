@@ -52,7 +52,9 @@
 		src="/video/hero.mp4"
 		poster="/video/posters/hero.webp"
 		class="absolute inset-0 w-full h-full object-cover"
-	></video>
+	>
+		<track kind="captions" srclang="id" label="Bahasa Indonesia" default />
+	</video>
 
 	<!-- Cinematic Overlays -->
 	<div class="absolute inset-0 pointer-events-none">
