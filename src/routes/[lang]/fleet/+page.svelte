@@ -94,6 +94,8 @@
 								src={getMotorImage(motor)}
 								alt={`Sewa Motor ${motor.merk} ${motor.model} Malang - Rosantibike`}
 								data-fallback={getFallbackImage(motor)}
+								width="64"
+								height="36"
 								class="max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
 								onerror={handleImageError}
 							/>
@@ -160,16 +162,21 @@
 							easing: (t) => 1 - Math.pow(1 - t, 4)
 						}}
 					>
-						<!-- Product Image (Edge to edge) -->
+						<!-- Product Image (Edge to edge) with fixed aspect ratio container -->
 						<div
-							class="w-full relative flex items-center justify-center overflow-hidden bg-[#f5f5f7]"
+							class="w-full aspect-video relative flex items-center justify-center overflow-hidden bg-[#f5f5f7]"
 						>
 							{#if getMotorImage(motor)}
 								<img
 									src={getMotorImage(motor)}
 									alt={`Sewa Motor ${motor.merk} ${motor.model} Malang - Rosantibike`}
 									data-fallback={getFallbackImage(motor)}
-									class="w-full h-auto object-cover transition-transform duration-700 hover:scale-105"
+									width="800"
+									height="450"
+									loading={i === 0 ? 'eager' : 'lazy'}
+									fetchpriority={i === 0 ? 'high' : 'auto'}
+									decoding="async"
+									class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
 									onerror={handleImageError}
 								/>
 								<div
@@ -194,7 +201,7 @@
 									>
 								</div>
 							{:else}
-								<div class="w-full aspect-4/3 flex items-center justify-center">
+								<div class="w-full aspect-video flex items-center justify-center">
 									<div
 										class="w-24 h-24 bg-black/5 rounded-full flex items-center justify-center text-black/20"
 									>
@@ -221,7 +228,7 @@
 
 						<!-- Typography & Content -->
 						<div class="flex flex-col items-center px-6 pt-8 pb-8 flex-1">
-							<h3 class="text-[12px] font-semibold tracking-widest text-[#f56900] mb-2 uppercase">
+							<h3 class="text-[12px] font-semibold tracking-widest text-[#c84b00] mb-2 uppercase">
 								{motor.merk}
 							</h3>
 							<h2 class="text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-2">
@@ -279,7 +286,7 @@
 			<!-- Cinematic Background -->
 			<div
 				class="absolute inset-0 bg-center bg-cover transition-transform duration-2000 ease-out group-hover:scale-105"
-				style="background-image: url('/images/[page]/look-closer.jpeg');"
+				style="background-image: url('/images/[page]/look-closer.webp');"
 			></div>
 			<!-- Overlay gradient to make text readable -->
 			<div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-black/10"></div>

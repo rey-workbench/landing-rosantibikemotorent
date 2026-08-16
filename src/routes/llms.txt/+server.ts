@@ -60,6 +60,7 @@ export const GET: RequestHandler = async () => {
 - [Beranda / Home](${baseUrl}/id): Halaman utama layanan sewa motor Malang.
 - [Katalog Armada Motor](${baseUrl}/id/fleet): Seluruh daftar pilihan unit motor dan tarif rental harian/mingguan.
 - [Formulir Booking Online](${baseUrl}/id/booking): Pemesanan rental motor secara langsung dengan pemilihan tanggal sewa dan lokasi penyerahan unit.
+- [FAQ & Pertanyaan Umum](${baseUrl}/id/faq): Tanya jawab lengkap tentang syarat, harga, dan layanan antar jemput.
 - [Blog & Artikel Wisata](${baseUrl}/id/blog): Daftar artikel, panduan wisata Malang & Bromo, serta tips berkendara.
 
 ### Detail Armada Motor (ID)
@@ -83,6 +84,7 @@ ${
 - [Home (EN)](${baseUrl}/en): Motorcycle rental service in Malang & Batu.
 - [Fleet (EN)](${baseUrl}/en/fleet): Complete motorcycle catalogue and daily rental rates.
 - [Booking (EN)](${baseUrl}/en/booking): Online motorcycle reservation form.
+- [FAQ (EN)](${baseUrl}/en/faq): Frequently asked questions about pricing, requirements, and pickup services.
 - [Blog (EN)](${baseUrl}/en/blog): Malang & Mount Bromo travel guides.
 
 ### Motorcycle Fleet (EN)

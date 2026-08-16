@@ -57,7 +57,7 @@
 		<div class="max-w-345 mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 			{#each jenisMotors as jenis, index}
 				<div
-					class="group relative flex flex-col rounded-3xl overflow-hidden {index % 3 === 0
+					class="group relative flex flex-col aspect-video rounded-3xl overflow-hidden {index % 3 === 0
 						? 'text-white md:col-span-2'
 						: 'text-[#1d1d1f] border border-black/5'}"
 				>
@@ -72,7 +72,7 @@
 							decoding="async"
 							width="800"
 							height="450"
-							class="w-full h-auto object-cover z-0 pointer-events-none transition-transform duration-700 group-hover:scale-105"
+							class="w-full h-full object-cover z-0 pointer-events-none transition-transform duration-700 group-hover:scale-105"
 						/>
 					{:else}
 						<div class="w-full aspect-video"></div>

@@ -4,9 +4,10 @@
 	import Input from '$lib/components/ui/Input.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
-	import { LL } from '$i18n/i18n-svelte';
 	import { page } from '$app/state';
 	import { SeoHead } from '$lib/components/seo';
+	import LL from '$i18n/i18n-svelte.js';
+	import { optimizeImageUrl } from '$lib/utils/image';
 
 	let { data } = $props();
 
@@ -197,7 +198,7 @@
 				<div class="mb-16" in:fade={{ duration: 600 }}>
 					<!-- Section Header -->
 					<div class="mb-8 border-b border-black/5 pb-4 flex justify-between items-center">
-						<h3 class="font-semibold text-lg text-[#1d1d1f]">Latest Stories</h3>
+						<h2 class="font-semibold text-lg text-[#1d1d1f]">Latest Stories</h2>
 					</div>
 
 					<!-- Split Layout -->
@@ -208,9 +209,10 @@
 								<div class="aspect-16/10 rounded-3xl overflow-hidden bg-[#f5f5f7] relative mb-6">
 									{#if featuredPost.featuredImage || featuredPost.thumbnail}
 										<img
-											loading="lazy"
+											loading="eager"
+											fetchpriority="high"
 											decoding="async"
-											src={featuredPost.featuredImage || featuredPost.thumbnail}
+											src={optimizeImageUrl(featuredPost.featuredImage || featuredPost.thumbnail, 800)}
 											alt={featuredPost.judul}
 											class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
 										/>
@@ -257,7 +259,7 @@
 											<img
 												loading="lazy"
 												decoding="async"
-												src={post.featuredImage || post.thumbnail}
+												src={optimizeImageUrl(post.featuredImage || post.thumbnail, 400)}
 												alt={post.judul}
 												class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
 											/>
@@ -296,7 +298,7 @@
 				<!-- Grid Title -->
 				{#if featuredPost}
 					<div class="mb-8 border-b border-black/5 pb-4">
-						<h3 class="font-semibold text-lg text-[#1d1d1f]">More Stories</h3>
+						<h2 class="font-semibold text-lg text-[#1d1d1f]">More Stories</h2>
 					</div>
 				{/if}
 
@@ -314,7 +316,7 @@
 									<img
 										loading="lazy"
 										decoding="async"
-										src={post.featuredImage || post.thumbnail}
+										src={optimizeImageUrl(post.featuredImage || post.thumbnail, 600)}
 										alt={post.judul}
 										class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
 									/>

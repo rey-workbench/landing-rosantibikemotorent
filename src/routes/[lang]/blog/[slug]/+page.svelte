@@ -5,6 +5,7 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import { SeoHead } from '$lib/components/seo';
 	import { buildBreadcrumbSchema, buildArticleSchema } from '$lib/seo/schema';
+	import { optimizeImageUrl } from '$lib/utils/image';
 
 	let { data } = $props();
 
@@ -155,9 +156,10 @@
 					in:fade={{ duration: 800 }}
 				>
 					<img
-						loading="lazy"
+						loading="eager"
+						fetchpriority="high"
 						decoding="async"
-						src={post.featuredImage || post.thumbnail}
+						src={optimizeImageUrl(post.featuredImage || post.thumbnail, 1200)}
 						alt={post.judul}
 						class="w-full h-full object-cover"
 					/>

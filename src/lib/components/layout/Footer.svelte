@@ -72,12 +72,12 @@
 
 			<div>
 				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-xs">
-					{$LL.footer_explore()}
+					{$LL.footer_explore() || 'Jelajahi'}
 				</h3>
 				<ul class="space-y-2">
-					{#each [{ label: $LL.nav_home(), href: `/${page.params.lang || $locale}` }, { label: $LL.footer_catalog(), href: `/${page.params.lang || $locale}/fleet` }, { label: $LL.footer_blog(), href: `/${page.params.lang || $locale}/blog` }, { label: $LL.footer_procedure(), href: `/${page.params.lang || $locale}/booking` }] as link}
+					{#each [{ label: $LL.nav_home() || 'Home', href: `/${page.params.lang || $locale || 'id'}` }, { label: $LL.footer_catalog() || 'Katalog Motor', href: `/${page.params.lang || $locale || 'id'}/fleet` }, { label: $LL.footer_blog() || 'Blog', href: `/${page.params.lang || $locale || 'id'}/blog` }, { label: $LL.footer_procedure() || 'Cara Pesan', href: `/${page.params.lang || $locale || 'id'}/booking` }] as link}
 						<li>
-							<a href={link.href} class="hover:underline hover:text-[#1d1d1f] transition-colors">
+							<a href={link.href} aria-label={link.label} class="hover:underline hover:text-[#1d1d1f] transition-colors">
 								{link.label}
 							</a>
 						</li>
@@ -87,10 +87,10 @@
 
 			<div>
 				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-xs">
-					{$LL.footer_services()}
+					{$LL.footer_services() || 'Layanan'}
 				</h3>
 				<ul class="space-y-2">
-					{#each [$LL.footer_daily_rental(), $LL.footer_delivery(), $LL.footer_equipment(), $LL.footer_insurance()] as service}
+					{#each [$LL.footer_daily_rental() || 'Sewa Motor Harian & Mingguan', $LL.footer_delivery() || 'Gratis Antar Jemput Stasiun/Terminal', $LL.footer_equipment() || 'Gratis 2 Helm SNI & Jas Hujan', $LL.footer_insurance() || 'Unit Terawat & Surat Lengkap'] as service}
 						<li>
 							{service}
 						</li>
@@ -100,12 +100,12 @@
 
 			<div>
 				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-xs">
-					{$LL.footer_office()}
+					{$LL.footer_office() || 'Kantor'}
 				</h3>
 				<div class="space-y-2">
 					<p>{siteConfig.address}</p>
 					<p>
-						<a href={emailHref} class="hover:underline hover:text-[#1d1d1f]">
+						<a href={emailHref} aria-label="Email Rosantibike" class="hover:underline hover:text-[#1d1d1f]">
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html displayEmail}
 						</a>
@@ -113,6 +113,7 @@
 					<p>
 						<a
 							href="https://wa.me/{siteConfig.whatsapp}"
+							aria-label="WhatsApp Rosantibike"
 							class="hover:underline hover:text-[#1d1d1f]">{siteConfig.phone}</a
 						>
 					</p>
@@ -123,17 +124,19 @@
 		<div class="pt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
 			<div>
 				Copyright &copy; {new Date().getFullYear()}
-				{siteConfig.name}. {$LL.footer_all_rights()}
+				{siteConfig.name}. {$LL.footer_all_rights() || 'Hak cipta dilindungi.'}
 			</div>
 			<div class="flex items-center gap-4">
 				<a
-					href="/{page.params.lang || $locale}/privacy"
+					href="/{page.params.lang || $locale || 'id'}/privacy"
+					aria-label={$LL.footer_privacy() || 'Kebijakan Privasi'}
 					class="hover:underline hover:text-[#1d1d1f] transition-colors border-r border-black/20 pr-4"
-					>{$LL.footer_privacy()}</a
+					>{$LL.footer_privacy() || 'Kebijakan Privasi'}</a
 				>
 				<a
-					href="/{page.params.lang || $locale}/terms"
-					class="hover:underline hover:text-[#1d1d1f] transition-colors">{$LL.footer_terms()}</a
+					href="/{page.params.lang || $locale || 'id'}/terms"
+					aria-label={$LL.footer_terms() || 'Syarat & Ketentuan'}
+					class="hover:underline hover:text-[#1d1d1f] transition-colors">{$LL.footer_terms() || 'Syarat & Ketentuan'}</a
 				>
 			</div>
 		</div>

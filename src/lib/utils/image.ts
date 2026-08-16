@@ -16,6 +16,19 @@ export function getMotorImage(jenis: any): string {
 	return getFallbackImage(jenis);
 }
 
+export function optimizeImageUrl(url: string | null | undefined, width?: number): string {
+	if (!url) return '';
+	if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
+		const parts = url.split('/upload/');
+		if (parts.length === 2 && !parts[1].startsWith('f_auto') && !parts[1].startsWith('w_') && !parts[1].startsWith('q_')) {
+			const transforms = ['f_auto', 'q_auto'];
+			if (width) transforms.push(`w_${width}`);
+			return `${parts[0]}/upload/${transforms.join(',')}/${parts[1]}`;
+		}
+	}
+	return url;
+}
+
 export function handleImageError(e: Event) {
 	const target = e.target as HTMLImageElement;
 	if (target) {

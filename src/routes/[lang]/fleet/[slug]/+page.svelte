@@ -160,8 +160,11 @@
 					<div class="aspect-4/3 rounded-4xl overflow-hidden bg-[#f5f5f7] border border-black/5">
 						{#if jenis.gambar}
 							<img
-								loading="lazy"
+								loading="eager"
+								fetchpriority="high"
 								decoding="async"
+								width="800"
+								height="600"
 								src={jenis.gambar}
 								alt={`Sewa Motor ${jenis.merk} ${jenis.model} Malang - Rosantibike`}
 								class="w-full h-full object-cover mix-blend-multiply"
