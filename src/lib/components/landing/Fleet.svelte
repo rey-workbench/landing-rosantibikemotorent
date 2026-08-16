@@ -1,19 +1,15 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { jenisMotorApi } from '$lib/api';
 	import { formatCurrency } from '$lib/utils/format';
 	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { page } from '$app/state';
-	import { websocketService } from '$lib/services/websocket';
 
 	let { jenisMotors = $bindable([]) } = $props();
 	let lang = $derived(page.params.lang || $locale);
 	let loading = $state(jenisMotors.length === 0);
 	let error = $state('');
-	let unsubscribe: (() => void) | null = null;
-	// Swap Vario 125 and Beat FI to match their generated image backgrounds with the dark/light grid slots
-	// Removed hardcoded swap logic.
 
 	async function fetchFleet() {
 		try {
@@ -27,8 +23,6 @@
 		}
 	}
 
-	let unsubUnit: (() => void) | null = null;
-
 	onMount(() => {
 		// Only fetch if not already pre-loaded from SSR
 		if (jenisMotors.length === 0) {
@@ -36,24 +30,6 @@
 		} else {
 			loading = false;
 		}
-
-		// Connect to websocket
-		websocketService.connect();
-
-		// Listen for transaction updates to refresh availability
-		unsubscribe = websocketService.onTransactionUpdate((_data) => {
-			fetchFleet();
-		});
-
-		// Also listen for unit updates
-		unsubUnit = websocketService.onUnitMotorUpdate(() => {
-			fetchFleet();
-		});
-	});
-
-	onDestroy(() => {
-		if (unsubscribe) unsubscribe();
-		if (unsubUnit) unsubUnit();
 	});
 </script>
 
