@@ -151,7 +151,18 @@
 				href="/{lang}/fleet"
 				class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-[#1d1d1f] text-white font-medium text-base hover:opacity-90 transition-opacity"
 			>
-				{$LL.fleet_view_all()} &rarr;
+				<span>{$LL.fleet_view_all()}</span>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path d="M5 12h14M12 5l7 7-7 7" />
+				</svg>
 			</a>
 		</div>
 	{:else}

@@ -93,7 +93,7 @@
 					>
 						<path d="M19 12H5M12 19l-7-7 7-7" />
 					</svg>
-					{$LL.blog_back_to_journal().replace(/^[←\s\-]+/g, '')}
+					{$LL.blog_back_to_journal()}
 				</a>
 			</div>
 
