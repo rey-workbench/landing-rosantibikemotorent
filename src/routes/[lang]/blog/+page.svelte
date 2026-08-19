@@ -119,7 +119,7 @@
 						bind:value={searchQuery}
 						placeholder={$LL.blog_search_placeholder()}
 						oninput={handleSearch}
-						class="w-full h-9 pl-9 pr-4 bg-[#f5f5f7] border border-black/5 rounded-full text-xs text-[#1d1d1f] placeholder:text-[#6b6b70]/60 focus:bg-white focus:border-[#0071e3] focus:outline-none transition-all"
+						class="w-full h-9 pl-9 pr-4 bg-[#f5f5f7] border border-black/5 rounded-full text-xs text-[#1d1d1f] focus:outline-none transition-all"
 					/>
 				</div>
 			</div>
@@ -152,7 +152,7 @@
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 				{#each Array(6) as _}
 					<div class="animate-pulse flex flex-col gap-2.5">
-						<div class="aspect-[16/10] bg-[#f5f5f7] rounded-xl"></div>
+						<div class="aspect-16/10 bg-[#f5f5f7] rounded-xl"></div>
 						<div class="h-3.5 bg-[#f5f5f7] rounded-full w-2/3"></div>
 						<div class="h-2.5 bg-[#f5f5f7] rounded-full w-full"></div>
 					</div>
@@ -178,7 +178,7 @@
 						<!-- Big Featured Card (Left 7 Cols) -->
 						<div class="lg:col-span-7 flex flex-col">
 							<a href="/{lang}/blog/{featuredPost.slug}" class="group block">
-								<div class="aspect-[16/10] rounded-2xl overflow-hidden bg-[#f5f5f7] relative mb-3.5 border border-black/5 shadow-sm">
+								<div class="aspect-16/10 rounded-2xl overflow-hidden bg-[#f5f5f7] relative mb-3.5 border border-black/5 shadow-sm">
 									{#if featuredPost.featuredImage || featuredPost.thumbnail}
 										<img
 											loading="eager"
@@ -206,7 +206,7 @@
 									<span>{featuredPost.readingTime}</span>
 								</div>
 
-								<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors leading-[1.25] font-display mb-1.5">
+								<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors leading-tight font-display mb-1.5">
 									{featuredPost.judul}
 								</h2>
 
@@ -279,7 +279,7 @@
 								in:fly={{ y: 15, duration: 400, delay: i * 30 }}
 							>
 								<!-- Image Container -->
-								<div class="aspect-[16/10] overflow-hidden bg-[#f5f5f7] relative">
+								<div class="aspect-16/10 overflow-hidden bg-[#f5f5f7] relative">
 									{#if post.featuredImage || post.thumbnail}
 										<img
 											loading="lazy"

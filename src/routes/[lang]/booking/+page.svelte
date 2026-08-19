@@ -258,20 +258,17 @@
 	}}
 />
 
-<section class="pt-32 pb-20 px-4 md:px-10">
+<main class="bg-white min-h-screen pt-16 md:pt-20 pb-24 px-4 sm:px-6 md:px-8">
 	<div class="max-w-3xl mx-auto">
-		<!-- Header -->
-		<div class="mb-12 text-center">
-			<h2 class="text-[12px] font-semibold tracking-widest text-[#0071e3] mb-3 uppercase">
-				{$LL.booking_header_title()}
-			</h2>
+		<!-- Header (Exact Fleet / Rosantibike Typography) -->
+		<div class="mb-10 text-center">
 			<h1
-				class="text-[40px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight mb-4"
+				class="text-[36px] sm:text-[44px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
 			>
 				{$LL.booking_header_order()}
 				<span class="text-[#0071e3]">{$LL.booking_header_motor()}</span>
 			</h1>
-			<p class="text-[17px] leading-relaxed font-normal text-[#6b6b70] max-w-xl mx-auto">
+			<p class="text-[15px] sm:text-[16px] text-[#6b6b70] font-normal mt-2.5 max-w-lg mx-auto leading-relaxed">
 				{$LL.booking_header_subtitle()}
 			</p>
 		</div>
@@ -279,27 +276,27 @@
 		{#if success}
 			<!-- Success Message -->
 			<div
-				class="bg-white border border-black/5 rounded-3xl p-6 md:p-12 shadow-[0_2px_20px_rgba(0,0,0,0.04)] text-center"
+				class="bg-white border border-black/6 rounded-3xl p-8 sm:p-12 shadow-[0_8px_30px_rgba(0,0,0,0.04)] text-center"
 			>
 				<div
-					class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6"
+					class="w-16 h-16 bg-[#e8f3ff] rounded-full flex items-center justify-center mx-auto mb-5 text-[#0071e3]"
 				>
 					<svg
-						class="w-10 h-10 text-green-500"
+						class="w-8 h-8"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
+						stroke-width="2.5"
 					>
 						<path
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							stroke-width="2"
 							d="M5 13l4 4L19 7"
 						/>
 					</svg>
 				</div>
-				<h3 class="text-2xl font-semibold text-[#1d1d1f] mb-3">{$LL.booking_success_title()}</h3>
-				<p class="text-[#6b6b70]">{$LL.booking_success_message()}</p>
+				<h3 class="text-2xl font-bold text-[#1d1d1f] mb-2">{$LL.booking_success_title()}</h3>
+				<p class="text-[#6b6b70] text-sm leading-relaxed max-w-md mx-auto">{$LL.booking_success_message()}</p>
 			</div>
 		{:else}
 			<!-- Step Indicator -->
@@ -307,35 +304,35 @@
 
 			<!-- Form Card -->
 			<div
-				class="bg-white border border-black/5 rounded-3xl p-6 md:p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+				class="bg-white border border-black/6 rounded-3xl p-6 sm:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
 			>
 				{#if formError}
 					<div
-						class="bg-red-500/20 border border-red-500/30 rounded-xl p-4 mb-6 flex items-center gap-3"
+						class="bg-red-50 border border-red-200/80 rounded-2xl p-4 mb-6 flex items-center gap-3"
 					>
 						<svg
-							class="w-5 h-5 text-red-400 shrink-0"
+							class="w-5 h-5 text-red-500 shrink-0"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke="currentColor"
+							stroke-width="2"
 						>
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
-								stroke-width="2"
 								d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 							/>
 						</svg>
-						<p class="text-red-400 text-sm">{formError}</p>
+						<p class="text-red-700 text-xs sm:text-sm font-medium">{formError}</p>
 					</div>
 				{/if}
 
 				<!-- Step 1: Data Diri -->
 				{#if currentStep === 0}
 					<div class="space-y-6 animate-fadeIn">
-						<div class="text-center mb-8">
-							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step1_title()}</h3>
-							<p class="text-[#6b6b70] text-sm mt-1">{$LL.booking_step1_desc()}</p>
+						<div class="text-center mb-6">
+							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step1_title()}</h3>
+							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">{$LL.booking_step1_desc()}</p>
 						</div>
 
 						<Input
@@ -361,9 +358,9 @@
 				<!-- Step 2: Pilih Motor -->
 				{#if currentStep === 1}
 					<div class="space-y-6 animate-fadeIn">
-						<div class="text-center mb-8">
-							<h3 class="text-xl font-semibold text-[#1d1d1f]">Pilih Motor</h3>
-							<p class="text-[#6b6b70] text-sm mt-1">Pilih motor yang ingin disewa</p>
+						<div class="text-center mb-6">
+							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">Pilih Motor</h3>
+							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">Pilih armada motor yang ingin disewa</p>
 						</div>
 
 						<Input
@@ -386,7 +383,7 @@
 						{#if selectedUnit}
 							{@const jenis = selectedUnit.jenis}
 							<div
-								class="bg-[#f5f5f7] border border-black/5 rounded-2xl p-4 flex items-center gap-4 mt-4"
+								class="bg-[#f5f5f7] border border-black/5 rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-5 mt-4"
 							>
 								{#if getMotorImage(jenis)}
 									<img
@@ -396,47 +393,46 @@
 										data-fallback={getFallbackImage(jenis)}
 										onerror={handleImageError}
 										alt={jenis?.model}
-										width="96"
-										height="96"
-										class="w-24 h-24 object-cover rounded-xl"
+										width="112"
+										height="112"
+										class="w-24 h-24 sm:w-28 sm:h-28 object-contain rounded-xl shrink-0"
 									/>
 								{/if}
-								<div class="flex-1">
-									<p class="text-[#6b6b70] text-sm">{jenis?.merk}</p>
-									<p class="text-[#1d1d1f] font-semibold text-lg">{jenis?.model}</p>
+								<div class="flex-1 text-center sm:text-left">
+									<p class="text-[#6b6b70] text-xs uppercase tracking-wider font-semibold">{jenis?.merk}</p>
+									<p class="text-[#1d1d1f] font-bold text-lg sm:text-xl">{jenis?.model}</p>
 									{#if jenis?.cc}
-										<p class="text-[#6b6b70] text-sm">{jenis.cc} CC</p>
+										<p class="text-[#6b6b70] text-xs mt-0.5">{jenis.cc} CC • Matic / Transmisi Halus</p>
 									{/if}
-									<p class="text-[#0071e3] font-semibold mt-1">
+									<p class="text-[#0071e3] font-bold text-base mt-2">
 										{formatCurrency(jenis?.hargaSewa || 0)}
-										<span class="text-[#6b6b70] font-normal text-sm">/ {$LL.booking_day()}</span>
+										<span class="text-[#6b6b70] font-normal text-xs">/ {$LL.booking_day()}</span>
 									</p>
 								</div>
 							</div>
 						{:else}
 							<div
-								class="border-2 border-dashed border-black/10 rounded-2xl p-8 text-center bg-[#f5f5f7]/50 mt-4"
+								class="border-2 border-dashed border-black/10 rounded-2xl p-8 text-center bg-[#f5f5f7]/40 mt-4"
 							>
 								<svg
-									class="w-12 h-12 text-[#6b6b70] mx-auto mb-3"
+									class="w-10 h-10 text-[#6b6b70]/60 mx-auto mb-2.5"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"
+									stroke-width="1.5"
 								>
 									<path
 										stroke-linecap="round"
 										stroke-linejoin="round"
-										stroke-width="1.5"
 										d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"
 									/>
 									<path
 										stroke-linecap="round"
 										stroke-linejoin="round"
-										stroke-width="1.5"
 										d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
 									/>
 								</svg>
-								<p class="text-[#6b6b70]">{$LL.booking_motor_select()}</p>
+								<p class="text-xs text-[#6b6b70]">{$LL.booking_motor_select()}</p>
 							</div>
 						{/if}
 					</div>
@@ -445,12 +441,12 @@
 				<!-- Step 3: Waktu Sewa -->
 				{#if currentStep === 2}
 					<div class="space-y-6 animate-fadeIn">
-						<div class="text-center mb-8">
-							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step3_title()}</h3>
-							<p class="text-[#6b6b70] text-sm mt-1">{$LL.booking_step3_desc()}</p>
+						<div class="text-center mb-6">
+							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step3_title()}</h3>
+							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">{$LL.booking_step3_desc()}</p>
 						</div>
 
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 							<Input
 								id="tanggal-mulai"
 								label={$LL.booking_start_date_label()}
@@ -485,11 +481,11 @@
 							/>
 						</div>
 
-						<div class="border-t border-[rgba(166,173,187,0.16)] pt-6">
-							<h4 class="text-sm font-semibold text-muted uppercase tracking-wider mb-4">
+						<div class="border-t border-black/8 pt-6">
+							<h4 class="text-xs font-semibold text-[#1d1d1f] uppercase tracking-wider mb-4">
 								{$LL.booking_accessories_label()}
 							</h4>
-							<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 								<Input
 									id="jas-hujan"
 									type="dropdown"
@@ -517,12 +513,11 @@
 									placeholder={$LL.booking_helmet_placeholder()}
 								/>
 							</div>
-							<p class="text-xs text-muted mt-3 flex items-center gap-2">
-								<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<p class="text-xs text-[#0071e3] mt-3 flex items-center gap-1.5 font-medium">
+								<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 									<path
 										stroke-linecap="round"
 										stroke-linejoin="round"
-										stroke-width="2"
 										d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 									/>
 								</svg>
@@ -532,12 +527,12 @@
 					</div>
 				{/if}
 
-				<!-- Step 4: Konfirmasi -->
+				<!-- Step 4: Konfirmasi & Rincian -->
 				{#if currentStep === 3}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h3 class="text-xl font-semibold text-[#1d1d1f]">{$LL.booking_step4_title()}</h3>
-							<p class="text-[#6b6b70] text-sm mt-1">{$LL.booking_step4_desc()}</p>
+							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step4_title()}</h3>
+							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">{$LL.booking_step4_desc()}</p>
 						</div>
 
 						<!-- Summary Card -->
@@ -556,61 +551,60 @@
 											alt={jenis?.model || 'Motor'}
 											width="64"
 											height="64"
-											class="w-16 h-16 object-cover rounded-xl"
+											class="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-xl shrink-0"
 										/>
 									{/if}
 									<div>
 										<p
-											class="text-[#6b6b70] text-[11px] font-semibold tracking-wider uppercase mb-1"
+											class="text-[#6b6b70] text-[10px] font-semibold tracking-wider uppercase mb-0.5"
 										>
 											{$LL.booking_motor_label()}
 										</p>
-										<p class="text-[#1d1d1f] font-semibold">{jenis?.merk} {jenis?.model}</p>
+										<p class="text-[#1d1d1f] font-bold text-base">{jenis?.merk} {jenis?.model}</p>
 									</div>
 								</div>
 							{:else if formData.jenisId || formData.unitId}
 								<div class="p-5 border-b border-black/5 bg-white">
-									<p class="text-[#6b6b70] text-[11px] font-semibold tracking-wider uppercase mb-1">
+									<p class="text-[#6b6b70] text-[10px] font-semibold tracking-wider uppercase mb-0.5">
 										{$LL.booking_motor_label()}
 									</p>
-									<p class="text-[#1d1d1f] font-semibold">{$LL.booking_motor_selected()}</p>
+									<p class="text-[#1d1d1f] font-bold text-base">{$LL.booking_motor_selected()}</p>
 								</div>
 							{/if}
 
 							<!-- Details -->
-							<div class="p-5 space-y-3">
+							<div class="p-5 space-y-2.5 text-xs sm:text-sm">
 								<div class="flex justify-between items-center">
-									<span class="text-[#6b6b70] text-sm">{$LL.booking_name_field()}</span>
+									<span class="text-[#6b6b70]">{$LL.booking_name_field()}</span>
 									<span class="text-[#1d1d1f] font-medium">{formData.namaPenyewa}</span>
 								</div>
 								<div class="flex justify-between items-center">
-									<span class="text-[#6b6b70] text-sm">{$LL.booking_whatsapp_field()}</span>
+									<span class="text-[#6b6b70]">{$LL.booking_whatsapp_field()}</span>
 									<span class="text-[#1d1d1f] font-medium">{formData.noWhatsapp}</span>
 								</div>
 								<div class="flex justify-between items-center">
-									<span class="text-[#6b6b70] text-sm">{$LL.booking_date_field()}</span>
-									<span class="text-[#1d1d1f] font-medium">{formatDate(formData.tanggalMulai)}</span
-									>
+									<span class="text-[#6b6b70]">{$LL.booking_date_field()}</span>
+									<span class="text-[#1d1d1f] font-medium">{formatDate(formData.tanggalMulai)}</span>
 								</div>
 								<div class="flex justify-between items-center">
-									<span class="text-[#6b6b70] text-sm">{$LL.booking_time_field()}</span>
+									<span class="text-[#6b6b70]">{$LL.booking_time_field()}</span>
 									<span class="text-[#1d1d1f] font-medium"
 										>{formData.jamMulai} - {formData.jamSelesai}</span
 									>
 								</div>
 								{#if formData.jasHujan > 0 || formData.helm > 0}
-									<div class="border-t border-black/5 pt-3 mt-3">
+									<div class="border-t border-black/5 pt-2.5 mt-2.5">
 										{#if formData.jasHujan > 0}
-											<div class="flex justify-between items-center mt-2">
-												<span class="text-[#6b6b70] text-sm">{$LL.booking_raincoat_field()}</span>
+											<div class="flex justify-between items-center mt-1">
+												<span class="text-[#6b6b70]">{$LL.booking_raincoat_field()}</span>
 												<span class="text-[#0071e3] font-medium"
 													>{formData.jasHujan} {$LL.booking_confirm_pieces()}</span
 												>
 											</div>
 										{/if}
 										{#if formData.helm > 0}
-											<div class="flex justify-between items-center mt-2">
-												<span class="text-[#6b6b70] text-sm">{$LL.booking_helmet_field()}</span>
+											<div class="flex justify-between items-center mt-1">
+												<span class="text-[#6b6b70]">{$LL.booking_helmet_field()}</span>
 												<span class="text-[#0071e3] font-medium"
 													>{formData.helm} {$LL.booking_confirm_pieces()}</span
 												>
@@ -623,16 +617,16 @@
 
 						<!-- Price -->
 						{#if priceBreakdown}
-							<div class="space-y-3">
+							<div class="space-y-4">
 								<!-- Price Breakdown -->
-								<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5 space-y-3">
+								<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5 space-y-2.5">
 									<h4
-										class="text-[11px] font-semibold text-[#6b6b70] uppercase tracking-wider mb-2"
+										class="text-[10px] font-semibold text-[#6b6b70] uppercase tracking-wider mb-2"
 									>
 										{$LL.booking_price_breakdown()}
 									</h4>
-									<div class="space-y-2">
-										<div class="flex justify-between items-center text-sm">
+									<div class="space-y-2 text-xs sm:text-sm">
+										<div class="flex justify-between items-center">
 											<span class="text-[#6b6b70]">
 												{$LL.booking_rental_cost()} ({priceBreakdown.rincian.jumlahHari}
 												{$LL.booking_day()} × {formatCurrency(priceBreakdown.rincian.hargaPerHari)})
@@ -644,7 +638,7 @@
 											</span>
 										</div>
 										{#if priceBreakdown.rincian.jamTambahan > 0}
-											<div class="flex justify-between items-center text-sm">
+											<div class="flex justify-between items-center">
 												<span class="text-[#6b6b70]">
 													{$LL.booking_additional_fee()} ({priceBreakdown.rincian.jamTambahan} jam × {formatCurrency(
 														priceBreakdown.rincian.dendaPerJam
@@ -658,7 +652,7 @@
 											</div>
 										{/if}
 										<div
-											class="text-xs text-[#6b6b70] pt-2 border-t border-[rgba(166,173,187,0.16)]"
+											class="text-[11px] text-[#6b6b70] pt-2 border-t border-black/5"
 										>
 											{$LL.booking_total_duration()}: {priceBreakdown.rincian.totalJam} jam
 										</div>
@@ -666,16 +660,16 @@
 								</div>
 
 								<!-- Total -->
-								<div class="bg-[#f5f5f7] rounded-3xl p-6">
+								<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-6">
 									<div class="flex justify-between items-center">
 										<div>
 											<p
-												class="text-[#6b6b70] text-[13px] font-medium tracking-wide uppercase mb-1"
+												class="text-[#6b6b70] text-xs font-semibold tracking-wider uppercase mb-0.5"
 											>
 												{$LL.booking_total_cost()}
 											</p>
 										</div>
-										<p class="text-3xl font-semibold text-[#1d1d1f]">
+										<p class="text-2xl sm:text-3xl font-bold text-[#1d1d1f]">
 											{formatCurrency(priceBreakdown.totalBiaya)}
 										</p>
 									</div>
@@ -683,30 +677,30 @@
 							</div>
 						{:else}
 							<div
-								class="bg-white border border-black/5 rounded-3xl p-5 text-center shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+								class="bg-white border border-black/5 rounded-3xl p-6 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
 							>
-								<p class="text-[#6b6b70]">{$LL.booking_calculating()}</p>
+								<p class="text-[#6b6b70] text-xs">{$LL.booking_calculating()}</p>
 							</div>
 						{/if}
 
 						<!-- Note -->
-						<div class="bg-[#f5f5f7] rounded-2xl p-5 flex gap-4">
+						<div class="bg-[#f5f5f7] rounded-2xl p-4 sm:p-5 flex gap-3.5 border border-black/5">
 							<svg
 								class="w-5 h-5 text-[#0071e3] shrink-0 mt-0.5"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
+								stroke-width="2"
 							>
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
-									stroke-width="2"
 									d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 								/>
 							</svg>
-							<div class="text-[14px]">
+							<div class="text-xs sm:text-sm">
 								<p class="text-[#1d1d1f] font-semibold">{$LL.booking_note_title()}</p>
-								<p class="text-[#6b6b70] mt-1 leading-relaxed">
+								<p class="text-[#6b6b70] mt-0.5 leading-relaxed">
 									{$LL.booking_note_desc()}
 								</p>
 							</div>
@@ -715,14 +709,13 @@
 				{/if}
 
 				<!-- Navigation Buttons -->
-				<div class="flex gap-4 mt-8">
+				<div class="flex gap-3 sm:gap-4 mt-8 pt-6 border-t border-black/6">
 					{#if currentStep > 0}
-						<Button variant="outline" onclick={prevStep} className="flex-1">
-							<svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<Button variant="outline" size="md" onclick={prevStep} className="flex-1">
+							<svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
-									stroke-width="2"
 									d="M15 19l-7-7 7-7"
 								/>
 							</svg>
@@ -731,13 +724,12 @@
 					{/if}
 
 					{#if currentStep < steps.length - 1}
-						<Button variant="primary" onclick={nextStep} className="flex-1">
+						<Button variant="primary" size="md" onclick={nextStep} className="flex-1">
 							{$LL.booking_next()}
-							<svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
-									stroke-width="2"
 									d="M9 5l7 7-7 7"
 								/>
 							</svg>
@@ -745,6 +737,7 @@
 					{:else}
 						<Button
 							variant="primary"
+							size="md"
 							onclick={handleSubmit}
 							loading={isSubmitting || isCalculating}
 							disabled={isSubmitting || isCalculating}
@@ -757,13 +750,13 @@
 			</div>
 		{/if}
 	</div>
-</section>
+</main>
 
 <style>
 	@keyframes fadeIn {
 		from {
 			opacity: 0;
-			transform: translateY(10px);
+			transform: translateY(8px);
 		}
 		to {
 			opacity: 1;
@@ -771,6 +764,7 @@
 		}
 	}
 	.animate-fadeIn {
-		animation: fadeIn 0.3s ease-out;
+		animation: fadeIn 0.25s ease-out;
 	}
 </style>
+
