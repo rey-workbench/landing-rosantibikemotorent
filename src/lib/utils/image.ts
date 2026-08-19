@@ -18,9 +18,12 @@ export function getMotorImage(jenis: any): string {
 	if (typeof jenis.gambar === 'string' && jenis.gambar.trim()) {
 		const img = jenis.gambar.trim();
 		if (img.startsWith('http://') || img.startsWith('https://')) {
-			return optimizeImageUrl(img);
-		}
-		if (img.startsWith('/images/')) {
+			// Legacy local-upload URLs (/uploads/...) are no longer served —
+			// fall back to the local per-model image instead of requesting a 404.
+			if (!img.includes('/uploads/')) {
+				return optimizeImageUrl(img);
+			}
+		} else if (img.startsWith('/images/')) {
 			return img;
 		}
 	}
