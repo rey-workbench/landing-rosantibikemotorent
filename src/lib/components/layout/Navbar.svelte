@@ -126,8 +126,8 @@
 			<img
 				src="/logo.webp"
 				alt="Rosantibike Logo"
-				width="126"
-				height="47"
+				width="144"
+				height="48"
 				fetchpriority="high"
 				class="h-12 md:h-14 w-auto object-contain transition-all duration-300 {!isLight
 					? 'brightness-0 invert'
