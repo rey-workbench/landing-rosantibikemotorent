@@ -11,6 +11,58 @@ export function buildWebsiteSchema() {
 	};
 }
 
+const rentalFleet = [
+	{
+		name: 'Honda PCX 150',
+		category: 'Maxi Scooter',
+		description: 'Sewa Honda PCX 150cc di Malang.',
+		image: 'honda-pcx',
+		price: '150000'
+	},
+	{
+		name: 'Yamaha Lexi 125',
+		category: 'Medium Scooter',
+		description: 'Sewa Yamaha Lexi 125cc di Malang.',
+		image: 'yamaha-lexi',
+		price: '125000'
+	},
+	{
+		name: 'Honda Vario 150',
+		category: 'Medium Scooter',
+		description: 'Sewa Honda Vario 150cc di Malang.',
+		image: 'honda-vario-125',
+		price: '120000'
+	},
+	{
+		name: 'Honda Vario 125',
+		category: 'Medium Scooter',
+		description: 'Sewa Honda Vario 125cc di Malang.',
+		image: 'honda-vario-125',
+		price: '120000'
+	},
+	{
+		name: 'Honda Scoopy',
+		category: 'Retro Scooter',
+		description: 'Sewa Honda Scoopy 110cc di Malang.',
+		image: 'honda-scoopy',
+		price: '100000'
+	},
+	{
+		name: 'Honda Beat Fi',
+		category: 'Standard Scooter',
+		description: 'Sewa Honda Beat Fi 110cc di Malang.',
+		image: 'honda-beat',
+		price: '100000'
+	},
+	{
+		name: 'Yamaha Soul GT 125',
+		category: 'Standard Scooter',
+		description: 'Sewa Yamaha Soul GT 125cc di Malang.',
+		image: 'yamaha-soul-gt',
+		price: '80000'
+	}
+];
+
 export function buildOrganizationSchema() {
 	return {
 		'@context': 'https://schema.org',
@@ -83,85 +135,21 @@ export function buildOrganizationSchema() {
 		hasOfferCatalog: {
 			'@type': 'OfferCatalog',
 			name: 'Katalog Sewa Motor Malang',
-			itemListElement: [
-				{
-					'@type': 'Offer',
-					itemOffered: {
-						'@type': 'Product',
-						name: 'Honda PCX 150',
-						category: 'Maxi Scooter',
-						description: 'Sewa Honda PCX 150cc di Malang.'
-					},
-					price: '150000',
-					priceCurrency: 'IDR'
-				},
-				{
-					'@type': 'Offer',
-					itemOffered: {
-						'@type': 'Product',
-						name: 'Yamaha Lexi 125',
-						category: 'Medium Scooter',
-						description: 'Sewa Yamaha Lexi 125cc di Malang.'
-					},
-					price: '125000',
-					priceCurrency: 'IDR'
-				},
-				{
-					'@type': 'Offer',
-					itemOffered: {
-						'@type': 'Product',
-						name: 'Honda Vario 150',
-						category: 'Medium Scooter',
-						description: 'Sewa Honda Vario 150cc di Malang.'
-					},
-					price: '120000',
-					priceCurrency: 'IDR'
-				},
-				{
-					'@type': 'Offer',
-					itemOffered: {
-						'@type': 'Product',
-						name: 'Honda Vario 125',
-						category: 'Medium Scooter',
-						description: 'Sewa Honda Vario 125cc di Malang.'
-					},
-					price: '120000',
-					priceCurrency: 'IDR'
-				},
-				{
-					'@type': 'Offer',
-					itemOffered: {
-						'@type': 'Product',
-						name: 'Honda Scoopy',
-						category: 'Retro Scooter',
-						description: 'Sewa Honda Scoopy 110cc di Malang.'
-					},
-					price: '100000',
-					priceCurrency: 'IDR'
-				},
-				{
-					'@type': 'Offer',
-					itemOffered: {
-						'@type': 'Product',
-						name: 'Honda Beat Fi',
-						category: 'Standard Scooter',
-						description: 'Sewa Honda Beat Fi 110cc di Malang.'
-					},
-					price: '100000',
-					priceCurrency: 'IDR'
-				},
-				{
-					'@type': 'Offer',
-					itemOffered: {
-						'@type': 'Product',
-						name: 'Yamaha Soul GT 125',
-						category: 'Standard Scooter',
-						description: 'Sewa Yamaha Soul GT 125cc di Malang.'
-					},
-					price: '80000',
-					priceCurrency: 'IDR'
+			itemListElement: rentalFleet.map((motor) => ({
+				'@type': 'Offer',
+				itemOffered: {
+					'@type': 'Product',
+					name: motor.name,
+					category: motor.category,
+					description: motor.description,
+					image: `${BASE_URL}/images/${motor.image}.webp`,
+					offers: {
+						'@type': 'Offer',
+						price: motor.price,
+						priceCurrency: 'IDR'
+					}
 				}
-			]
+			}))
 		}
 	};
 }
