@@ -5,7 +5,7 @@
       "use": "sig",
       "alg": "RS256",
       "kid": "rosantibike-sig-key-1",
-      "n": "uN8_uN2_uJ3_rosantibike_signature_directory_key_public_token_sample_abc123",
+      "n": "oq-LuQxWFm5CfeiQIvN_gCFo8QnekJohcP02hTDrzfHbNR1gJtNmP71qznZgZHnrFzC4zyI73isJNEyUzEfVvCvRmmQ9qti7_Uy-LjvHIKSY4MaSI_nOvrp-BBlqaF-HPlzrAtF5-KxSxd8QRhXyly8aESHugYHYflcQoH2oD2SDlEdB5MdzLa52MzdocrFPCAu8x2WvIsYzsQGv101eN2lOzqKegrd1Fq5fvR-hB1O58qfCKgUQXQreys2fjLJIzNkCeRhYACRykdxq80yT8gvDbQQMKxpRdWu6VihY7LL4ilNTkSKzOJjHBN1ibbhzeRbadYpHKpEHpzUz5iH2-w",
       "e": "AQAB"
     }
   ]
