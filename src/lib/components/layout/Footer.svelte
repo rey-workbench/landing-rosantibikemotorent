@@ -10,7 +10,7 @@
 
 	// Obfuscate email to prevent spam harvesting bots
 	const emailUser = 'hello';
-	const emailDomain = 'rosantibike.com';
+	const emailDomain = 'rosantibikemotorent.com';
 	const displayEmail = $derived(`${emailUser}&#64;${emailDomain}`);
 	const emailHref = $derived(`mailto:${emailUser}@${emailDomain}`);
 </script>
