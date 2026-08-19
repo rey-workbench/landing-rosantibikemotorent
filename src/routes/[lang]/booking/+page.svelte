@@ -203,7 +203,8 @@
 		}
 	}
 
-	function handleMotorChange() {
+	function handleMotorSelect(jenisId: string) {
+		formData.jenisId = jenisId;
 		formData.unitId = '';
 		handleCalculatePrice();
 	}
@@ -368,11 +369,7 @@
 								{@const isSelected = formData.jenisId === motor.jenisId}
 								<button
 									type="button"
-									onclick={() => {
-										formData.jenisId = motor.jenisId;
-										formData.unitId = '';
-										handleCalculatePrice();
-									}}
+									onclick={() => handleMotorSelect(motor.jenisId)}
 									class="p-4 rounded-2xl border text-left flex items-center gap-4 transition-all cursor-pointer relative group {isSelected
 										? 'bg-blue-50/40 border-[#0071e3] ring-2 ring-[#0071e3]/20 shadow-sm'
 										: 'bg-[#f5f5f7] border-black/5 hover:bg-[#e8e8ed] hover:border-black/10'}"
