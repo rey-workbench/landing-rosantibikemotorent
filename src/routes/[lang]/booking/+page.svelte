@@ -313,7 +313,7 @@
 						/>
 					</svg>
 				</div>
-				<h3 class="text-2xl font-bold text-[#1d1d1f] mb-2">{$LL.booking_success_title()}</h3>
+				<h2 class="text-2xl font-bold text-[#1d1d1f] mb-2">{$LL.booking_success_title()}</h2>
 				<p class="text-[#6b6b70] text-sm leading-relaxed max-w-md mx-auto">{$LL.booking_success_message()}</p>
 			</div>
 		{:else}
@@ -349,7 +349,7 @@
 				{#if currentStep === 0}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step1_title()}</h3>
+							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step1_title()}</h2>
 							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">{$LL.booking_step1_desc()}</p>
 						</div>
 
@@ -377,7 +377,7 @@
 				{#if currentStep === 1}
 					<div class="space-y-5 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">Pilih Motor</h3>
+							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">Pilih Motor</h2>
 							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">Pilih armada yang ingin Anda sewa</p>
 						</div>
 
@@ -407,7 +407,7 @@
 									</div>
 									<div class="flex-1 min-w-0">
 										<span class="text-[10px] font-semibold uppercase tracking-wider text-[#6b6b70]">{jenis?.merk}</span>
-										<h4 class="text-[15px] font-bold text-[#1d1d1f] truncate">{jenis?.model}</h4>
+										<h3 class="text-[15px] font-bold text-[#1d1d1f] truncate">{jenis?.model}</h3>
 										{#if jenis?.cc}
 											<p class="text-[11px] text-[#6b6b70] mt-0.5">{jenis.cc} CC • Matic</p>
 										{/if}
@@ -432,7 +432,7 @@
 				{#if currentStep === 2}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step3_title()}</h3>
+							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step3_title()}</h2>
 							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">{$LL.booking_step3_desc()}</p>
 						</div>
 
@@ -539,7 +539,7 @@
 				{#if currentStep === 3}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step4_title()}</h3>
+							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step4_title()}</h2>
 							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">{$LL.booking_step4_desc()}</p>
 						</div>
 
@@ -628,11 +628,11 @@
 							<div class="space-y-4">
 								<!-- Price Breakdown -->
 								<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5 space-y-2.5">
-									<h4
+									<h3
 										class="text-[10px] font-semibold text-[#6b6b70] uppercase tracking-wider mb-2"
 									>
 										{$LL.booking_price_breakdown()}
-									</h4>
+									</h3>
 									<div class="space-y-2 text-xs sm:text-sm">
 										<div class="flex justify-between items-center">
 											<span class="text-[#6b6b70]">

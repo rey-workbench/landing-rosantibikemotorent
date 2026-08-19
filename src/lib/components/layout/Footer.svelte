@@ -30,9 +30,9 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-[#d2d2d7]">
 			<!-- Col 1: About & Reviews -->
 			<div class="space-y-3">
-				<h2 class="font-semibold text-[#1d1d1f] text-[12px] tracking-tight">
+				<h3 class="font-semibold text-[#1d1d1f] text-[12px] tracking-tight">
 					{siteConfig.shortName}
-				</h2>
+				</h3>
 				<p class="leading-relaxed text-[12px] text-[#424245]">
 					{$LL.footer_about()}
 				</p>

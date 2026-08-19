@@ -218,9 +218,9 @@
 									<span>{featuredPost.readingTime}</span>
 								</div>
 
-								<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors leading-tight font-display mb-1.5">
+								<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors leading-tight font-display mb-1.5">
 									{featuredPost.judul}
-								</h2>
+								</h3>
 
 								<p class="text-xs sm:text-[13px] text-[#6b6b70] leading-relaxed line-clamp-2 font-normal mb-2">
 									{featuredPost.excerpt}
@@ -330,9 +330,9 @@
 											<span>{post.readingTime}</span>
 										</div>
 
-										<h2 class="text-sm sm:text-[15px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display mb-1">
+										<h3 class="text-sm sm:text-[15px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display mb-1">
 											{post.judul}
-										</h2>
+										</h3>
 
 										<p class="text-[11px] sm:text-xs text-[#6b6b70] line-clamp-2 leading-relaxed font-normal">
 											{post.excerpt}

@@ -58,9 +58,9 @@
 		<div class="space-y-16 lg:space-y-24">
 			<!-- Table / Pricing Matrix (Full Width) -->
 			<div class="space-y-6">
-				<h2 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
+				<h3 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
 					{$LL.details_pricing_title()}
-				</h2>
+				</h3>
 				<div class="overflow-x-auto rounded-3xl border border-black/5 bg-[#f5f5f7] p-4 sm:p-6">
 					<table class="w-full text-left border-collapse min-w-200">
 						<thead>
@@ -78,15 +78,17 @@
 							{#each pricingMatrix as item}
 								<tr class="transition-colors hover:bg-black/2">
 									<td class="py-5 px-4 font-semibold">
-										<h3 class="text-sm font-bold m-0 p-0 text-[#1d1d1f]">{item.type}</h3>
+										{item.type}
 									</td>
-									<td class="py-5 px-4 text-sm font-medium">{item.capacity}</td>
-									<td class="py-5 px-4 font-bold text-apple-blue whitespace-nowrap">{item.rate}</td>
+									<td class="py-5 px-4 text-[#6e6e73] font-medium">{item.capacity}</td>
+									<td class="py-5 px-4 font-bold text-[#1d1d1f]">{item.rate}</td>
 									<td class="py-5 px-4 text-xs font-medium text-[#1d1d1f]">
 										{$LL.details_pricing_inclusions()}
 									</td>
-									<td class="py-5 px-4 text-sm font-medium">
-										<span class="px-2.5 py-1 rounded-full bg-black/5 text-[#1d1d1f] text-xs">
+									<td class="py-5 px-4">
+										<span
+											class="inline-block px-3 py-1 bg-white border border-black/8 rounded-full text-xs font-medium text-[#1d1d1f]"
+										>
 											{item.route}
 										</span>
 									</td>
@@ -101,9 +103,9 @@
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
 				<!-- Requirements -->
 				<div class="space-y-6">
-					<h2 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
+					<h3 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
 						{$LL.details_reqs_title()}
-					</h2>
+					</h3>
 					<ul class="space-y-4">
 						{#each reqList as req}
 							<li class="flex items-start gap-3 text-base text-[#1d1d1f]">
@@ -120,9 +122,9 @@
 
 				<!-- Locations -->
 				<div class="space-y-6">
-					<h2 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
+					<h3 class="text-2xl font-bold text-[#1d1d1f] tracking-tight">
 						{$LL.details_area_title()}
-					</h2>
+					</h3>
 					<p class="text-sm text-[#6e6e73]">
 						{$LL.details_area_desc()}
 					</p>
@@ -138,7 +140,7 @@
 									</svg>
 								</div>
 								<div>
-									<h3 class="font-bold text-[#1d1d1f] text-sm">{loc.name}</h3>
+									<h4 class="font-bold text-[#1d1d1f] text-sm">{loc.name}</h4>
 									<p class="text-xs text-[#6e6e73] mt-0.5 leading-relaxed">{loc.desc}</p>
 								</div>
 							</div>

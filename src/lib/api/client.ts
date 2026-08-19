@@ -5,8 +5,10 @@ let rawUrl = import.meta.env.VITE_API_URL;
 if (!rawUrl) {
 	if (browser) {
 		rawUrl = `${window.location.protocol}//${window.location.hostname}:${DEFAULTS.API_FALLBACK_PORT}/api`;
-	} else {
+	} else if (import.meta.env.DEV) {
 		rawUrl = `http://localhost:${DEFAULTS.API_FALLBACK_PORT}/api`;
+	} else {
+		rawUrl = 'https://api.rosantibikemotorent.com/api';
 	}
 }
 const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;

@@ -304,16 +304,16 @@
 					Kembali
 				</button>
 
-				<h2 class="text-[32px] leading-tight font-semibold text-[#1d1d1f] mb-4">
+				<p class="text-[32px] leading-tight font-semibold text-[#1d1d1f] mb-4 font-display">
 					{mobileActiveItemData.label}
-				</h2>
+				</p>
 
 				<div class="flex flex-col gap-8">
 					{#each mobileActiveItemData.children as group}
 						<div class="flex flex-col gap-3">
-							<h4 class="text-[11px] text-black/50 font-semibold tracking-wide">
+							<span class="text-[11px] text-black/50 font-semibold tracking-wide uppercase">
 								{group.title}
-							</h4>
+							</span>
 							<div class="flex flex-col gap-3">
 								{#each group.links as link}
 									<a
