@@ -1,7 +1,9 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async () => {
-	const content = `# RosantiBike Motorent auth.md
+	const content = `# auth.md
+
+# RosantiBike Motorent Agent Authentication
 
 ## Overview
 

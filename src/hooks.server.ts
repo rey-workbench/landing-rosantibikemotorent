@@ -62,9 +62,17 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 	response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
 	response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
 	response.headers.set('Vary', 'Accept');
+	response.headers.set('Content-Signal', 'search=yes, ai-input=yes, ai-train=no');
 	response.headers.set(
 		'Link',
-		'</llms.txt>; rel="describedby", </llms-full.txt>; rel="alternate"; type="text/markdown", </.well-known/api-catalog>; rel="service-desc"; type="application/linkset+json", </auth.md>; rel="authorisation"'
+		[
+			'</llms.txt>; rel="describedby"',
+			'</llms-full.txt>; rel="alternate"; type="text/markdown"',
+			'</.well-known/api-catalog>; rel="service-desc"; type="application/linkset+json"',
+			'</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"',
+			'</.well-known/ucp>; rel="ucp"',
+			'</auth.md>; rel="authorisation"'
+		].join(', ')
 	);
 	return response;
 };
