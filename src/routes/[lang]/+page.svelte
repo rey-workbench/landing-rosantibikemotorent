@@ -26,7 +26,8 @@
 			description: $LL.seo_description(),
 			thumbnailUrl: `${BASE_URL}/video/posters/hero.webp`,
 			contentUrl: `${BASE_URL}/video/hero-compressed.webm`,
-			uploadDate: '2025-07-19'
+			uploadDate: '2025-07-19T08:00:00+07:00',
+			duration: 'PT30S'
 		})
 	);
 	const faqSchema = $derived(
@@ -36,7 +37,7 @@
 						{
 							question: 'How much does it cost to rent a motorcycle in Malang per day?',
 							answer:
-								'Our motorcycle rental rates start from IDR 60,000 per day (24 hours) for standard scooters up to IDR 150,000 for Maxi/Sport types. Prices vary depending on the motorcycle model and rental duration.'
+								'Our motorcycle rental rates start from IDR 80,000 per day (24 hours) for standard scooters up to IDR 150,000 for Maxi/Sport types. Prices vary depending on the motorcycle model and rental duration.'
 						},
 						{
 							question: 'What are the requirements for renting a motorcycle in Malang?',
