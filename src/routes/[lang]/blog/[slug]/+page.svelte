@@ -6,12 +6,20 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { buildBreadcrumbSchema, buildArticleSchema } from '$lib/seo/schema';
 	import { optimizeImageUrl } from '$lib/utils/image';
+	import { marked } from 'marked';
+	import DOMPurify from 'isomorphic-dompurify';
 
 	let { data } = $props();
 
 	const post = $derived(data.post);
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 	const currentUrl = $derived(page.url.href);
+
+	const renderedHtml = $derived.by(() => {
+		if (!post?.konten) return '';
+		const rawParsed = marked.parse(post.konten, { async: false, breaks: true, gfm: true }) as string;
+		return DOMPurify.sanitize(rawParsed);
+	});
 
 	const breadcrumbSchema = $derived(
 		post
@@ -167,10 +175,8 @@
 			{/if}
 
 			<!-- Article Body Content -->
-			<div class="prose max-w-none article-content">
-				{#await import('isomorphic-dompurify') then DOMPurify}
-					{@html DOMPurify.default.sanitize(post.konten)}
-				{/await}
+			<div class="prose prose-neutral max-w-none article-content">
+				{@html renderedHtml}
 			</div>
 
 			<!-- Share & CTA Footer Box -->
@@ -234,72 +240,3 @@
 	</article>
 {/if}
 
-<style>
-	.article-content {
-		color: #1d1d1f;
-		line-height: 1.6;
-		font-size: 1.125rem;
-	}
-
-	/* Minimalist Dropcap */
-	.article-content :global(p:first-of-type::first-letter) {
-		float: left;
-		font-size: 3.5rem;
-		line-height: 0.8;
-		padding-top: 8px;
-		padding-right: 8px;
-		font-weight: 600;
-		color: #1d1d1f;
-	}
-
-	:global(.article-content h1),
-	:global(.article-content h2),
-	:global(.article-content h3),
-	:global(.article-content h4),
-	:global(.article-content strong) {
-		color: #1d1d1f !important;
-		font-weight: 600;
-		letter-spacing: -0.01em;
-	}
-
-	:global(.article-content h2) {
-		font-size: 2rem;
-		margin: 3rem 0 1.5rem;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-		padding-bottom: 0.5rem;
-	}
-
-	:global(.article-content h3) {
-		font-size: 1.5rem;
-		margin: 2rem 0 1rem;
-	}
-
-	:global(.article-content p) {
-		margin-bottom: 1.5rem;
-		color: #1d1d1f;
-	}
-
-	:global(.article-content a) {
-		color: #0071e3 !important;
-		text-decoration: underline;
-	}
-
-	:global(.article-content a:hover) {
-		text-decoration: none;
-	}
-
-	:global(.article-content img) {
-		border-radius: 1.5rem;
-		margin: 3rem 0;
-		border: 1px solid rgba(0, 0, 0, 0.05);
-	}
-
-	:global(.article-content blockquote) {
-		border-left: 3px solid #1d1d1f;
-		padding: 1rem 1.5rem;
-		background: #f5f5f7;
-		border-radius: 0 1rem 1rem 0;
-		margin: 2.5rem 0;
-		color: #1d1d1f;
-	}
-</style>
