@@ -55,6 +55,8 @@ export const GET: RequestHandler = async () => {
 
 > Rosantibike Motorent adalah penyedia layanan rental dan sewa motor profesional di Kota Malang dan Batu, Jawa Timur, Indonesia. Menyediakan berbagai tipe motor matic, manual, dan trail dengan fasilitas helm SNI, jas hujan, dan layanan antar-jemput stasiun/terminal/hotel.
 
+- [Full Documentation for AI & LLMs](${baseUrl}/llms-full.txt): Panduan armada lengkap, harga live real-time, syarat sewa, dan FAQ.
+
 ## Halaman Utama & Pemesanan (ID)
 
 - [Beranda / Home](${baseUrl}/id): Halaman utama layanan sewa motor Malang.

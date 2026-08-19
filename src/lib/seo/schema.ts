@@ -22,9 +22,23 @@ export function buildOrganizationSchema() {
 		image: `${BASE_URL}/logo.webp`,
 		telephone: siteConfig.phone,
 		description:
-			'Penyedia layanan sewa motor murah dan rental motor premium di Malang. Menyediakan armada Beat, Vario, Lexi, dan PCX dengan fasilitas 2 helm dan jas hujan.',
+			'Penyedia layanan sewa motor murah dan rental motor premium di Malang. Menyediakan armada PCX 150, Lexi 125, Vario 150, Vario 125, Scoopy, Beat Fi, dan Soul GT dengan fasilitas 2 helm dan jas hujan.',
 		email: siteConfig.email,
-		areaServed: { '@type': 'City', name: 'Malang' },
+		currenciesAccepted: 'IDR',
+		paymentAccepted: 'Cash, Bank Transfer, QRIS',
+		priceRange: 'Rp 80.000 - Rp 150.000',
+		areaServed: [
+			{
+				'@type': 'City',
+				name: 'Malang',
+				sameAs: 'https://www.wikidata.org/wiki/Q11025'
+			},
+			{
+				'@type': 'City',
+				name: 'Batu',
+				sameAs: 'https://www.wikidata.org/wiki/Q131346'
+			}
+		],
 		address: {
 			'@type': 'PostalAddress',
 			streetAddress: siteConfig.address,
@@ -42,9 +56,17 @@ export function buildOrganizationSchema() {
 		sameAs: [
 			siteConfig.socials.facebook,
 			siteConfig.socials.instagram,
-			'https://share.google/txOxHDzSGQxVfc1ql'
+			'https://share.google/txOxHDzSGQxVfc1ql',
+			'https://www.wikidata.org/wiki/Q11025',
+			'https://en.wikipedia.org/wiki/Malang'
 		],
-		priceRange: 'Rp 60.000 - Rp 150.000',
+		knowsAbout: [
+			'Sewa Motor Malang',
+			'Rental Motor Malang',
+			'Rental Motor Stasiun Malang',
+			'Sewa Motor Bromo',
+			'Sewa Motor Kota Batu'
+		],
 		geo: {
 			'@type': 'GeoCoordinates',
 			latitude: -7.9463,
@@ -57,7 +79,90 @@ export function buildOrganizationSchema() {
 				opens: '06:00',
 				closes: '22:00'
 			}
-		]
+		],
+		hasOfferCatalog: {
+			'@type': 'OfferCatalog',
+			name: 'Katalog Sewa Motor Malang',
+			itemListElement: [
+				{
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: 'Honda PCX 150',
+						category: 'Maxi Scooter',
+						description: 'Sewa Honda PCX 150cc di Malang.'
+					},
+					price: '150000',
+					priceCurrency: 'IDR'
+				},
+				{
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: 'Yamaha Lexi 125',
+						category: 'Medium Scooter',
+						description: 'Sewa Yamaha Lexi 125cc di Malang.'
+					},
+					price: '125000',
+					priceCurrency: 'IDR'
+				},
+				{
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: 'Honda Vario 150',
+						category: 'Medium Scooter',
+						description: 'Sewa Honda Vario 150cc di Malang.'
+					},
+					price: '120000',
+					priceCurrency: 'IDR'
+				},
+				{
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: 'Honda Vario 125',
+						category: 'Medium Scooter',
+						description: 'Sewa Honda Vario 125cc di Malang.'
+					},
+					price: '120000',
+					priceCurrency: 'IDR'
+				},
+				{
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: 'Honda Scoopy',
+						category: 'Retro Scooter',
+						description: 'Sewa Honda Scoopy 110cc di Malang.'
+					},
+					price: '100000',
+					priceCurrency: 'IDR'
+				},
+				{
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: 'Honda Beat Fi',
+						category: 'Standard Scooter',
+						description: 'Sewa Honda Beat Fi 110cc di Malang.'
+					},
+					price: '100000',
+					priceCurrency: 'IDR'
+				},
+				{
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: 'Yamaha Soul GT 125',
+						category: 'Standard Scooter',
+						description: 'Sewa Yamaha Soul GT 125cc di Malang.'
+					},
+					price: '80000',
+					priceCurrency: 'IDR'
+				}
+			]
+		}
 	};
 }
 
