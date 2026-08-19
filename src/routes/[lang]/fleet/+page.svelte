@@ -51,7 +51,7 @@
 
 <!-- Chapternav (Sticky under main navbar) -->
 <div
-	class="sticky top-14 md:top-16 w-full bg-white/90 backdrop-blur-md z-40 border-b border-[#d2d2d7] transition-all"
+	class="sticky top-14 md:top-16 mt-14 md:mt-16 w-full bg-white/90 backdrop-blur-md z-40 border-b border-[#d2d2d7] transition-all"
 >
 	<div class="max-w-5xl mx-auto px-4 h-16 md:h-18 flex items-center relative overflow-hidden">
 		<!-- Left Title -->
@@ -107,13 +107,13 @@
 
 <main class="bg-white min-h-screen">
 	<!-- Jelajahi Jajarannya Section -->
-	<section class="max-w-5xl mx-auto px-4 pt-8 md:pt-10 pb-16">
+	<section class="max-w-5xl mx-auto px-4 pt-12 md:pt-14 pb-20">
 		<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 md:mb-10 gap-4">
-			<h2
+			<h1
 				class="text-[36px] md:text-[44px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
 			>
 				{$LL.fleet_explore_lineup()}
-			</h2>
+			</h1>
 			<a
 				href="/{lang}/booking"
 				class="text-apple-blue font-medium hover:underline text-[15px] mb-2"

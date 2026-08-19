@@ -84,7 +84,7 @@
 
 <main class="bg-white min-h-screen">
 	<!-- Hero / Header Section (Exact Fleet Style) -->
-	<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-16 md:pt-20 pb-6">
+	<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-20 md:pt-24 pb-6">
 		<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 gap-4 pb-6 border-b border-[#d2d2d7]">
 			<div>
 				<h1

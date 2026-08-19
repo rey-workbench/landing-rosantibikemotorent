@@ -258,7 +258,7 @@
 	}}
 />
 
-<main class="bg-white min-h-screen pt-16 md:pt-20 pb-24 px-4 sm:px-6 md:px-8">
+<main class="bg-white min-h-screen pt-20 md:pt-24 pb-24 px-4 sm:px-6 md:px-8">
 	<div class="max-w-3xl mx-auto">
 		<!-- Header (Exact Fleet / Rosantibike Typography) -->
 		<div class="mb-10 text-center">
