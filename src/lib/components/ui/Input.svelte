@@ -145,7 +145,7 @@
 				type="button"
 				{disabled}
 				onclick={() => !disabled && ((isOpen = !isOpen), (searchTerm = ''))}
-				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-[#e8e8ed] hover:border-black/15 focus:bg-white focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/10 {error
+				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-[#e8e8ed] hover:border-black/15 focus:ring-4 focus:ring-[#0071e3]/10 {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''} {isOpen
 					? 'border-[#0071e3] bg-white ring-4 ring-[#0071e3]/10'
@@ -197,7 +197,7 @@
 									bind:value={searchTerm}
 									placeholder="Cari..."
 									aria-label="Cari opsi"
-									class="w-full bg-[#f5f5f7] border border-black/5 rounded-xl px-3 py-2 text-xs text-[#1d1d1f] focus:bg-white focus:border-[#0071e3] focus:outline-none"
+									class="w-full bg-[#f5f5f7] border border-black/5 rounded-xl px-3 py-2 text-xs text-[#1d1d1f] focus:outline-none"
 									onclick={(e) => e.stopPropagation()}
 								/>
 							</div>
@@ -332,7 +332,7 @@
 				{required}
 				{disabled}
 				oninput={(e) => (value = e.currentTarget.value)}
-				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-xs sm:text-sm text-[#1d1d1f] placeholder:text-[#6b6b70]/60 focus:bg-white focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/10 focus:outline-none transition-all {type ===
+				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-xs sm:text-sm text-[#1d1d1f] focus:ring-4 focus:ring-[#0071e3]/10 focus:outline-none transition-all {type ===
 				'number'
 					? 'pr-12'
 					: ''} {error ? 'border-red-500' : ''}"

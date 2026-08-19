@@ -138,7 +138,7 @@
 								href="/{lang}/fleet/{jenis.slug}"
 								aria-label="{$LL.fleet_see_detail()} {jenis.merk} {jenis.model}"
 								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border {index % 3 === 0
-									? 'border-[#2997ff] text-[#2997ff] hover:bg-[#2997ff] hover:text-white'
+									? 'border-apple-link text-apple-link hover:bg-apple-link hover:text-white'
 									: 'border-[#0071e3] text-[#0071e3] hover:bg-[#0071e3] hover:text-white'} font-medium text-xs md:text-sm transition-all shadow-xs"
 							>
 								{$LL.fleet_see_detail()}
