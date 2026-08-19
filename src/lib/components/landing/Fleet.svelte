@@ -130,7 +130,7 @@
 							<a
 								href="/{lang}/booking?unit={jenis.slug}"
 								aria-label="{$LL.fleet_order()} {jenis.merk} {jenis.model}"
-								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-xs"
+								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-apple-blue hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-xs"
 							>
 								{$LL.fleet_order()}
 							</a>
@@ -139,7 +139,7 @@
 								aria-label="{$LL.fleet_see_detail()} {jenis.merk} {jenis.model}"
 								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border {index % 3 === 0
 									? 'border-apple-link text-apple-link hover:bg-apple-link hover:text-white'
-									: 'border-[#0071e3] text-[#0071e3] hover:bg-[#0071e3] hover:text-white'} font-medium text-xs md:text-sm transition-all shadow-xs"
+									: 'border-apple-blue text-apple-blue hover:bg-apple-blue hover:text-white'} font-medium text-xs md:text-sm transition-all shadow-xs"
 							>
 								{$LL.fleet_see_detail()}
 							</a>

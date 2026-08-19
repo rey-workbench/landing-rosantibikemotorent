@@ -145,10 +145,10 @@
 				type="button"
 				{disabled}
 				onclick={() => !disabled && ((isOpen = !isOpen), (searchTerm = ''))}
-				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-[#e8e8ed] hover:border-black/15 focus:ring-4 focus:ring-[#0071e3]/10 {error
+				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-[#e8e8ed] hover:border-black/15 focus:ring-4 focus:ring-apple-blue/10 {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''} {isOpen
-					? 'border-[#0071e3] bg-white ring-4 ring-[#0071e3]/10'
+					? 'border-apple-blue bg-white ring-4 ring-apple-blue/10'
 					: ''}"
 			>
 				<div class="flex items-center gap-3 truncate">
@@ -209,7 +209,7 @@
 									onclick={() => select(opt.value)}
 									class="w-full px-4 py-2.5 text-left text-xs sm:text-sm flex items-center justify-between transition-colors {opt.value ==
 									value
-										? 'bg-[#0071e3]/10 text-[#0071e3] font-semibold'
+										? 'bg-apple-blue/10 text-apple-blue font-semibold'
 										: 'text-[#1d1d1f] hover:bg-[#f5f5f7]'}"
 								>
 									<span>{opt.label}</span>
@@ -289,7 +289,7 @@
 											: 'text-[#6b6b70]/30 pointer-events-none'} {curr &&
 										value ===
 											`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
-											? 'bg-[#0071e3] text-white font-bold shadow-sm'
+											? 'bg-apple-blue text-white font-bold shadow-sm'
 											: ''}">{d}</button
 									>
 								{/each}
@@ -304,7 +304,7 @@
 											select(`${h}:${value.toString().split(':')[1] || '00'}`);
 										}}
 										class="w-full py-1.5 text-xs rounded transition-colors {value.toString().startsWith(h + ':')
-											? 'bg-[#0071e3] text-white font-semibold'
+											? 'bg-apple-blue text-white font-semibold'
 											: 'text-[#6b6b70] hover:text-[#1d1d1f] hover:bg-[#f5f5f7]'}">{h}</button
 									>{/each}
 							</div>
@@ -315,7 +315,7 @@
 											select(`${value.toString().split(':')[0] || '08'}:${m}`);
 										}}
 										class="w-full py-1.5 text-xs rounded transition-colors {value.toString().endsWith(':' + m)
-											? 'bg-[#0071e3] text-white font-semibold'
+											? 'bg-apple-blue text-white font-semibold'
 											: 'text-[#6b6b70] hover:text-[#1d1d1f] hover:bg-[#f5f5f7]'}">{m}</button
 									>{/each}
 							</div>
@@ -332,7 +332,7 @@
 				{required}
 				{disabled}
 				oninput={(e) => (value = e.currentTarget.value)}
-				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-xs sm:text-sm text-[#1d1d1f] focus:ring-4 focus:ring-[#0071e3]/10 focus:outline-none transition-all {type ===
+				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-xs sm:text-sm text-[#1d1d1f] focus:ring-4 focus:ring-apple-blue/10 focus:outline-none transition-all {type ===
 				'number'
 					? 'pr-12'
 					: ''} {error ? 'border-red-500' : ''}"

@@ -232,14 +232,14 @@
 								<a
 									href="/{lang}/booking?unit={motor.slug}"
 									aria-label="{$LL.fleet_order()} {motor.merk} {motor.model}"
-									class="px-5 py-2 bg-[#0071e3] text-white rounded-full text-[14px] font-medium hover:bg-[#0077ed] transition-colors shadow-xs"
+									class="px-5 py-2 bg-apple-blue text-white rounded-full text-[14px] font-medium hover:bg-[#0077ed] transition-colors shadow-xs"
 								>
 									{$LL.fleet_order()}
 								</a>
 								<a
 									href="/{lang}/fleet/{motor.slug}"
 									aria-label="{$LL.fleet_link_detail()} {motor.merk} {motor.model}"
-									class="px-5 py-2 border border-[#0071e3] text-[#0071e3] rounded-full text-[14px] font-medium hover:bg-[#0071e3] hover:text-white transition-all shadow-xs"
+									class="px-5 py-2 border border-apple-blue text-apple-blue rounded-full text-[14px] font-medium hover:bg-apple-blue hover:text-white transition-all shadow-xs"
 								>
 									{$LL.fleet_link_detail()}
 								</a>

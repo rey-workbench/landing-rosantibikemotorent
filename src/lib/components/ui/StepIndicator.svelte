@@ -20,7 +20,7 @@
 
 		<!-- Progress Line Active -->
 		<div
-			class="absolute top-4 sm:top-5 left-8 sm:left-14 h-0.5 bg-[#0071e3] transition-all duration-500 -z-10"
+			class="absolute top-4 sm:top-5 left-8 sm:left-14 h-0.5 bg-apple-blue transition-all duration-500 -z-10"
 			style="width: calc({progressWidth}% * (100% - 4rem) / 100)"
 		></div>
 
@@ -31,7 +31,7 @@
 					class="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold transition-all duration-300 {isCompleted(
 						index
 					)
-						? 'bg-[#0071e3] text-white shadow-sm'
+						? 'bg-apple-blue text-white shadow-sm'
 						: isCurrent(index)
 							? 'bg-[#1d1d1f] text-white ring-4 ring-black/5 shadow-sm'
 							: 'bg-[#f5f5f7] text-[#6b6b70] border border-black/5'}"
@@ -50,7 +50,7 @@
 					)
 						? 'text-[#1d1d1f] font-semibold'
 						: isCompleted(index)
-							? 'text-[#0071e3]'
+							? 'text-apple-blue'
 							: 'text-[#6b6b70]'}"
 				>
 					{step.title}

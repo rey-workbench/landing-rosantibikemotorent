@@ -33,7 +33,7 @@
 			href={whatsappHref}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="px-6 py-2.5 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium text-base transition-colors"
+			class="px-6 py-2.5 rounded-full bg-apple-blue hover:bg-[#0077ed] text-white font-medium text-base transition-colors"
 		>
 			{$LL.hero_rent_now()}
 		</a>

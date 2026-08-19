@@ -42,7 +42,7 @@
 						<polyline points="20 6 9 17 4 12" />
 					</svg>
 				</div>
-				<h1 class="text-[32px] md:text-[40px] font-semibold text-[#1d1d1f] tracking-tight mb-3">
+				<h1 class="text-[32px] md:text-[40px] font-semibold font-display text-[#1d1d1f] tracking-tight mb-3">
 					{$LL.booking_success_title()}
 				</h1>
 				<p class="text-[#6b6b70] text-[15px] sm:text-[17px] leading-relaxed">
@@ -63,7 +63,7 @@
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
-						class="text-[#0071e3]"
+						class="text-apple-blue"
 					>
 						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
 						<polyline points="14 2 14 8 20 8" />
@@ -94,7 +94,7 @@
 					{#if transaksi.jasHujan > 0}
 						<div class="flex justify-between items-center py-2.5 border-b border-black/5">
 							<span class="text-[#6b6b70]">{$LL.booking_raincoat_field()}</span>
-							<span class="text-[#0071e3] font-medium"
+							<span class="text-apple-blue font-medium"
 								>{transaksi.jasHujan} {$LL.booking_confirm_pieces()}</span
 							>
 						</div>
@@ -102,7 +102,7 @@
 					{#if transaksi.helm > 0}
 						<div class="flex justify-between items-center py-2.5 border-b border-black/5">
 							<span class="text-[#6b6b70]">{$LL.booking_helmet_field()}</span>
-							<span class="text-[#0071e3] font-medium"
+							<span class="text-apple-blue font-medium"
 								>{transaksi.helm} {$LL.booking_confirm_pieces()}</span
 							>
 						</div>
@@ -151,7 +151,7 @@
 			<div class="mt-8">
 				<a
 					href="/{lang}/"
-					class="inline-flex items-center gap-2 text-[#0071e3] hover:underline font-medium transition-colors"
+					class="inline-flex items-center gap-2 text-apple-blue hover:underline font-medium transition-colors"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

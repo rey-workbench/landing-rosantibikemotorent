@@ -61,7 +61,7 @@
 
 			<div class="flex flex-col mt-12 w-full max-w-lg">
 				<div class="flex gap-5 sm:gap-6 border-t border-black/10 py-6 items-start">
-					<span class="shrink-0 text-xs font-bold tracking-widest text-[#0071e3] mt-1">01</span>
+					<span class="shrink-0 text-xs font-bold tracking-widest text-apple-blue mt-1">01</span>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
 							{$LL.why_unit_title()}
@@ -71,7 +71,7 @@
 				</div>
 
 				<div class="flex gap-5 sm:gap-6 border-t border-black/10 py-6 items-start">
-					<span class="shrink-0 text-xs font-bold tracking-widest text-[#0071e3] mt-1">02</span>
+					<span class="shrink-0 text-xs font-bold tracking-widest text-apple-blue mt-1">02</span>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
 							{$LL.why_delivery_title()}
@@ -81,7 +81,7 @@
 				</div>
 
 				<div class="flex gap-5 sm:gap-6 border-t border-b border-black/10 py-6 items-start">
-					<span class="shrink-0 text-xs font-bold tracking-widest text-[#0071e3] mt-1">03</span>
+					<span class="shrink-0 text-xs font-bold tracking-widest text-apple-blue mt-1">03</span>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
 							{$LL.why_price_title()}

@@ -118,11 +118,11 @@
 >
 	<div class="max-w-3xl mx-auto">
 		<span
-			class="inline-block px-3.5 py-1 mb-4 rounded-full bg-white border border-black/5 text-[11px] font-semibold uppercase tracking-wider text-[#0071e3] shadow-xs"
+			class="inline-block px-3.5 py-1 mb-4 rounded-full bg-white border border-black/5 text-[11px] font-semibold uppercase tracking-wider text-apple-blue shadow-xs"
 		>
 			{isEn ? 'Support & Help' : 'Pusat Bantuan & FAQ'}
 		</span>
-		<h1 class="text-4xl md:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-4">
+		<h1 class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight mb-4">
 			{isEn ? 'Frequently Asked Questions' : 'Pertanyaan yang Sering Diajukan'}
 		</h1>
 		<p class="text-base md:text-lg text-[#6b6b70] max-w-xl mx-auto leading-relaxed">

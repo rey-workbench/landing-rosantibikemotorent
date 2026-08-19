@@ -116,7 +116,7 @@
 	<div class="max-w-7xl mx-auto">
 		<a
 			href="/{lang}/fleet"
-			class="inline-flex items-center gap-2 text-[#0071e3] text-[15px] font-medium transition-colors hover:underline"
+			class="inline-flex items-center gap-2 text-apple-blue text-[15px] font-medium transition-colors hover:underline"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -178,12 +178,12 @@
 				<!-- Details Section -->
 				<div class="flex flex-col justify-center">
 					<!-- Breadcrumb -->
-					<p class="text-[#0071e3] font-semibold text-[13px] uppercase tracking-wider mb-2">
+					<p class="text-apple-blue font-semibold text-[13px] uppercase tracking-wider mb-2">
 						{jenis.merk}
 					</p>
 
 					<h1
-						class="text-[40px] md:text-[56px] font-semibold text-[#1d1d1f] leading-[1.05] tracking-tight mb-6"
+						class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight mb-6"
 					>
 						Sewa Motor {jenis.model} Malang
 					</h1>

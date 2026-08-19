@@ -215,7 +215,7 @@
 						{#each group.links as link}
 							<a
 								href={link.href}
-								class="text-xl text-[#1d1d1f] hover:text-[#0071e3] transition-colors font-semibold"
+								class="text-xl text-[#1d1d1f] hover:text-apple-blue transition-colors font-semibold"
 								onclick={() => (hoveredNavId = null)}
 							>
 								{link.label}
@@ -245,7 +245,7 @@
 					<div class="border-b border-black/5 pb-2 pt-2">
 						{#if item.children}
 							<button
-								class="w-full flex justify-between items-center text-3xl font-semibold text-[#1d1d1f] hover:text-[#0071e3] transition-colors text-left"
+								class="w-full flex justify-between items-center text-3xl font-semibold text-[#1d1d1f] hover:text-apple-blue transition-colors text-left"
 								onclick={() => {
 									if (item.id === 'fleet') ensureMotorGroups();
 									mobileActiveMenuId = item.id;
@@ -268,7 +268,7 @@
 						{:else}
 							<a
 								href={item.href}
-								class="w-full flex text-3xl font-semibold text-[#1d1d1f] hover:text-[#0071e3] transition-colors text-left"
+								class="w-full flex text-3xl font-semibold text-[#1d1d1f] hover:text-apple-blue transition-colors text-left"
 								onclick={() => (isOpen = false)}
 							>
 								{item.label}
@@ -318,7 +318,7 @@
 								{#each group.links as link}
 									<a
 										href={link.href}
-										class="text-2xl font-semibold text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
+										class="text-2xl font-semibold text-[#1d1d1f] hover:text-apple-blue transition-colors"
 										onclick={() => {
 											isOpen = false;
 											mobileActiveMenuId = null;

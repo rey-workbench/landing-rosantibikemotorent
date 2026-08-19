@@ -124,7 +124,7 @@
 						<a
 							href={emailHref}
 							aria-label="Email Rosantibike"
-							class="text-[#0071e3] hover:underline"
+							class="text-apple-blue hover:underline"
 						>
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html displayEmail}

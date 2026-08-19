@@ -113,7 +113,7 @@
 				<div class="mb-6">
 					<a
 						href="/{lang}/blog"
-						class="inline-flex items-center gap-2 text-[#0071e3] text-sm font-medium hover:underline transition-all group"
+						class="inline-flex items-center gap-2 text-apple-blue text-sm font-medium hover:underline transition-all group"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +162,7 @@
 				<div class="flex items-center justify-between gap-4 py-5 border-y border-black/8">
 					<div class="flex items-center gap-3.5">
 						<div
-							class="w-11 h-11 rounded-full bg-linear-to-br from-[#0071e3] to-[#004f9e] text-white flex items-center justify-center font-bold text-sm shadow-sm"
+							class="w-11 h-11 rounded-full bg-linear-to-br from-apple-blue to-[#004f9e] text-white flex items-center justify-center font-bold text-sm shadow-sm"
 						>
 							R
 						</div>
@@ -170,7 +170,7 @@
 							<div class="flex items-center gap-2">
 								<span class="text-sm font-semibold text-[#1d1d1f]">Rosantibike Editorial</span>
 								<span class="inline-block w-1 h-1 rounded-full bg-black/30"></span>
-								<span class="text-xs text-[#0071e3] font-medium">Verified</span>
+								<span class="text-xs text-apple-blue font-medium">Verified</span>
 							</div>
 							<div class="flex items-center gap-2 text-xs text-[#6b6b70] mt-0.5">
 								{#if post.formattedDate && post.formattedDate !== '-'}
@@ -206,7 +206,7 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0071e3" stroke-width="2.5">
 									<polyline points="20 6 9 17 4 12" />
 								</svg>
-								<span class="text-[#0071e3]">Disalin</span>
+								<span class="text-apple-blue">Disalin</span>
 							{:else}
 								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>

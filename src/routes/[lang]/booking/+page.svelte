@@ -282,11 +282,11 @@
 		<!-- Header (Exact Fleet / Rosantibike Typography) -->
 		<div class="mb-10 text-center">
 			<h1
-				class="text-[36px] sm:text-[44px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
+				class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight"
 			>
 				{$LL.booking_header_order()} {$LL.booking_header_motor()}
 			</h1>
-			<p class="text-[15px] sm:text-[16px] text-[#6b6b70] font-normal mt-2.5 max-w-lg mx-auto leading-relaxed">
+			<p class="text-[15px] sm:text-[16px] text-[#6e6e73] font-normal mt-2.5 max-w-lg mx-auto leading-relaxed">
 				{$LL.booking_header_subtitle()}
 			</p>
 		</div>
@@ -297,7 +297,7 @@
 				class="bg-white border border-black/6 rounded-3xl p-8 sm:p-12 shadow-[0_8px_30px_rgba(0,0,0,0.04)] text-center"
 			>
 				<div
-					class="w-16 h-16 bg-[#e8f3ff] rounded-full flex items-center justify-center mx-auto mb-5 text-[#0071e3]"
+					class="w-16 h-16 bg-[#e8f3ff] rounded-full flex items-center justify-center mx-auto mb-5 text-apple-blue"
 				>
 					<svg
 						class="w-8 h-8"
@@ -389,7 +389,7 @@
 									type="button"
 									onclick={() => handleMotorSelect(motor.jenisId)}
 									class="p-4 rounded-2xl border text-left flex items-center gap-4 transition-all cursor-pointer relative group {isSelected
-										? 'bg-blue-50/40 border-[#0071e3] ring-2 ring-[#0071e3]/20 shadow-sm'
+										? 'bg-blue-50/40 border-apple-blue ring-2 ring-apple-blue/20 shadow-sm'
 										: 'bg-[#f5f5f7] border-black/5 hover:bg-[#e8e8ed] hover:border-black/10'}"
 								>
 									<div class="w-20 h-20 bg-white rounded-xl p-1.5 flex items-center justify-center shrink-0 border border-black/5">
@@ -411,12 +411,12 @@
 										{#if jenis?.cc}
 											<p class="text-[11px] text-[#6b6b70] mt-0.5">{jenis.cc} CC • Matic</p>
 										{/if}
-										<p class="text-[13px] font-semibold text-[#0071e3] mt-1.5">
+										<p class="text-[13px] font-semibold text-apple-blue mt-1.5">
 											{formatCurrency(jenis?.hargaSewa || 0)} <span class="text-[11px] text-[#6b6b70] font-normal">/{$LL.booking_day()}</span>
 										</p>
 									</div>
 									{#if isSelected}
-										<div class="absolute top-3 right-3 w-5 h-5 bg-[#0071e3] text-white rounded-full flex items-center justify-center shadow-xs">
+										<div class="absolute top-3 right-3 w-5 h-5 bg-apple-blue text-white rounded-full flex items-center justify-center shadow-xs">
 											<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
 												<polyline points="20 6 9 17 4 12" />
 											</svg>
@@ -476,7 +476,7 @@
 								<h4 class="text-xs font-semibold text-[#1d1d1f] uppercase tracking-wider">
 									{$LL.booking_accessories_label()}
 								</h4>
-								<span class="text-xs text-[#0071e3] font-medium flex items-center gap-1">
+								<span class="text-xs text-apple-blue font-medium flex items-center gap-1">
 									<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 										<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
 									</svg>
@@ -605,7 +605,7 @@
 										{#if formData.jasHujan > 0}
 											<div class="flex justify-between items-center mt-1">
 												<span class="text-[#6b6b70]">{$LL.booking_raincoat_field()}</span>
-												<span class="text-[#0071e3] font-medium"
+												<span class="text-apple-blue font-medium"
 													>{formData.jasHujan} {$LL.booking_confirm_pieces()}</span
 												>
 											</div>
@@ -613,7 +613,7 @@
 										{#if formData.helm > 0}
 											<div class="flex justify-between items-center mt-1">
 												<span class="text-[#6b6b70]">{$LL.booking_helmet_field()}</span>
-												<span class="text-[#0071e3] font-medium"
+												<span class="text-apple-blue font-medium"
 													>{formData.helm} {$LL.booking_confirm_pieces()}</span
 												>
 											</div>
@@ -694,7 +694,7 @@
 						<!-- Note -->
 						<div class="bg-[#f5f5f7] rounded-2xl p-4 sm:p-5 flex gap-3.5 border border-black/5">
 							<svg
-								class="w-5 h-5 text-[#0071e3] shrink-0 mt-0.5"
+								class="w-5 h-5 text-apple-blue shrink-0 mt-0.5"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"

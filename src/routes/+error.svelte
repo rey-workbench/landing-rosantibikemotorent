@@ -45,7 +45,7 @@
 		<div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-14">
 			<a
 				href="/{lang}"
-				class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white text-sm font-semibold tracking-tight transition-all shadow-[0_2px_12px_rgba(0,113,227,0.25)] active:scale-[0.98]"
+				class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-apple-blue hover:bg-[#0077ed] text-white text-sm font-semibold tracking-tight transition-all shadow-[0_2px_12px_rgba(0,113,227,0.25)] active:scale-[0.98]"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -71,15 +71,15 @@
 		<!-- Helpful Quick Links matching Site Style -->
 		<div class="pt-8 border-t border-[#d2d2d7]/50 max-w-xl mx-auto">
 			<div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs sm:text-sm font-medium text-[#6e6e73]">
-				<a href="/{lang}/booking" class="hover:text-[#0071e3] transition-colors">
+				<a href="/{lang}/booking" class="hover:text-apple-blue transition-colors">
 					{isEn ? 'Online Booking' : 'Booking Motor'}
 				</a>
 				<span class="text-[#d2d2d7] select-none">&bull;</span>
-				<a href="/{lang}/faq" class="hover:text-[#0071e3] transition-colors">
+				<a href="/{lang}/faq" class="hover:text-apple-blue transition-colors">
 					{isEn ? 'Rental Terms' : 'Syarat & Ketentuan'}
 				</a>
 				<span class="text-[#d2d2d7] select-none">&bull;</span>
-				<a href="/{lang}/blog" class="hover:text-[#0071e3] transition-colors">
+				<a href="/{lang}/blog" class="hover:text-apple-blue transition-colors">
 					{isEn ? 'Travel Blog' : 'Blog Wisata'}
 				</a>
 				<span class="text-[#d2d2d7] select-none">&bull;</span>
@@ -87,7 +87,7 @@
 					href={whatsappHref}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex items-center gap-1.5 text-[#0071e3] font-semibold hover:underline"
+					class="inline-flex items-center gap-1.5 text-apple-blue font-semibold hover:underline"
 				>
 					<span class="w-1.5 h-1.5 rounded-full bg-[#34c759]"></span>
 					<span>WhatsApp CS</span>

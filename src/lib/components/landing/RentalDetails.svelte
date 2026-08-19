@@ -81,7 +81,7 @@
 										<h3 class="text-sm font-bold m-0 p-0 text-[#1d1d1f]">{item.type}</h3>
 									</td>
 									<td class="py-5 px-4 text-sm font-medium">{item.capacity}</td>
-									<td class="py-5 px-4 font-bold text-[#0071e3] whitespace-nowrap">{item.rate}</td>
+									<td class="py-5 px-4 font-bold text-apple-blue whitespace-nowrap">{item.rate}</td>
 									<td class="py-5 px-4 text-xs font-medium text-[#1d1d1f]">
 										{$LL.details_pricing_inclusions()}
 									</td>
@@ -131,7 +131,7 @@
 							<div
 								class="p-4.5 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-start gap-3.5 transition-all hover:bg-[#e8e8ed]"
 							>
-								<div class="w-8 h-8 rounded-full bg-white text-[#0071e3] border border-black/5 flex items-center justify-center shrink-0 shadow-2xs mt-0.5">
+								<div class="w-8 h-8 rounded-full bg-white text-apple-blue border border-black/5 flex items-center justify-center shrink-0 shadow-2xs mt-0.5">
 									<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 										<path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
 										<path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />

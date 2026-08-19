@@ -218,7 +218,7 @@
 				}}
 				class="flex items-center gap-1.5 bg-[#f5f5f7] border border-r-0 border-black/8 rounded-l-xl px-3.5 py-3 hover:bg-[#e8e8ed] transition-all {disabled
 					? 'opacity-50 cursor-not-allowed'
-					: 'cursor-pointer'} {isOpen ? 'bg-white border-[#0071e3] ring-4 ring-[#0071e3]/10' : ''}"
+					: 'cursor-pointer'} {isOpen ? 'bg-white border-apple-blue ring-4 ring-apple-blue/10' : ''}"
 			>
 				<span class="text-base">{selectedCountry?.flag}</span>
 				<span class="text-[#1d1d1f] font-semibold text-xs sm:text-sm">+{selectedCountry?.callingCode}</span>
@@ -241,7 +241,7 @@
 				oninput={handleInput}
 				onblur={handleBlur}
 				onclick={(e) => e.stopPropagation()}
-				class="flex-1 bg-[#f5f5f7] border border-black/8 rounded-r-xl rounded-l-none px-4 py-3 text-xs sm:text-sm text-[#1d1d1f] focus:ring-4 focus:ring-[#0071e3]/10 focus:outline-none transition-all {error
+				class="flex-1 bg-[#f5f5f7] border border-black/8 rounded-r-xl rounded-l-none px-4 py-3 text-xs sm:text-sm text-[#1d1d1f] focus:ring-4 focus:ring-apple-blue/10 focus:outline-none transition-all {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''}"
 			/>
@@ -272,7 +272,7 @@
 							}}
 							class="w-full px-4 py-2.5 text-left text-xs sm:text-sm flex items-center gap-3 transition-colors {country.code ===
 							selectedCountry?.code
-								? 'bg-[#0071e3]/10 text-[#0071e3] font-semibold'
+								? 'bg-apple-blue/10 text-apple-blue font-semibold'
 								: 'text-[#1d1d1f] hover:bg-[#f5f5f7]'}"
 						>
 							<span class="text-base">{country.flag}</span>
@@ -280,7 +280,7 @@
 							<span class="text-[#6b6b70] text-xs font-mono">+{country.callingCode}</span>
 							{#if country.code === selectedCountry?.code}
 								<svg
-									class="w-4 h-4 text-[#0071e3]"
+									class="w-4 h-4 text-apple-blue"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"

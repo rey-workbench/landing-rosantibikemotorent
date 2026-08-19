@@ -100,7 +100,7 @@
 		<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 gap-4 pb-6 border-b border-[#d2d2d7]">
 			<div>
 				<h1
-					class="text-[40px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
+					class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight"
 				>
 					{$LL.blog_heading()} {$LL.blog_heading_highlight()}
 				</h1>
@@ -151,7 +151,7 @@
 				<button
 					onclick={() => selectTag(tag.id)}
 					class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId === tag.id
-						? 'bg-[#0071e3] text-white shadow-xs'
+						? 'bg-apple-blue text-white shadow-xs'
 						: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
 				>
 					{tag.nama}
@@ -218,7 +218,7 @@
 									<span>{featuredPost.readingTime}</span>
 								</div>
 
-								<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors leading-tight font-display mb-1.5">
+								<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors leading-tight font-display mb-1.5">
 									{featuredPost.judul}
 								</h2>
 
@@ -226,7 +226,7 @@
 									{featuredPost.excerpt}
 								</p>
 
-								<span class="text-xs font-semibold text-[#0071e3] inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+								<span class="text-xs font-semibold text-apple-blue inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
 									{$LL.blog_read_more()} →
 								</span>
 							</a>
@@ -253,12 +253,12 @@
 									<div class="flex-1 min-w-0">
 										<div class="flex items-center gap-2 text-[10px] text-[#6b6b70] mb-1">
 											{#if post.kategori}
-												<span class="font-semibold text-[#0071e3] uppercase">{post.kategori.nama}</span>
+												<span class="font-semibold text-apple-blue uppercase">{post.kategori.nama}</span>
 												<span class="w-0.5 h-0.5 rounded-full bg-black/30"></span>
 											{/if}
 											<span>{post.readingTime}</span>
 										</div>
-										<h3 class="text-xs sm:text-[13px] font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-snug font-display">
+										<h3 class="text-xs sm:text-[13px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display">
 											{post.judul}
 										</h3>
 										{#if post.formattedDate && post.formattedDate !== '-'}
@@ -330,7 +330,7 @@
 											<span>{post.readingTime}</span>
 										</div>
 
-										<h2 class="text-sm sm:text-[15px] font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-snug font-display mb-1">
+										<h2 class="text-sm sm:text-[15px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display mb-1">
 											{post.judul}
 										</h2>
 
@@ -339,7 +339,7 @@
 										</p>
 									</div>
 
-									<div class="mt-3 pt-2.5 border-t border-black/5 flex items-center justify-between text-[11px] font-medium text-[#0071e3]">
+									<div class="mt-3 pt-2.5 border-t border-black/5 flex items-center justify-between text-[11px] font-medium text-apple-blue">
 										<span>{$LL.blog_read_more()}</span>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
