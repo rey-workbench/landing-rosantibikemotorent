@@ -214,7 +214,7 @@
 				<!-- Hero Featured Image -->
 				{#if post.featuredImage || post.thumbnail}
 					<div
-						class="mb-14 rounded-3xl overflow-hidden aspect-[16/10] bg-[#f5f5f7] border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
+						class="mb-14 rounded-3xl overflow-hidden aspect-16/10g-[#f5f5f7] border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
 						in:fade={{ duration: 600 }}
 					>
 						<img

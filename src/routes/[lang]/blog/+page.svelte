@@ -2,9 +2,7 @@
 	import { blogService } from '$lib/services';
 	import { DEFAULTS } from '$lib/constants';
 	import type { BlogTag } from '$lib/types';
-	import Input from '$lib/components/ui/Input.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import { fade, fly } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import { page } from '$app/state';
 	import { SeoHead } from '$lib/components/seo';
 	import LL from '$i18n/i18n-svelte.js';
@@ -29,23 +27,6 @@
 		tags = data.tags || [];
 		totalPages = data.initialMeta?.totalPages || 1;
 	});
-
-	// Editorial layout mappings
-	const featuredPost = $derived(
-		currentPage === 1 && searchQuery === '' && selectedTagId === '' && posts.length > 0
-			? posts[0]
-			: null
-	);
-	const listPosts = $derived(
-		currentPage === 1 && searchQuery === '' && selectedTagId === '' && posts.length > 1
-			? posts.slice(1, 4)
-			: []
-	);
-	const displayPosts = $derived(
-		featuredPost && posts.length > 4
-			? posts.slice(4) // Skip the featured + list items on page 1 with no filters
-			: posts
-	);
 
 	async function loadPosts() {
 		loading = true;
@@ -90,443 +71,240 @@
 	}}
 />
 
-<!-- Hero Section -->
-<section class="pt-32 pb-16 px-4 md:px-10">
+<main class="min-h-screen bg-white pt-24 sm:pt-28 pb-20 px-4 sm:px-6 md:px-10">
 	<div class="max-w-7xl mx-auto">
-		<!-- Header -->
-		<div class="mb-12">
-			<h2 class="text-[12px] font-semibold tracking-widest text-[#0071e3] mb-3 uppercase">
-				{$LL.blog_title()}
-			</h2>
-			<h1
-				class="text-[40px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight mb-4"
-			>
-				{$LL.blog_heading()} <br class="hidden md:block" />
-				<span class="text-[#1d1d1f]">{$LL.blog_heading_highlight()}</span>
-			</h1>
-			<p class="text-[17px] leading-relaxed font-normal text-[#6b6b70] max-w-xl">
-				{$LL.blog_subtitle()}
-			</p>
-		</div>
-
-		<!-- Filter Section -->
-		<div
-			class="relative z-20 bg-white rounded-3xl p-6 mb-12 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-black/5 flex flex-col md:flex-row gap-6"
-		>
-			<!-- Search -->
-			<div class="flex-1">
-				<Input
-					id="search-blog"
-					label={$LL.blog_search_label()}
-					bind:value={searchQuery}
-					placeholder={$LL.blog_search_placeholder()}
-					icon="search"
-					oninput={handleSearch}
-				/>
+		<!-- Compact Editorial Header -->
+		<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-black/8">
+			<div>
+				<span class="text-[11px] font-semibold tracking-widest text-[#0071e3] uppercase mb-1.5 block">
+					{$LL.blog_title()}
+				</span>
+				<h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1d1d1f] tracking-tight font-display">
+					{$LL.blog_heading()} <span class="text-[#0071e3]">{$LL.blog_heading_highlight()}</span>
+				</h1>
+				<p class="text-xs sm:text-sm text-[#6b6b70] mt-1 max-w-xl">
+					{$LL.blog_subtitle()}
+				</p>
 			</div>
 
-			<!-- Tags Filter -->
-			<div class="flex-2 min-w-0">
-				<label
-					for="tag-filter"
-					class="block text-[13px] font-medium text-[#6b6b70] mb-2 uppercase tracking-wider"
-					>{$LL.blog_filter_label()}</label
-				>
-				<div class="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-none max-w-full">
-					<button
-						onclick={() => selectTag('')}
-						class="px-5 py-2.5 rounded-full text-[13px] font-medium transition-all cursor-pointer {selectedTagId ===
-						''
-							? 'bg-[#1d1d1f] text-white'
-							: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
+			<!-- Quick Search Input (Compact Pill) -->
+			<div class="w-full md:w-72 shrink-0">
+				<div class="relative flex items-center">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						class="absolute left-3.5 text-[#6b6b70]/60 pointer-events-none"
 					>
-						{$LL.blog_filter_all()}
-					</button>
-					{#each tags as tag}
-						<button
-							onclick={() => selectTag(tag.id)}
-							class="px-5 py-2.5 rounded-full text-[13px] font-medium transition-all cursor-pointer {selectedTagId ===
-							tag.id
-								? 'bg-[#0071e3] text-white'
-								: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
-						>
-							{tag.nama}
-						</button>
-					{/each}
+						<circle cx="11" cy="11" r="8"></circle>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+					</svg>
+					<input
+						type="text"
+						id="search-blog"
+						bind:value={searchQuery}
+						placeholder={$LL.blog_search_placeholder()}
+						oninput={handleSearch}
+						class="w-full h-9 pl-9 pr-4 bg-[#f5f5f7] border border-black/5 rounded-full text-xs text-[#1d1d1f] placeholder:text-[#6b6b70]/60 focus:bg-white focus:border-[#0071e3] focus:outline-none transition-all"
+					/>
 				</div>
 			</div>
 		</div>
 
-		<!-- Blog Content -->
+		<!-- Horizontal Category Filter Pills -->
+		<div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap py-4 scrollbar-none border-b border-black/5 mb-8">
+			<button
+				onclick={() => selectTag('')}
+				class="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer {selectedTagId === ''
+					? 'bg-[#1d1d1f] text-white shadow-sm'
+					: 'bg-[#f5f5f7] text-[#6b6b70] hover:bg-[#e8e8ed] hover:text-[#1d1d1f]'}"
+			>
+				{$LL.blog_filter_all()}
+			</button>
+			{#each tags as tag}
+				<button
+					onclick={() => selectTag(tag.id)}
+					class="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer {selectedTagId === tag.id
+						? 'bg-[#0071e3] text-white shadow-sm'
+						: 'bg-[#f5f5f7] text-[#6b6b70] hover:bg-[#e8e8ed] hover:text-[#1d1d1f]'}"
+				>
+					{tag.nama}
+				</button>
+			{/each}
+		</div>
+
+		<!-- Articles Grid (Compact 3-Column Editorial Grid) -->
 		{#if loading}
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 				{#each Array(6) as _}
-					<div class="animate-pulse flex flex-col gap-4">
-						<div class="aspect-16/10 bg-brand-surface rounded-3xl"></div>
-						<div class="h-6 bg-brand-surface rounded-full w-3/4"></div>
-						<div class="h-4 bg-brand-surface rounded-full w-full"></div>
+					<div class="animate-pulse flex flex-col gap-3">
+						<div class="aspect-[16/10] bg-[#f5f5f7] rounded-2xl"></div>
+						<div class="h-4 bg-[#f5f5f7] rounded-full w-2/3"></div>
+						<div class="h-3 bg-[#f5f5f7] rounded-full w-full"></div>
 					</div>
 				{/each}
 			</div>
 		{:else if error}
-			<div
-				class="text-center py-20 glass-surface rounded-3xl flex flex-col items-center justify-center"
-			>
-				<div class="mb-4 text-red-500">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="56"
-						height="56"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-						<line x1="12" y1="9" x2="12" y2="13" />
-						<line x1="12" y1="17" x2="12.01" y2="17" />
-					</svg>
-				</div>
-				<h3 class="text-2xl font-bold text-brand-fg mb-2">{$LL.blog_error_title()}</h3>
-				<p class="text-brand-muted mb-8">{error}</p>
-				<Button onclick={loadPosts} variant="secondary">{$LL.blog_try_again()}</Button>
+			<div class="text-center py-16 bg-[#f5f5f7] rounded-3xl flex flex-col items-center justify-center p-6 border border-black/5">
+				<h3 class="text-lg font-bold text-[#1d1d1f] mb-1">{$LL.blog_error_title()}</h3>
+				<p class="text-xs text-[#6b6b70] mb-6">{error}</p>
+				<button
+					onclick={loadPosts}
+					class="px-5 py-2 bg-[#1d1d1f] hover:bg-black text-white text-xs font-medium rounded-full transition-all cursor-pointer"
+				>
+					{$LL.blog_try_again()}
+				</button>
 			</div>
 		{:else if posts.length > 0}
-			<!-- Featured Post (Page 1 only) -->
-			{#if featuredPost}
-				<div class="mb-16" in:fade={{ duration: 600 }}>
-					<!-- Section Header -->
-					<div class="mb-8 border-b border-black/5 pb-4 flex justify-between items-center">
-						<h2 class="font-semibold text-lg text-[#1d1d1f]">Latest Stories</h2>
-					</div>
-
-					<!-- Split Layout -->
-					<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-						<!-- Big Featured Card (Left Side) -->
-						<div class="lg:col-span-7 flex flex-col">
-							<a href="/{lang}/blog/{featuredPost.slug}" class="group block">
-								<div class="aspect-16/10 rounded-3xl overflow-hidden bg-[#f5f5f7] relative mb-6">
-									{#if featuredPost.featuredImage || featuredPost.thumbnail}
-										<img
-											loading="eager"
-											fetchpriority="high"
-											decoding="async"
-											src={optimizeImageUrl(
-												featuredPost.featuredImage || featuredPost.thumbnail,
-												800
-											)}
-											alt={featuredPost.judul}
-											class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
-										/>
-									{/if}
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+				{#each posts as post, i}
+					<a
+						href="/{lang}/blog/{post.slug}"
+						class="group flex flex-col bg-white rounded-2xl border border-black/6 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:border-black/12"
+						in:fly={{ y: 15, duration: 400, delay: i * 40 }}
+					>
+						<!-- Image Container -->
+						<div class="aspect-[16/10] overflow-hidden bg-[#f5f5f7] relative">
+							{#if post.featuredImage || post.thumbnail}
+								<img
+									loading={i < 3 ? 'eager' : 'lazy'}
+									decoding="async"
+									src={optimizeImageUrl(post.featuredImage || post.thumbnail, 600)}
+									alt={post.judul}
+									class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
+								/>
+							{:else}
+								<div class="w-full h-full flex items-center justify-center text-[#6b6b70]/40">
+									<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+										<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+										<circle cx="8.5" cy="8.5" r="1.5"></circle>
+										<polyline points="21 15 16 10 5 21"></polyline>
+									</svg>
 								</div>
-								<div class="flex items-center gap-2 mb-3">
-									{#if featuredPost.tags && featuredPost.tags.length > 0}
-										<span class="text-[11px] font-semibold text-[#0071e3] uppercase tracking-wider">
-											{featuredPost.tags[0].nama}
-										</span>
-									{/if}
-									<span class="text-[11px] text-[#6b6b70] font-light">|</span>
-									<span class="text-[11px] text-[#6b6b70] font-medium"
-										>{featuredPost.readingTime}</span
-									>
-								</div>
-								<h2
-									class="text-2xl md:text-3xl font-semibold text-[#1d1d1f] mb-3 group-hover:text-[#0071e3] transition-colors leading-[1.15]"
-								>
-									{featuredPost.judul}
-								</h2>
-								<p class="text-[#6b6b70] text-[15px] leading-relaxed mb-4 line-clamp-3">
-									{featuredPost.excerpt}
-								</p>
-								{#if featuredPost.formattedDate && featuredPost.formattedDate !== '-'}
-									<span class="text-[13px] text-[#6b6b70] font-medium"
-										>{featuredPost.formattedDate}</span
-									>
-								{/if}
-							</a>
-						</div>
+							{/if}
 
-						<!-- Vertical Story List (Right Side) -->
-						<div class="lg:col-span-5 flex flex-col gap-8">
-							{#each listPosts as post}
-								<a
-									href="/{lang}/blog/{post.slug}"
-									class="group flex gap-5 items-center border-b border-black/5 pb-6 last:border-0"
-								>
-									<div
-										class="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-[#f5f5f7] shrink-0 relative"
-									>
-										{#if post.featuredImage || post.thumbnail}
-											<img
-												loading="lazy"
-												decoding="async"
-												src={optimizeImageUrl(post.featuredImage || post.thumbnail, 400)}
-												alt={post.judul}
-												class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-											/>
-										{/if}
-									</div>
-									<div class="flex-1 min-w-0">
-										<div class="flex items-center gap-2 mb-1.5">
-											{#if post.tags && post.tags.length > 0}
-												<span
-													class="text-[10px] font-semibold text-[#0071e3] uppercase tracking-wider"
-													>{post.tags[0].nama}</span
-												>
-											{/if}
-											<span class="text-[10px] text-[#6b6b70] font-light">|</span>
-											<span class="text-[10px] text-[#6b6b70]">{post.readingTime}</span>
-										</div>
-										<h3
-											class="text-[15px] font-semibold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-snug"
-										>
-											{post.judul}
-										</h3>
-										{#if post.formattedDate && post.formattedDate !== '-'}
-											<span class="text-[11px] text-[#6b6b70] mt-2 block font-medium"
-												>{post.formattedDate}</span
-											>
-										{/if}
-									</div>
-								</a>
-							{/each}
-						</div>
-					</div>
-				</div>
-			{/if}
-
-			{#if displayPosts.length > 0}
-				<!-- Grid Title -->
-				{#if featuredPost}
-					<div class="mb-8 border-b border-black/5 pb-4">
-						<h2 class="font-semibold text-lg text-[#1d1d1f]">More Stories</h2>
-					</div>
-				{/if}
-
-				<!-- Blog Post Grid -->
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{#each displayPosts as post, i}
-						<a
-							href="/{lang}/blog/{post.slug}"
-							class="group bg-white border border-black/5 rounded-3xl overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
-							in:fly={{ y: 20, duration: 600, delay: i * 50 }}
-						>
-							<!-- Image -->
-							<div class="aspect-16/10 overflow-hidden bg-[#f5f5f7] relative">
-								{#if post.featuredImage || post.thumbnail}
-									<img
-										loading="lazy"
-										decoding="async"
-										src={optimizeImageUrl(post.featuredImage || post.thumbnail, 600)}
-										alt={post.judul}
-										class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-									/>
-								{:else}
-									<div class="w-full h-full flex items-center justify-center text-[#6b6b70]">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="32"
-											height="32"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="1.5"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle
-												cx="8.5"
-												cy="8.5"
-												r="1.5"
-											></circle><polyline points="21 15 16 10 5 21"></polyline></svg
-										>
-									</div>
-								{/if}
-
-								<!-- Date & Reading Time Badge -->
-								<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
-									{#if post.formattedDate && post.formattedDate !== '-'}
-										<span
-											class="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-semibold text-[#1d1d1f] uppercase tracking-wider shadow-sm"
-										>
-											{post.formattedDate}
-										</span>
-									{:else}
-										<div></div>
-									{/if}
-									<span
-										class="px-2.5 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-semibold text-[#1d1d1f] tracking-wide shadow-sm"
-									>
-										{post.readingTime}
+							<!-- Category Pill Badge -->
+							{#if post.kategori}
+								<div class="absolute top-3 left-3">
+									<span class="px-2.5 py-0.5 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-semibold text-[#1d1d1f] shadow-sm border border-black/5">
+										{post.kategori.nama}
 									</span>
 								</div>
-							</div>
+							{/if}
+						</div>
 
-							<!-- Content -->
-							<div class="p-6 flex-1 flex flex-col">
-								<!-- Tags -->
-								{#if post.tags && post.tags.length > 0}
-									<div class="flex flex-wrap gap-2 mb-3">
-										{#each post.tags.slice(0, 2) as tag}
-											<span
-												class="text-[10px] font-semibold text-[#0071e3] uppercase tracking-wider"
-											>
-												{tag.nama}
-											</span>
-										{/each}
-									</div>
-								{/if}
+						<!-- Card Body -->
+						<div class="p-5 flex-1 flex flex-col justify-between">
+							<div>
+								<!-- Meta Subtitle -->
+								<div class="flex items-center gap-2 text-[11px] text-[#6b6b70] mb-2 font-normal">
+									{#if post.formattedDate && post.formattedDate !== '-'}
+										<time datetime={post.createdAt}>{post.formattedDate}</time>
+										<span class="w-1 h-1 rounded-full bg-black/20"></span>
+									{/if}
+									<span>{post.readingTime}</span>
+								</div>
 
-								<h3
-									class="text-[17px] font-semibold text-[#1d1d1f] mb-2 group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-[1.2]"
-								>
+								<!-- Title -->
+								<h2 class="text-[16px] sm:text-[17px] font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-[1.25] font-display mb-2">
 									{post.judul}
-								</h3>
+								</h2>
 
-								<p class="text-[#6b6b70] text-[14px] mb-6 line-clamp-3 leading-relaxed font-normal">
+								<!-- Excerpt -->
+								<p class="text-xs sm:text-[13px] text-[#6b6b70] line-clamp-2 leading-relaxed font-normal">
 									{post.excerpt}
 								</p>
-
-								<div
-									class="mt-auto flex items-center gap-2 text-[#0071e3] font-medium text-[13px] group-hover:gap-3 transition-all"
-								>
-									<span>{$LL.blog_read_more()}</span>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="14"
-										height="14"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
-										></polyline></svg
-									>
-								</div>
 							</div>
-						</a>
-					{/each}
-				</div>
-			{/if}
 
-			<!-- Pagination -->
-			{#if totalPages > 1}
-				<div class="flex justify-center items-center gap-4 mt-16">
-					<button
-						aria-label="Previous page"
-						class="p-3 rounded-full bg-white border border-black/5 text-[#1d1d1f] disabled:opacity-30 hover:border-[#0071e3] transition-all cursor-pointer shadow-sm"
-						disabled={currentPage === 1}
-						onclick={() => {
-							currentPage--;
-							loadPosts();
-						}}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"
-							></polyline></svg
-						>
-					</button>
-
-					<div class="flex gap-2">
-						{#each Array(totalPages) as _, i}
-							<button
-								onclick={() => {
-									currentPage = i + 1;
-									loadPosts();
-								}}
-								class="w-10 h-10 flex items-center justify-center rounded-full text-[15px] font-medium transition-all cursor-pointer {currentPage ===
-								i + 1
-									? 'bg-[#1d1d1f] text-white shadow-sm'
-									: 'bg-white text-[#6b6b70] border border-black/5 hover:border-[#1d1d1f] hover:text-[#1d1d1f]'}"
-							>
-								{i + 1}
-							</button>
-						{/each}
-					</div>
-
-					<button
-						aria-label="Next page"
-						class="p-3 rounded-full bg-white border border-black/5 text-[#1d1d1f] disabled:opacity-30 hover:border-[#0071e3] transition-all cursor-pointer shadow-sm"
-						disabled={currentPage === totalPages}
-						onclick={() => {
-							currentPage++;
-							loadPosts();
-						}}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
-							></polyline></svg
-						>
-					</button>
-				</div>
-			{/if}
+							<!-- Read Link -->
+							<div class="mt-4 pt-3 border-t border-black/5 flex items-center justify-between text-xs font-medium text-[#0071e3]">
+								<span>{$LL.blog_read_more()}</span>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="14"
+									height="14"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									class="transition-transform group-hover:translate-x-1"
+								>
+									<path d="M5 12h14M12 5l7 7-7 7" />
+								</svg>
+							</div>
+						</div>
+					</a>
+				{/each}
+			</div>
 		{:else}
-			<div
-				class="text-center py-20 glass-surface rounded-3xl flex flex-col items-center justify-center"
-			>
-				<div class="mb-4 text-brand-muted">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="56"
-						height="56"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-						<path d="M14 2v4a2 2 0 0 0 2 2h4" />
-						<circle cx="11.5" cy="14.5" r="2.5" />
-						<path d="M13.3 16.3 16 19" />
-					</svg>
-				</div>
-				<h3 class="text-2xl font-bold text-brand-fg mb-2">{$LL.blog_empty_title()}</h3>
-				<p class="text-brand-muted mb-8">{$LL.blog_empty_desc()}</p>
-				<Button
+			<div class="text-center py-16 bg-[#f5f5f7] rounded-3xl border border-black/5 p-8 flex flex-col items-center justify-center">
+				<h3 class="text-lg font-bold text-[#1d1d1f] mb-1">{$LL.blog_empty_title()}</h3>
+				<p class="text-xs text-[#6b6b70] mb-6">{$LL.blog_empty_desc()}</p>
+				<button
 					onclick={() => {
 						searchQuery = '';
 						selectedTagId = '';
 						loadPosts();
 					}}
-					variant="secondary">{$LL.blog_reset_filter()}</Button
+					class="px-5 py-2 bg-[#1d1d1f] hover:bg-black text-white text-xs font-medium rounded-full transition-all cursor-pointer"
 				>
+					{$LL.blog_reset_filter()}
+				</button>
+			</div>
+		{/if}
+
+		<!-- Pagination -->
+		{#if totalPages > 1}
+			<div class="flex justify-center items-center gap-3 mt-12">
+				<button
+					aria-label="Previous page"
+					class="p-2.5 rounded-full bg-[#f5f5f7] border border-black/5 text-[#1d1d1f] disabled:opacity-30 hover:bg-[#e8e8ed] transition-all cursor-pointer"
+					disabled={currentPage === 1}
+					onclick={() => {
+						currentPage--;
+						loadPosts();
+					}}
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M15 18l-6-6 6-6" />
+					</svg>
+				</button>
+
+				<div class="flex gap-1.5">
+					{#each Array(totalPages) as _, i}
+						<button
+							onclick={() => {
+								currentPage = i + 1;
+								loadPosts();
+							}}
+							class="w-8 h-8 flex items-center justify-center rounded-full text-xs font-medium transition-all cursor-pointer {currentPage === i + 1
+								? 'bg-[#1d1d1f] text-white shadow-sm'
+								: 'bg-[#f5f5f7] text-[#6b6b70] hover:bg-[#e8e8ed] hover:text-[#1d1d1f]'}"
+						>
+							{i + 1}
+						</button>
+					{/each}
+				</div>
+
+				<button
+					aria-label="Next page"
+					class="p-2.5 rounded-full bg-[#f5f5f7] border border-black/5 text-[#1d1d1f] disabled:opacity-30 hover:bg-[#e8e8ed] transition-all cursor-pointer"
+					disabled={currentPage === totalPages}
+					onclick={() => {
+						currentPage++;
+						loadPosts();
+					}}
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M9 18l6-6-6-6" />
+					</svg>
+				</button>
 			</div>
 		{/if}
 	</div>
-</section>
+</main>
 
-<style>
-	.line-clamp-2 {
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-
-	.line-clamp-3 {
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-</style>
