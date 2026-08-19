@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { onMount, onDestroy, untrack } from 'svelte';
-	import { goto } from '$app/navigation';
+	import { goto, refreshAll } from '$app/navigation';
 	import { page } from '$app/state';
-	import { transaksiApi, unitMotorApi } from '$lib/api';
+	import { transaksiService } from '$lib/services';
+	import { DEFAULTS } from '$lib/constants';
 	import { websocketService } from '$lib/services/websocket';
 	import type { UnitMotor, PriceCalculation } from '$lib/types';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -18,7 +19,9 @@
 	let { data } = $props();
 
 	// State
-	let availableMotors = $state<UnitMotor[]>(untrack(() => (data.availableMotors || []) as UnitMotor[]));
+	let availableMotors = $state<UnitMotor[]>(
+		untrack(() => (data.availableMotors || []) as UnitMotor[])
+	);
 	let uniqueMotors: UnitMotor[] = $state([]);
 	let selectedUnit: UnitMotor | null = $state(null);
 	let unsubs: (() => void)[] = [];
@@ -39,8 +42,8 @@
 		jenisId: untrack(() => (data.selectedUnitFromUrl as any)?.jenisId || ''),
 		tanggalMulai: untrack(() => (data.defaultDates as any).mulai),
 		tanggalSelesai: untrack(() => (data.defaultDates as any).selesai),
-		jamMulai: '08:00',
-		jamSelesai: '08:00',
+		jamMulai: DEFAULTS.RENTAL_START_TIME,
+		jamSelesai: DEFAULTS.RENTAL_END_TIME,
 		jasHujan: 0,
 		helm: 0
 	});
@@ -51,25 +54,6 @@
 	let formError = $state('');
 	let success = $state(false);
 
-	async function fetchAvailability() {
-		if (!formData.tanggalMulai || !formData.tanggalSelesai) return;
-		try {
-			const availabilityData = await unitMotorApi.checkAvailability({
-				startDate: formData.tanggalMulai,
-				endDate: formData.tanggalSelesai
-			});
-			const units =
-				(availabilityData as any).units?.filter((u: any) =>
-					u.availability?.every((a: any) => a.isAvailable)
-				) || [];
-			if (units.length > 0) {
-				availableMotors = units;
-			}
-		} catch (e) {
-			console.error('Live availability update error:', e);
-		}
-	}
-
 	onMount(async () => {
 		if (data.selectedUnitFromUrl) {
 			handleCalculatePrice();
@@ -77,10 +61,23 @@
 
 		websocketService.connect();
 		unsubs = [
-			websocketService.onTransactionUpdate(fetchAvailability),
-			websocketService.onUnitMotorUpdate(fetchAvailability)
+			websocketService.onTransactionUpdate(() => refreshAll()),
+			websocketService.onUnitMotorUpdate(() => refreshAll())
 		];
 	});
+
+	function updateDateParams() {
+		if (!formData.tanggalMulai || !formData.tanggalSelesai) return;
+		const url = new URL(page.url);
+		url.searchParams.set('mulai', formData.tanggalMulai);
+		url.searchParams.set('selesai', formData.tanggalSelesai);
+		goto(url, { keepFocus: true, noScroll: true, replaceState: true });
+	}
+
+	function handleDateChange() {
+		updateDateParams();
+		handleCalculatePrice();
+	}
 
 	onDestroy(() => {
 		unsubs.forEach((unsub) => unsub());
@@ -96,7 +93,7 @@
 		formError = '';
 
 		try {
-			const result = await transaksiApi.calculatePrice({
+			const result = await transaksiService.calculatePrice({
 				unitId: formData.unitId || undefined,
 				jenisId: formData.jenisId || undefined,
 				tanggalMulai: formData.tanggalMulai,
@@ -179,7 +176,7 @@
 		formError = '';
 
 		try {
-			const response = await transaksiApi.create({
+			const response = await transaksiService.create({
 				namaPenyewa: formData.namaPenyewa,
 				noWhatsapp: formData.noWhatsapp,
 				unitId: formData.unitId || undefined,
@@ -459,7 +456,7 @@
 								label={$LL.booking_start_date_label()}
 								type="date"
 								bind:value={formData.tanggalMulai}
-								onchange={handleCalculatePrice}
+								onchange={handleDateChange}
 								required
 							/>
 							<Input
@@ -475,7 +472,7 @@
 								label={$LL.booking_end_date_label()}
 								type="date"
 								bind:value={formData.tanggalSelesai}
-								onchange={handleCalculatePrice}
+								onchange={handleDateChange}
 								required
 							/>
 							<Input

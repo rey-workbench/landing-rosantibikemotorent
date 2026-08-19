@@ -1,10 +1,11 @@
-import { blogApi } from '$lib/api';
+import { blogService } from '$lib/services';
+import { DEFAULTS } from '$lib/constants';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch }) => {
 	const [postsResponse, tags] = await Promise.all([
-		blogApi.getAll({ page: 1, limit: 9 }, fetch),
-		blogApi.getTags(fetch)
+		blogService.getAll({ page: 1, limit: DEFAULTS.BLOG_PAGE_SIZE }, fetch),
+		blogService.getTags(fetch)
 	]);
 
 	return {

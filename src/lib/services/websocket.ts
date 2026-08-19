@@ -1,132 +1,42 @@
-import { io, type Socket } from 'socket.io-client';
-import { writable } from 'svelte/store';
+import { websocketClient } from '$lib/api';
 import { browser } from '$app/environment';
-import type { MotorStatusUpdate, UnitMotorUpdate, ConnectionState } from '$lib/types';
-import { z } from 'zod';
+import type { UnitMotorUpdate } from '$lib/types';
 
-const socketConnected = writable(false);
-const motorAvailability = writable<MotorStatusUpdate | null>(null);
-const transactionUpdate = writable<any>(null);
-
-type MotorStatusUpdateHandler = (data: MotorStatusUpdate) => void;
 type UnitMotorUpdateHandler = (data: UnitMotorUpdate) => void;
 type TransactionUpdateHandler = (data: any) => void;
 
-const MotorStatusSchema = z.object({
-	id: z.string().regex(/^\d{16,20}$/, 'Invalid ID'),
-	platNomor: z.string(),
-	message: z.string()
-});
-
 class WebSocketService {
-	private socket: Socket | null = null;
-	private connectionState = writable<ConnectionState>({
-		isConnected: false,
-		socketId: null
-	});
-	private beforeUnloadHandler: (() => void) | null = null;
-
-	private motorStatusUpdateHandlers = new Set<MotorStatusUpdateHandler>();
 	private unitMotorUpdateHandlers = new Set<UnitMotorUpdateHandler>();
 	private transactionUpdateHandlers = new Set<TransactionUpdateHandler>();
 
 	connect(): void {
-		if (!browser) {
-			return;
-		}
+		if (!browser) return;
 
-		if (this.socket && (this.socket.connected || this.socket.active)) {
-			return;
-		}
-
-		if (this.socket) {
-			this.socket.removeAllListeners();
-			this.socket.disconnect();
-			this.socket = null;
-		}
-
-		let apiUrl = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL?.replace(/\/api$/, '');
-		if (!apiUrl) {
-			apiUrl = browser
-				? `${window.location.protocol}//${window.location.hostname}:3030`
-				: 'http://localhost:3030';
-		}
-
-		this.socket = io(`${apiUrl}/realtime`, {
-			transports: ['websocket'],
-			reconnection: true,
-			reconnectionAttempts: 2,
-			reconnectionDelay: 3000,
-			timeout: 5000,
-			autoConnect: true
+		const created = websocketClient.connect({
+			onConnect: (socketId) => {
+				console.log('[Landing Socket] Connected with ID:', socketId);
+			},
+			onConnectError: (error) => {
+				if (import.meta.env.DEV) {
+					console.warn('[Landing Socket] Connection warning:', error.message);
+				}
+			}
 		});
 
-		this.setupEventListeners();
-
-		if (browser && !this.beforeUnloadHandler) {
-			this.beforeUnloadHandler = () => this.disconnect();
-			window.addEventListener('beforeunload', this.beforeUnloadHandler);
+		if (created) {
+			this.setupEventListeners();
 		}
 	}
 
 	disconnect(): void {
-		if (this.socket) {
-			this.socket.removeAllListeners();
-			this.socket.disconnect();
-			this.socket = null;
-			this.updateState(false, null);
-		}
-
-		if (browser && this.beforeUnloadHandler) {
-			window.removeEventListener('beforeunload', this.beforeUnloadHandler);
-			this.beforeUnloadHandler = null;
-		}
-	}
-
-	private updateState(isConnected: boolean, socketId: string | null) {
-		socketConnected.set(isConnected);
-		this.connectionState.update(() => ({
-			isConnected,
-			socketId
-		}));
+		websocketClient.disconnect();
 	}
 
 	private setupEventListeners(): void {
-		if (!this.socket) return;
-
-		this.socket.on('connect', () => {
-			console.log('[Landing Socket] Connected with ID:', this.socket?.id);
-			this.updateState(true, this.socket?.id || null);
-		});
-
-		this.socket.on('disconnect', () => {
-			this.updateState(false, null);
-		});
-
-		this.socket.on('connect_error', (error) => {
-			// Silent fallback - warn only in non-production
-			if (import.meta.env.DEV) {
-				console.warn('[Landing Socket] Connection warning:', error.message);
-			}
-		});
-
-		this.socket.on('motor-status-update', (raw: unknown) => {
-			const parsed = MotorStatusSchema.safeParse(raw);
-			if (!parsed.success) {
-				console.warn('[WS] Rejected malformed motor-status-update:', parsed.error.issues);
-				return;
-			}
-			motorAvailability.set(parsed.data as MotorStatusUpdate);
-			this.motorStatusUpdateHandlers.forEach((handler) =>
-				handler(parsed.data as MotorStatusUpdate)
-			);
-		});
-
-		this.socket.on('unit-motor:update', (data: UnitMotorUpdate) => {
+		websocketClient.on('unit-motor:update', (data: UnitMotorUpdate) => {
 			this.unitMotorUpdateHandlers.forEach((handler) => handler(data));
 		});
 
-		// Transaction events
 		const transactionEvents = [
 			'transaksi-created',
 			'transaksi-updated',
@@ -135,17 +45,10 @@ class WebSocketService {
 		];
 
 		transactionEvents.forEach((event) => {
-			this.socket?.on(event, (data) => {
-				console.log(`[Landing Socket] Event ${event} received:`, data);
-				transactionUpdate.set({ event, data });
+			websocketClient.on(event, (data) => {
 				this.transactionUpdateHandlers.forEach((handler) => handler({ event, data }));
 			});
 		});
-	}
-
-	onMotorStatusUpdate(handler: MotorStatusUpdateHandler) {
-		this.motorStatusUpdateHandlers.add(handler);
-		return () => this.motorStatusUpdateHandlers.delete(handler);
 	}
 
 	onUnitMotorUpdate(handler: UnitMotorUpdateHandler) {
@@ -156,18 +59,6 @@ class WebSocketService {
 	onTransactionUpdate(handler: TransactionUpdateHandler) {
 		this.transactionUpdateHandlers.add(handler);
 		return () => this.transactionUpdateHandlers.delete(handler);
-	}
-
-	isConnected(): boolean {
-		return this.socket?.connected ?? false;
-	}
-
-	getSocketId(): string | null {
-		return this.socket?.id ?? null;
-	}
-
-	getConnectionState() {
-		return this.connectionState;
 	}
 }
 

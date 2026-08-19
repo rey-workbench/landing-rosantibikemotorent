@@ -28,9 +28,7 @@
 		</p>
 	</div>
 
-	<div
-		class="mt-8 flex flex-wrap gap-4 pointer-events-auto justify-center"
-	>
+	<div class="mt-8 flex flex-wrap gap-4 pointer-events-auto justify-center">
 		<a
 			href={whatsappHref}
 			target="_blank"
@@ -47,7 +45,5 @@
 		</a>
 	</div>
 
-	<div
-		class="mt-8 sm:mt-12 flex flex-col items-center gap-3 sm:gap-4 pointer-events-auto"
-	></div>
+	<div class="mt-8 sm:mt-12 flex flex-col items-center gap-3 sm:gap-4 pointer-events-auto"></div>
 </div>

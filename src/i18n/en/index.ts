@@ -23,7 +23,8 @@ const en: Translation = {
 		'Rent a motorcycle in Malang cheap & quality with Rosantibike. Well-maintained Honda PCX, Vario, Lexi. Free helmet & raincoat. Book via WhatsApp now!',
 	hero_tagline: 'Premium Motorcycle Rental in Malang', // For SEO
 	hero_tagline_1: 'Malang Motorcycle Rental Best - Premium & Well-Maintained Fleet', // Visual Line 1 (Trust/Feeling)
-	hero_hook: 'Premium and affordable motorbike rental service in Malang with well-maintained fleet. No extra fees wherever you ride.', // Subtitle
+	hero_hook:
+		'Premium and affordable motorbike rental service in Malang with well-maintained fleet. No extra fees wherever you ride.', // Subtitle
 	hero_rent_now: 'Rent Now',
 	hero_view_fleet: 'View Fleet',
 	hero_explore: 'Explore Malang',

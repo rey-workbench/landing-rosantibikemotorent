@@ -77,7 +77,11 @@
 				<ul class="space-y-2">
 					{#each [{ label: $LL.nav_home() || 'Home', href: `/${page.params.lang || $locale || 'id'}` }, { label: $LL.footer_catalog() || 'Katalog Motor', href: `/${page.params.lang || $locale || 'id'}/fleet` }, { label: $LL.footer_blog() || 'Blog', href: `/${page.params.lang || $locale || 'id'}/blog` }, { label: $LL.footer_procedure() || 'Cara Pesan', href: `/${page.params.lang || $locale || 'id'}/booking` }] as link}
 						<li>
-							<a href={link.href} aria-label={link.label} class="hover:underline hover:text-[#1d1d1f] transition-colors">
+							<a
+								href={link.href}
+								aria-label={link.label}
+								class="hover:underline hover:text-[#1d1d1f] transition-colors"
+							>
 								{link.label}
 							</a>
 						</li>
@@ -105,7 +109,11 @@
 				<div class="space-y-2">
 					<p>{siteConfig.address}</p>
 					<p>
-						<a href={emailHref} aria-label="Email Rosantibike" class="hover:underline hover:text-[#1d1d1f]">
+						<a
+							href={emailHref}
+							aria-label="Email Rosantibike"
+							class="hover:underline hover:text-[#1d1d1f]"
+						>
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html displayEmail}
 						</a>
@@ -136,7 +144,8 @@
 				<a
 					href="/{page.params.lang || $locale || 'id'}/terms"
 					aria-label={$LL.footer_terms() || 'Syarat & Ketentuan'}
-					class="hover:underline hover:text-[#1d1d1f] transition-colors">{$LL.footer_terms() || 'Syarat & Ketentuan'}</a
+					class="hover:underline hover:text-[#1d1d1f] transition-colors"
+					>{$LL.footer_terms() || 'Syarat & Ketentuan'}</a
 				>
 			</div>
 		</div>

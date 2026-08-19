@@ -23,9 +23,7 @@
 			{lang === 'en' ? 'Terms & Conditions' : 'Syarat & Ketentuan'}
 		</h1>
 
-		<div
-			class="prose prose-lg text-[#6b6b70] max-w-none"
-		>
+		<div class="prose prose-lg text-[#6b6b70] max-w-none">
 			<p>
 				{lang === 'en'
 					? 'Welcome to Rosantibike Motorent. By using our services, you agree to comply with and be bound by the following terms and conditions of use.'

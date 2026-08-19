@@ -1,14 +1,11 @@
-import { jenisMotorApi } from '$lib/api';
+import { jenisMotorService } from '$lib/services';
+import { DEFAULTS } from '$lib/constants';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch }) => {
-	const [jenisResponse, brandsResponse] = await Promise.all([
-		jenisMotorApi.getAll({ limit: 100 }, fetch),
-		jenisMotorApi.getBrands(fetch)
-	]);
+	const response = await jenisMotorService.getAll({ limit: DEFAULTS.FLEET_LIST_LIMIT }, fetch);
 
 	return {
-		jenisMotors: jenisResponse.data,
-		brands: brandsResponse || []
+		jenisMotors: response.data
 	};
 };

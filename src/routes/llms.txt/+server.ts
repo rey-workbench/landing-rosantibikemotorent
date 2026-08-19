@@ -1,6 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { BASE_URL } from '$lib/seo/types';
-import { jenisMotorApi, blogApi } from '$lib/api';
+import { jenisMotorService, blogService } from '$lib/services';
+import { DEFAULTS } from '$lib/constants';
 
 export const GET: RequestHandler = async () => {
 	const baseUrl = BASE_URL || 'https://rosantibikemotorent.com';
@@ -12,8 +13,10 @@ export const GET: RequestHandler = async () => {
 
 	try {
 		const [jenisRes, blogRes] = await Promise.all([
-			jenisMotorApi.getAll().catch(() => ({ data: [] })),
-			blogApi.getAll({ limit: 100, status: 'PUBLISHED' }).catch(() => ({ data: [] }))
+			jenisMotorService.getAll().catch(() => ({ data: [] })),
+			blogService
+				.getAll({ limit: DEFAULTS.ALL_ITEMS_LIMIT, status: 'PUBLISHED' })
+				.catch(() => ({ data: [] }))
 		]);
 
 		const jenisMotors = jenisRes?.data || [];

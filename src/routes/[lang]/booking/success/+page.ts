@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
-import { transaksiApi } from '$lib/api';
+import { transaksiService } from '$lib/services';
 
 export const load: PageLoad = async ({ url }) => {
 	const id = url.searchParams.get('id');
@@ -14,7 +14,7 @@ export const load: PageLoad = async ({ url }) => {
 	let transaksi = null;
 	if (id) {
 		try {
-			transaksi = await transaksiApi.getById(id);
+			transaksi = await transaksiService.getById(id);
 		} catch (err) {
 			console.error('Failed to load transaction:', err);
 		}

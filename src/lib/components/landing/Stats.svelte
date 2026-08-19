@@ -6,7 +6,7 @@
 	const stats = $derived([
 		{ label: $LL.stats_customers(), value: 500, suffix: '+' },
 		{ label: $LL.stats_units(), value: 15, suffix: '+' },
-		{ label: $LL.stats_experience(), value: 3, suffix: '+'}
+		{ label: $LL.stats_experience(), value: 3, suffix: '+' }
 	]);
 
 	let visible = $state(false);
@@ -19,7 +19,7 @@
 	onMount(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
-				if (entries[0].isIntersecting && !visible) { 
+				if (entries[0].isIntersecting && !visible) {
 					visible = true;
 					const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 					if (prefersReduced) {

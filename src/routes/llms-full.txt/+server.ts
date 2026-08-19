@@ -1,6 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { BASE_URL } from '$lib/seo/types';
-import { jenisMotorApi, blogApi } from '$lib/api';
+import { jenisMotorService, blogService } from '$lib/services';
+import { DEFAULTS } from '$lib/constants';
 
 export const GET: RequestHandler = async ({ fetch }) => {
 	const baseUrl = BASE_URL || 'https://rosantibikemotorent.com';
@@ -9,8 +10,12 @@ export const GET: RequestHandler = async ({ fetch }) => {
 
 	try {
 		const [jenisRes, blogRes] = await Promise.all([
-			jenisMotorApi.getAll({ limit: 100 }, fetch).catch(() => ({ data: [] })),
-			blogApi.getAll({ limit: 100, status: 'PUBLISHED' }, fetch).catch(() => ({ data: [] }))
+			jenisMotorService
+				.getAll({ limit: DEFAULTS.ALL_ITEMS_LIMIT }, fetch)
+				.catch(() => ({ data: [] })),
+			blogService
+				.getAll({ limit: DEFAULTS.ALL_ITEMS_LIMIT, status: 'PUBLISHED' }, fetch)
+				.catch(() => ({ data: [] }))
 		]);
 
 		const jenisMotors = (jenisRes as any)?.data || [];
@@ -26,7 +31,10 @@ export const GET: RequestHandler = async ({ fetch }) => {
 		const blogs = (blogRes as any)?.data || [];
 		if (blogs.length > 0) {
 			blogList = blogs
-				.map((b: any) => `- [${b.judul}](${baseUrl}/id/blog/${b.slug}): ${b.ringkasan || 'Panduan wisata Malang.'}`)
+				.map(
+					(b: any) =>
+						`- [${b.judul}](${baseUrl}/id/blog/${b.slug}): ${b.ringkasan || 'Panduan wisata Malang.'}`
+				)
 				.join('\n');
 		}
 	} catch (err) {
@@ -109,4 +117,3 @@ ${blogList || `- [Panduan Sewa Motor Malang](${baseUrl}/id/blog)`}
 		}
 	});
 };
-

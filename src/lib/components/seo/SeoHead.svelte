@@ -25,9 +25,7 @@
 	const twitterCard = $derived(meta.twitterCard || 'summary_large_image');
 	const robots = $derived(meta.robots || 'index, follow');
 
-	const cleanPath = $derived(
-		!path || path === '/' ? '' : path.startsWith('/') ? path : `/${path}`
-	);
+	const cleanPath = $derived(!path || path === '/' ? '' : path.startsWith('/') ? path : `/${path}`);
 	const currentUrl = $derived(meta.canonicalUrl || `${BASE_URL}/${lang}${cleanPath}`);
 	const alternateUrls = $derived({
 		id: `${BASE_URL}/id${cleanPath}`,
@@ -54,7 +52,13 @@
 	<meta name="twitter:image" content={meta.twitterImage || ogImage} />
 
 	<link rel="canonical" href={currentUrl} />
-	<link rel="preload" as="image" href="/video/posters/hero.webp" fetchpriority="high" type="image/webp" />
+	<link
+		rel="preload"
+		as="image"
+		href="/video/posters/hero.webp"
+		fetchpriority="high"
+		type="image/webp"
+	/>
 
 	{#if meta.articlePublishedTime}
 		<meta property="article:published_time" content={meta.articlePublishedTime} />

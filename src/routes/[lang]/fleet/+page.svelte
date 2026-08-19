@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy, untrack } from 'svelte';
-	import { jenisMotorApi } from '$lib/api';
+	import { refreshAll } from '$app/navigation';
 	import { fly } from 'svelte/transition';
 	import { SeoHead } from '$lib/components/seo';
 	import LL from '$i18n/i18n-svelte.js';
@@ -25,29 +25,12 @@
 	let lang = $derived((page.params.lang || $locale) as 'id' | 'en');
 	let currentUrl = $derived(page.url.href);
 
-	async function fetchFleet() {
-		loading = true;
-		try {
-			const response = await jenisMotorApi.getAll({ limit: 100 });
-			jenisMotors = response.data || [];
-		} catch (err: any) {
-			console.error('Failed to load fleet:', err);
-			error = 'Gagal memuat data armada.';
-		} finally {
-			loading = false;
-		}
-	}
-
 	onMount(() => {
 		websocketService.connect();
 
-		const refresh = () => {
-			fetchFleet();
-		};
-
 		unsubs = [
-			websocketService.onTransactionUpdate(refresh),
-			websocketService.onUnitMotorUpdate(refresh)
+			websocketService.onTransactionUpdate(() => refreshAll()),
+			websocketService.onUnitMotorUpdate(() => refreshAll())
 		];
 	});
 

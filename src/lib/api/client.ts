@@ -1,11 +1,12 @@
 import { browser } from '$app/environment';
+import { DEFAULTS } from '$lib/constants';
 
 let rawUrl = import.meta.env.VITE_API_URL;
 if (!rawUrl) {
 	if (browser) {
-		rawUrl = `${window.location.protocol}//${window.location.hostname}:3030/api`;
+		rawUrl = `${window.location.protocol}//${window.location.hostname}:${DEFAULTS.API_FALLBACK_PORT}/api`;
 	} else {
-		rawUrl = 'http://localhost:3030/api';
+		rawUrl = `http://localhost:${DEFAULTS.API_FALLBACK_PORT}/api`;
 	}
 }
 const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;
@@ -69,6 +70,7 @@ async function parseResponse(response: Response) {
 
 class ApiClient {
 	private pendingGets = new Map<string, Promise<any>>();
+	private responseCache = new Map<string, { expiresAt: number; data: any; status: number }>();
 
 	private async performFetchOnce(
 		fetchFn: typeof fetch,
@@ -106,7 +108,7 @@ class ApiClient {
 		config: any
 	) {
 		let attempts = 0;
-		const maxAttempts = method === 'GET' ? 2 : 1;
+		const maxAttempts = method === 'GET' ? DEFAULTS.REQUEST_MAX_ATTEMPTS : 1;
 		while (attempts < maxAttempts) {
 			attempts++;
 			try {
@@ -114,22 +116,29 @@ class ApiClient {
 			} catch (error: any) {
 				this.handleFetchError(error, attempts, maxAttempts);
 				// Small delay before retry for GET requests
-				await new Promise((resolve) => setTimeout(resolve, 300));
+				await new Promise((resolve) => setTimeout(resolve, DEFAULTS.REQUEST_RETRY_DELAY_MS));
 			}
 		}
 	}
 
 	async request(method: string, url: string, data?: any, config: any = {}) {
 		const fetchUrl = buildUrl(url, config.params);
+		const useCache = method === 'GET' && !config.customFetch && config.ttl > 0;
 
-		// Deduplicate in-flight GET requests to the same URL
+		if (useCache) {
+			const cached = this.responseCache.get(fetchUrl);
+			if (cached && cached.expiresAt > Date.now()) {
+				return { data: cached.data, status: cached.status };
+			}
+		}
+
 		if (method === 'GET' && !config.customFetch) {
 			if (this.pendingGets.has(fetchUrl)) {
 				return this.pendingGets.get(fetchUrl);
 			}
 		}
 
-		const execute = async () => {
+		const execute: () => Promise<any> = async () => {
 			const { headers, body } = buildHeadersAndBody(data, config.headers);
 			const fetchFn: typeof fetch = config.customFetch ?? fetch;
 			return this.performFetch(fetchFn, fetchUrl, method, headers, body, config);
@@ -140,7 +149,15 @@ class ApiClient {
 				this.pendingGets.delete(fetchUrl);
 			});
 			this.pendingGets.set(fetchUrl, promise);
-			return promise;
+			const result = await promise;
+			if (useCache) {
+				this.responseCache.set(fetchUrl, {
+					expiresAt: Date.now() + config.ttl,
+					data: result.data,
+					status: result.status
+				});
+			}
+			return result;
 		}
 
 		return execute();

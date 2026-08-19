@@ -4,7 +4,8 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
 	import { page } from '$app/state';
-	import { jenisMotorApi } from '$lib/api';
+	import { jenisMotorService } from '$lib/services';
+	import { DEFAULTS } from '$lib/constants';
 
 	let isOpen = $state(false);
 	let isScrolled = $state(false);
@@ -15,8 +16,8 @@
 
 	function ensureMotorGroups() {
 		if (motorGroupsPromise) return;
-		motorGroupsPromise = jenisMotorApi
-			.getAll({ limit: 100 })
+		motorGroupsPromise = jenisMotorService
+			.getAll({ limit: DEFAULTS.FLEET_LIST_LIMIT })
 			.then((response) => {
 				const motors = response.data || [];
 				const groups = new Map<string, { label: string; href: string }[]>();
@@ -246,9 +247,9 @@
 							<button
 								class="w-full flex justify-between items-center text-3xl font-semibold text-[#1d1d1f] hover:text-[#0071e3] transition-colors text-left"
 								onclick={() => {
-								if (item.id === 'fleet') ensureMotorGroups();
-								mobileActiveMenuId = item.id;
-							}}
+									if (item.id === 'fleet') ensureMotorGroups();
+									mobileActiveMenuId = item.id;
+								}}
 							>
 								{item.label}
 								<svg

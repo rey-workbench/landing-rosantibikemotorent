@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy, untrack } from 'svelte';
-	import { jenisMotorApi } from '$lib/api';
+	import { refreshAll, goto } from '$app/navigation';
 	import { websocketService } from '$lib/services/websocket';
-	import { goto } from '$app/navigation';
 	import { page as pageStore } from '$app/state';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { SeoHead } from '$lib/components/seo';
@@ -25,39 +24,12 @@
 	let lang = $derived((pageStore.params.lang || 'id') as 'id' | 'en');
 	let currentUrl = $derived(pageStore.url.href);
 
-	async function fetchMotor() {
-		if (!jenis?.slug) return;
-		try {
-			const jenisData = (await jenisMotorApi.getBySlug(jenis.slug)) as any;
-			if (jenisData && jenisData.unitMotor && jenisData.unitMotor.length > 0) {
-				const units = jenisData.unitMotor;
-				const selectedUnit = units.sort((a: any, b: any) => {
-					const aUpdated = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
-					const bUpdated = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
-					return bUpdated - aUpdated;
-				})[0];
-
-				motor = {
-					...selectedUnit,
-					jenisMotor: jenisData
-				};
-			}
-		} catch (err) {
-			console.error('Failed to refresh motor data:', err);
-		}
-	}
-
 	onMount(() => {
 		websocketService.connect();
 
-		const refresh = () => {
-			console.log('[MotorDetail] Refreshing motor data...');
-			fetchMotor();
-		};
-
 		unsubs = [
-			websocketService.onTransactionUpdate(refresh),
-			websocketService.onUnitMotorUpdate(refresh)
+			websocketService.onTransactionUpdate(() => refreshAll()),
+			websocketService.onUnitMotorUpdate(() => refreshAll())
 		];
 	});
 

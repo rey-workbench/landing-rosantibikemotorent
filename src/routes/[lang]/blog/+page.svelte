@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { blogApi } from '$lib/api';
+	import { blogService } from '$lib/services';
+	import { DEFAULTS } from '$lib/constants';
 	import type { BlogTag } from '$lib/types';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -51,9 +52,9 @@
 		error = '';
 
 		try {
-			const response = await blogApi.getAll({
+			const response = await blogService.getAll({
 				page: currentPage,
-				limit: 9,
+				limit: DEFAULTS.BLOG_PAGE_SIZE,
 				search: searchQuery,
 				tagId: selectedTagId || undefined
 			});
@@ -212,7 +213,10 @@
 											loading="eager"
 											fetchpriority="high"
 											decoding="async"
-											src={optimizeImageUrl(featuredPost.featuredImage || featuredPost.thumbnail, 800)}
+											src={optimizeImageUrl(
+												featuredPost.featuredImage || featuredPost.thumbnail,
+												800
+											)}
 											alt={featuredPost.judul}
 											class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
 										/>

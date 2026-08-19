@@ -56,7 +56,12 @@
 		<picture>
 			<source srcset="/video/posters/hero.avif" type="image/avif" />
 			<source srcset="/video/posters/hero.webp" type="image/webp" />
-			<img src="/video/posters/hero.webp" alt="Motor Rent Hero" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" />
+			<img
+				src="/video/posters/hero.webp"
+				alt="Motor Rent Hero"
+				fetchpriority="high"
+				class="absolute inset-0 w-full h-full object-cover"
+			/>
 		</picture>
 	{:else}
 		<video
@@ -75,9 +80,7 @@
 	<!-- Cinematic Overlays -->
 	<div class="absolute inset-0 pointer-events-none">
 		<!-- Grain/Noise Effect -->
-		<div
-			class="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('/noise.svg')]"
-		></div>
+		<div class="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('/noise.svg')]"></div>
 
 		<!-- Radial Vignette -->
 		<div

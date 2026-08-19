@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { jenisMotorApi } from '$lib/api';
+	import { jenisMotorService } from '$lib/services';
+	import { DEFAULTS } from '$lib/constants';
 	import { formatCurrency } from '$lib/utils/format';
 	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 	import { LL, locale } from '$i18n/i18n-svelte';
@@ -13,7 +14,7 @@
 
 	async function fetchFleet() {
 		try {
-			const response = await jenisMotorApi.getAll({ limit: 4 });
+			const response = await jenisMotorService.getAll({ limit: DEFAULTS.FLEET_FEATURED_LIMIT });
 			jenisMotors = response.data || [];
 		} catch (err) {
 			error = err instanceof Error ? err.message : $LL.fleet_error();
@@ -57,7 +58,9 @@
 		<div class="max-w-345 mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 			{#each jenisMotors as jenis, index}
 				<div
-					class="group relative flex flex-col aspect-video rounded-3xl overflow-hidden {index % 3 === 0
+					class="group relative flex flex-col aspect-video rounded-3xl overflow-hidden {index %
+						3 ===
+					0
 						? 'text-white md:col-span-2'
 						: 'text-[#1d1d1f] border border-black/5'}"
 				>

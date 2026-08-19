@@ -1,4 +1,4 @@
-import { unitMotorApi } from '$lib/api';
+import { unitMotorService } from '$lib/services';
 import type { PageLoad } from './$types';
 
 async function resolveById(
@@ -10,7 +10,7 @@ async function resolveById(
 	let updatedMotors = [...availableMotors];
 	if (!selectedUnit) {
 		try {
-			const unit = await unitMotorApi.getById(urlUnitId, fetch);
+			const unit = await unitMotorService.getById(urlUnitId, fetch);
 			if (unit) {
 				selectedUnit = unit;
 				updatedMotors = [selectedUnit, ...updatedMotors];
@@ -34,7 +34,7 @@ async function resolveBySlug(
 
 	if (!selectedUnit) {
 		try {
-			const jenis = await unitMotorApi.getBySlug(urlUnitSlug, fetch);
+			const jenis = await unitMotorService.getBySlug(urlUnitSlug, fetch);
 			if (jenis && import.meta.env.DEV) {
 				console.log(`Model ${urlUnitSlug} is fully booked.`);
 			}
@@ -61,6 +61,12 @@ async function resolveSelectedUnit(
 	return { selectedUnit: null, updatedMotors: availableMotors };
 }
 
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+function parseDateParam(value: string | null, fallback: string): string {
+	return value && ISO_DATE_RE.test(value) ? value : fallback;
+}
+
 export const load: PageLoad = async ({ url, fetch }) => {
 	const urlUnitId = url.searchParams.get('unitId');
 	const urlUnitSlug = url.searchParams.get('unit');
@@ -70,12 +76,12 @@ export const load: PageLoad = async ({ url, fetch }) => {
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	const toISODate = (d: Date) => d.toISOString().split('T')[0];
 
-	const startDate = toISODate(today);
-	const endDate = toISODate(tomorrow);
+	const startDate = parseDateParam(url.searchParams.get('mulai'), toISODate(today));
+	const endDate = parseDateParam(url.searchParams.get('selesai'), toISODate(tomorrow));
 
 	let availableMotors: any[] = [];
 	try {
-		const availabilityData = await unitMotorApi.checkAvailability(
+		const availabilityData = await unitMotorService.checkAvailability(
 			{
 				startDate,
 				endDate
@@ -87,7 +93,7 @@ export const load: PageLoad = async ({ url, fetch }) => {
 		);
 	} catch (e) {
 		if (import.meta.env.DEV) console.warn('Failed to fetch availability:', e);
-		const motorsResponse = await unitMotorApi.getAvailable(fetch);
+		const motorsResponse = await unitMotorService.getAvailable(fetch);
 		availableMotors = motorsResponse.data || [];
 	}
 

@@ -21,9 +21,7 @@
 			{lang === 'en' ? 'Privacy Policy' : 'Kebijakan Privasi'}
 		</h1>
 
-		<div
-			class="prose prose-lg text-[#6b6b70] max-w-none"
-		>
+		<div class="prose prose-lg text-[#6b6b70] max-w-none">
 			<p>
 				{lang === 'en'
 					? 'Rosantibike Motorent respects your privacy and is committed to protecting your personal data.'
