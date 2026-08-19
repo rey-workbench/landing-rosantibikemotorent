@@ -4,13 +4,43 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
 	import { page } from '$app/state';
-	import { jenisMotorApi } from '$lib/api/jenis-motor';
+	import { jenisMotorApi } from '$lib/api';
 
 	let isOpen = $state(false);
 	let isScrolled = $state(false);
 	let hoveredNavId = $state<string | null>(null);
 	let mobileActiveMenuId = $state<string | null>(null);
 	let motorGroups = $state<{ title: string; links: { label: string; href: string }[] }[]>([]);
+	let motorGroupsPromise: Promise<void> | null = null;
+
+	function ensureMotorGroups() {
+		if (motorGroupsPromise) return;
+		motorGroupsPromise = jenisMotorApi
+			.getAll({ limit: 100 })
+			.then((response) => {
+				const motors = response.data || [];
+				const groups = new Map<string, { label: string; href: string }[]>();
+
+				for (const m of motors) {
+					if (!groups.has(m.merk)) {
+						groups.set(m.merk, []);
+					}
+					groups.get(m.merk)!.push({
+						label: `${m.merk} ${m.model}`,
+						href: `/${page.params.lang || $locale}/fleet/${m.slug}`
+					});
+				}
+
+				motorGroups = Array.from(groups.entries()).map(([merk, links]) => ({
+					title: merk,
+					links
+				}));
+			})
+			.catch((err) => {
+				console.error(err);
+				motorGroupsPromise = null;
+			});
+	}
 
 	const isHomepage = $derived(
 		page.url.pathname === '/' ||
@@ -71,30 +101,6 @@
 		window.addEventListener('scroll', handleScroll);
 		handleScroll(); // check initially
 
-		// Fetch all motor types dynamically and group by merk
-		jenisMotorApi
-			.getAll({ limit: 100 })
-			.then((response) => {
-				const motors = response.data || [];
-				const groups = new Map<string, { label: string; href: string }[]>();
-
-				for (const m of motors) {
-					if (!groups.has(m.merk)) {
-						groups.set(m.merk, []);
-					}
-					groups.get(m.merk)!.push({
-						label: `${m.merk} ${m.model}`,
-						href: `/${page.params.lang || $locale}/fleet/${m.slug}`
-					});
-				}
-
-				motorGroups = Array.from(groups.entries()).map(([merk, links]) => ({
-					title: merk,
-					links
-				}));
-			})
-			.catch(console.error);
-
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
 
@@ -143,7 +149,10 @@
 							? 'text-[#1d1d1f] font-medium'
 							: 'text-white font-medium'
 						: ''}"
-					onmouseenter={() => (hoveredNavId = item.children ? item.id : null)}
+					onmouseenter={() => {
+						if (item.id === 'fleet') ensureMotorGroups();
+						hoveredNavId = item.children ? item.id : null;
+					}}
 				>
 					{item.label}
 				</a>
@@ -162,6 +171,7 @@
 				onclick={() => {
 					isOpen = !isOpen;
 					if (!isOpen) mobileActiveMenuId = null;
+					else ensureMotorGroups();
 				}}
 			>
 				<div
@@ -235,7 +245,10 @@
 						{#if item.children}
 							<button
 								class="w-full flex justify-between items-center text-3xl font-semibold text-[#1d1d1f] hover:text-[#0071e3] transition-colors text-left"
-								onclick={() => (mobileActiveMenuId = item.id)}
+								onclick={() => {
+								if (item.id === 'fleet') ensureMotorGroups();
+								mobileActiveMenuId = item.id;
+							}}
 							>
 								{item.label}
 								<svg
