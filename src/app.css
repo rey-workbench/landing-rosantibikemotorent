@@ -43,8 +43,7 @@
 	--color-brand-border: var(--brand-border);
 	--color-brand-accent: var(--brand-accent);
 	--color-brand-muted: var(--brand-muted);
-	--color-brand-highlight: var(--brand-highlight);
-	--color-apple-blue: #0066cc;
+	--color-apple-blue: #0071e3;
 	--color-apple-link: #2997ff;
 }
 
@@ -59,8 +58,8 @@
 	--brand-surface-soft: #e8e8ed;
 	--brand-border: #d2d2d7;
 	--brand-accent: #000000;
-	--brand-muted: #6b6b70;
-	--brand-highlight: #0066cc;
+	--brand-muted: #6e6e73;
+	--brand-highlight: #0071e3;
 
 	/* Background RGB channels for overlays */
 	--background-start-rgb: 245, 245, 247;
