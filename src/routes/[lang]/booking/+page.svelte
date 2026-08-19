@@ -265,8 +265,7 @@
 			<h1
 				class="text-[36px] sm:text-[44px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
 			>
-				{$LL.booking_header_order()}
-				<span class="text-[#0071e3]">{$LL.booking_header_motor()}</span>
+				{$LL.booking_header_order()} {$LL.booking_header_motor()}
 			</h1>
 			<p class="text-[15px] sm:text-[16px] text-[#6b6b70] font-normal mt-2.5 max-w-lg mx-auto leading-relaxed">
 				{$LL.booking_header_subtitle()}
@@ -355,90 +354,66 @@
 					</div>
 				{/if}
 
-				<!-- Step 2: Pilih Motor -->
+				<!-- Step 2: Pilih Motor (Visual Interactive Grid) -->
 				{#if currentStep === 1}
-					<div class="space-y-6 animate-fadeIn">
+					<div class="space-y-5 animate-fadeIn">
 						<div class="text-center mb-6">
 							<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">Pilih Motor</h3>
-							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">Pilih armada motor yang ingin disewa</p>
+							<p class="text-[#6b6b70] text-xs sm:text-sm mt-1">Pilih armada yang ingin Anda sewa</p>
 						</div>
 
-						<Input
-							id="unit-motor"
-							type="dropdown"
-							label={$LL.booking_motor_type_label()}
-							bind:value={formData.jenisId}
-							required
-							options={uniqueMotors.map((m) => {
-								const jenis = m.jenis;
-								return {
-									value: m.jenisId,
-									label: `${jenis?.merk} ${jenis?.model} - ${formatCurrency(jenis?.hargaSewa || 0)}/${$LL.booking_day()}`
-								};
-							})}
-							placeholder={$LL.booking_motor_placeholder()}
-							onchange={handleMotorChange}
-						/>
-
-						{#if selectedUnit}
-							{@const jenis = selectedUnit.jenis}
-							<div
-								class="bg-[#f5f5f7] border border-black/5 rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-5 mt-4"
-							>
-								{#if getMotorImage(jenis)}
-									<img
-										loading="lazy"
-										decoding="async"
-										src={getMotorImage(jenis)}
-										data-fallback={getFallbackImage(jenis)}
-										onerror={handleImageError}
-										alt={jenis?.model}
-										width="112"
-										height="112"
-										class="w-24 h-24 sm:w-28 sm:h-28 object-contain rounded-xl shrink-0"
-									/>
-								{/if}
-								<div class="flex-1 text-center sm:text-left">
-									<p class="text-[#6b6b70] text-xs uppercase tracking-wider font-semibold">{jenis?.merk}</p>
-									<p class="text-[#1d1d1f] font-bold text-lg sm:text-xl">{jenis?.model}</p>
-									{#if jenis?.cc}
-										<p class="text-[#6b6b70] text-xs mt-0.5">{jenis.cc} CC • Matic / Transmisi Halus</p>
-									{/if}
-									<p class="text-[#0071e3] font-bold text-base mt-2">
-										{formatCurrency(jenis?.hargaSewa || 0)}
-										<span class="text-[#6b6b70] font-normal text-xs">/ {$LL.booking_day()}</span>
-									</p>
-								</div>
-							</div>
-						{:else}
-							<div
-								class="border-2 border-dashed border-black/10 rounded-2xl p-8 text-center bg-[#f5f5f7]/40 mt-4"
-							>
-								<svg
-									class="w-10 h-10 text-[#6b6b70]/60 mx-auto mb-2.5"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-105 overflow-y-auto pr-1 pb-1">
+							{#each uniqueMotors as motor}
+								{@const jenis = motor.jenis}
+								{@const isSelected = formData.jenisId === motor.jenisId}
+								<button
+									type="button"
+									onclick={() => {
+										formData.jenisId = motor.jenisId;
+										formData.unitId = '';
+										handleCalculatePrice();
+									}}
+									class="p-4 rounded-2xl border text-left flex items-center gap-4 transition-all cursor-pointer relative group {isSelected
+										? 'bg-blue-50/40 border-[#0071e3] ring-2 ring-[#0071e3]/20 shadow-sm'
+										: 'bg-[#f5f5f7] border-black/5 hover:bg-[#e8e8ed] hover:border-black/10'}"
 								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"
-									/>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-									/>
-								</svg>
-								<p class="text-xs text-[#6b6b70]">{$LL.booking_motor_select()}</p>
-							</div>
-						{/if}
+									<div class="w-20 h-20 bg-white rounded-xl p-1.5 flex items-center justify-center shrink-0 border border-black/5">
+										{#if getMotorImage(jenis)}
+											<img
+												src={getMotorImage(jenis)}
+												data-fallback={getFallbackImage(jenis)}
+												onerror={handleImageError}
+												alt={jenis?.model}
+												width="80"
+												height="80"
+												class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+											/>
+										{/if}
+									</div>
+									<div class="flex-1 min-w-0">
+										<span class="text-[10px] font-semibold uppercase tracking-wider text-[#6b6b70]">{jenis?.merk}</span>
+										<h4 class="text-[15px] font-bold text-[#1d1d1f] truncate">{jenis?.model}</h4>
+										{#if jenis?.cc}
+											<p class="text-[11px] text-[#6b6b70] mt-0.5">{jenis.cc} CC • Matic</p>
+										{/if}
+										<p class="text-[13px] font-semibold text-[#0071e3] mt-1.5">
+											{formatCurrency(jenis?.hargaSewa || 0)} <span class="text-[11px] text-[#6b6b70] font-normal">/{$LL.booking_day()}</span>
+										</p>
+									</div>
+									{#if isSelected}
+										<div class="absolute top-3 right-3 w-5 h-5 bg-[#0071e3] text-white rounded-full flex items-center justify-center shadow-xs">
+											<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+												<polyline points="20 6 9 17 4 12" />
+											</svg>
+										</div>
+									{/if}
+								</button>
+							{/each}
+						</div>
 					</div>
 				{/if}
 
-				<!-- Step 3: Waktu Sewa -->
+				<!-- Step 3: Waktu Sewa & Aksesoris -->
 				{#if currentStep === 2}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
@@ -482,47 +457,65 @@
 						</div>
 
 						<div class="border-t border-black/8 pt-6">
-							<h4 class="text-xs font-semibold text-[#1d1d1f] uppercase tracking-wider mb-4">
-								{$LL.booking_accessories_label()}
-							</h4>
-							<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-								<Input
-									id="jas-hujan"
-									type="dropdown"
-									label={$LL.booking_raincoat_label()}
-									bind:value={formData.jasHujan}
-									onchange={handleCalculatePrice}
-									options={[
-										{ value: 0, label: $LL.booking_not_needed() },
-										{ value: 1, label: $LL.booking_pieces_1() },
-										{ value: 2, label: $LL.booking_pieces_2() }
-									]}
-									placeholder={$LL.booking_raincoat_placeholder()}
-								/>
-								<Input
-									id="helm"
-									type="dropdown"
-									label={$LL.booking_helmet_label()}
-									bind:value={formData.helm}
-									onchange={handleCalculatePrice}
-									options={[
-										{ value: 0, label: $LL.booking_not_needed() },
-										{ value: 1, label: $LL.booking_pieces_1() },
-										{ value: 2, label: $LL.booking_pieces_2() }
-									]}
-									placeholder={$LL.booking_helmet_placeholder()}
-								/>
+							<div class="flex items-center justify-between mb-4">
+								<h4 class="text-xs font-semibold text-[#1d1d1f] uppercase tracking-wider">
+									{$LL.booking_accessories_label()}
+								</h4>
+								<span class="text-xs text-[#0071e3] font-medium flex items-center gap-1">
+									<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+									</svg>
+									{$LL.booking_accessories_free()}
+								</span>
 							</div>
-							<p class="text-xs text-[#0071e3] mt-3 flex items-center gap-1.5 font-medium">
-								<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-									/>
-								</svg>
-								{$LL.booking_accessories_free()}
-							</p>
+
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+								<!-- Jas Hujan Card -->
+								<div class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-center justify-between">
+									<div>
+										<p class="text-sm font-semibold text-[#1d1d1f]">{$LL.booking_raincoat_label()}</p>
+										<p class="text-xs text-[#6b6b70] mt-0.5">Jas hujan ponco/setelan</p>
+									</div>
+									<div class="flex items-center gap-1 bg-white border border-black/8 rounded-xl p-1 shadow-xs">
+										<button
+											type="button"
+											disabled={formData.jasHujan <= 0}
+											onclick={() => { formData.jasHujan = Math.max(0, formData.jasHujan - 1); handleCalculatePrice(); }}
+											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+										>-</button>
+										<span class="w-6 text-center text-xs font-bold text-[#1d1d1f]">{formData.jasHujan}</span>
+										<button
+											type="button"
+											disabled={formData.jasHujan >= 2}
+											onclick={() => { formData.jasHujan = Math.min(2, formData.jasHujan + 1); handleCalculatePrice(); }}
+											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+										>+</button>
+									</div>
+								</div>
+
+								<!-- Helm Card -->
+								<div class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-center justify-between">
+									<div>
+										<p class="text-sm font-semibold text-[#1d1d1f]">{$LL.booking_helmet_label()}</p>
+										<p class="text-xs text-[#6b6b70] mt-0.5">Helm SNI bersih & wangi</p>
+									</div>
+									<div class="flex items-center gap-1 bg-white border border-black/8 rounded-xl p-1 shadow-xs">
+										<button
+											type="button"
+											disabled={formData.helm <= 0}
+											onclick={() => { formData.helm = Math.max(0, formData.helm - 1); handleCalculatePrice(); }}
+											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+										>-</button>
+										<span class="w-6 text-center text-xs font-bold text-[#1d1d1f]">{formData.helm}</span>
+										<button
+											type="button"
+											disabled={formData.helm >= 2}
+											onclick={() => { formData.helm = Math.min(2, formData.helm + 1); handleCalculatePrice(); }}
+											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+										>+</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				{/if}
