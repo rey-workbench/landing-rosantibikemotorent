@@ -6,6 +6,7 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { buildBreadcrumbSchema, buildArticleSchema } from '$lib/seo/schema';
 	import { optimizeImageUrl } from '$lib/utils/image';
+	import Button from '$lib/components/ui/Button.svelte';
 	import { marked } from 'marked';
 	import DOMPurify from 'isomorphic-dompurify';
 
@@ -96,7 +97,7 @@
 	<main class="min-h-screen bg-white">
 		<!-- Article Header (Medium / Apple Editorial Style) -->
 		<header class="pt-28 md:pt-36 pb-10 px-4 sm:px-6 md:px-8">
-			<div class="max-w-[740px] mx-auto">
+			<div class="max-w-185 mx-auto">
 				<!-- Navigation Back Link -->
 				<div class="mb-8">
 					<a
@@ -141,7 +142,7 @@
 
 				<!-- Article Headline (Apple Editorial) -->
 				<h1
-					class="text-[32px] sm:text-[44px] md:text-[52px] font-bold text-[#1d1d1f] leading-[1.12] tracking-[-0.025em] mb-6 font-display"
+					class="text-[32px] sm:text-[44px] md:text-[52px] font-bold text-[#1d1d1f] leading-[1.12] tracking-tight mb-6 font-display"
 				>
 					{post.judul}
 				</h1>
@@ -150,7 +151,7 @@
 				<div class="flex items-center justify-between gap-4 py-5 border-y border-black/8">
 					<div class="flex items-center gap-3.5">
 						<div
-							class="w-11 h-11 rounded-full bg-gradient-to-br from-[#0071e3] to-[#004f9e] text-white flex items-center justify-center font-bold text-sm shadow-sm"
+							class="w-11 h-11 rounded-full bg-linear-to-br from-[#0071e3] to-[#004f9e] text-white flex items-center justify-center font-bold text-sm shadow-sm"
 						>
 							R
 						</div>
@@ -210,7 +211,7 @@
 
 		<!-- Content & Body Section -->
 		<article class="pb-28 px-4 sm:px-6 md:px-8">
-			<div class="max-w-[740px] mx-auto">
+			<div class="max-w-185 mx-auto">
 				<!-- Hero Featured Image -->
 				{#if post.featuredImage || post.thumbnail}
 					<div
@@ -253,12 +254,9 @@
 						</p>
 					</div>
 					<div class="shrink-0">
-						<a
-							href="/{lang}/booking"
-							class="inline-flex items-center justify-center px-7 py-3.5 bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium text-sm rounded-full transition-all shadow-sm hover:shadow active:scale-98"
-						>
+						<Button href="/{lang}/booking" variant="primary" size="md">
 							{$LL.blog_rent_now()}
-						</a>
+						</Button>
 					</div>
 				</div>
 			</div>

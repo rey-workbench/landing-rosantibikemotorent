@@ -2,6 +2,7 @@
 	import { blogService } from '$lib/services';
 	import { DEFAULTS } from '$lib/constants';
 	import type { BlogTag } from '$lib/types';
+	import Button from '$lib/components/ui/Button.svelte';
 	import { fly } from 'svelte/transition';
 	import { page } from '$app/state';
 	import { SeoHead } from '$lib/components/seo';
@@ -109,7 +110,7 @@
 						bind:value={searchQuery}
 						placeholder={$LL.blog_search_placeholder()}
 						oninput={handleSearch}
-						class="w-full h-9 pl-9 pr-4 bg-[#f5f5f7] border border-black/5 rounded-full text-xs text-[#1d1d1f] placeholder:text-[#6b6b70]/60 focus:bg-white focus:border-[#0071e3] focus:outline-none transition-all"
+						class="w-full h-9 pl-9 pr-4 bg-[#f5f5f7] border border-black/5 rounded-full text-xs text-[#1d1d1f] focus:outline-none transition-all"
 					/>
 				</div>
 			</div>
@@ -142,22 +143,19 @@
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 				{#each Array(6) as _}
 					<div class="animate-pulse flex flex-col gap-3">
-						<div class="aspect-[16/10] bg-[#f5f5f7] rounded-2xl"></div>
+						<div class="aspect-16/10 bg-[#f5f5f7] rounded-2xl"></div>
 						<div class="h-4 bg-[#f5f5f7] rounded-full w-2/3"></div>
 						<div class="h-3 bg-[#f5f5f7] rounded-full w-full"></div>
 					</div>
 				{/each}
 			</div>
 		{:else if error}
-			<div class="text-center py-16 bg-[#f5f5f7] rounded-3xl flex flex-col items-center justify-center p-6 border border-black/5">
+			<div class="text-center py-16 bg-[#f5f5f7] rounded-3xl border border-black/5 p-8 flex flex-col items-center justify-center">
 				<h3 class="text-lg font-bold text-[#1d1d1f] mb-1">{$LL.blog_error_title()}</h3>
 				<p class="text-xs text-[#6b6b70] mb-6">{error}</p>
-				<button
-					onclick={loadPosts}
-					class="px-5 py-2 bg-[#1d1d1f] hover:bg-black text-white text-xs font-medium rounded-full transition-all cursor-pointer"
-				>
+				<Button onclick={loadPosts} variant="secondary" size="sm">
 					{$LL.blog_try_again()}
-				</button>
+				</Button>
 			</div>
 		{:else if posts.length > 0}
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
@@ -168,7 +166,7 @@
 						in:fly={{ y: 15, duration: 400, delay: i * 40 }}
 					>
 						<!-- Image Container -->
-						<div class="aspect-[16/10] overflow-hidden bg-[#f5f5f7] relative">
+						<div class="aspect-16/10 overflow-hidden bg-[#f5f5f7] relative">
 							{#if post.featuredImage || post.thumbnail}
 								<img
 									loading={i < 3 ? 'eager' : 'lazy'}
@@ -210,7 +208,7 @@
 								</div>
 
 								<!-- Title -->
-								<h2 class="text-[16px] sm:text-[17px] font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-[1.25] font-display mb-2">
+								<h2 class="text-[16px] sm:text-[17px] font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors line-clamp-2 leading-tight font-display mb-2">
 									{post.judul}
 								</h2>
 
@@ -244,16 +242,17 @@
 			<div class="text-center py-16 bg-[#f5f5f7] rounded-3xl border border-black/5 p-8 flex flex-col items-center justify-center">
 				<h3 class="text-lg font-bold text-[#1d1d1f] mb-1">{$LL.blog_empty_title()}</h3>
 				<p class="text-xs text-[#6b6b70] mb-6">{$LL.blog_empty_desc()}</p>
-				<button
+				<Button
 					onclick={() => {
 						searchQuery = '';
 						selectedTagId = '';
 						loadPosts();
 					}}
-					class="px-5 py-2 bg-[#1d1d1f] hover:bg-black text-white text-xs font-medium rounded-full transition-all cursor-pointer"
+					variant="primary"
+					size="sm"
 				>
 					{$LL.blog_reset_filter()}
-				</button>
+				</Button>
 			</div>
 		{/if}
 
