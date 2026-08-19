@@ -51,12 +51,12 @@
 
 <!-- Chapternav (Sticky under main navbar) -->
 <div
-	class="sticky top-12 w-full bg-white/90 backdrop-blur-md z-40 border-b border-[#d2d2d7] transition-all"
+	class="sticky top-14 md:top-16 w-full bg-white/90 backdrop-blur-md z-40 border-b border-[#d2d2d7] transition-all"
 >
-	<div class="max-w-5xl mx-auto px-4 h-18 flex items-center relative overflow-hidden">
+	<div class="max-w-5xl mx-auto px-4 h-16 md:h-18 flex items-center relative overflow-hidden">
 		<!-- Left Title -->
 		<div
-			class="absolute left-4 z-10 text-[21px] font-semibold text-[#1d1d1f] tracking-tight bg-white md:bg-transparent pr-4 py-2"
+			class="absolute left-4 z-10 text-[19px] md:text-[21px] font-semibold text-[#1d1d1f] tracking-tight bg-white md:bg-transparent pr-4 py-2"
 		>
 			{$LL.fleet_title()}
 		</div>
@@ -107,10 +107,10 @@
 
 <main class="bg-white min-h-screen">
 	<!-- Jelajahi Jajarannya Section -->
-	<section class="max-w-5xl mx-auto px-4 pt-16 pb-20">
-		<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-4">
+	<section class="max-w-5xl mx-auto px-4 pt-8 md:pt-10 pb-16">
+		<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 md:mb-10 gap-4">
 			<h2
-				class="text-[40px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
+				class="text-[36px] md:text-[44px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
 			>
 				{$LL.fleet_explore_lineup()}
 			</h2>
