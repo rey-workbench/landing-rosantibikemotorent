@@ -76,7 +76,7 @@
 	<SeoHead
 		{lang}
 		meta={{
-			title: `${$LL.blog_title()} | Rosantibike Motorent`
+		title: `${$LL.blog_title()} | Rosantibike Motorent`
 		}}
 	/>
 {/if}
