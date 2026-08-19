@@ -82,34 +82,33 @@
 	}}
 />
 
-<main class="min-h-screen bg-white pt-24 sm:pt-28 pb-16 px-4 sm:px-6 md:px-10">
-	<div class="max-w-7xl mx-auto">
-		<!-- Compact Header Bar -->
-		<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-black/8">
+<main class="bg-white min-h-screen">
+	<!-- Hero / Header Section (Exact Fleet Style) -->
+	<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-16 md:pt-20 pb-6">
+		<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 gap-4 pb-6 border-b border-[#d2d2d7]">
 			<div>
-				<span class="text-[10px] font-semibold tracking-widest text-[#0071e3] uppercase mb-1 block">
-					{$LL.blog_title()}
-				</span>
-				<h1 class="text-2xl sm:text-3xl font-bold text-[#1d1d1f] tracking-tight font-display">
-					{$LL.blog_heading()} <span class="text-[#0071e3]">{$LL.blog_heading_highlight()}</span>
+				<h1
+					class="text-[40px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
+				>
+					{$LL.blog_heading()} {$LL.blog_heading_highlight()}
 				</h1>
-				<p class="text-xs text-[#6b6b70] mt-0.5 max-w-lg">
+				<p class="text-[15px] text-[#6b6b70] font-normal mt-2 max-w-lg leading-relaxed">
 					{$LL.blog_subtitle()}
 				</p>
 			</div>
 
-			<!-- Compact Search Input -->
-			<div class="w-full md:w-64 shrink-0">
+			<!-- Search Input -->
+			<div class="w-full md:w-72 shrink-0 mb-1">
 				<div class="relative flex items-center">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						width="14"
-						height="14"
+						width="16"
+						height="16"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
-						class="absolute left-3 text-[#6b6b70]/60 pointer-events-none"
+						class="absolute left-3.5 text-[#6b6b70]/60 pointer-events-none"
 					>
 						<circle cx="11" cy="11" r="8"></circle>
 						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -120,14 +119,14 @@
 						bind:value={searchQuery}
 						placeholder={$LL.blog_search_placeholder()}
 						oninput={handleSearch}
-						class="w-full h-8 pl-8 pr-3 bg-[#f5f5f7] border border-black/5 rounded-full text-xs text-[#1d1d1f] placeholder:text-[#6b6b70]/60 focus:bg-white focus:border-[#0071e3] focus:outline-none transition-all"
+						class="w-full h-9 pl-9 pr-4 bg-[#f5f5f7] border border-black/5 rounded-full text-xs text-[#1d1d1f] placeholder:text-[#6b6b70]/60 focus:bg-white focus:border-[#0071e3] focus:outline-none transition-all"
 					/>
 				</div>
 			</div>
 		</div>
 
-		<!-- Compact Category Filter Strip -->
-		<div class="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap py-3 scrollbar-none border-b border-black/5 mb-6">
+		<!-- Category Filter Strip -->
+		<div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-4 scrollbar-none border-b border-black/5 mb-8">
 			<button
 				onclick={() => selectTag('')}
 				class="px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer {selectedTagId === ''
@@ -415,6 +414,6 @@
 				</button>
 			</div>
 		{/if}
-	</div>
+	</section>
 </main>
 
