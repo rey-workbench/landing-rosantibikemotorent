@@ -1,0 +1,24 @@
+{
+  "resource": "https://api.rosantibikemotorent.com/api",
+  "authorization_servers": [
+    "https://api.rosantibikemotorent.com"
+  ],
+  "scopes_supported": [
+    "public:read",
+    "booking:create",
+    "admin:manage"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ],
+  "resource_documentation": "https://rosantibikemotorent.com/auth.md",
+  "identity_types_supported": [
+    "anonymous",
+    "identity_assertion"
+  ],
+  "anonymous": {
+    "credential_types_supported": [
+      "none"
+    ]
+  }
+}

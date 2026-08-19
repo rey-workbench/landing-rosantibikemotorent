@@ -61,11 +61,48 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 	response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
 	response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
 	response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
-	response.headers.set('Link', '</llms.txt>; rel="describedby"');
+	response.headers.set('Vary', 'Accept');
+	response.headers.set(
+		'Link',
+		'</llms.txt>; rel="describedby", </llms-full.txt>; rel="alternate"; type="text/markdown", </.well-known/api-catalog>; rel="service-desc"; type="application/linkset+json", </auth.md>; rel="authorisation"'
+	);
 	return response;
 };
 
-export const handle: Handle = sequence(handleSecurity, handleLocale);
+const handleMarkdownNegotiation: Handle = async ({ event, resolve }) => {
+	const accept = event.request.headers.get('accept') || '';
+	const pathname = event.url.pathname;
+	const isMarkdownRequested =
+		accept.includes('text/markdown') ||
+		pathname.endsWith('.md') ||
+		event.url.searchParams.get('format') === 'markdown';
+
+	// Serve Markdown representation to AI Agents requesting text/markdown
+	if (
+		isMarkdownRequested &&
+		!pathname.startsWith('/api') &&
+		!pathname.startsWith('/_app') &&
+		!pathname.includes('.')
+	) {
+		const targetUrl = new URL('/llms-full.txt', event.url.origin);
+		const llmsResponse = await event.fetch(targetUrl);
+		if (llmsResponse.ok) {
+			const markdownBody = await llmsResponse.text();
+			return new Response(markdownBody, {
+				status: 200,
+				headers: {
+					'Content-Type': 'text/markdown; charset=utf-8',
+					'Vary': 'Accept',
+					'Cache-Control': 'public, max-age=3600, s-maxage=86400'
+				}
+			});
+		}
+	}
+
+	return resolve(event);
+};
+
+export const handle: Handle = sequence(handleMarkdownNegotiation, handleSecurity, handleLocale);
 
 export const handleError = ({ error }: { error: unknown }) => {
 	console.error('Landing server error:', error);

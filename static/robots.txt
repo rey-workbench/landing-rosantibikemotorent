@@ -1,5 +1,11 @@
+# Content Signals (https://contentsignals.org)
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
 User-agent: *
 Allow: /
+
+# Block booking success page (contains customer booking receipt)
+Disallow: /*/booking/success
 
 # AI & Search Engine Crawlers
 User-agent: GPTBot
