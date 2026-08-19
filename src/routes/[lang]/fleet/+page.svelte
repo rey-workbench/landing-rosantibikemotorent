@@ -211,7 +211,7 @@
 
 						<!-- Typography & Content -->
 						<div class="flex flex-col items-center px-6 pt-8 pb-8 flex-1">
-							<h3 class="text-[12px] font-semibold tracking-widest text-[#c84b00] mb-2 uppercase">
+							<h3 class="text-[12px] font-semibold tracking-widest text-[#86868b] mb-2 uppercase">
 								{motor.merk}
 							</h3>
 							<h2 class="text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-2">
@@ -224,24 +224,24 @@
 									{formatCurrency(motor.computed.minPrice)}{$LL.fleet_per_day()}
 								</p>
 							{:else}
-								<p class="text-[15px] text-[#6b6b70] font-normal mb-8">{$LL.fleet_contact_us()}</p>
+								<p class="text-[15px] text-[#86868b] font-normal mb-8">{$LL.fleet_contact_us()}</p>
 							{/if}
 
-							<!-- Buttons -->
-							<div class="flex flex-col gap-3 w-full max-w-35 mt-auto">
+							<!-- Authentic Apple Dual Buttons -->
+							<div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-auto">
 								<a
 									href="/{lang}/booking?unit={motor.slug}"
 									aria-label="{$LL.fleet_order()} {motor.merk} {motor.model}"
-									class="w-full py-2 bg-[#0071e3] text-white rounded-full text-[15px] font-normal hover:bg-[#0077ed] transition-colors shadow-sm"
+									class="px-5 py-2 bg-[#0071e3] text-white rounded-full text-[14px] font-medium hover:bg-[#0077ed] transition-colors shadow-xs"
 								>
 									{$LL.fleet_order()}
 								</a>
 								<a
 									href="/{lang}/fleet/{motor.slug}"
 									aria-label="{$LL.fleet_link_detail()} {motor.merk} {motor.model}"
-									class="w-full py-2 text-apple-blue text-[15px] font-normal hover:underline"
+									class="px-5 py-2 border border-[#0071e3] text-[#0071e3] rounded-full text-[14px] font-medium hover:bg-[#0071e3] hover:text-white transition-all shadow-xs"
 								>
-									{$LL.fleet_link_detail()} &gt;
+									{$LL.fleet_link_detail()}
 								</a>
 							</div>
 						</div>

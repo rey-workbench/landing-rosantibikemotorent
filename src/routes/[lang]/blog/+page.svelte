@@ -141,26 +141,18 @@
 		<div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-4 scrollbar-none border-b border-black/5 mb-8">
 			<button
 				onclick={() => selectTag('')}
-				class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId === ''
-					? 'bg-[#1d1d1f] text-white shadow-sm'
-					: 'bg-[#f5f5f7] text-[#6b6b70] hover:bg-[#e8e8ed] hover:text-[#1d1d1f]'}"
+				class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId === ''
+					? 'bg-[#1d1d1f] text-white shadow-xs'
+					: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
 			>
 				{$LL.blog_filter_all()}
 			</button>
-			{#each tags as tag, idx}
-				{@const tagColors = [
-					{ active: 'bg-[#0071e3] text-white', inactive: 'bg-blue-50/80 text-[#0071e3] border border-blue-200/60 hover:bg-blue-100/80' },
-					{ active: 'bg-[#00a896] text-white', inactive: 'bg-teal-50/80 text-[#00897b] border border-teal-200/60 hover:bg-teal-100/80' },
-					{ active: 'bg-[#5856d6] text-white', inactive: 'bg-indigo-50/80 text-[#5856d6] border border-indigo-200/60 hover:bg-indigo-100/80' },
-					{ active: 'bg-[#ff9500] text-white', inactive: 'bg-amber-50/80 text-[#d97706] border border-amber-200/60 hover:bg-amber-100/80' },
-					{ active: 'bg-[#ff2d55] text-white', inactive: 'bg-rose-50/80 text-[#e11d48] border border-rose-200/60 hover:bg-rose-100/80' }
-				]}
-				{@const tc = tagColors[idx % tagColors.length]}
+			{#each tags as tag}
 				<button
 					onclick={() => selectTag(tag.id)}
-					class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId === tag.id
-						? `${tc.active} shadow-sm`
-						: tc.inactive}"
+					class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId === tag.id
+						? 'bg-[#0071e3] text-white shadow-xs'
+						: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
 				>
 					{tag.nama}
 				</button>
@@ -211,7 +203,7 @@
 									{/if}
 									{#if featuredPost.kategori}
 										<div class="absolute top-3 left-3">
-											<span class="px-2.5 py-0.5 bg-white/95 backdrop-blur-md rounded-full text-[11px] font-semibold text-[#0071e3] shadow-xs border border-black/5">
+											<span class="px-2.5 py-0.5 bg-white/90 backdrop-blur-md rounded-full text-[11px] font-semibold text-[#1d1d1f] shadow-2xs border border-black/5">
 												{featuredPost.kategori.nama}
 											</span>
 										</div>

@@ -121,16 +121,16 @@
 							</p>
 						{/if}
 
-						<!-- CTA Buttons (Pills) -->
+						<!-- CTA Buttons (Authentic Apple Dual Pills) -->
 						<div
 							class="flex items-center gap-2 md:gap-3 {index % 3 === 0
 								? ''
 								: 'scale-90 md:scale-100 origin-top'}"
 						>
 							<a
-								href="/{lang}/fleet/{jenis.slug}"
+								href="/{lang}/booking?unit={jenis.slug}"
 								aria-label="{$LL.fleet_order()} {jenis.merk} {jenis.model}"
-								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-apple-blue hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-sm"
+								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium text-xs md:text-sm transition-colors shadow-xs"
 							>
 								{$LL.fleet_order()}
 							</a>
@@ -138,8 +138,8 @@
 								href="/{lang}/fleet/{jenis.slug}"
 								aria-label="{$LL.fleet_see_detail()} {jenis.merk} {jenis.model}"
 								class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border {index % 3 === 0
-									? 'border-white text-white hover:bg-white/10'
-									: 'border-apple-blue text-apple-blue hover:bg-apple-blue/10'} font-medium text-xs md:text-sm transition-colors shadow-sm"
+									? 'border-[#2997ff] text-[#2997ff] hover:bg-[#2997ff] hover:text-white'
+									: 'border-[#0071e3] text-[#0071e3] hover:bg-[#0071e3] hover:text-white'} font-medium text-xs md:text-sm transition-all shadow-xs"
 							>
 								{$LL.fleet_see_detail()}
 							</a>

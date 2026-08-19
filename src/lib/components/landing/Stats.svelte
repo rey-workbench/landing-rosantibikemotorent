@@ -48,36 +48,36 @@
 <section class="py-24 md:py-36 relative bg-[#f5f5f7] overflow-hidden z-20" bind:this={sectionRef}>
 	<div class="container mx-auto px-6 md:px-10 relative z-10 max-w-345">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<!-- Stat 1: Blue Gradient -->
+			<!-- Stat 1: Apple Clean Light Card -->
 			<div
-				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg text-center flex flex-col justify-center min-h-75"
+				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xs"
 			>
-				<div class="text-6xl md:text-8xl font-bold bg-linear-to-br from-[#0071e3] to-[#42a5f5] bg-clip-text text-transparent mb-3 tracking-tight leading-none">
+				<div class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none font-display">
 					{Math.round($spring1)}{stats[0].suffix}
 				</div>
-				<div class="text-sm md:text-lg text-[#1d1d1f] font-semibold tracking-wide">
+				<div class="text-sm md:text-base text-[#6e6e73] font-medium tracking-wide">
 					{stats[0].label}
 				</div>
 			</div>
-			<!-- Stat 2: Mint/Emerald Gradient -->
+			<!-- Stat 2: Apple Pro Pitch Black Card -->
 			<div
-				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg text-center flex flex-col justify-center min-h-75"
+				class="p-10 md:p-14 rounded-3xl bg-brand-dark text-white transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xl"
 			>
-				<div class="text-6xl md:text-8xl font-bold bg-linear-to-br from-[#34c759] to-[#00c7be] bg-clip-text text-transparent mb-3 tracking-tight leading-none">
+				<div class="text-6xl md:text-8xl font-bold text-[#f5f5f7] mb-3 tracking-tight leading-none font-display">
 					{Math.round($spring2)}{stats[1].suffix}
 				</div>
-				<div class="text-sm md:text-lg text-[#1d1d1f] font-semibold tracking-wide">
+				<div class="text-sm md:text-base text-[#86868b] font-medium tracking-wide">
 					{stats[1].label}
 				</div>
 			</div>
-			<!-- Stat 3: Sunset Orange/Coral Gradient -->
+			<!-- Stat 3: Apple Clean Light Card -->
 			<div
-				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg text-center flex flex-col justify-center min-h-75"
+				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xs"
 			>
-				<div class="text-6xl md:text-8xl font-bold bg-linear-to-br from-[#ff9500] to-[#ff2d55] bg-clip-text text-transparent mb-3 tracking-tight leading-none">
+				<div class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none font-display">
 					{Math.round($spring3)}{stats[2].suffix}
 				</div>
-				<div class="text-sm md:text-lg text-[#1d1d1f] font-semibold tracking-wide">
+				<div class="text-sm md:text-base text-[#6e6e73] font-medium tracking-wide">
 					{stats[2].label}
 				</div>
 			</div>

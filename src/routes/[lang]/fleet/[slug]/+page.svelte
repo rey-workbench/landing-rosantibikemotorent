@@ -192,26 +192,26 @@
 						{$LL.fleet_detail_description({ merk: jenis.merk, model: jenis.model, cc: jenis.cc })}
 					</p>
 
-					<!-- Specs Grid (Apple Blue & Emerald Accents) -->
+					<!-- Specs Grid (Apple Clean Surfaces) -->
 					<div class="grid grid-cols-2 gap-4 mb-8">
 						<div
-							class="bg-blue-50/50 border border-blue-100 rounded-3xl p-5 shadow-[0_2px_20px_rgba(0,113,227,0.04)]"
+							class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5"
 						>
-							<p class="text-[#0071e3] text-[12px] font-bold uppercase tracking-wider mb-1">
+							<p class="text-[#86868b] text-[12px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_engine()}
 							</p>
-							<p class="text-3xl font-bold text-[#1d1d1f] tracking-tight">
+							<p class="text-3xl font-semibold text-[#1d1d1f] tracking-tight">
 								{jenis.cc}
-								<span class="text-base text-[#0071e3] font-semibold tracking-normal">CC</span>
+								<span class="text-base text-[#86868b] font-medium tracking-normal">CC</span>
 							</p>
 						</div>
 						<div
-							class="bg-emerald-50/50 border border-emerald-100 rounded-3xl p-5 shadow-[0_2px_20px_rgba(5,150,105,0.04)]"
+							class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5"
 						>
-							<p class="text-[#059669] text-[12px] font-bold uppercase tracking-wider mb-1">
+							<p class="text-[#86868b] text-[12px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_year()}
 							</p>
-							<p class="text-3xl font-bold text-[#1d1d1f] tracking-tight">
+							<p class="text-3xl font-semibold text-[#1d1d1f] tracking-tight">
 								{motor.tahunPembuatan || '2023+'}
 							</p>
 						</div>
