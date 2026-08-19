@@ -17,8 +17,13 @@
 
 	const renderedHtml = $derived.by(() => {
 		if (!post?.konten) return '';
-		const rawParsed = marked.parse(post.konten, { async: false, breaks: true, gfm: true }) as string;
-		return DOMPurify.sanitize(rawParsed);
+		try {
+			const rawParsed = marked.parse(post.konten, { async: false, breaks: true, gfm: true }) as string;
+			const purify = (DOMPurify as any)?.default || DOMPurify;
+			return typeof purify?.sanitize === 'function' ? purify.sanitize(rawParsed) : rawParsed;
+		} catch (e) {
+			return post.konten;
+		}
 	});
 
 	const breadcrumbSchema = $derived(
