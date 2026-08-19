@@ -13,8 +13,11 @@
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-		<!-- DNS Prefetch for API -->
+		<!-- Preconnect & DNS Prefetch for Fast Critical Origins -->
+		<link rel="preconnect" href="https://api.rosantibikemotorent.com" crossorigin />
 		<link rel="dns-prefetch" href="https://api.rosantibikemotorent.com" />
+		<link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+		<link rel="dns-prefetch" href="https://res.cloudinary.com" />
 
 		<!-- Preload Critical Local Fonts -->
 		<link

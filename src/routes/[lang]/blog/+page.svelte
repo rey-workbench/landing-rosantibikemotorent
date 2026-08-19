@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { blogService } from '$lib/services';
 	import { DEFAULTS } from '$lib/constants';
 	import type { BlogTag } from '$lib/types';
@@ -14,14 +15,14 @@
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 	const currentUrl = $derived(page.url.href);
 
-	let posts = $state<any[]>([]);
-	let tags = $state<BlogTag[]>([]);
+	let posts = $state<any[]>(untrack(() => data.initialPosts || []));
+	let tags = $state<BlogTag[]>(untrack(() => data.tags || []));
 	let loading = $state(false);
 	let error = $state('');
 	let searchQuery = $state('');
 	let selectedTagId = $state('');
 	let currentPage = $state(1);
-	let totalPages = $state(1);
+	let totalPages = $state<number>(untrack(() => data.initialMeta?.totalPages || 1));
 
 	$effect(() => {
 		posts = data.initialPosts || [];
@@ -81,6 +82,17 @@
 		canonicalUrl: currentUrl
 	}}
 />
+
+<svelte:head>
+	{#if featuredPost && (featuredPost.featuredImage || featuredPost.thumbnail)}
+		<link
+			rel="preload"
+			as="image"
+			href={optimizeImageUrl(featuredPost.featuredImage || featuredPost.thumbnail, 800)}
+			fetchpriority="high"
+		/>
+	{/if}
+</svelte:head>
 
 <main class="bg-white min-h-screen">
 	<!-- Hero / Header Section (Exact Fleet Style) -->

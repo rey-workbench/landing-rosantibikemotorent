@@ -22,8 +22,26 @@
 	let availableMotors = $state<UnitMotor[]>(
 		untrack(() => (data.availableMotors || []) as UnitMotor[])
 	);
-	let uniqueMotors: UnitMotor[] = $state([]);
-	let selectedUnit: UnitMotor | null = $state(null);
+	
+	let uniqueMotors = $derived.by(() => {
+		const seen = new Set<string>();
+		return availableMotors.filter((m) => {
+			if (!m.jenisId || seen.has(m.jenisId)) return false;
+			seen.add(m.jenisId);
+			return true;
+		});
+	});
+
+	let selectedUnit = $derived.by(() => {
+		if (formData.unitId) {
+			return availableMotors.find((m) => m.id === formData.unitId) || null;
+		}
+		if (formData.jenisId) {
+			return availableMotors.find((m) => m.jenisId === formData.jenisId) || null;
+		}
+		return null;
+	});
+
 	let unsubs: (() => void)[] = [];
 
 	$effect(() => {

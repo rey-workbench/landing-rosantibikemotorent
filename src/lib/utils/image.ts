@@ -35,7 +35,7 @@ export function optimizeImageUrl(url: string | null | undefined, width?: number)
 	if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
 		const parts = url.split('/upload/');
 		if (parts.length === 2) {
-			const transforms = ['f_auto', 'q_auto:good'];
+			const transforms = ['f_auto', 'q_auto'];
 			if (width) {
 				transforms.push(`w_${width}`, 'c_limit');
 			}

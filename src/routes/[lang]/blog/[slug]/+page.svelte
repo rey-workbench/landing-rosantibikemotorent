@@ -93,6 +93,17 @@
 	/>
 {/if}
 
+<svelte:head>
+	{#if post && (post.featuredImage || post.thumbnail)}
+		<link
+			rel="preload"
+			as="image"
+			href={optimizeImageUrl(post.featuredImage || post.thumbnail, 1200)}
+			fetchpriority="high"
+		/>
+	{/if}
+</svelte:head>
+
 {#if post}
 	<main class="min-h-screen bg-white">
 		<!-- Article Header (Medium / Apple Editorial Style) -->
@@ -215,7 +226,7 @@
 				<!-- Hero Featured Image -->
 				{#if post.featuredImage || post.thumbnail}
 					<div
-						class="mb-14 rounded-3xl overflow-hidden aspect-16/10g-[#f5f5f7] border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
+						class="mb-14 rounded-3xl overflow-hidden aspect-16/10 bg-[#f5f5f7] border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
 						in:fade={{ duration: 600 }}
 					>
 						<img

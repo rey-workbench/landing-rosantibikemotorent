@@ -100,6 +100,17 @@
 	/>
 {/if}
 
+<svelte:head>
+	{#if jenis && (getMotorImage(jenis) || jenis.gambar)}
+		<link
+			rel="preload"
+			as="image"
+			href={getMotorImage(jenis) || jenis.gambar}
+			fetchpriority="high"
+		/>
+	{/if}
+</svelte:head>
+
 <!-- Back Button -->
 <div class="pt-18 md:pt-20 px-4 md:px-10">
 	<div class="max-w-7xl mx-auto">
