@@ -11,59 +11,16 @@ export function buildWebsiteSchema() {
 	};
 }
 
-const rentalFleet = [
-	{
-		name: 'Honda PCX 150',
-		category: 'Maxi Scooter',
-		description: 'Sewa Honda PCX 150cc di Malang.',
-		image: 'honda-pcx',
-		price: '150000'
-	},
-	{
-		name: 'Yamaha Lexi 125',
-		category: 'Medium Scooter',
-		description: 'Sewa Yamaha Lexi 125cc di Malang.',
-		image: 'yamaha-lexi',
-		price: '125000'
-	},
-	{
-		name: 'Honda Vario 150',
-		category: 'Medium Scooter',
-		description: 'Sewa Honda Vario 150cc di Malang.',
-		image: 'honda-vario-125',
-		price: '120000'
-	},
-	{
-		name: 'Honda Vario 125',
-		category: 'Medium Scooter',
-		description: 'Sewa Honda Vario 125cc di Malang.',
-		image: 'honda-vario-125',
-		price: '120000'
-	},
-	{
-		name: 'Honda Scoopy',
-		category: 'Retro Scooter',
-		description: 'Sewa Honda Scoopy 110cc di Malang.',
-		image: 'honda-scoopy',
-		price: '100000'
-	},
-	{
-		name: 'Honda Beat Fi',
-		category: 'Standard Scooter',
-		description: 'Sewa Honda Beat Fi 110cc di Malang.',
-		image: 'honda-beat',
-		price: '100000'
-	},
-	{
-		name: 'Yamaha Soul GT 125',
-		category: 'Standard Scooter',
-		description: 'Sewa Yamaha Soul GT 125cc di Malang.',
-		image: 'yamaha-soul-gt',
-		price: '80000'
-	}
-];
+export interface FleetMotor {
+	name: string;
+	brand: string;
+	category: string;
+	description: string;
+	image: string;
+	price: string;
+}
 
-export function buildOrganizationSchema() {
+export function buildOrganizationSchema(fleet: FleetMotor[] = []) {
 	return {
 		'@context': 'https://schema.org',
 		'@type': ['LocalBusiness', 'AutoRental'],
@@ -132,25 +89,48 @@ export function buildOrganizationSchema() {
 				closes: '22:00'
 			}
 		],
-		hasOfferCatalog: {
-			'@type': 'OfferCatalog',
-			name: 'Katalog Sewa Motor Malang',
-			itemListElement: rentalFleet.map((motor) => ({
-				'@type': 'Offer',
-				itemOffered: {
-					'@type': 'Product',
-					name: motor.name,
-					category: motor.category,
-					description: motor.description,
-					image: `${BASE_URL}/images/${motor.image}.webp`,
-					offers: {
-						'@type': 'Offer',
-						price: motor.price,
-						priceCurrency: 'IDR'
+		...(fleet.length > 0 && {
+			hasOfferCatalog: {
+				'@type': 'OfferCatalog',
+				name: 'Katalog Sewa Motor Malang',
+				itemListElement: fleet.map((motor) => ({
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: motor.name,
+						brand: { '@type': 'Brand', name: motor.brand },
+						category: motor.category,
+						description: motor.description,
+						image: motor.image,
+						offers: {
+							'@type': 'Offer',
+							price: motor.price,
+							priceCurrency: 'IDR',
+							availability: 'https://schema.org/InStock',
+							hasMerchantReturnPolicy: {
+								'@type': 'MerchantReturnPolicy',
+								applicableCountry: 'ID',
+								returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+								merchantReturnDays: 0
+							},
+							shippingDetails: {
+								'@type': 'OfferShippingDetails',
+								shippingDestination: {
+									'@type': 'DefinedRegion',
+									addressCountry: 'ID',
+									addressRegion: 'Jawa Timur'
+								},
+								shippingRate: {
+									'@type': 'MonetaryAmount',
+									value: 0,
+									currency: 'IDR'
+								}
+							}
+						}
 					}
-				}
-			}))
-		}
+				}))
+			}
+		})
 	};
 }
 

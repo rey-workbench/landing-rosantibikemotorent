@@ -52,26 +52,27 @@
 </script>
 
 <div class="relative h-svh w-full overflow-hidden bg-black">
-	{#if !isDesktop}
-		<picture>
-			<source srcset="/video/posters/hero.avif" type="image/avif" />
-			<source srcset="/video/posters/hero.webp" type="image/webp" />
-			<img
-				src="/video/posters/hero.webp"
-				alt="Motor Rent Hero"
-				fetchpriority="high"
-				class="absolute inset-0 w-full h-full object-cover"
-			/>
-		</picture>
-	{:else}
+	<picture class="block w-full h-full">
+		<source srcset="/video/posters/hero.avif" type="image/avif" />
+		<source srcset="/video/posters/hero.webp" type="image/webp" />
+		<img
+			src="/video/posters/hero.webp"
+			alt="Motor Rent Hero"
+			fetchpriority="high"
+			width="1920"
+			height="1080"
+			class="absolute inset-0 w-full h-full object-cover"
+		/>
+	</picture>
+
+	{#if isDesktop}
 		<video
 			bind:this={videoRef}
 			muted
 			loop
 			playsinline
 			preload="none"
-			poster="/video/posters/hero.webp"
-			class="absolute inset-0 w-full h-full object-cover"
+			class="hidden md:block absolute inset-0 w-full h-full object-cover"
 		>
 			<track kind="captions" srclang="id" label="Bahasa Indonesia" default />
 		</video>

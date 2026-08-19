@@ -18,13 +18,12 @@ export default defineConfig({
 			output: {
 				manualChunks: (id) => {
 					if (id.includes('node_modules')) {
-						if (id.includes('svelte')) {
-							return 'vendor-svelte';
+						if (id.includes('isomorphic-dompurify')) {
+							return 'dompurify';
 						}
 						if (id.includes('socket.io-client') || id.includes('libphonenumber-js')) {
 							return 'vendor-heavy';
 						}
-						return 'vendor';
 					}
 				}
 			}

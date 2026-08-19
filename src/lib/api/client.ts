@@ -123,7 +123,8 @@ class ApiClient {
 
 	async request(method: string, url: string, data?: any, config: any = {}) {
 		const fetchUrl = buildUrl(url, config.params);
-		const useCache = method === 'GET' && !config.customFetch && config.ttl > 0;
+		const ttl = config.ttl ?? (method === 'GET' ? DEFAULTS.GET_TTL_MS : 0);
+		const useCache = method === 'GET' && ttl > 0;
 
 		if (useCache) {
 			const cached = this.responseCache.get(fetchUrl);
@@ -132,7 +133,7 @@ class ApiClient {
 			}
 		}
 
-		if (method === 'GET' && !config.customFetch) {
+		if (method === 'GET') {
 			if (this.pendingGets.has(fetchUrl)) {
 				return this.pendingGets.get(fetchUrl);
 			}
@@ -144,15 +145,15 @@ class ApiClient {
 			return this.performFetch(fetchFn, fetchUrl, method, headers, body, config);
 		};
 
-		if (method === 'GET' && !config.customFetch) {
+		if (method === 'GET') {
 			const promise = execute().finally(() => {
 				this.pendingGets.delete(fetchUrl);
 			});
 			this.pendingGets.set(fetchUrl, promise);
 			const result = await promise;
-			if (useCache) {
+			if (useCache && result) {
 				this.responseCache.set(fetchUrl, {
-					expiresAt: Date.now() + config.ttl,
+					expiresAt: Date.now() + ttl,
 					data: result.data,
 					status: result.status
 				});

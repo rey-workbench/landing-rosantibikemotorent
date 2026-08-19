@@ -9,12 +9,7 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { page } from '$app/state';
 	import { LL } from '$i18n/i18n-svelte';
-	import {
-		buildFaqSchema,
-		buildVideoSchema,
-		buildWebsiteSchema,
-		buildOrganizationSchema
-	} from '$lib/seo/schema';
+	import { buildFaqSchema, buildVideoSchema, buildWebsiteSchema } from '$lib/seo/schema';
 	import { BASE_URL } from '$lib/seo/types';
 	import type { PageData } from './$types';
 
@@ -22,7 +17,6 @@
 
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 	const webSchema = $derived(buildWebsiteSchema());
-	const orgSchema = $derived(buildOrganizationSchema());
 	const videoSchema = $derived(
 		buildVideoSchema({
 			name:
@@ -104,7 +98,7 @@
 		description: $LL.seo_description(),
 		ogType: 'website'
 	}}
-	schemas={[webSchema, orgSchema, faqSchema, videoSchema]}
+	schemas={[webSchema, faqSchema, videoSchema]}
 />
 
 <!-- Hero / video background -->
