@@ -4,14 +4,18 @@
 	import TextOverlay from './HeroOverlay.svelte';
 
 	let videoRef = $state<HTMLVideoElement>();
+	let isDesktop = $state(true); // Default true for SSR, we will refine onMount
 
 	onMount(() => {
 		setTimeout(() => (loadingState.isLoaded = true), 1000);
 
+		// Only load video on tablet/desktop viewports
+		isDesktop = window.matchMedia('(min-width: 768px)').matches;
+
 		const start = () => {
-			if (videoRef) {
+			if (videoRef && isDesktop) {
 				if (!videoRef.src) {
-					videoRef.src = '/video/hero.mp4';
+					videoRef.src = '/video/hero.mp4'; // Replace with hero-compressed.webm when available
 				}
 				if (videoRef.paused) {
 					videoRef.play().catch(() => {
@@ -48,17 +52,25 @@
 </script>
 
 <div class="relative h-svh w-full overflow-hidden bg-black">
-	<video
-		bind:this={videoRef}
-		muted
-		loop
-		playsinline
-		preload="none"
-		poster="/video/posters/hero.webp"
-		class="absolute inset-0 w-full h-full object-cover"
-	>
-		<track kind="captions" srclang="id" label="Bahasa Indonesia" default />
-	</video>
+	{#if !isDesktop}
+		<picture>
+			<source srcset="/video/posters/hero.avif" type="image/avif" />
+			<source srcset="/video/posters/hero.webp" type="image/webp" />
+			<img src="/video/posters/hero.webp" alt="Motor Rent Hero" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" />
+		</picture>
+	{:else}
+		<video
+			bind:this={videoRef}
+			muted
+			loop
+			playsinline
+			preload="none"
+			poster="/video/posters/hero.webp"
+			class="absolute inset-0 w-full h-full object-cover"
+		>
+			<track kind="captions" srclang="id" label="Bahasa Indonesia" default />
+		</video>
+	{/if}
 
 	<!-- Cinematic Overlays -->
 	<div class="absolute inset-0 pointer-events-none">

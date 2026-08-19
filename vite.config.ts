@@ -11,6 +11,7 @@ export default defineConfig({
 		viteCompression({ algorithm: 'gzip', ext: '.gz' })
 	],
 	build: {
+		cssCodeSplit: true,
 		sourcemap: false,
 		chunkSizeWarningLimit: 1000,
 		rollupOptions: {
@@ -19,6 +20,9 @@ export default defineConfig({
 					if (id.includes('node_modules')) {
 						if (id.includes('svelte')) {
 							return 'vendor-svelte';
+						}
+						if (id.includes('socket.io-client') || id.includes('libphonenumber-js')) {
+							return 'vendor-heavy';
 						}
 						return 'vendor';
 					}
