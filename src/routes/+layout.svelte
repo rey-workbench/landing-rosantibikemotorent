@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import { onMount } from 'svelte';
-	import Lenis from 'lenis';
+	import { onMount, onDestroy } from 'svelte';
 	import Navbar from '$lib/components/layout/Navbar.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import Preloader from '$lib/components/ui/Preloader.svelte';
@@ -18,25 +17,27 @@
 		}
 	});
 
+	let lenisInstance: { destroy: () => void } | null = null;
+
 	onMount(() => {
-		const lenis = new Lenis({
-			duration: 1.2,
-			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-			orientation: 'vertical',
-			smoothWheel: true,
-			touchMultiplier: 2
+		// Lenis hanya untuk smooth wheel di desktop — lewati untuk touch & reduced-motion
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (window.matchMedia('(pointer: coarse)').matches) return;
+
+		import('lenis').then(({ default: Lenis }) => {
+			lenisInstance = new Lenis({
+				duration: 1.2,
+				easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+				orientation: 'vertical',
+				smoothWheel: true,
+				touchMultiplier: 2,
+				autoRaf: true
+			});
 		});
+	});
 
-		function raf(time: number) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		}
-
-		requestAnimationFrame(raf);
-
-		return () => {
-			lenis.destroy();
-		};
+	onDestroy(() => {
+		lenisInstance?.destroy();
 	});
 </script>
 
