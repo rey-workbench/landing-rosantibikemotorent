@@ -311,18 +311,8 @@ html.lenis {
    ---------------------------------------------------- */
 .article-content {
 	color: #1d1d1f;
-	line-height: 1.7;
+	line-height: 1.75;
 	font-size: 1.125rem;
-}
-
-.article-content p:first-of-type::first-letter {
-	float: left;
-	font-size: 3.5rem;
-	line-height: 0.8;
-	padding-top: 8px;
-	padding-right: 8px;
-	font-weight: 600;
-	color: #1d1d1f;
 }
 
 .article-content h1,
@@ -330,33 +320,44 @@ html.lenis {
 .article-content h3,
 .article-content h4,
 .article-content strong {
-	color: #1d1d1f !important;
+	color: #1d1d1f;
 	font-weight: 600;
-	letter-spacing: -0.01em;
+	letter-spacing: -0.015em;
 }
 
 .article-content h2 {
-	font-size: 2rem;
-	margin: 3rem 0 1.5rem;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-	padding-bottom: 0.5rem;
+	font-size: 1.85rem;
+	margin: 3.5rem 0 1.5rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 	font-family: var(--font-display);
+	line-height: 1.2;
 }
 
 .article-content h3 {
-	font-size: 1.45rem;
-	margin: 2.25rem 0 1rem;
+	font-size: 1.35rem;
+	margin: 2.75rem 0 1.25rem;
 	font-family: var(--font-display);
+	line-height: 1.3;
+	color: #1d1d1f;
 }
 
 .article-content p {
 	margin-bottom: 1.5rem;
-	color: #1d1d1f;
+	color: #333336;
+	line-height: 1.75;
+}
+
+.article-content hr {
+	border: 0;
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+	margin: 3.5rem 0;
 }
 
 .article-content a {
 	color: #0071e3 !important;
 	text-decoration: underline;
+	text-underline-offset: 3px;
 }
 
 .article-content a:hover {
@@ -366,27 +367,35 @@ html.lenis {
 .article-content img {
 	border-radius: 1.5rem;
 	margin: 3rem 0;
-	border: 1px solid rgba(0, 0, 0, 0.05);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 }
 
 .article-content blockquote {
-	border-left: 3px solid #1d1d1f;
-	padding: 1rem 1.5rem;
-	background: #f5f5f7;
+	border-left: 3px solid #0071e3;
+	padding: 1.25rem 1.75rem;
+	background: #fbfbfd;
 	border-radius: 0 1rem 1rem 0;
 	margin: 2.5rem 0;
 	color: #1d1d1f;
+	font-style: normal;
+	border-top: 1px solid rgba(0, 0, 0, 0.04);
+	border-right: 1px solid rgba(0, 0, 0, 0.04);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
+/* Responsive Apple-Style Tables */
 .article-content table {
 	width: 100%;
 	margin: 2.5rem 0;
-	border-collapse: collapse;
+	border-collapse: separate;
+	border-spacing: 0;
 	border-radius: 1rem;
 	overflow: hidden;
 	border: 1px solid rgba(0, 0, 0, 0.08);
 	background: white;
 	font-size: 0.95rem;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
 }
 
 .article-content th {
@@ -394,16 +403,19 @@ html.lenis {
 	color: #1d1d1f;
 	font-weight: 600;
 	text-align: left;
-	padding: 0.85rem 1.15rem;
+	padding: 1rem 1.25rem;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 	font-family: var(--font-display);
+	font-size: 0.9rem;
+	letter-spacing: 0.01em;
 }
 
 .article-content td {
-	padding: 0.85rem 1.15rem;
+	padding: 1rem 1.25rem;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 	color: #333336;
 	vertical-align: top;
+	line-height: 1.6;
 }
 
 .article-content tr:last-child td {
@@ -414,22 +426,65 @@ html.lenis {
 	background: #fafafc;
 }
 
+/* Luxury Structured Lists & FAQ Cards */
 .article-content ul,
 .article-content ol {
-	margin: 1.5rem 0 2rem;
-	padding-left: 1.5rem;
+	margin: 1.75rem 0 2.25rem;
+	padding-left: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
-.article-content ul {
-	list-style-type: disc;
+.article-content ul > li,
+.article-content ol > li {
+	position: relative;
+	padding: 1.25rem 1.5rem;
+	background: #fbfbfd;
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	border-radius: 1.25rem;
+	color: #333336;
+	line-height: 1.7;
+	transition: all 0.25s ease;
 }
 
-.article-content ol {
-	list-style-type: decimal;
+.article-content ul > li:hover,
+.article-content ol > li:hover {
+	border-color: rgba(0, 113, 227, 0.25);
+	background: white;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
-.article-content li {
-	margin-bottom: 0.5rem;
+.article-content ul > li strong,
+.article-content ol > li strong {
+	display: block;
+	font-size: 1.05rem;
 	color: #1d1d1f;
-	line-height: 1.6;
+	margin-bottom: 0.35rem;
+	font-family: var(--font-display);
+}
+
+/* Standalone FAQ Question & Answer Paragraphs */
+.article-content p:has(strong:first-child) {
+	padding: 1.25rem 1.5rem;
+	background: #fbfbfd;
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	border-radius: 1.25rem;
+	margin-bottom: 1rem;
+	transition: all 0.25s ease;
+}
+
+.article-content p:has(strong:first-child):hover {
+	border-color: rgba(0, 113, 227, 0.25);
+	background: white;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.article-content p:has(strong:first-child) strong:first-child {
+	display: block;
+	font-size: 1.05rem;
+	color: #1d1d1f;
+	margin-bottom: 0.4rem;
+	font-family: var(--font-display);
 }
