@@ -52,13 +52,6 @@
 	<meta name="twitter:image" content={meta.twitterImage || ogImage} />
 
 	<link rel="canonical" href={currentUrl} />
-	<link
-		rel="preload"
-		as="image"
-		href="/video/posters/hero.webp"
-		fetchpriority="high"
-		type="image/webp"
-	/>
 
 	{#if meta.articlePublishedTime}
 		<meta property="article:published_time" content={meta.articlePublishedTime} />

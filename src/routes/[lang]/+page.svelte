@@ -91,6 +91,16 @@
 	);
 </script>
 
+<svelte:head>
+	<link
+		rel="preload"
+		as="image"
+		href="/video/posters/hero.webp"
+		fetchpriority="high"
+		type="image/webp"
+	/>
+</svelte:head>
+
 <SeoHead
 	{lang}
 	path="/"
