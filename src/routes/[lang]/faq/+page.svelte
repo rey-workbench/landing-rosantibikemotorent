@@ -114,7 +114,7 @@
 
 <!-- Hero Header -->
 <header
-	class="pt-32 pb-12 md:pt-40 md:pb-16 px-6 md:px-10 bg-[#f5f5f7] border-b border-black/5 text-center"
+	class="pt-20 pb-8 md:pt-24 md:pb-12 px-6 md:px-10 bg-[#f5f5f7] border-b border-black/5 text-center"
 >
 	<div class="max-w-3xl mx-auto">
 		<span

@@ -15,7 +15,7 @@
 	}}
 />
 
-<div class="pt-32 pb-24 md:pt-40 md:pb-36 bg-white min-h-screen">
+<main class="pt-20 pb-20 md:pt-24 md:pb-28 bg-white min-h-screen">
 	<div class="container mx-auto px-6 md:px-10 max-w-4xl">
 		<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] tracking-tight mb-8">
 			{lang === 'en' ? 'Privacy Policy' : 'Kebijakan Privasi'}
@@ -54,4 +54,4 @@
 			</p>
 		</div>
 	</div>
-</div>
+</main>

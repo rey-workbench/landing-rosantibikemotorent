@@ -101,7 +101,7 @@
 {/if}
 
 <!-- Back Button -->
-<div class="pt-24 px-4 md:px-10">
+<div class="pt-18 md:pt-20 px-4 md:px-10">
 	<div class="max-w-7xl mx-auto">
 		<a
 			href="/{lang}/fleet"
@@ -125,7 +125,7 @@
 
 {#if motor && jenis}
 	<!-- Main Content -->
-	<section class="py-12 px-4 md:px-10">
+	<section class="pt-4 pb-16 px-4 md:px-10">
 		<div class="max-w-7xl mx-auto">
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 				<!-- Image Section -->

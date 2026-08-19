@@ -96,10 +96,10 @@
 {#if post}
 	<main class="min-h-screen bg-white">
 		<!-- Article Header (Medium / Apple Editorial Style) -->
-		<header class="pt-28 md:pt-36 pb-10 px-4 sm:px-6 md:px-8">
+		<header class="pt-18 md:pt-20 pb-8 px-4 sm:px-6 md:px-8">
 			<div class="max-w-185 mx-auto">
 				<!-- Navigation Back Link -->
-				<div class="mb-8">
+				<div class="mb-6">
 					<a
 						href="/{lang}/blog"
 						class="inline-flex items-center gap-2 text-[#0071e3] text-sm font-medium hover:underline transition-all group"
