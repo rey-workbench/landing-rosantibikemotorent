@@ -31,7 +31,7 @@
 					: 'Sewa Motor Malang Murah & Premium - Rosantibike Motorent',
 			description: $LL.seo_description(),
 			thumbnailUrl: `${BASE_URL}/video/posters/hero.webp`,
-			contentUrl: `${BASE_URL}/video/hero.mp4`,
+			contentUrl: `${BASE_URL}/video/hero-compressed.webm`,
 			uploadDate: '2025-07-19'
 		})
 	);

@@ -15,7 +15,7 @@
 		const start = () => {
 			if (videoRef && isDesktop) {
 				if (!videoRef.src) {
-					videoRef.src = '/video/hero.mp4'; // Replace with hero-compressed.webm when available
+					videoRef.src = '/video/hero-compressed.webm';
 				}
 				if (videoRef.paused) {
 					videoRef.play().catch(() => {
