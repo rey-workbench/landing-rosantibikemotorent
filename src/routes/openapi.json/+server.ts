@@ -1,0 +1,71 @@
+import type { RequestHandler } from '@sveltejs/kit';
+
+export const GET: RequestHandler = async () => {
+	const openapi = {
+		openapi: '3.1.0',
+		info: {
+			title: 'RosantiBike Motorent API',
+			version: '1.0.0',
+			description: 'API for motorcycle rentals in Malang & Batu with Machine Payment Protocol (MPP) support.'
+		},
+		servers: [
+			{
+				url: 'https://api.rosantibikemotorent.com',
+				description: 'Production API Gateway'
+			}
+		],
+		'x-service-info': {
+			categories: ['vehicle_rental', 'transportation', 'tourism'],
+			provider: 'RosantiBike Motorent',
+			contact: 'https://wa.me/628232152313'
+		},
+		paths: {
+			'/api/jenis-motor': {
+				get: {
+					summary: 'Get motorcycle catalog and pricing',
+					operationId: 'getJenisMotor',
+					responses: {
+						'200': {
+							description: 'List of available motorcycle models and rental rates'
+						}
+					}
+				}
+			},
+			'/api/transaksi': {
+				post: {
+					summary: 'Create motorcycle rental booking',
+					operationId: 'createBooking',
+					'x-payment-info': {
+						intent: 'charge',
+						method: 'qris',
+						amount: '80000',
+						currency: 'IDR',
+						description: 'Motorcycle rental reservation and delivery fee'
+					},
+					responses: {
+						'201': {
+							description: 'Booking created successfully'
+						},
+						'402': {
+							description: 'Payment Required (x402 / MPP)',
+							headers: {
+								'Pay-Token': {
+									description: 'Payment settlement token',
+									schema: { type: 'string' }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	};
+
+	return new Response(JSON.stringify(openapi, null, 2), {
+		headers: {
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
+			'Cache-Control': 'public, max-age=3600, s-maxage=86400'
+		}
+	});
+};

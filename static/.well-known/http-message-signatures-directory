@@ -1,0 +1,12 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "use": "sig",
+      "alg": "RS256",
+      "kid": "rosantibike-sig-key-1",
+      "n": "uN8_uN2_uJ3_rosantibike_signature_directory_key_public_token_sample_abc123",
+      "e": "AQAB"
+    }
+  ]
+}
