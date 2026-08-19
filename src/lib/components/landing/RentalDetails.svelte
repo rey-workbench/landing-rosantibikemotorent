@@ -81,11 +81,17 @@
 										<h3 class="text-sm font-bold m-0 p-0 text-[#1d1d1f]">{item.type}</h3>
 									</td>
 									<td class="py-5 px-4 text-sm font-medium">{item.capacity}</td>
-									<td class="py-5 px-4 font-bold text-[#0056b3] whitespace-nowrap">{item.rate}</td>
-									<td class="py-5 px-4 text-sm text-[#6b6b70]"
-										>{$LL.details_pricing_inclusions()}</td
-									>
-									<td class="py-5 px-4 text-sm font-medium">{item.route}</td>
+									<td class="py-5 px-4 font-bold text-[#0071e3] whitespace-nowrap">{item.rate}</td>
+									<td class="py-5 px-4 text-xs font-medium text-[#059669]">
+										<span class="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/60">
+											{$LL.details_pricing_inclusions()}
+										</span>
+									</td>
+									<td class="py-5 px-4 text-sm font-medium">
+										<span class="px-2.5 py-1 rounded-full bg-[#f5f5f7] border border-black/5 text-[#1d1d1f] text-xs">
+											{item.route}
+										</span>
+									</td>
 								</tr>
 							{/each}
 						</tbody>
@@ -104,7 +110,7 @@
 						{#each reqList as req}
 							<li class="flex items-start gap-3 text-base text-[#1d1d1f]">
 								<span
-									class="shrink-0 w-6 h-6 rounded-full bg-black/5 flex items-center justify-center text-xs font-bold text-[#6b6b70] mt-0.5"
+									class="shrink-0 w-6 h-6 rounded-full bg-emerald-50 border border-emerald-200/80 flex items-center justify-center text-xs font-bold text-[#059669] mt-0.5 shadow-2xs"
 								>
 									✓
 								</span>
@@ -122,13 +128,29 @@
 					<p class="text-sm text-[#6b6b70]">
 						{$LL.details_area_desc()}
 					</p>
-					<div class="space-y-4">
-						{#each locations as loc}
+					<div class="space-y-3.5">
+						{#each locations as loc, idx}
+							{@const colors = [
+								{ bg: 'bg-blue-50/70', border: 'border-blue-100', text: 'text-[#0071e3]', badge: 'bg-[#0071e3]' },
+								{ bg: 'bg-purple-50/70', border: 'border-purple-100', text: 'text-[#7c3aed]', badge: 'bg-[#7c3aed]' },
+								{ bg: 'bg-emerald-50/70', border: 'border-emerald-100', text: 'text-[#059669]', badge: 'bg-[#059669]' },
+								{ bg: 'bg-amber-50/70', border: 'border-amber-100', text: 'text-[#d97706]', badge: 'bg-[#d97706]' },
+								{ bg: 'bg-rose-50/70', border: 'border-rose-100', text: 'text-[#e11d48]', badge: 'bg-[#e11d48]' }
+							]}
+							{@const c = colors[idx % colors.length]}
 							<div
-								class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 hover:border-black/10 transition-colors"
+								class="p-4.5 rounded-2xl {c.bg} border {c.border} flex items-start gap-3.5 transition-all hover:scale-[1.01]"
 							>
-								<h3 class="font-bold text-[#1d1d1f] text-sm">{loc.name}</h3>
-								<p class="text-xs text-[#6b6b70] mt-1">{loc.desc}</p>
+								<div class="w-8 h-8 rounded-xl {c.badge} text-white flex items-center justify-center shrink-0 shadow-xs mt-0.5">
+									<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+										<path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-[#1d1d1f] text-sm">{loc.name}</h3>
+									<p class="text-xs text-[#6b6b70] mt-0.5 leading-relaxed">{loc.desc}</p>
+								</div>
 							</div>
 						{/each}
 					</div>

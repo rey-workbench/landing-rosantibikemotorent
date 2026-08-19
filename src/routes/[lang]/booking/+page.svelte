@@ -486,47 +486,47 @@
 
 							<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
 								<!-- Jas Hujan Card -->
-								<div class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-center justify-between">
+								<div class="p-4 rounded-2xl bg-teal-50/50 border border-teal-100 flex items-center justify-between">
 									<div>
-										<p class="text-sm font-semibold text-[#1d1d1f]">{$LL.booking_raincoat_label()}</p>
+										<p class="text-sm font-bold text-[#00897b]">{$LL.booking_raincoat_label()}</p>
 										<p class="text-xs text-[#6b6b70] mt-0.5">Jas hujan ponco/setelan</p>
 									</div>
-									<div class="flex items-center gap-1 bg-white border border-black/8 rounded-xl p-1 shadow-xs">
+									<div class="flex items-center gap-1 bg-white border border-teal-200/80 rounded-xl p-1 shadow-xs">
 										<button
 											type="button"
 											disabled={formData.jasHujan <= 0}
 											onclick={() => { formData.jasHujan = Math.max(0, formData.jasHujan - 1); handleCalculatePrice(); }}
-											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-colors"
 										>-</button>
-										<span class="w-6 text-center text-xs font-bold text-[#1d1d1f]">{formData.jasHujan}</span>
+										<span class="w-6 text-center text-xs font-bold text-[#00897b]">{formData.jasHujan}</span>
 										<button
 											type="button"
 											disabled={formData.jasHujan >= 2}
 											onclick={() => { formData.jasHujan = Math.min(2, formData.jasHujan + 1); handleCalculatePrice(); }}
-											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-colors"
 										>+</button>
 									</div>
 								</div>
 
 								<!-- Helm Card -->
-								<div class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-center justify-between">
+								<div class="p-4 rounded-2xl bg-amber-50/50 border border-amber-100 flex items-center justify-between">
 									<div>
-										<p class="text-sm font-semibold text-[#1d1d1f]">{$LL.booking_helmet_label()}</p>
+										<p class="text-sm font-bold text-[#d97706]">{$LL.booking_helmet_label()}</p>
 										<p class="text-xs text-[#6b6b70] mt-0.5">Helm SNI bersih & wangi</p>
 									</div>
-									<div class="flex items-center gap-1 bg-white border border-black/8 rounded-xl p-1 shadow-xs">
+									<div class="flex items-center gap-1 bg-white border border-amber-200/80 rounded-xl p-1 shadow-xs">
 										<button
 											type="button"
 											disabled={formData.helm <= 0}
 											onclick={() => { formData.helm = Math.max(0, formData.helm - 1); handleCalculatePrice(); }}
-											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-amber-50 disabled:opacity-30 disabled:pointer-events-none transition-colors"
 										>-</button>
-										<span class="w-6 text-center text-xs font-bold text-[#1d1d1f]">{formData.helm}</span>
+										<span class="w-6 text-center text-xs font-bold text-[#d97706]">{formData.helm}</span>
 										<button
 											type="button"
 											disabled={formData.helm >= 2}
 											onclick={() => { formData.helm = Math.min(2, formData.helm + 1); handleCalculatePrice(); }}
-											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-amber-50 disabled:opacity-30 disabled:pointer-events-none transition-colors"
 										>+</button>
 									</div>
 								</div>

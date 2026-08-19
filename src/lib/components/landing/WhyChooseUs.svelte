@@ -60,9 +60,12 @@
 			</p>
 
 			<div class="flex flex-col mt-12 w-full max-w-lg">
-				<div class="flex gap-5 sm:gap-8 border-t border-black/10 py-6">
-					<div class="shrink-0 mt-1">
-						<span class="text-[#6b6b70] text-xs font-bold tracking-[0.2em]">01</span>
+				<!-- Item 1: Apple Blue -->
+				<div class="flex gap-5 sm:gap-6 border-t border-black/10 py-6 items-start">
+					<div class="shrink-0 w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200/80 text-[#0071e3] flex items-center justify-center font-bold text-sm shadow-xs">
+						<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+						</svg>
 					</div>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
@@ -72,9 +75,13 @@
 					</div>
 				</div>
 
-				<div class="flex gap-5 sm:gap-8 border-t border-black/10 py-6">
-					<div class="shrink-0 mt-1">
-						<span class="text-[#6b6b70] text-xs font-bold tracking-[0.2em]">02</span>
+				<!-- Item 2: Apple Mint / Emerald -->
+				<div class="flex gap-5 sm:gap-6 border-t border-black/10 py-6 items-start">
+					<div class="shrink-0 w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-[#059669] flex items-center justify-center font-bold text-sm shadow-xs">
+						<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+							<path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+						</svg>
 					</div>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
@@ -84,9 +91,12 @@
 					</div>
 				</div>
 
-				<div class="flex gap-5 sm:gap-8 border-t border-b border-black/10 py-6">
-					<div class="shrink-0 mt-1">
-						<span class="text-[#6b6b70] text-xs font-bold tracking-[0.2em]">03</span>
+				<!-- Item 3: Apple Sunset Orange -->
+				<div class="flex gap-5 sm:gap-6 border-t border-b border-black/10 py-6 items-start">
+					<div class="shrink-0 w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200/80 text-[#d97706] flex items-center justify-center font-bold text-sm shadow-xs">
+						<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+						</svg>
 					</div>
 					<div>
 						<h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight mb-2">
