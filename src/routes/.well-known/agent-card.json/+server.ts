@@ -25,8 +25,42 @@ export const GET: RequestHandler = async () => {
 		capabilities: {
 			streaming: true,
 			tools: true,
-			commerce: true
+			commerce: true,
+			extensions: [
+				{
+					uri: 'https://github.com/google-agentic-commerce/AP2/tree/v0.1.0',
+					required: true,
+					params: {
+						roles: ['merchant']
+					}
+				},
+				{
+					uri: 'https://ap2-protocol.org/',
+					required: true,
+					params: {
+						roles: ['merchant']
+					}
+				}
+			]
 		},
+		extensions: [
+			{
+				uri: 'https://github.com/google-agentic-commerce/AP2/tree/v0.1.0',
+				required: true,
+				roles: ['merchant'],
+				params: {
+					roles: ['merchant']
+				}
+			},
+			{
+				uri: 'https://ap2-protocol.org/',
+				required: true,
+				roles: ['merchant'],
+				params: {
+					roles: ['merchant']
+				}
+			}
+		],
 		skills: [
 			{
 				id: 'motorcycle-catalog',
@@ -42,15 +76,6 @@ export const GET: RequestHandler = async () => {
 				id: 'reservation-booking',
 				name: 'Create Motorcycle Booking',
 				description: 'Reserve a motorcycle with delivery to hotels, Malang Train Station (Kotabaru), or Terminal Arjosari.'
-			}
-		],
-		extensions: [
-			{
-				uri: 'https://github.com/google-agentic-commerce/AP2/tree/v0.1.0',
-				required: true,
-				params: {
-					roles: ['merchant']
-				}
 			}
 		]
 	};

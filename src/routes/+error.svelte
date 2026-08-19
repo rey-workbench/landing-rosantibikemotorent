@@ -25,14 +25,6 @@
 
 <section class="min-h-[85vh] flex items-center justify-center pt-28 pb-20 md:pt-36 md:pb-28 px-4 sm:px-6 bg-[#f5f5f7]">
 	<div class="max-w-3xl w-full mx-auto text-center">
-		<!-- Numeric Status Header with Brand Styling -->
-		<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#d2d2d7]/60 shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-8">
-			<span class="w-2 h-2 rounded-full {is404 ? 'bg-[#0071e3]' : 'bg-[#ff3b30]'}"></span>
-			<span class="text-xs font-semibold tracking-wider text-[#1d1d1f] uppercase font-display">
-				{is404 ? (isEn ? 'Error 404 &bull; Page Not Found' : 'Error 404 &bull; Halaman Tidak Ditemukan') : `Error ${status}`}
-			</span>
-		</div>
-
 		<h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-[#1d1d1f] tracking-tight font-display mb-5 leading-[1.1]">
 			{is404
 				? (isEn ? 'Destination Not Found.' : 'Halaman Tidak Ditemukan.')

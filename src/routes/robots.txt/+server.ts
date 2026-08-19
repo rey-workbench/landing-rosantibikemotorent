@@ -1,11 +1,10 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async () => {
-	const robotsTxt = `# Rosantibike Motorent - robots.txt
-# https://rosantibikemotorent.com
+	const robotsTxt = `Content-Signal: search=yes, ai-input=yes, ai-train=no
 
-# Content Signals (https://contentsignals.org)
-Content-Signal: search=yes, ai-input=yes, ai-train=no
+# Rosantibike Motorent - robots.txt
+# https://rosantibikemotorent.com
 
 User-agent: *
 Allow: /
@@ -43,8 +42,9 @@ Crawl-delay: 1`;
 
 	return new Response(robotsTxt, {
 		headers: {
-			'Content-Type': 'text/plain',
-			'Cache-Control': 'max-age=86400, s-maxage=604800'
+			'Content-Type': 'text/plain; charset=utf-8',
+			'Content-Signal': 'search=yes, ai-input=yes, ai-train=no',
+			'Cache-Control': 'public, max-age=3600, s-maxage=86400'
 		}
 	});
 };

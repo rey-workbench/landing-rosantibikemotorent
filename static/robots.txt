@@ -1,5 +1,7 @@
-# Content Signals (https://contentsignals.org)
 Content-Signal: search=yes, ai-input=yes, ai-train=no
+
+# Rosantibike Motorent - robots.txt
+# https://rosantibikemotorent.com
 
 User-agent: *
 Allow: /
@@ -7,7 +9,7 @@ Allow: /
 # Block booking success page (contains customer booking receipt)
 Disallow: /*/booking/success
 
-# AI & Search Engine Crawlers
+# AI & Search Assistant Crawlers (Search & Citation Enabled)
 User-agent: GPTBot
 Allow: /
 
@@ -29,4 +31,8 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+# Sitemap
 Sitemap: https://rosantibikemotorent.com/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
