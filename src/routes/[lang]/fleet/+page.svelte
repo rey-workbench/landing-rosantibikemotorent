@@ -49,6 +49,17 @@
 	}}
 />
 
+<svelte:head>
+	{#if jenisMotors.length > 0 && getMotorImage(jenisMotors[0])}
+		<link
+			rel="preload"
+			as="image"
+			href={getMotorImage(jenisMotors[0])}
+			fetchpriority="high"
+		/>
+	{/if}
+</svelte:head>
+
 <!-- Chapternav (Sticky under main navbar) -->
 <div
 	class="sticky top-14 md:top-16 mt-14 md:mt-16 w-full bg-white/90 backdrop-blur-md z-40 border-b border-[#d2d2d7] transition-all"
