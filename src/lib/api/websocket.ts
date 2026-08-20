@@ -25,11 +25,15 @@ class WebSocketClient {
 			this.socket = null;
 		}
 
-		let apiUrl =
-			import.meta.env.VITE_WS_URL ||
-			import.meta.env.VITE_API_URL?.replace(/\/api$/, '');
+		let apiUrl = import.meta.env.VITE_WS_URL;
 		if (!apiUrl) {
-			apiUrl = `${window.location.protocol}//${window.location.hostname}:${DEFAULTS.API_FALLBACK_PORT}`;
+			if (import.meta.env.VITE_API_URL && !import.meta.env.VITE_API_URL.includes('api.rosantibikemotorent.com')) {
+				apiUrl = import.meta.env.VITE_API_URL.replace(/\/api$/, '');
+			} else if (browser) {
+				apiUrl = `${window.location.protocol}//${window.location.hostname}:${DEFAULTS.API_FALLBACK_PORT}`;
+			} else {
+				apiUrl = `http://localhost:${DEFAULTS.API_FALLBACK_PORT}`;
+			}
 		}
 
 		this.socket = io(`${apiUrl}/realtime`, {
@@ -49,6 +53,9 @@ class WebSocketClient {
 		});
 		this.socket.on('connect_error', (error) => {
 			options.onConnectError?.(error);
+			if (this.socket && !this.socket.connected) {
+				this.socket.disconnect();
+			}
 		});
 
 		if (browser && !this.beforeUnloadHandler) {
