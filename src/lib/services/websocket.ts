@@ -14,7 +14,9 @@ class WebSocketService {
 
 		const created = websocketClient.connect({
 			onConnect: (socketId) => {
-				console.log('[Landing Socket] Connected with ID:', socketId);
+				if (import.meta.env.DEV) {
+					console.log('[Landing Socket] Connected with ID:', socketId);
+				}
 			},
 			onConnectError: (error) => {
 				if (import.meta.env.DEV) {

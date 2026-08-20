@@ -15,6 +15,15 @@ class WebSocketClient {
 	connect(options: WebSocketClientOptions = {}): boolean {
 		if (!browser) return false;
 
+		// Only attempt socket connection if explicit VITE_WS_URL is given or in local development
+		const explicitWsUrl = import.meta.env.VITE_WS_URL;
+		const isDev = import.meta.env.DEV || window.location.hostname === 'localhost';
+
+		if (!explicitWsUrl && !isDev) {
+			// In production, skip socket connection if no dedicated WS URL is configured to avoid DNS/console errors
+			return false;
+		}
+
 		if (this.socket && (this.socket.connected || this.socket.active)) {
 			return false;
 		}
@@ -25,17 +34,15 @@ class WebSocketClient {
 			this.socket = null;
 		}
 
-		let apiUrl = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL?.replace(/\/api$/, '');
+		let apiUrl = explicitWsUrl || import.meta.env.VITE_API_URL?.replace(/\/api$/, '');
 		if (!apiUrl) {
-			apiUrl = browser
-				? `${window.location.protocol}//${window.location.hostname}:${DEFAULTS.API_FALLBACK_PORT}`
-				: `http://localhost:${DEFAULTS.API_FALLBACK_PORT}`;
+			apiUrl = `${window.location.protocol}//${window.location.hostname}:${DEFAULTS.API_FALLBACK_PORT}`;
 		}
 
 		this.socket = io(`${apiUrl}/realtime`, {
 			transports: ['websocket'],
-			reconnection: true,
-			reconnectionAttempts: DEFAULTS.WS_RECONNECTION_ATTEMPTS,
+			reconnection: isDev,
+			reconnectionAttempts: isDev ? 3 : 1,
 			reconnectionDelay: DEFAULTS.WS_RECONNECTION_DELAY_MS,
 			timeout: DEFAULTS.WS_TIMEOUT_MS,
 			autoConnect: true
@@ -49,6 +56,10 @@ class WebSocketClient {
 		});
 		this.socket.on('connect_error', (error) => {
 			options.onConnectError?.(error);
+			if (!isDev) {
+				// Don't keep retrying if DNS fails in production
+				this.disconnect();
+			}
 		});
 
 		if (browser && !this.beforeUnloadHandler) {
