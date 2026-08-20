@@ -42,6 +42,14 @@ const handleLocale: Handle = async ({ event, resolve }) => {
 
 const handleSecurity: Handle = async ({ event, resolve }) => {
 	const response = await resolve(event);
+	const pathname = event.url.pathname;
+
+	if (pathname.startsWith('/_app/immutable/')) {
+		response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+	} else if (/\.(webp|avif|png|jpg|jpeg|svg|webm|mp4|woff2|woff|ttf|ico|txt)$/i.test(pathname)) {
+		response.headers.set('Cache-Control', 'public, max-age=2592000, stale-while-revalidate=86400');
+	}
+
 	response.headers.set(
 		'Content-Security-Policy',
 		[
