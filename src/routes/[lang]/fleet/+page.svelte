@@ -211,10 +211,10 @@
 
 						<!-- Typography & Content -->
 						<div class="flex flex-col items-center px-6 pt-8 pb-8 flex-1">
-							<h3 class="text-[12px] font-semibold tracking-widest text-[#86868b] mb-2 uppercase">
+							<p class="text-[12px] font-semibold tracking-widest text-[#525257] mb-2 uppercase">
 								{motor.merk}
-							</h3>
-							<h2 class="text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-2">
+							</p>
+							<h2 class="text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-2 font-display">
 								{motor.model}
 							</h2>
 

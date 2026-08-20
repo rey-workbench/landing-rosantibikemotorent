@@ -123,7 +123,6 @@
 					<p>
 						<a
 							href={emailHref}
-							aria-label="Email Rosantibike"
 							class="text-apple-blue hover:underline"
 						>
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -133,7 +132,6 @@
 					<p>
 						<a
 							href="https://wa.me/{siteConfig.whatsapp}"
-							aria-label="WhatsApp Rosantibike"
 							class="text-[#424245] hover:text-[#1d1d1f] hover:underline"
 						>
 							{siteConfig.phone}
@@ -144,7 +142,7 @@
 		</div>
 
 		<!-- Apple Bottom Bar -->
-		<div class="pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-[11px] text-[#86868b]">
+		<div class="pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-[11px] text-[#525257]">
 			<div>
 				Copyright &copy; {new Date().getFullYear()} {siteConfig.name}. {$LL.footer_all_rights() || 'Hak cipta dilindungi.'}
 			</div>
@@ -152,7 +150,6 @@
 			<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
 				<a
 					href="/{page.params.lang || $locale || 'id'}/privacy"
-					aria-label={$LL.footer_privacy() || 'Kebijakan Privasi'}
 					class="hover:text-[#1d1d1f] hover:underline transition-colors"
 				>
 					{$LL.footer_privacy() || 'Kebijakan Privasi'}
@@ -160,13 +157,12 @@
 				<span>|</span>
 				<a
 					href="/{page.params.lang || $locale || 'id'}/terms"
-					aria-label={$LL.footer_terms() || 'Syarat & Ketentuan'}
 					class="hover:text-[#1d1d1f] hover:underline transition-colors"
 				>
 					{$LL.footer_terms() || 'Syarat & Ketentuan'}
 				</a>
 				<span>|</span>
-				<span class="text-[#424245] font-medium">Indonesia</span>
+				<span class="text-[#1d1d1f] font-medium">Indonesia</span>
 			</div>
 		</div>
 	</div>

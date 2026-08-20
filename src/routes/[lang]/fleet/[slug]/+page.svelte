@@ -197,18 +197,18 @@
 						<div
 							class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5"
 						>
-							<p class="text-[#86868b] text-[12px] font-semibold uppercase tracking-wider mb-1">
+							<p class="text-[#525257] text-[12px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_engine()}
 							</p>
 							<p class="text-3xl font-semibold text-[#1d1d1f] tracking-tight">
 								{jenis.cc}
-								<span class="text-base text-[#86868b] font-medium tracking-normal">CC</span>
+								<span class="text-base text-[#525257] font-medium tracking-normal">CC</span>
 							</p>
 						</div>
 						<div
 							class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5"
 						>
-							<p class="text-[#86868b] text-[12px] font-semibold uppercase tracking-wider mb-1">
+							<p class="text-[#525257] text-[12px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_year()}
 							</p>
 							<p class="text-3xl font-semibold text-[#1d1d1f] tracking-tight">
@@ -221,13 +221,13 @@
 					<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-8">
 						<div class="flex items-end justify-between mb-6">
 							<div>
-								<p class="text-[#6b6b70] text-[13px] font-semibold uppercase tracking-wider mb-1">
+								<p class="text-[#525257] text-[13px] font-semibold uppercase tracking-wider mb-1">
 									{$LL.fleet_detail_price()}
 								</p>
 								<p class="text-[40px] leading-none font-semibold text-[#1d1d1f] tracking-tight">
 									{formatCurrency(displayPrice)}
 								</p>
-								<p class="text-[#6b6b70] text-[15px] mt-1 font-medium">
+								<p class="text-[#525257] text-[15px] mt-1 font-medium">
 									{$LL.fleet_detail_per_day()}
 								</p>
 							</div>
@@ -240,7 +240,7 @@
 							className="w-full text-[17px] py-4">{$LL.fleet_detail_book_now()}</Button
 						>
 
-						<p class="text-center text-gray-500 text-sm mt-4">
+						<p class="text-center text-[#525257] text-sm mt-4">
 							{$LL.fleet_detail_contact_whatsapp()}
 						</p>
 					</div>
@@ -249,8 +249,8 @@
 
 			<!-- Additional Info -->
 			<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-				<div class="bg-white/5 border border-white/10 rounded-3xl p-8">
-					<div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
+				<div class="bg-white border border-black/5 rounded-3xl p-8 shadow-xs">
+					<div class="w-12 h-12 bg-blue-50 text-apple-blue rounded-xl flex items-center justify-center mb-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -259,19 +259,18 @@
 							fill="none"
 							stroke="currentColor"
 							stroke-width="2"
-							class="text-blue-400"
 						>
 							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-brand-fg mb-2">{$LL.fleet_detail_insurance()}</h3>
-					<p class="text-gray-400">
+					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">{$LL.fleet_detail_insurance()}</h2>
+					<p class="text-[#525257] leading-relaxed text-sm">
 						{$LL.fleet_detail_insurance_desc()}
 					</p>
 				</div>
 
-				<div class="bg-white/5 border border-white/10 rounded-3xl p-8">
-					<div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
+				<div class="bg-white border border-black/5 rounded-3xl p-8 shadow-xs">
+					<div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -280,18 +279,17 @@
 							fill="none"
 							stroke="currentColor"
 							stroke-width="2"
-							class="text-green-400"
 						>
 							<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
 							<polyline points="22 4 12 14.01 9 11.01" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-brand-fg mb-2">{$LL.fleet_detail_well_maintained()}</h3>
-					<p class="text-gray-400">{$LL.fleet_detail_well_maintained_desc()}</p>
+					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">{$LL.fleet_detail_well_maintained()}</h2>
+					<p class="text-[#525257] leading-relaxed text-sm">{$LL.fleet_detail_well_maintained_desc()}</p>
 				</div>
 
-				<div class="bg-white/5 border border-white/10 rounded-3xl p-8">
-					<div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4">
+				<div class="bg-white border border-black/5 rounded-3xl p-8 shadow-xs">
+					<div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -300,13 +298,12 @@
 							fill="none"
 							stroke="currentColor"
 							stroke-width="2"
-							class="text-purple-400"
 						>
 							<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold text-brand-fg mb-2">{$LL.fleet_detail_support()}</h3>
-					<p class="text-gray-400">
+					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">{$LL.fleet_detail_support()}</h2>
+					<p class="text-[#525257] leading-relaxed text-sm">
 						{$LL.fleet_detail_support_desc()}
 					</p>
 				</div>

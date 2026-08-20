@@ -46,11 +46,11 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 		'Content-Security-Policy',
 		[
 			"default-src 'self'",
-			"script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+			"script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com",
 			"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
 			"font-src 'self' https://fonts.gstatic.com",
 			"img-src 'self' data: https:",
-			"connect-src 'self' wss: https:",
+			"connect-src 'self' wss: https: https://cloudflareinsights.com",
 			"media-src 'self'",
 			"frame-ancestors 'none'"
 		].join('; ')

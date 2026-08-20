@@ -125,7 +125,7 @@
 		<h1 class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight mb-4">
 			{isEn ? 'Frequently Asked Questions' : 'Pertanyaan yang Sering Diajukan'}
 		</h1>
-		<p class="text-base md:text-lg text-[#6b6b70] max-w-xl mx-auto leading-relaxed">
+		<p class="text-base md:text-lg text-[#525257] max-w-xl mx-auto leading-relaxed">
 			{isEn
 				? 'Everything you need to know about our motorbike rental service in Malang.'
 				: 'Semua informasi penting seputar rental motor di Malang, syarat, harga, dan layanan antar jemput.'}
@@ -142,7 +142,7 @@
 		<h2 class="text-2xl md:text-3xl font-bold text-[#1d1d1f] mb-3">
 			{isEn ? 'Still have questions?' : 'Masih ada pertanyaan lain?'}
 		</h2>
-		<p class="text-sm md:text-base text-[#6b6b70] mb-8">
+		<p class="text-sm md:text-base text-[#525257] mb-8">
 			{isEn
 				? 'Our customer service team is ready to assist you 24/7 on WhatsApp.'
 				: 'Tim customer service Rosantibike siap membantu Anda 24 jam via WhatsApp.'}

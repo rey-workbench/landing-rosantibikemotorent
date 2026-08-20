@@ -145,7 +145,6 @@
 					class="panel relative w-full md:w-auto md:h-full transition-all duration-700 md:duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden border-b border-white/10 md:border-b-0 md:border-r last:border-0 cursor-pointer"
 					role="button"
 					tabindex="0"
-					aria-label={panel.title}
 					style="
 						z-index: {i === activePanelIndex ? 10 : i};
 						flex: {i === activePanelIndex ? '6' : '1'};

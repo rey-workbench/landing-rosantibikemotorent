@@ -374,7 +374,7 @@
 	{#if error}<p class="mt-1 text-[11px] text-red-500 font-medium">
 			{error}
 		</p>{/if}
-	{#if hint && !error}<p class="mt-1 text-[11px] text-[#6b6b70]">{hint}</p>{/if}
+	{#if hint && !error}<p class="mt-1 text-[11px] text-[#525257]">{hint}</p>{/if}
 </div>
 
 <style>
