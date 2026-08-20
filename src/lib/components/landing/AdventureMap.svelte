@@ -38,20 +38,14 @@
 
 	let videoRefs = $state<HTMLVideoElement[]>([]);
 	let isVisible = $state(false);
+	let isSectionInView = $state(false);
 
 	$effect(() => {
 		activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
 
-		// Only play videos while this section is actually on screen — prevents
-		// downloading all panel videos (and the huge hero-like payloads) on load.
-		const containerRect = containerRef?.getBoundingClientRect();
-		const containerInView = containerRect
-			? containerRect.bottom > 0 && containerRect.top < window.innerHeight
-			: false;
-
 		videoRefs.forEach((video, idx) => {
 			if (!video) return;
-			if (containerInView && idx === activePanelIndex) {
+			if (isSectionInView && idx === activePanelIndex) {
 				if (!video.src && panels[idx]) {
 					video.src = panels[idx].video;
 				}
@@ -65,29 +59,29 @@
 	});
 
 	onMount(() => {
-		const checkMobile = () => {};
-		checkMobile();
-		window.addEventListener('resize', checkMobile);
+		let rafId: number | null = null;
 
 		if (containerRef) {
 			const io = new IntersectionObserver(
 				(entries) => {
-					if (entries[0]?.isIntersecting) {
-						isVisible = true;
-						io.disconnect();
+					const entry = entries[0];
+					if (entry) {
+						isSectionInView = entry.isIntersecting;
+						if (entry.isIntersecting) {
+							isVisible = true;
+						}
 					}
 				},
-				{ rootMargin: '300px' }
+				{ rootMargin: '100px' }
 			);
 			io.observe(containerRef);
 		}
 
-		const handleScroll = () => {
+		const updateProgress = () => {
 			if (!containerRef) return;
 			const rect = containerRef.getBoundingClientRect();
 			const viewportHeight = window.innerHeight;
 
-			// Only calculate progress if the container is currently visible in the viewport
 			if (rect.top <= 0 && rect.bottom >= viewportHeight) {
 				const totalHeight = rect.height - viewportHeight;
 				const raw = -rect.top / totalHeight;
@@ -97,14 +91,21 @@
 			} else if (rect.bottom < viewportHeight) {
 				scrollProgress = 0.999;
 			}
+			rafId = null;
 		};
 
-		window.addEventListener('scroll', handleScroll);
-		handleScroll();
+		const handleScroll = () => {
+			if (!rafId) {
+				rafId = requestAnimationFrame(updateProgress);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		updateProgress();
 
 		return () => {
+			if (rafId) cancelAnimationFrame(rafId);
 			window.removeEventListener('scroll', handleScroll);
-			window.removeEventListener('resize', checkMobile);
 		};
 	});
 </script>

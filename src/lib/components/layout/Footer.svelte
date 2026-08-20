@@ -16,11 +16,11 @@
 </script>
 
 <footer
-	class="bg-[#f5f5f7] text-[#6e6e73] text-[12px] pt-10 pb-12 border-t border-[#d2d2d7] {className}"
+	class="bg-[#f5f5f7] text-[#525257] text-[12px] pt-10 pb-12 border-t border-[#d2d2d7] {className}"
 >
 	<div class="max-w-5xl mx-auto px-4">
 		<!-- Disclaimer / Breadcrumb note (Apple Style) -->
-		<div class="text-[11px] text-[#86868b] leading-relaxed pb-4 mb-6 border-b border-[#d2d2d7]">
+		<div class="text-[11px] text-[#525257] leading-relaxed pb-4 mb-6 border-b border-[#d2d2d7]">
 			<p>
 				Sewa motor harian, mingguan, dan bulanan terpercaya di Kota Malang, Batu, dan Bromo. Seluruh unit terawat resmi dengan fasilitas helm SNI dan jas hujan gratis.
 			</p>
@@ -43,7 +43,7 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label={social.name}
-							class="text-[#6e6e73] hover:text-[#1d1d1f] transition-colors"
+							class="text-[#525257] hover:text-[#1d1d1f] transition-colors"
 						>
 							<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
 								<path d={social.icon} />
@@ -123,7 +123,7 @@
 					<p>
 						<a
 							href={emailHref}
-							class="text-apple-blue hover:underline"
+							class="text-[#0066cc] hover:underline"
 						>
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html displayEmail}
