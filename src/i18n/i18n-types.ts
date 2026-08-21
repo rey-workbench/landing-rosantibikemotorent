@@ -822,6 +822,10 @@ type RootTranslation = {
 	 */
 	booking_error_verify: string
 	/**
+	 * S​e​c​u​r​i​t​y​ ​v​e​r​i​f​i​c​a​t​i​o​n​ ​f​a​i​l​e​d​.​ ​P​l​e​a​s​e​ ​t​r​y​ ​a​g​a​i​n​.
+	 */
+	booking_error_turnstile_failed: string
+	/**
 	 * C​o​m​p​l​e​t​e​ ​t​h​e​ ​s​e​c​u​r​i​t​y​ ​c​h​e​c​k​ ​t​o​ ​c​o​n​t​i​n​u​e
 	 */
 	booking_verify_hint: string
@@ -853,6 +857,18 @@ type RootTranslation = {
 	 * E​n​d​ ​d​a​t​e​ ​c​a​n​n​o​t​ ​b​e​ ​b​e​f​o​r​e​ ​s​t​a​r​t​ ​d​a​t​e
 	 */
 	booking_error_date_invalid: string
+	/**
+	 * Y​o​u​ ​a​l​r​e​a​d​y​ ​h​a​v​e​ ​a​n​ ​a​c​t​i​v​e​ ​b​o​o​k​i​n​g​.​ ​P​l​e​a​s​e​ ​c​o​m​p​l​e​t​e​ ​y​o​u​r​ ​p​r​e​v​i​o​u​s​ ​b​o​o​k​i​n​g​ ​b​e​f​o​r​e​ ​m​a​k​i​n​g​ ​a​ ​n​e​w​ ​o​n​e​.
+	 */
+	booking_error_active_exists: string
+	/**
+	 * T​h​e​ ​m​o​t​o​r​c​y​c​l​e​ ​i​s​ ​a​l​r​e​a​d​y​ ​b​o​o​k​e​d​ ​f​o​r​ ​t​h​e​ ​s​e​l​e​c​t​e​d​ ​p​e​r​i​o​d
+	 */
+	booking_error_overlap: string
+	/**
+	 * T​h​i​s​ ​m​o​t​o​r​c​y​c​l​e​ ​m​o​d​e​l​ ​i​s​ ​f​u​l​l​y​ ​b​o​o​k​e​d​ ​f​o​r​ ​t​h​e​ ​s​e​l​e​c​t​e​d​ ​d​a​t​e​s
+	 */
+	booking_error_fully_booked: string
 	/**
 	 * d​a​y
 	 */
@@ -1927,6 +1943,10 @@ export type TranslationFunctions = {
 	 */
 	booking_error_verify: () => LocalizedString
 	/**
+	 * Security verification failed. Please try again.
+	 */
+	booking_error_turnstile_failed: () => LocalizedString
+	/**
 	 * Complete the security check to continue
 	 */
 	booking_verify_hint: () => LocalizedString
@@ -1958,6 +1978,18 @@ export type TranslationFunctions = {
 	 * End date cannot be before start date
 	 */
 	booking_error_date_invalid: () => LocalizedString
+	/**
+	 * You already have an active booking. Please complete your previous booking before making a new one.
+	 */
+	booking_error_active_exists: () => LocalizedString
+	/**
+	 * The motorcycle is already booked for the selected period
+	 */
+	booking_error_overlap: () => LocalizedString
+	/**
+	 * This motorcycle model is fully booked for the selected dates
+	 */
+	booking_error_fully_booked: () => LocalizedString
 	/**
 	 * day
 	 */

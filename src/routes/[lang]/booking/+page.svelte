@@ -198,10 +198,25 @@
 				goto(`/${lang}/booking/success`);
 			}, 2000);
 		} catch (err: any) {
-			formError =
-				err?.response?.data?.userErrorMsg ||
-				err?.response?.data?.message ||
-				$LL.booking_error_create();
+			const errorCode = err?.response?.data?.errorCode;
+			const backendErrorMsg = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
+			
+			switch (errorCode) {
+				case 'ERR_ACTIVE_BOOKING_EXISTS':
+					formError = $LL.booking_error_active_exists();
+					break;
+				case 'ERR_BOOKING_OVERLAP':
+					formError = $LL.booking_error_overlap();
+					break;
+				case 'ERR_MODEL_FULLY_BOOKED':
+					formError = $LL.booking_error_fully_booked();
+					break;
+				case 'ERR_TURNSTILE_FAILED':
+					formError = $LL.booking_error_turnstile_failed();
+					break;
+				default:
+					formError = backendErrorMsg || $LL.booking_error_create();
+			}
 		} finally {
 			isSubmitting = false;
 		}
