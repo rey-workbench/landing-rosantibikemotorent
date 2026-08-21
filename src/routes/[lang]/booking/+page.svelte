@@ -233,25 +233,6 @@
 
 	let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 	let currentUrl = $derived(page.url.href);
-	$effect(() => {
-		const seen = new Set();
-		uniqueMotors = availableMotors.filter((m) => {
-			const key = `${m.jenisId}`;
-			if (seen.has(key)) return false;
-			seen.add(key);
-			return true;
-		});
-	});
-	$effect(() => {
-		if (formData.jenisId) {
-			selectedUnit =
-				availableMotors.find((m) => (m.jenisId || m.jenis?.id) === formData.jenisId) || null;
-		} else if (formData.unitId) {
-			selectedUnit = availableMotors.find((m) => m.id === formData.unitId) || null;
-		} else {
-			selectedUnit = null;
-		}
-	});
 	// Steps configuration
 	let steps = $derived([
 		{ title: $LL.booking_steps_personal_title(), description: $LL.booking_steps_personal_desc() },
