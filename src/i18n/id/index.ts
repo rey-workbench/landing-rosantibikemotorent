@@ -231,7 +231,8 @@ const id: BaseTranslation = {
 	booking_error_start_date_required: 'Tanggal mulai wajib diisi',
 	booking_error_end_date_required: 'Tanggal selesai wajib diisi',
 	booking_error_date_invalid: 'Tanggal selesai tidak boleh sebelum tanggal mulai',
-	booking_error_active_exists: 'Anda sudah memiliki booking aktif. Selesaikan booking sebelumnya sebelum membuat yang baru',
+	booking_error_active_exists:
+		'Anda sudah memiliki booking aktif. Selesaikan booking sebelumnya sebelum membuat yang baru',
 	booking_error_overlap: 'Unit motor sudah dipesan pada rentang waktu tersebut',
 	booking_error_fully_booked: 'Model motor ini sudah penuh dipesan untuk tanggal yang dipilih',
 	booking_day: 'hari',

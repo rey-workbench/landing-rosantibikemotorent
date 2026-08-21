@@ -230,7 +230,8 @@ const en: Translation = {
 	booking_error_start_date_required: 'Start date is required',
 	booking_error_end_date_required: 'End date is required',
 	booking_error_date_invalid: 'End date cannot be before start date',
-	booking_error_active_exists: 'You already have an active booking. Please complete your previous booking before making a new one.',
+	booking_error_active_exists:
+		'You already have an active booking. Please complete your previous booking before making a new one.',
 	booking_error_overlap: 'The motorcycle is already booked for the selected period',
 	booking_error_fully_booked: 'This motorcycle model is fully booked for the selected dates',
 	booking_day: 'day',

@@ -199,8 +199,9 @@
 			}, 2000);
 		} catch (err: any) {
 			const errorCode = err?.response?.data?.errorCode;
-			const backendErrorMsg = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
-			
+			const backendErrorMsg =
+				err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
+
 			switch (errorCode) {
 				case 'ERR_ACTIVE_BOOKING_EXISTS':
 					formError = $LL.booking_error_active_exists();
