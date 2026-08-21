@@ -146,7 +146,7 @@
 				size="lg"
 				href="https://wa.me/{siteConfig.whatsapp}?text={encodeURIComponent(
 					$LL.booking_success_whatsapp_message({
-						id: (page.url.searchParams.get('id') || '').replace(/[^a-zA-Z0-9-]/g, '').slice(0, 36)
+						id: transaksi.id
 					})
 				)}"
 				className="w-full flex items-center justify-center gap-2"
