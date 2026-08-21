@@ -39,12 +39,24 @@
 
 		// @ts-ignore
 		if (!window.turnstile) {
-			const script = document.createElement('script');
-			script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-			script.async = true;
-			script.defer = true;
-			script.onload = initTurnstile;
-			document.head.appendChild(script);
+			const scriptId = 'cloudflare-turnstile-script';
+			if (!document.getElementById(scriptId)) {
+				const script = document.createElement('script');
+				script.id = scriptId;
+				script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+				script.async = true;
+				script.defer = true;
+				script.onload = initTurnstile;
+				document.head.appendChild(script);
+			} else {
+				// Script exists but turnstile not ready, wait for it
+				const existingScript = document.getElementById(scriptId) as HTMLScriptElement;
+				const oldOnload = existingScript.onload;
+				existingScript.onload = (e) => {
+					if (typeof oldOnload === 'function') oldOnload.call(existingScript, e);
+					initTurnstile();
+				};
+			}
 		} else {
 			initTurnstile();
 		}
