@@ -1,7 +1,7 @@
 import { blogApi } from '$lib/api';
 import { BlogFilterSchema, type BlogFilter } from '$lib/schemas';
 import type { BlogPost, BlogTag, PaginationMeta } from '$lib/types';
-import { formatDate, stripHtml } from '$lib/utils/format';
+import { stripHtml } from '$lib/utils/format';
 
 interface ProcessedBlogPost extends BlogPost {
 	excerpt: string;
@@ -15,7 +15,6 @@ function processPost(post: any): ProcessedBlogPost {
 	return {
 		...post,
 		excerpt: stripHtml(post.konten),
-		formattedDate: formatDate(post.createdAt),
 		readingTime: `${readingTime} min read`
 	};
 }

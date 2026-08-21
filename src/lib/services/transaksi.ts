@@ -6,22 +6,11 @@ import {
 	type CalculatePriceDto
 } from '$lib/schemas';
 import type { Transaksi, PriceCalculation } from '$lib/types';
-import { formatDate } from '$lib/utils/format';
-
-interface ProcessedTransaksi extends Transaksi {
-	formatted: {
-		mulai: string;
-		selesai: string;
-	};
-}
+interface ProcessedTransaksi extends Transaksi {}
 
 function processTransaksi(t: any): ProcessedTransaksi {
 	return {
-		...t,
-		formatted: {
-			mulai: `${formatDate(t.tanggalMulai, 'full')} • ${t.jamMulai}`,
-			selesai: `${formatDate(t.tanggalSelesai, 'full')} • ${t.jamSelesai}`
-		}
+		...t
 	};
 }
 

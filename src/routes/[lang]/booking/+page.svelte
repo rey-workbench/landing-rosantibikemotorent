@@ -14,7 +14,6 @@
 	import { parsePhoneNumberFromString } from 'libphonenumber-js';
 	import LL from '$i18n/i18n-svelte.js';
 	import { SeoHead } from '$lib/components/seo';
-	import { formatCurrency } from '$lib/utils/format';
 	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 
 	let { data } = $props();
@@ -231,16 +230,7 @@
 		handleCalculatePrice();
 	}
 
-	function formatDate(dateStr: string): string {
-		if (!dateStr) return '-';
-		const date = new Date(dateStr);
-		return date.toLocaleDateString('id-ID', {
-			weekday: 'long',
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		});
-	}
+
 	let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 	let currentUrl = $derived(page.url.href);
 	$effect(() => {
@@ -426,12 +416,11 @@
 										{#if jenis?.cc}
 											<p class="text-[11px] text-[#525257] mt-0.5">{jenis.cc} CC • Matic</p>
 										{/if}
-										<p class="text-[13px] font-semibold text-apple-blue mt-1.5">
-											{formatCurrency(jenis?.hargaSewa || 0)}
-											<span class="text-[11px] text-[#525257] font-normal"
+										<span class="text-sm font-semibold tracking-tight text-[#1d1d1f]">
+											{$LL.format_currency(jenis?.hargaSewa || 0)}<span class="text-[#86868b] font-normal"
 												>/{$LL.booking_day()}</span
 											>
-										</p>
+										</span>
 									</div>
 									{#if isSelected}
 										<div
@@ -661,7 +650,7 @@
 								</div>
 								<div class="flex justify-between items-center">
 									<span class="text-[#525257]">{$LL.booking_date_field()}</span>
-									<span class="text-[#1d1d1f] font-medium">{formatDate(formData.tanggalMulai)}</span
+									<span class="text-[#1d1d1f] font-medium">{$LL.format_date_long(new Date(formData.tanggalMulai))}</span
 									>
 								</div>
 								<div class="flex justify-between items-center">
@@ -705,28 +694,34 @@
 									</h3>
 									<div class="space-y-2 text-xs sm:text-sm">
 										<div class="flex justify-between items-center">
-											<span class="text-[#525257]">
-												{$LL.booking_rental_cost()} ({priceBreakdown.rincian.jumlahHari}
-												{$LL.booking_day()} × {formatCurrency(priceBreakdown.rincian.hargaPerHari)})
-											</span>
-											<span class="text-[#1d1d1f] font-medium">
-												{formatCurrency(
+											<div class="flex items-center gap-2">
+												<span class="w-1.5 h-1.5 rounded-full bg-apple-blue"></span>
+												<p class="text-[#525257] text-[13px]">
+													{$LL.booking_rental_cost()} ({priceBreakdown.rincian.jumlahHari} {$LL.booking_day()} × {$LL.format_currency(priceBreakdown.rincian.hargaPerHari)})
+												</p>
+											</div>
+											<p class="text-[#1d1d1f] text-sm">
+												{$LL.format_currency(
 													priceBreakdown.rincian.jumlahHari * priceBreakdown.rincian.hargaPerHari
 												)}
-											</span>
+											</p>
 										</div>
 										{#if priceBreakdown.rincian.jamTambahan > 0}
-											<div class="flex justify-between items-center">
-												<span class="text-[#525257]">
-													{$LL.booking_additional_fee()} ({priceBreakdown.rincian.jamTambahan} jam × {formatCurrency(
-														priceBreakdown.rincian.dendaPerJam
-													)})
-												</span>
-												<span class="text-[#1d1d1f] font-medium">
-													{formatCurrency(
-														priceBreakdown.rincian.jamTambahan * priceBreakdown.rincian.dendaPerJam
+											<div class="flex justify-between items-center py-2">
+												<div class="flex items-center gap-2">
+													<span class="w-1.5 h-1.5 rounded-full bg-apple-blue"></span>
+													<p class="text-[#525257] text-[13px]">
+														{$LL.booking_additional_fee()} ({priceBreakdown.rincian.jamTambahan} jam × {$LL.format_currency(
+															priceBreakdown.rincian.dendaPerJam
+														)})
+													</p>
+												</div>
+												<p class="text-[#1d1d1f] text-sm">
+													{$LL.format_currency(
+														priceBreakdown.rincian.jamTambahan *
+															priceBreakdown.rincian.dendaPerJam
 													)}
-												</span>
+												</p>
 											</div>
 										{/if}
 										<div class="text-[11px] text-[#525257] pt-2 border-t border-black/5">
@@ -746,7 +741,7 @@
 											</p>
 										</div>
 										<p class="text-2xl sm:text-3xl font-bold text-[#1d1d1f]">
-											{formatCurrency(priceBreakdown.totalBiaya)}
+											{$LL.format_currency(priceBreakdown.totalBiaya)}
 										</p>
 									</div>
 								</div>

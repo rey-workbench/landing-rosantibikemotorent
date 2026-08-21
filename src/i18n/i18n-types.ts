@@ -1088,17 +1088,37 @@ type RootTranslation = {
 	 */
 	ui_month_next: string
 	/**
-	 * I​n​c​r​e​a​s​e
+	 * I​n​c​r​e​m​e​n​t
 	 */
 	ui_increment: string
 	/**
-	 * D​e​c​r​e​a​s​e
+	 * D​e​c​r​e​m​e​n​t
 	 */
 	ui_decrement: string
 	/**
 	 * S​e​a​r​c​h​ ​c​o​u​n​t​r​y​.​.​.
 	 */
 	ui_search_country: string
+	/**
+	 * {​0​|​c​u​r​r​e​n​c​y​}
+	 * @param {number} 0
+	 */
+	format_currency: RequiredParams<'0|currency'>
+	/**
+	 * {​0​|​n​u​m​b​e​r​}
+	 * @param {number} 0
+	 */
+	format_number: RequiredParams<'0|number'>
+	/**
+	 * {​0​|​d​a​t​e​S​h​o​r​t​}
+	 * @param {Date} 0
+	 */
+	format_date_short: RequiredParams<'0|dateShort'>
+	/**
+	 * {​0​|​d​a​t​e​L​o​n​g​}
+	 * @param {Date} 0
+	 */
+	format_date_long: RequiredParams<'0|dateLong'>
 }
 
 export type TranslationFunctions = {
@@ -2171,17 +2191,38 @@ export type TranslationFunctions = {
 	 */
 	ui_month_next: () => LocalizedString
 	/**
-	 * Increase
+	 * Increment
 	 */
 	ui_increment: () => LocalizedString
 	/**
-	 * Decrease
+	 * Decrement
 	 */
 	ui_decrement: () => LocalizedString
 	/**
 	 * Search country...
 	 */
 	ui_search_country: () => LocalizedString
+	/**
+	 * {0|currency}
+	 */
+	format_currency: (arg0: number) => LocalizedString
+	/**
+	 * {0|number}
+	 */
+	format_number: (arg0: number) => LocalizedString
+	/**
+	 * {0|dateShort}
+	 */
+	format_date_short: (arg0: Date) => LocalizedString
+	/**
+	 * {0|dateLong}
+	 */
+	format_date_long: (arg0: Date) => LocalizedString
 }
 
-export type Formatters = {}
+export type Formatters = {
+	currency: (value: number) => unknown
+	dateLong: (value: Date) => unknown
+	dateShort: (value: Date) => unknown
+	number: (value: number) => unknown
+}

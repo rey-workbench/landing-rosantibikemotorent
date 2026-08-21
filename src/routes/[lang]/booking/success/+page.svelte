@@ -3,7 +3,6 @@
 	import { siteConfig } from '$lib/config';
 	import { LL } from '$i18n/i18n-svelte';
 	import { SeoHead } from '$lib/components/seo';
-	import { formatCurrency } from '$lib/utils/format';
 	import Button from '$lib/components/ui/Button.svelte';
 
 	let { data } = $props();
@@ -87,11 +86,11 @@
 					</div>
 					<div class="flex justify-between items-center py-2.5 border-b border-black/5">
 						<span class="text-[#6b6b70]">{$LL.booking_start_date_label()}</span>
-						<span class="text-[#1d1d1f] font-medium">{transaksi.formatted?.mulai || '-'}</span>
+						<span class="text-[#1d1d1f] font-medium">{transaksi.tanggalMulai ? `${$LL.format_date_long(new Date(transaksi.tanggalMulai))} • ${transaksi.jamMulai}` : '-'}</span>
 					</div>
 					<div class="flex justify-between items-center py-2.5 border-b border-black/5">
 						<span class="text-[#6b6b70]">{$LL.booking_end_date_label()}</span>
-						<span class="text-[#1d1d1f] font-medium">{transaksi.formatted?.selesai || '-'}</span>
+						<span class="text-[#1d1d1f] font-medium">{transaksi.tanggalSelesai ? `${$LL.format_date_long(new Date(transaksi.tanggalSelesai))} • ${transaksi.jamSelesai}` : '-'}</span>
 					</div>
 					{#if transaksi.jasHujan > 0}
 						<div class="flex justify-between items-center py-2.5 border-b border-black/5">
@@ -114,7 +113,7 @@
 							>{$LL.booking_total_cost()}</span
 						>
 						<span class="text-2xl sm:text-3xl font-bold text-[#1d1d1f]"
-							>{formatCurrency(transaksi.totalBiaya)}</span
+							>{$LL.format_currency(transaksi.totalBiaya)}</span
 						>
 					</div>
 				</div>

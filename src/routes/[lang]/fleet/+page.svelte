@@ -7,7 +7,6 @@
 	import { page } from '$app/state';
 	import { locale } from '$i18n/i18n-svelte';
 	import { websocketService } from '$lib/services/websocket';
-	import { formatCurrency } from '$lib/utils/format';
 	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 
 	let { data } = $props();
@@ -227,7 +226,7 @@
 							{#if motor.computed.minPrice > 0}
 								<p class="text-[15px] text-[#1d1d1f] font-normal mb-8">
 									{$LL.fleet_start_from()}
-									{formatCurrency(motor.computed.minPrice)}{$LL.fleet_per_day()}
+									{$LL.format_currency(motor.computed.minPrice)}{$LL.fleet_per_day()}
 								</p>
 							{:else}
 								<p class="text-[15px] text-[#86868b] font-normal mb-8">{$LL.fleet_contact_us()}</p>

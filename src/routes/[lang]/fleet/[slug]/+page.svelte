@@ -5,7 +5,6 @@
 	import { page as pageStore } from '$app/state';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { SeoHead } from '$lib/components/seo';
-	import { formatCurrency } from '$lib/utils/format';
 	import { LL } from '$i18n/i18n-svelte';
 	import { buildProductSchema, buildBreadcrumbSchema } from '$lib/seo/schema';
 	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
@@ -221,7 +220,7 @@
 									{$LL.fleet_detail_price()}
 								</p>
 								<p class="text-[40px] leading-none font-semibold text-[#1d1d1f] tracking-tight">
-									{formatCurrency(displayPrice)}
+									{$LL.format_currency(displayPrice)}
 								</p>
 								<p class="text-[#525257] text-[15px] mt-1 font-medium">
 									{$LL.fleet_detail_per_day()}

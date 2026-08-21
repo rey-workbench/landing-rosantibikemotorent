@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import { jenisMotorService } from '$lib/services';
 	import { DEFAULTS } from '$lib/constants';
-	import { formatCurrency } from '$lib/utils/format';
 	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { page } from '$app/state';
@@ -108,7 +107,7 @@
 									: 'text-sm md:text-base mb-2 md:mb-3'} text-[#6b6b70] font-normal"
 							>
 								{$LL.fleet_start_from()}
-								{formatCurrency(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
+								{$LL.format_currency(jenis.computed.minPrice)}
 								{$LL.fleet_per_day().toLowerCase()}
 							</p>
 						{:else}

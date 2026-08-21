@@ -225,8 +225,8 @@
 								</div>
 
 								<div class="flex items-center gap-2 text-[11px] text-[#6b6b70] mb-1.5 font-normal">
-									{#if featuredPost.formattedDate && featuredPost.formattedDate !== '-'}
-										<time datetime={featuredPost.createdAt}>{featuredPost.formattedDate}</time>
+									{#if featuredPost.createdAt}
+										<time datetime={featuredPost.createdAt}>{$LL.format_date_short(new Date(featuredPost.createdAt))}</time>
 										<span class="w-1 h-1 rounded-full bg-black/20"></span>
 									{/if}
 									<span>{featuredPost.readingTime}</span>
@@ -287,10 +287,10 @@
 										>
 											{post.judul}
 										</h3>
-										{#if post.formattedDate && post.formattedDate !== '-'}
-											<span class="text-[10px] text-[#6b6b70] mt-1 block font-normal">
-												{post.formattedDate}
-											</span>
+										{#if post.createdAt}
+											<div class="flex items-center gap-1.5 shrink-0 text-[10px] text-[#6b6b70] mt-1">
+												{$LL.format_date_short(new Date(post.createdAt))}
+											</div>
 										{/if}
 									</div>
 								</a>
@@ -361,8 +361,8 @@
 										<div
 											class="flex items-center gap-1.5 text-[10px] text-[#6b6b70] mb-1.5 font-normal"
 										>
-											{#if post.formattedDate && post.formattedDate !== '-'}
-												<time datetime={post.createdAt}>{post.formattedDate}</time>
+											{#if post.createdAt}
+												<time datetime={post.createdAt}>{$LL.format_date_short(new Date(post.createdAt))}</time>
 												<span class="w-0.5 h-0.5 rounded-full bg-black/20"></span>
 											{/if}
 											<span>{post.readingTime}</span>

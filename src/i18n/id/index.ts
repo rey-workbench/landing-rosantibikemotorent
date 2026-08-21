@@ -294,7 +294,13 @@ const id: BaseTranslation = {
 	ui_month_next: 'Bulan berikutnya',
 	ui_increment: 'Tambah',
 	ui_decrement: 'Kurangi',
-	ui_search_country: 'Cari negara...'
+	ui_search_country: 'Cari negara...',
+
+	// Formatters
+	format_currency: '{0: number|currency}',
+	format_number: '{0: number|number}',
+	format_date_short: '{0: Date|dateShort}',
+	format_date_long: '{0: Date|dateLong}'
 };
 
 export default id;

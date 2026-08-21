@@ -291,9 +291,15 @@ const en: Translation = {
 	ui_no_results: 'Not found',
 	ui_month_prev: 'Previous month',
 	ui_month_next: 'Next month',
-	ui_increment: 'Increase',
-	ui_decrement: 'Decrease',
-	ui_search_country: 'Search country...'
+	ui_increment: 'Increment',
+	ui_decrement: 'Decrement',
+	ui_search_country: 'Search country...',
+
+	// Formatters
+	format_currency: '{0: number|currency}',
+	format_number: '{0: number|number}',
+	format_date_short: '{0: Date|dateShort}',
+	format_date_long: '{0: Date|dateLong}'
 };
 
 export default en;
