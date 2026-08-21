@@ -122,7 +122,9 @@
 		>
 			{isEn ? 'Support & Help' : 'Pusat Bantuan & FAQ'}
 		</span>
-		<h1 class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight mb-4">
+		<h1
+			class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight mb-4"
+		>
 			{isEn ? 'Frequently Asked Questions' : 'Pertanyaan yang Sering Diajukan'}
 		</h1>
 		<p class="text-base md:text-lg text-[#525257] max-w-xl mx-auto leading-relaxed">

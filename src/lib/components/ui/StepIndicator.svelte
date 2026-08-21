@@ -8,15 +8,15 @@
 
 	let isCompleted = $derived((index: number) => index < currentStep);
 	let isCurrent = $derived((index: number) => index === currentStep);
-	let progressWidth = $derived(
-		currentStep === 0 ? 0 : (currentStep / (steps.length - 1)) * 100
-	);
+	let progressWidth = $derived(currentStep === 0 ? 0 : (currentStep / (steps.length - 1)) * 100);
 </script>
 
 <div class="w-full mb-10">
 	<div class="flex items-center justify-between relative px-2 sm:px-6">
 		<!-- Progress Line Background -->
-		<div class="absolute top-4 sm:top-5 left-8 sm:left-14 right-8 sm:right-14 h-0.5 bg-black/8 -z-10"></div>
+		<div
+			class="absolute top-4 sm:top-5 left-8 sm:left-14 right-8 sm:right-14 h-0.5 bg-black/8 -z-10"
+		></div>
 
 		<!-- Progress Line Active -->
 		<div
@@ -37,7 +37,13 @@
 							: 'bg-[#f5f5f7] text-[#6b6b70] border border-black/5'}"
 				>
 					{#if isCompleted(index)}
-						<svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+						<svg
+							class="w-4 h-4 sm:w-5 sm:h-5"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							stroke-width="2.5"
+						>
 							<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
 						</svg>
 					{:else}
@@ -59,4 +65,3 @@
 		{/each}
 	</div>
 </div>
-

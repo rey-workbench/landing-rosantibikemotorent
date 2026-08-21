@@ -6,7 +6,7 @@
 	const stats = $derived([
 		{ label: $LL.stats_customers(), value: 500, suffix: '+' },
 		{ label: $LL.stats_units(), value: 15, suffix: '+' },
-		{ label: $LL.stats_experience(), value: 3, suffix: '+'}
+		{ label: $LL.stats_experience(), value: 3, suffix: '+' }
 	]);
 
 	let visible = $state(false);
@@ -52,7 +52,9 @@
 			<div
 				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xs"
 			>
-				<div class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none font-display">
+				<div
+					class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none font-display"
+				>
 					{Math.round($spring1)}{stats[0].suffix}
 				</div>
 				<div class="text-sm md:text-base text-[#6e6e73] font-medium tracking-wide">
@@ -63,7 +65,9 @@
 			<div
 				class="p-10 md:p-14 rounded-3xl bg-brand-dark text-white transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xl"
 			>
-				<div class="text-6xl md:text-8xl font-bold text-[#f5f5f7] mb-3 tracking-tight leading-none font-display">
+				<div
+					class="text-6xl md:text-8xl font-bold text-[#f5f5f7] mb-3 tracking-tight leading-none font-display"
+				>
 					{Math.round($spring2)}{stats[1].suffix}
 				</div>
 				<div class="text-sm md:text-base text-[#86868b] font-medium tracking-wide">
@@ -74,7 +78,9 @@
 			<div
 				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xs"
 			>
-				<div class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none font-display">
+				<div
+					class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none font-display"
+				>
 					{Math.round($spring3)}{stats[2].suffix}
 				</div>
 				<div class="text-sm md:text-base text-[#6e6e73] font-medium tracking-wide">

@@ -5,7 +5,8 @@ export const GET: RequestHandler = async () => {
 		serverInfo: {
 			name: 'rosantibike-mcp-server',
 			version: '1.0.0',
-			description: 'Model Context Protocol (MCP) server for RosantiBike motorcycle rentals and travel assistance in Malang.'
+			description:
+				'Model Context Protocol (MCP) server for RosantiBike motorcycle rentals and travel assistance in Malang.'
 		},
 		endpoint: 'https://rosantibikemotorent.com/mcp',
 		transport: 'streamable-http',
@@ -24,7 +25,8 @@ export const GET: RequestHandler = async () => {
 		tools: [
 			{
 				name: 'get_motorcycle_catalog',
-				description: 'Get live motorcycle rental catalog with rates, specifications, and availability in Malang.',
+				description:
+					'Get live motorcycle rental catalog with rates, specifications, and availability in Malang.',
 				inputSchema: {
 					type: 'object',
 					properties: {
@@ -35,7 +37,8 @@ export const GET: RequestHandler = async () => {
 			},
 			{
 				name: 'calculate_rental_price',
-				description: 'Calculate total rental price based on start date, end date, and motorcycle model.',
+				description:
+					'Calculate total rental price based on start date, end date, and motorcycle model.',
 				inputSchema: {
 					type: 'object',
 					properties: {

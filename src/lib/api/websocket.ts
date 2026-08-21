@@ -27,7 +27,10 @@ class WebSocketClient {
 
 		let apiUrl = import.meta.env.VITE_WS_URL;
 		if (!apiUrl) {
-			if (import.meta.env.VITE_API_URL && !import.meta.env.VITE_API_URL.includes('api.rosantibikemotorent.com')) {
+			if (
+				import.meta.env.VITE_API_URL &&
+				!import.meta.env.VITE_API_URL.includes('api.rosantibikemotorent.com')
+			) {
 				apiUrl = import.meta.env.VITE_API_URL.replace(/\/api$/, '');
 			} else if (browser) {
 				apiUrl = `${window.location.protocol}//${window.location.hostname}:${DEFAULTS.API_FALLBACK_PORT}`;

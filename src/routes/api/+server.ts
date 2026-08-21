@@ -25,7 +25,8 @@ export const GET: RequestHandler = async () => {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*',
 			'X-402-Version': '1.0',
-			'WWW-Authenticate': 'X402 network="base", currency="USDC", amount="1000", recipient="0x0000000000000000000000000000000000000000"'
+			'WWW-Authenticate':
+				'X402 network="base", currency="USDC", amount="1000", recipient="0x0000000000000000000000000000000000000000"'
 		}
 	});
 };

@@ -6,6 +6,7 @@
 	import { DEFAULTS } from '$lib/constants';
 	import { websocketService } from '$lib/services/websocket';
 	import type { UnitMotor, PriceCalculation } from '$lib/types';
+	import TurnstileWidget from '$lib/components/ui/TurnstileWidget.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import PhoneInput from '$lib/components/ui/PhoneInput.svelte';
@@ -18,11 +19,13 @@
 
 	let { data } = $props();
 
+	let turnstileToken = $state('');
+
 	// State
 	let availableMotors = $state<UnitMotor[]>(
 		untrack(() => (data.availableMotors || []) as UnitMotor[])
 	);
-	
+
 	let uniqueMotors = $derived.by(() => {
 		const seen = new Set<string>();
 		return availableMotors.filter((m) => {
@@ -204,7 +207,8 @@
 				jamMulai: formData.jamMulai,
 				jamSelesai: formData.jamSelesai,
 				jasHujan: formData.jasHujan,
-				helm: formData.helm
+				helm: formData.helm,
+				turnstileToken
 			});
 
 			success = true;
@@ -284,9 +288,12 @@
 			<h1
 				class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight"
 			>
-				{$LL.booking_header_order()} {$LL.booking_header_motor()}
+				{$LL.booking_header_order()}
+				{$LL.booking_header_motor()}
 			</h1>
-			<p class="text-[15px] sm:text-[16px] text-[#6e6e73] font-normal mt-2.5 max-w-lg mx-auto leading-relaxed">
+			<p
+				class="text-[15px] sm:text-[16px] text-[#6e6e73] font-normal mt-2.5 max-w-lg mx-auto leading-relaxed"
+			>
 				{$LL.booking_header_subtitle()}
 			</p>
 		</div>
@@ -306,15 +313,13 @@
 						stroke="currentColor"
 						stroke-width="2.5"
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M5 13l4 4L19 7"
-						/>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
 					</svg>
 				</div>
 				<h2 class="text-2xl font-bold text-[#1d1d1f] mb-2">{$LL.booking_success_title()}</h2>
-				<p class="text-[#525257] text-sm leading-relaxed max-w-md mx-auto">{$LL.booking_success_message()}</p>
+				<p class="text-[#525257] text-sm leading-relaxed max-w-md mx-auto">
+					{$LL.booking_success_message()}
+				</p>
 			</div>
 		{:else}
 			<!-- Step Indicator -->
@@ -349,7 +354,9 @@
 				{#if currentStep === 0}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step1_title()}</h2>
+							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">
+								{$LL.booking_step1_title()}
+							</h2>
 							<p class="text-[#525257] text-xs sm:text-sm mt-1">{$LL.booking_step1_desc()}</p>
 						</div>
 
@@ -378,10 +385,14 @@
 					<div class="space-y-5 animate-fadeIn">
 						<div class="text-center mb-6">
 							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">Pilih Motor</h2>
-							<p class="text-[#525257] text-xs sm:text-sm mt-1">Pilih armada yang ingin Anda sewa</p>
+							<p class="text-[#525257] text-xs sm:text-sm mt-1">
+								Pilih armada yang ingin Anda sewa
+							</p>
 						</div>
 
-						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-105 overflow-y-auto pr-1 pb-1">
+						<div
+							class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-105 overflow-y-auto pr-1 pb-1"
+						>
 							{#each uniqueMotors as motor}
 								{@const jenis = motor.jenis}
 								{@const isSelected = formData.jenisId === motor.jenisId}
@@ -392,7 +403,9 @@
 										? 'bg-blue-50/40 border-apple-blue ring-2 ring-apple-blue/20 shadow-sm'
 										: 'bg-[#f5f5f7] border-black/5 hover:bg-[#e8e8ed] hover:border-black/10'}"
 								>
-									<div class="w-20 h-20 bg-white rounded-xl p-1.5 flex items-center justify-center shrink-0 border border-black/5">
+									<div
+										class="w-20 h-20 bg-white rounded-xl p-1.5 flex items-center justify-center shrink-0 border border-black/5"
+									>
 										{#if getMotorImage(jenis)}
 											<img
 												src={getMotorImage(jenis)}
@@ -406,18 +419,32 @@
 										{/if}
 									</div>
 									<div class="flex-1 min-w-0">
-										<span class="text-[10px] font-semibold uppercase tracking-wider text-[#525257]">{jenis?.merk}</span>
+										<span class="text-[10px] font-semibold uppercase tracking-wider text-[#525257]"
+											>{jenis?.merk}</span
+										>
 										<h3 class="text-[15px] font-bold text-[#1d1d1f] truncate">{jenis?.model}</h3>
 										{#if jenis?.cc}
 											<p class="text-[11px] text-[#525257] mt-0.5">{jenis.cc} CC • Matic</p>
 										{/if}
 										<p class="text-[13px] font-semibold text-apple-blue mt-1.5">
-											{formatCurrency(jenis?.hargaSewa || 0)} <span class="text-[11px] text-[#525257] font-normal">/{$LL.booking_day()}</span>
+											{formatCurrency(jenis?.hargaSewa || 0)}
+											<span class="text-[11px] text-[#525257] font-normal"
+												>/{$LL.booking_day()}</span
+											>
 										</p>
 									</div>
 									{#if isSelected}
-										<div class="absolute top-3 right-3 w-5 h-5 bg-apple-blue text-white rounded-full flex items-center justify-center shadow-xs">
-											<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+										<div
+											class="absolute top-3 right-3 w-5 h-5 bg-apple-blue text-white rounded-full flex items-center justify-center shadow-xs"
+										>
+											<svg
+												width="12"
+												height="12"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="3"
+											>
 												<polyline points="20 6 9 17 4 12" />
 											</svg>
 										</div>
@@ -432,7 +459,9 @@
 				{#if currentStep === 2}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step3_title()}</h2>
+							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">
+								{$LL.booking_step3_title()}
+							</h2>
 							<p class="text-[#525257] text-xs sm:text-sm mt-1">{$LL.booking_step3_desc()}</p>
 						</div>
 
@@ -477,7 +506,13 @@
 									{$LL.booking_accessories_label()}
 								</h4>
 								<span class="text-xs text-apple-blue font-medium flex items-center gap-1">
-									<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+									<svg
+										class="w-3.5 h-3.5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="2"
+									>
 										<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
 									</svg>
 									{$LL.booking_accessories_free()}
@@ -486,48 +521,78 @@
 
 							<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
 								<!-- Jas Hujan Card -->
-								<div class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-center justify-between">
+								<div
+									class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-center justify-between"
+								>
 									<div>
-										<p class="text-sm font-semibold text-[#1d1d1f]">{$LL.booking_raincoat_label()}</p>
+										<p class="text-sm font-semibold text-[#1d1d1f]">
+											{$LL.booking_raincoat_label()}
+										</p>
 										<p class="text-xs text-[#6e6e73] mt-0.5">Jas hujan ponco/setelan</p>
 									</div>
-									<div class="flex items-center gap-1 bg-white border border-black/8 rounded-xl p-1 shadow-xs">
+									<div
+										class="flex items-center gap-1 bg-white border border-black/8 rounded-xl p-1 shadow-xs"
+									>
 										<button
 											type="button"
 											disabled={formData.jasHujan <= 0}
-											onclick={() => { formData.jasHujan = Math.max(0, formData.jasHujan - 1); handleCalculatePrice(); }}
+											onclick={() => {
+												formData.jasHujan = Math.max(0, formData.jasHujan - 1);
+												handleCalculatePrice();
+											}}
 											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
-										>-</button>
-										<span class="w-6 text-center text-xs font-bold text-[#1d1d1f]">{formData.jasHujan}</span>
+											>-</button
+										>
+										<span class="w-6 text-center text-xs font-bold text-[#1d1d1f]"
+											>{formData.jasHujan}</span
+										>
 										<button
 											type="button"
 											disabled={formData.jasHujan >= 2}
-											onclick={() => { formData.jasHujan = Math.min(2, formData.jasHujan + 1); handleCalculatePrice(); }}
+											onclick={() => {
+												formData.jasHujan = Math.min(2, formData.jasHujan + 1);
+												handleCalculatePrice();
+											}}
 											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
-										>+</button>
+											>+</button
+										>
 									</div>
 								</div>
 
 								<!-- Helm Card -->
-								<div class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-center justify-between">
+								<div
+									class="p-4 rounded-2xl bg-[#f5f5f7] border border-black/5 flex items-center justify-between"
+								>
 									<div>
 										<p class="text-sm font-semibold text-[#1d1d1f]">{$LL.booking_helmet_label()}</p>
 										<p class="text-xs text-[#6e6e73] mt-0.5">Helm SNI bersih & wangi</p>
 									</div>
-									<div class="flex items-center gap-1 bg-white border border-black/8 rounded-xl p-1 shadow-xs">
+									<div
+										class="flex items-center gap-1 bg-white border border-black/8 rounded-xl p-1 shadow-xs"
+									>
 										<button
 											type="button"
 											disabled={formData.helm <= 0}
-											onclick={() => { formData.helm = Math.max(0, formData.helm - 1); handleCalculatePrice(); }}
+											onclick={() => {
+												formData.helm = Math.max(0, formData.helm - 1);
+												handleCalculatePrice();
+											}}
 											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
-										>-</button>
-										<span class="w-6 text-center text-xs font-bold text-[#1d1d1f]">{formData.helm}</span>
+											>-</button
+										>
+										<span class="w-6 text-center text-xs font-bold text-[#1d1d1f]"
+											>{formData.helm}</span
+										>
 										<button
 											type="button"
 											disabled={formData.helm >= 2}
-											onclick={() => { formData.helm = Math.min(2, formData.helm + 1); handleCalculatePrice(); }}
+											onclick={() => {
+												formData.helm = Math.min(2, formData.helm + 1);
+												handleCalculatePrice();
+											}}
 											class="w-7 h-7 rounded-lg flex items-center justify-center text-[#1d1d1f] hover:bg-[#f5f5f7] disabled:opacity-30 disabled:pointer-events-none transition-colors"
-										>+</button>
+											>+</button
+										>
 									</div>
 								</div>
 							</div>
@@ -539,7 +604,9 @@
 				{#if currentStep === 3}
 					<div class="space-y-6 animate-fadeIn">
 						<div class="text-center mb-6">
-							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">{$LL.booking_step4_title()}</h2>
+							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">
+								{$LL.booking_step4_title()}
+							</h2>
 							<p class="text-[#525257] text-xs sm:text-sm mt-1">{$LL.booking_step4_desc()}</p>
 						</div>
 
@@ -573,7 +640,9 @@
 								</div>
 							{:else if formData.jenisId || formData.unitId}
 								<div class="p-5 border-b border-black/5 bg-white">
-									<p class="text-[#525257] text-[10px] font-semibold tracking-wider uppercase mb-0.5">
+									<p
+										class="text-[#525257] text-[10px] font-semibold tracking-wider uppercase mb-0.5"
+									>
 										{$LL.booking_motor_label()}
 									</p>
 									<p class="text-[#1d1d1f] font-bold text-base">{$LL.booking_motor_selected()}</p>
@@ -592,7 +661,8 @@
 								</div>
 								<div class="flex justify-between items-center">
 									<span class="text-[#525257]">{$LL.booking_date_field()}</span>
-									<span class="text-[#1d1d1f] font-medium">{formatDate(formData.tanggalMulai)}</span>
+									<span class="text-[#1d1d1f] font-medium">{formatDate(formData.tanggalMulai)}</span
+									>
 								</div>
 								<div class="flex justify-between items-center">
 									<span class="text-[#525257]">{$LL.booking_time_field()}</span>
@@ -659,9 +729,7 @@
 												</span>
 											</div>
 										{/if}
-										<div
-											class="text-[11px] text-[#525257] pt-2 border-t border-black/5"
-										>
+										<div class="text-[11px] text-[#525257] pt-2 border-t border-black/5">
 											{$LL.booking_total_duration()}: {priceBreakdown.rincian.totalJam} jam
 										</div>
 									</div>
@@ -690,6 +758,13 @@
 								<p class="text-[#525257] text-xs">{$LL.booking_calculating()}</p>
 							</div>
 						{/if}
+
+						<div class="mb-6 flex justify-center">
+							<TurnstileWidget 
+								sitekey="0x4AAAAAAEXvT8ehRVWOIPue"
+								onToken={(token) => (turnstileToken = token)}
+							/>
+						</div>
 
 						<!-- Note -->
 						<div class="bg-[#f5f5f7] rounded-2xl p-4 sm:p-5 flex gap-3.5 border border-black/5">
@@ -720,12 +795,14 @@
 				<div class="flex gap-3 sm:gap-4 mt-8 pt-6 border-t border-black/6">
 					{#if currentStep > 0}
 						<Button variant="outline" size="md" onclick={prevStep} className="flex-1">
-							<svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M15 19l-7-7 7-7"
-								/>
+							<svg
+								class="w-4 h-4 mr-1.5"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
 							</svg>
 							{$LL.booking_back()}
 						</Button>
@@ -734,12 +811,14 @@
 					{#if currentStep < steps.length - 1}
 						<Button variant="primary" size="md" onclick={nextStep} className="flex-1">
 							{$LL.booking_next()}
-							<svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M9 5l7 7-7 7"
-								/>
+							<svg
+								class="w-4 h-4 ml-1.5"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
 							</svg>
 						</Button>
 					{:else}
@@ -748,10 +827,15 @@
 							size="md"
 							onclick={handleSubmit}
 							loading={isSubmitting || isCalculating}
-							disabled={isSubmitting || isCalculating}
+							disabled={isSubmitting || isCalculating || !turnstileToken}
 							className="flex-1"
 						>
-							{isSubmitting ? $LL.booking_processing() : $LL.booking_confirm()}
+							<div class="flex items-center justify-center gap-2">
+								{#if isSubmitting || isCalculating}
+									<span class="loading loading-spinner loading-sm"></span>
+								{/if}
+								{isSubmitting ? $LL.booking_processing() : $LL.booking_confirm()}
+							</div>
 						</Button>
 					{/if}
 				</div>
@@ -775,4 +859,3 @@
 		animation: fadeIn 0.25s ease-out;
 	}
 </style>
-

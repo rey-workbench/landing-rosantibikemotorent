@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import LL from '$i18n/i18n-svelte.js';
 
 	interface Props {
 		value?: string | number;
@@ -132,7 +133,10 @@
 	style="z-index: {isOpen ? 1000 : 1}"
 >
 	{#if label}
-		<label for={actualId} class="block text-xs font-semibold uppercase tracking-wider text-[#1d1d1f] mb-1.5">
+		<label
+			for={actualId}
+			class="block text-xs font-semibold uppercase tracking-wider text-[#1d1d1f] mb-1.5"
+		>
 			{label}
 			{#if required}<span class="text-red-500 ml-0.5">*</span>{/if}
 		</label>
@@ -168,7 +172,7 @@
 						</svg>
 					{/if}
 					<span class="truncate {selectedLabel ? 'text-[#1d1d1f] font-medium' : 'text-[#6b6b70]'}"
-						>{selectedLabel || placeholder || 'Pilih...'}</span
+						>{selectedLabel || placeholder || $LL.ui_select()}</span
 					>
 				</div>
 				<svg
@@ -195,8 +199,8 @@
 								<input
 									type="text"
 									bind:value={searchTerm}
-									placeholder="Cari..."
-									aria-label="Cari opsi"
+									placeholder={$LL.ui_search()}
+									aria-label={$LL.ui_search()}
 									class="w-full bg-[#f5f5f7] border border-black/5 rounded-xl px-3 py-2 text-xs text-[#1d1d1f] focus:outline-none"
 									onclick={(e) => e.stopPropagation()}
 								/>
@@ -234,7 +238,7 @@
 										adjustMonth(-1);
 									}}
 									class="p-1 hover:bg-[#f5f5f7] rounded text-[#1d1d1f]"
-									aria-label="Bulan sebelumnya"
+									aria-label={$LL.ui_month_prev()}
 									><svg
 										width="14"
 										height="14"
@@ -255,7 +259,7 @@
 										adjustMonth(1);
 									}}
 									class="p-1 hover:bg-[#f5f5f7] rounded text-[#1d1d1f]"
-									aria-label="Bulan berikutnya"
+									aria-label={$LL.ui_month_next()}
 									><svg
 										width="14"
 										height="14"
@@ -303,7 +307,9 @@
 											e.stopPropagation();
 											select(`${h}:${value.toString().split(':')[1] || '00'}`);
 										}}
-										class="w-full py-1.5 text-xs rounded transition-colors {value.toString().startsWith(h + ':')
+										class="w-full py-1.5 text-xs rounded transition-colors {value
+											.toString()
+											.startsWith(h + ':')
 											? 'bg-apple-blue text-white font-semibold'
 											: 'text-[#6b6b70] hover:text-[#1d1d1f] hover:bg-[#f5f5f7]'}">{h}</button
 									>{/each}
@@ -314,7 +320,9 @@
 											e.stopPropagation();
 											select(`${value.toString().split(':')[0] || '08'}:${m}`);
 										}}
-										class="w-full py-1.5 text-xs rounded transition-colors {value.toString().endsWith(':' + m)
+										class="w-full py-1.5 text-xs rounded transition-colors {value
+											.toString()
+											.endsWith(':' + m)
 											? 'bg-apple-blue text-white font-semibold'
 											: 'text-[#6b6b70] hover:text-[#1d1d1f] hover:bg-[#f5f5f7]'}">{m}</button
 									>{/each}
@@ -343,7 +351,7 @@
 						type="button"
 						onclick={() => step(1)}
 						class="p-1 hover:text-[#1d1d1f] text-[#6b6b70]"
-						aria-label="Tambah"
+						aria-label={$LL.ui_increment()}
 						><svg
 							width="12"
 							height="12"
@@ -357,7 +365,7 @@
 						type="button"
 						onclick={() => step(-1)}
 						class="p-1 hover:text-[#1d1d1f] text-[#6b6b70]"
-						aria-label="Kurangi"
+						aria-label={$LL.ui_decrement()}
 						><svg
 							width="12"
 							height="12"

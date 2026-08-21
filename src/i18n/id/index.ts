@@ -174,8 +174,8 @@ const id: BaseTranslation = {
 	booking_name_label: 'Nama Lengkap',
 	booking_name_placeholder: 'Nama sesuai KTP',
 	booking_whatsapp_label: 'No. WhatsApp',
-	booking_whatsapp_placeholder: '81234567890',
-	booking_whatsapp_hint: 'Pilih kode negara atau ketik nomor Anda',
+	booking_whatsapp_placeholder: '+62 812-3456-7890',
+	booking_whatsapp_hint: 'Sertakan kode negara (misal +62 untuk Indonesia, +65 untuk Singapura)',
 	booking_step2_title: 'Pilih Motor',
 	booking_step2_desc: 'Pilih motor yang ingin disewa',
 	booking_motor_type_label: 'Tipe Motor',
@@ -221,6 +221,8 @@ const id: BaseTranslation = {
 	booking_success_contact: 'Kami akan segera menghubungi Anda via WhatsApp.',
 	booking_error_price_calc: 'Gagal menghitung harga',
 	booking_error_create: 'Gagal membuat booking',
+	booking_error_verify: 'Selesaikan verifikasi keamanan terlebih dahulu',
+	booking_verify_hint: 'Verifikasi keamanan untuk melanjutkan',
 	booking_error_name_required: 'Nama lengkap wajib diisi',
 	booking_error_whatsapp_required: 'No. WhatsApp wajib diisi',
 	booking_error_whatsapp_invalid: 'Format no. WhatsApp tidak valid',
@@ -282,7 +284,17 @@ const id: BaseTranslation = {
 	loc_batu_name: 'Kota Wisata Batu',
 	loc_batu_desc: 'Titik awal perjalanan wisata keluarga.',
 	loc_bromo_name: 'Gunung Bromo & Tumpak Sewu',
-	loc_bromo_desc: 'Konsultasikan rute pegunungan dengan armada khusus.'
+	loc_bromo_desc: 'Konsultasikan rute pegunungan dengan armada khusus.',
+
+	// UI Components
+	ui_search: 'Cari...',
+	ui_select: 'Pilih...',
+	ui_no_results: 'Tidak ditemukan',
+	ui_month_prev: 'Bulan sebelumnya',
+	ui_month_next: 'Bulan berikutnya',
+	ui_increment: 'Tambah',
+	ui_decrement: 'Kurangi',
+	ui_search_country: 'Cari negara...'
 };
 
 export default id;

@@ -194,9 +194,7 @@
 
 					<!-- Specs Grid (Apple Clean Surfaces) -->
 					<div class="grid grid-cols-2 gap-4 mb-8">
-						<div
-							class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5"
-						>
+						<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5">
 							<p class="text-[#525257] text-[12px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_engine()}
 							</p>
@@ -205,9 +203,7 @@
 								<span class="text-base text-[#525257] font-medium tracking-normal">CC</span>
 							</p>
 						</div>
-						<div
-							class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5"
-						>
+						<div class="bg-[#f5f5f7] border border-black/5 rounded-3xl p-5">
 							<p class="text-[#525257] text-[12px] font-semibold uppercase tracking-wider mb-1">
 								{$LL.fleet_detail_year()}
 							</p>
@@ -250,7 +246,9 @@
 			<!-- Additional Info -->
 			<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
 				<div class="bg-white border border-black/5 rounded-3xl p-8 shadow-xs">
-					<div class="w-12 h-12 bg-blue-50 text-apple-blue rounded-xl flex items-center justify-center mb-4">
+					<div
+						class="w-12 h-12 bg-blue-50 text-apple-blue rounded-xl flex items-center justify-center mb-4"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -263,14 +261,18 @@
 							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
 						</svg>
 					</div>
-					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">{$LL.fleet_detail_insurance()}</h2>
+					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">
+						{$LL.fleet_detail_insurance()}
+					</h2>
 					<p class="text-[#525257] leading-relaxed text-sm">
 						{$LL.fleet_detail_insurance_desc()}
 					</p>
 				</div>
 
 				<div class="bg-white border border-black/5 rounded-3xl p-8 shadow-xs">
-					<div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-4">
+					<div
+						class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-4"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -284,12 +286,18 @@
 							<polyline points="22 4 12 14.01 9 11.01" />
 						</svg>
 					</div>
-					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">{$LL.fleet_detail_well_maintained()}</h2>
-					<p class="text-[#525257] leading-relaxed text-sm">{$LL.fleet_detail_well_maintained_desc()}</p>
+					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">
+						{$LL.fleet_detail_well_maintained()}
+					</h2>
+					<p class="text-[#525257] leading-relaxed text-sm">
+						{$LL.fleet_detail_well_maintained_desc()}
+					</p>
 				</div>
 
 				<div class="bg-white border border-black/5 rounded-3xl p-8 shadow-xs">
-					<div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-4">
+					<div
+						class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-4"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -302,7 +310,9 @@
 							<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
 						</svg>
 					</div>
-					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">{$LL.fleet_detail_support()}</h2>
+					<h2 class="text-xl font-bold text-[#1d1d1f] mb-2 font-display">
+						{$LL.fleet_detail_support()}
+					</h2>
 					<p class="text-[#525257] leading-relaxed text-sm">
 						{$LL.fleet_detail_support_desc()}
 					</p>

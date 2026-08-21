@@ -42,7 +42,9 @@
 						<polyline points="20 6 9 17 4 12" />
 					</svg>
 				</div>
-				<h1 class="text-[32px] md:text-[40px] font-semibold font-display text-[#1d1d1f] tracking-tight mb-3">
+				<h1
+					class="text-[32px] md:text-[40px] font-semibold font-display text-[#1d1d1f] tracking-tight mb-3"
+				>
 					{$LL.booking_success_title()}
 				</h1>
 				<p class="text-[#6b6b70] text-[15px] sm:text-[17px] leading-relaxed">
@@ -119,7 +121,9 @@
 			</div>
 
 			<!-- Status Badge -->
-			<div class="bg-[#fef9c3] border border-yellow-300 rounded-2xl p-4 sm:p-5 mb-8 text-[#854d0e] text-xs sm:text-sm">
+			<div
+				class="bg-[#fef9c3] border border-yellow-300 rounded-2xl p-4 sm:p-5 mb-8 text-[#854d0e] text-xs sm:text-sm"
+			>
 				<div class="flex items-center justify-center gap-2.5">
 					<div class="w-2.5 h-2.5 bg-yellow-500 rounded-full animate-pulse shadow-xs"></div>
 					<span class="font-semibold uppercase tracking-wider text-xs">

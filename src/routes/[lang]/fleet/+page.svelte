@@ -51,12 +51,7 @@
 
 <svelte:head>
 	{#if jenisMotors.length > 0 && getMotorImage(jenisMotors[0])}
-		<link
-			rel="preload"
-			as="image"
-			href={getMotorImage(jenisMotors[0])}
-			fetchpriority="high"
-		/>
+		<link rel="preload" as="image" href={getMotorImage(jenisMotors[0])} fetchpriority="high" />
 	{/if}
 </svelte:head>
 
@@ -239,7 +234,9 @@
 							{/if}
 
 							<!-- Authentic Apple Dual Buttons -->
-							<div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-auto">
+							<div
+								class="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-auto"
+							>
 								<a
 									href="/{lang}/booking?unit={motor.slug}"
 									aria-label="{$LL.fleet_order()} {motor.merk} {motor.model}"

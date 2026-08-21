@@ -23,7 +23,11 @@ export const CreateTransaksiSchema = rentalWindowSchema.extend({
 		.min(2)
 		.max(100)
 		.regex(/^[\p{L}\s'-]+$/u, 'Invalid name'),
-	noWhatsapp: z.string().regex(/^628\d{8,13}$/, 'Must be Indonesian WA number (628...)')
+	noWhatsapp: z
+		.string()
+		.regex(/^\+?\d{10,15}$/, 'Invalid WhatsApp number (10-15 digits, optional + prefix)'),
+	turnstileToken: z.string().optional(),
+	website: z.string().optional()
 });
 
 export type CreateTransaksiDto = z.infer<typeof CreateTransaksiSchema>;

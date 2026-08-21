@@ -108,7 +108,7 @@ const handleMarkdownNegotiation: Handle = async ({ event, resolve }) => {
 				status: 200,
 				headers: {
 					'Content-Type': 'text/markdown; charset=utf-8',
-					'Vary': 'Accept',
+					Vary: 'Accept',
 					'Cache-Control': 'public, max-age=3600, s-maxage=86400'
 				}
 			});

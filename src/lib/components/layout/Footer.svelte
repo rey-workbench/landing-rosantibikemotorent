@@ -22,12 +22,15 @@
 		<!-- Disclaimer / Breadcrumb note (Apple Style) -->
 		<div class="text-[11px] text-[#525257] leading-relaxed pb-4 mb-6 border-b border-[#d2d2d7]">
 			<p>
-				Sewa motor harian, mingguan, dan bulanan terpercaya di Kota Malang, Batu, dan Bromo. Seluruh unit terawat resmi dengan fasilitas helm SNI dan jas hujan gratis.
+				Sewa motor harian, mingguan, dan bulanan terpercaya di Kota Malang, Batu, dan Bromo. Seluruh
+				unit terawat resmi dengan fasilitas helm SNI dan jas hujan gratis.
 			</p>
 		</div>
 
 		<!-- Main 4-Column Directory -->
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-[#d2d2d7]">
+		<div
+			class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-[#d2d2d7]"
+		>
 			<!-- Col 1: About & Reviews -->
 			<div class="space-y-3">
 				<h3 class="font-semibold text-[#1d1d1f] text-[12px] tracking-tight">
@@ -121,10 +124,7 @@
 				<div class="space-y-2.5 text-[#424245]">
 					<p>{siteConfig.address}</p>
 					<p>
-						<a
-							href={emailHref}
-							class="text-[#0066cc] hover:underline"
-						>
+						<a href={emailHref} class="text-[#0066cc] hover:underline">
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html displayEmail}
 						</a>
@@ -142,9 +142,12 @@
 		</div>
 
 		<!-- Apple Bottom Bar -->
-		<div class="pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-[11px] text-[#525257]">
+		<div
+			class="pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-[11px] text-[#525257]"
+		>
 			<div>
-				Copyright &copy; {new Date().getFullYear()} {siteConfig.name}. {$LL.footer_all_rights() || 'Hak cipta dilindungi.'}
+				Copyright &copy; {new Date().getFullYear()}
+				{siteConfig.name}. {$LL.footer_all_rights() || 'Hak cipta dilindungi.'}
 			</div>
 
 			<div class="flex flex-wrap items-center gap-x-3 gap-y-1">

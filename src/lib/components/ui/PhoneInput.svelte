@@ -6,6 +6,7 @@
 		getCountries,
 		getCountryCallingCode
 	} from 'libphonenumber-js';
+	import LL from '$i18n/i18n-svelte.js';
 
 	interface Props {
 		value?: string;
@@ -202,7 +203,10 @@
 	style="z-index: {isOpen ? 1000 : 1}"
 >
 	{#if label}
-		<label for={actualId} class="block text-xs font-semibold uppercase tracking-wider text-[#1d1d1f] mb-1.5">
+		<label
+			for={actualId}
+			class="block text-xs font-semibold uppercase tracking-wider text-[#1d1d1f] mb-1.5"
+		>
 			{label}
 			{#if required}<span class="text-red-500 ml-0.5">*</span>{/if}
 		</label>
@@ -218,16 +222,22 @@
 				}}
 				class="flex items-center gap-1.5 bg-[#f5f5f7] border border-r-0 border-black/8 rounded-l-xl px-3.5 py-3 hover:bg-[#e8e8ed] transition-all {disabled
 					? 'opacity-50 cursor-not-allowed'
-					: 'cursor-pointer'} {isOpen ? 'bg-white border-apple-blue ring-4 ring-apple-blue/10' : ''}"
+					: 'cursor-pointer'} {isOpen
+					? 'bg-white border-apple-blue ring-4 ring-apple-blue/10'
+					: ''}"
 			>
 				<span class="text-base">{selectedCountry?.flag}</span>
-				<span class="text-[#1d1d1f] font-semibold text-xs sm:text-sm">+{selectedCountry?.callingCode}</span>
-				<svg class="w-3.5 h-3.5 text-[#6b6b70]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M19 9l-7 7-7-7"
-					/>
+				<span class="text-[#1d1d1f] font-semibold text-xs sm:text-sm"
+					>+{selectedCountry?.callingCode}</span
+				>
+				<svg
+					class="w-3.5 h-3.5 text-[#6b6b70]"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
 				</svg>
 			</button>
 
@@ -256,7 +266,7 @@
 					<input
 						type="text"
 						bind:value={searchTerm}
-						placeholder="Cari negara..."
+						placeholder={$LL.ui_search_country()}
 						class="w-full bg-[#f5f5f7] border border-black/5 rounded-xl px-3 py-2 text-xs text-[#1d1d1f] focus:outline-none"
 						onclick={(e) => e.stopPropagation()}
 					/>
@@ -286,18 +296,14 @@
 									stroke="currentColor"
 									stroke-width="2.5"
 								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M5 13l4 4L19 7"
-									/>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
 								</svg>
 							{/if}
 						</button>
 					{/each}
 
 					{#if filteredCountries.length === 0}
-						<div class="px-4 py-8 text-center text-[#6b6b70] text-xs">Tidak ditemukan</div>
+						<div class="px-4 py-8 text-center text-[#6b6b70] text-xs">{$LL.ui_no_results()}</div>
 					{/if}
 				</div>
 			</div>

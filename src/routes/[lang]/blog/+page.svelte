@@ -31,9 +31,7 @@
 	});
 
 	// Compact Editorial Layout Mappings
-	const isDefaultView = $derived(
-		currentPage === 1 && searchQuery === '' && selectedTagId === ''
-	);
+	const isDefaultView = $derived(currentPage === 1 && searchQuery === '' && selectedTagId === '');
 	const featuredPost = $derived(isDefaultView && posts.length > 0 ? posts[0] : null);
 	const listPosts = $derived(isDefaultView && posts.length > 1 ? posts.slice(1, 4) : []);
 	const morePosts = $derived(
@@ -97,12 +95,15 @@
 <main class="bg-white min-h-screen">
 	<!-- Hero / Header Section (Exact Fleet Style) -->
 	<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-20 md:pt-24 pb-6">
-		<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 gap-4 pb-6 border-b border-[#d2d2d7]">
+		<div
+			class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 gap-4 pb-6 border-b border-[#d2d2d7]"
+		>
 			<div>
 				<h1
 					class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight"
 				>
-					{$LL.blog_heading()} {$LL.blog_heading_highlight()}
+					{$LL.blog_heading()}
+					{$LL.blog_heading_highlight()}
 				</h1>
 				<p class="text-[15px] text-[#6b6b70] font-normal mt-2 max-w-lg leading-relaxed">
 					{$LL.blog_subtitle()}
@@ -138,10 +139,13 @@
 		</div>
 
 		<!-- Category Filter Strip -->
-		<div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-4 scrollbar-none border-b border-black/5 mb-8">
+		<div
+			class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-4 scrollbar-none border-b border-black/5 mb-8"
+		>
 			<button
 				onclick={() => selectTag('')}
-				class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId === ''
+				class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId ===
+				''
 					? 'bg-[#1d1d1f] text-white shadow-xs'
 					: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
 			>
@@ -150,7 +154,8 @@
 			{#each tags as tag}
 				<button
 					onclick={() => selectTag(tag.id)}
-					class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId === tag.id
+					class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId ===
+					tag.id
 						? 'bg-apple-blue text-white shadow-xs'
 						: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
 				>
@@ -171,7 +176,9 @@
 				{/each}
 			</div>
 		{:else if error}
-			<div class="text-center py-12 bg-[#f5f5f7] rounded-2xl border border-black/5 p-6 flex flex-col items-center justify-center">
+			<div
+				class="text-center py-12 bg-[#f5f5f7] rounded-2xl border border-black/5 p-6 flex flex-col items-center justify-center"
+			>
 				<h3 class="text-base font-bold text-[#1d1d1f] mb-1">{$LL.blog_error_title()}</h3>
 				<p class="text-xs text-[#6b6b70] mb-4">{error}</p>
 				<Button onclick={loadPosts} variant="secondary" size="sm">
@@ -190,20 +197,27 @@
 						<!-- Big Featured Card (Left 7 Cols) -->
 						<div class="lg:col-span-7 flex flex-col">
 							<a href="/{lang}/blog/{featuredPost.slug}" class="group block">
-								<div class="aspect-16/10 rounded-2xl overflow-hidden bg-[#f5f5f7] relative mb-3.5 border border-black/5 shadow-sm">
+								<div
+									class="aspect-16/10 rounded-2xl overflow-hidden bg-[#f5f5f7] relative mb-3.5 border border-black/5 shadow-sm"
+								>
 									{#if featuredPost.featuredImage || featuredPost.thumbnail}
 										<img
 											loading="eager"
 											fetchpriority="high"
 											decoding="async"
-											src={optimizeImageUrl(featuredPost.featuredImage || featuredPost.thumbnail, 800)}
+											src={optimizeImageUrl(
+												featuredPost.featuredImage || featuredPost.thumbnail,
+												800
+											)}
 											alt={featuredPost.judul}
 											class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
 										/>
 									{/if}
 									{#if featuredPost.kategori}
 										<div class="absolute top-3 left-3">
-											<span class="px-2.5 py-0.5 bg-white/90 backdrop-blur-md rounded-full text-[11px] font-semibold text-[#1d1d1f] shadow-2xs border border-black/5">
+											<span
+												class="px-2.5 py-0.5 bg-white/90 backdrop-blur-md rounded-full text-[11px] font-semibold text-[#1d1d1f] shadow-2xs border border-black/5"
+											>
 												{featuredPost.kategori.nama}
 											</span>
 										</div>
@@ -218,15 +232,21 @@
 									<span>{featuredPost.readingTime}</span>
 								</div>
 
-								<h3 class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors leading-tight font-display mb-1.5">
+								<h3
+									class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors leading-tight font-display mb-1.5"
+								>
 									{featuredPost.judul}
 								</h3>
 
-								<p class="text-xs sm:text-[13px] text-[#6b6b70] leading-relaxed line-clamp-2 font-normal mb-2">
+								<p
+									class="text-xs sm:text-[13px] text-[#6b6b70] leading-relaxed line-clamp-2 font-normal mb-2"
+								>
 									{featuredPost.excerpt}
 								</p>
 
-								<span class="text-xs font-semibold text-apple-blue inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+								<span
+									class="text-xs font-semibold text-apple-blue inline-flex items-center gap-1 group-hover:gap-1.5 transition-all"
+								>
 									{$LL.blog_read_more()} →
 								</span>
 							</a>
@@ -239,7 +259,9 @@
 									href="/{lang}/blog/{post.slug}"
 									class="group flex gap-3.5 items-center p-2.5 rounded-xl transition-all duration-200 hover:bg-[#f5f5f7] border border-transparent hover:border-black/5"
 								>
-									<div class="w-20 h-20 sm:w-22 sm:h-22 rounded-xl overflow-hidden bg-[#f5f5f7] shrink-0 border border-black/5 relative">
+									<div
+										class="w-20 h-20 sm:w-22 sm:h-22 rounded-xl overflow-hidden bg-[#f5f5f7] shrink-0 border border-black/5 relative"
+									>
 										{#if post.featuredImage || post.thumbnail}
 											<img
 												loading="lazy"
@@ -253,12 +275,16 @@
 									<div class="flex-1 min-w-0">
 										<div class="flex items-center gap-2 text-[10px] text-[#6b6b70] mb-1">
 											{#if post.kategori}
-												<span class="font-semibold text-apple-blue uppercase">{post.kategori.nama}</span>
+												<span class="font-semibold text-apple-blue uppercase"
+													>{post.kategori.nama}</span
+												>
 												<span class="w-0.5 h-0.5 rounded-full bg-black/30"></span>
 											{/if}
 											<span>{post.readingTime}</span>
 										</div>
-										<h3 class="text-xs sm:text-[13px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display">
+										<h3
+											class="text-xs sm:text-[13px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display"
+										>
 											{post.judul}
 										</h3>
 										{#if post.formattedDate && post.formattedDate !== '-'}
@@ -302,7 +328,15 @@
 										/>
 									{:else}
 										<div class="w-full h-full flex items-center justify-center text-[#6b6b70]/40">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="24"
+												height="24"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="1.5"
+											>
 												<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
 												<circle cx="8.5" cy="8.5" r="1.5"></circle>
 												<polyline points="21 15 16 10 5 21"></polyline>
@@ -312,7 +346,9 @@
 
 									{#if post.kategori}
 										<div class="absolute top-2.5 left-2.5">
-											<span class="px-2 py-0.5 bg-white/90 backdrop-blur-md rounded-full text-[9px] font-semibold text-[#1d1d1f] shadow-sm border border-black/5">
+											<span
+												class="px-2 py-0.5 bg-white/90 backdrop-blur-md rounded-full text-[9px] font-semibold text-[#1d1d1f] shadow-sm border border-black/5"
+											>
 												{post.kategori.nama}
 											</span>
 										</div>
@@ -322,7 +358,9 @@
 								<!-- Card Body -->
 								<div class="p-4 flex-1 flex flex-col justify-between">
 									<div>
-										<div class="flex items-center gap-1.5 text-[10px] text-[#6b6b70] mb-1.5 font-normal">
+										<div
+											class="flex items-center gap-1.5 text-[10px] text-[#6b6b70] mb-1.5 font-normal"
+										>
 											{#if post.formattedDate && post.formattedDate !== '-'}
 												<time datetime={post.createdAt}>{post.formattedDate}</time>
 												<span class="w-0.5 h-0.5 rounded-full bg-black/20"></span>
@@ -330,16 +368,22 @@
 											<span>{post.readingTime}</span>
 										</div>
 
-										<h3 class="text-sm sm:text-[15px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display mb-1">
+										<h3
+											class="text-sm sm:text-[15px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display mb-1"
+										>
 											{post.judul}
 										</h3>
 
-										<p class="text-[11px] sm:text-xs text-[#6b6b70] line-clamp-2 leading-relaxed font-normal">
+										<p
+											class="text-[11px] sm:text-xs text-[#6b6b70] line-clamp-2 leading-relaxed font-normal"
+										>
 											{post.excerpt}
 										</p>
 									</div>
 
-									<div class="mt-3 pt-2.5 border-t border-black/5 flex items-center justify-between text-[11px] font-medium text-apple-blue">
+									<div
+										class="mt-3 pt-2.5 border-t border-black/5 flex items-center justify-between text-[11px] font-medium text-apple-blue"
+									>
 										<span>{$LL.blog_read_more()}</span>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -361,7 +405,9 @@
 				</div>
 			{/if}
 		{:else}
-			<div class="text-center py-14 bg-[#f5f5f7] rounded-2xl border border-black/5 p-6 flex flex-col items-center justify-center">
+			<div
+				class="text-center py-14 bg-[#f5f5f7] rounded-2xl border border-black/5 p-6 flex flex-col items-center justify-center"
+			>
 				<h3 class="text-base font-bold text-[#1d1d1f] mb-1">{$LL.blog_empty_title()}</h3>
 				<p class="text-xs text-[#6b6b70] mb-4">{$LL.blog_empty_desc()}</p>
 				<Button
@@ -390,7 +436,15 @@
 						loadPosts();
 					}}
 				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
 						<path d="M15 18l-6-6 6-6" />
 					</svg>
 				</button>
@@ -402,7 +456,8 @@
 								currentPage = i + 1;
 								loadPosts();
 							}}
-							class="w-8 h-8 flex items-center justify-center rounded-full text-xs font-medium transition-all cursor-pointer {currentPage === i + 1
+							class="w-8 h-8 flex items-center justify-center rounded-full text-xs font-medium transition-all cursor-pointer {currentPage ===
+							i + 1
 								? 'bg-[#1d1d1f] text-white shadow-sm'
 								: 'bg-[#f5f5f7] text-[#6b6b70] hover:bg-[#e8e8ed] hover:text-[#1d1d1f]'}"
 						>
@@ -420,7 +475,15 @@
 						loadPosts();
 					}}
 				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
 						<path d="M9 18l6-6-6-6" />
 					</svg>
 				</button>
@@ -428,4 +491,3 @@
 		{/if}
 	</section>
 </main>
-

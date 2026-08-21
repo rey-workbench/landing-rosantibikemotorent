@@ -6,7 +6,8 @@ export const GET: RequestHandler = async () => {
 		info: {
 			title: 'RosantiBike Motorent API',
 			version: '1.0.0',
-			description: 'API for motorcycle rentals in Malang & Batu with Machine Payment Protocol (MPP) support.'
+			description:
+				'API for motorcycle rentals in Malang & Batu with Machine Payment Protocol (MPP) support.'
 		},
 		servers: [
 			{

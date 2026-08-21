@@ -4,7 +4,8 @@ export const GET: RequestHandler = async () => {
 	const a2aCard = {
 		name: 'RosantiBike Motorent Agent',
 		version: '1.0.0',
-		description: 'Official A2A agent for motorcycle rentals, rates, and automated travel reservations in Malang & Batu.',
+		description:
+			'Official A2A agent for motorcycle rentals, rates, and automated travel reservations in Malang & Batu.',
 		url: 'https://rosantibikemotorent.com',
 		provider: {
 			name: 'RosantiBike Motorent',
@@ -65,17 +66,20 @@ export const GET: RequestHandler = async () => {
 			{
 				id: 'motorcycle-catalog',
 				name: 'Motorcycle Catalog Lookup',
-				description: 'Find available motorbikes, engine displacement (CC), transmission type, and daily rental prices in Malang.'
+				description:
+					'Find available motorbikes, engine displacement (CC), transmission type, and daily rental prices in Malang.'
 			},
 			{
 				id: 'rate-calculator',
 				name: 'Rental Price Calculator',
-				description: 'Calculate rental pricing for single-day, multi-day, and monthly rentals including helmet and delivery.'
+				description:
+					'Calculate rental pricing for single-day, multi-day, and monthly rentals including helmet and delivery.'
 			},
 			{
 				id: 'reservation-booking',
 				name: 'Create Motorcycle Booking',
-				description: 'Reserve a motorcycle with delivery to hotels, Malang Train Station (Kotabaru), or Terminal Arjosari.'
+				description:
+					'Reserve a motorcycle with delivery to hotels, Malang Train Station (Kotabaru), or Terminal Arjosari.'
 			}
 		]
 	};

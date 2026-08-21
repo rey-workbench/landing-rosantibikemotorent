@@ -173,8 +173,8 @@ const en: Translation = {
 	booking_name_label: 'Full Name',
 	booking_name_placeholder: 'Name as on ID card',
 	booking_whatsapp_label: 'WhatsApp Number',
-	booking_whatsapp_placeholder: '81234567890',
-	booking_whatsapp_hint: 'Select country code or enter your number',
+	booking_whatsapp_placeholder: '+62 812-3456-7890',
+	booking_whatsapp_hint: 'Include country code (e.g. +62 for Indonesia, +1 for US)',
 	booking_step2_title: 'Select Motorcycle',
 	booking_step2_desc: 'Choose the motorcycle you want to rent',
 	booking_motor_type_label: 'Motorcycle Type',
@@ -220,6 +220,8 @@ const en: Translation = {
 	booking_success_contact: 'We will contact you shortly via WhatsApp.',
 	booking_error_price_calc: 'Failed to calculate price',
 	booking_error_create: 'Failed to create booking',
+	booking_error_verify: 'Please complete the security verification first',
+	booking_verify_hint: 'Complete the security check to continue',
 	booking_error_name_required: 'Full name is required',
 	booking_error_whatsapp_required: 'WhatsApp number is required',
 	booking_error_whatsapp_invalid: 'Invalid WhatsApp number format',
@@ -281,7 +283,17 @@ const en: Translation = {
 	loc_batu_name: 'Batu Tourism City',
 	loc_batu_desc: 'The perfect starting point for your family vacation.',
 	loc_bromo_name: 'Mount Bromo & Tumpak Sewu',
-	loc_bromo_desc: 'Consult our team for specialized mountain fleet routes.'
+	loc_bromo_desc: 'Consult our team for specialized mountain fleet routes.',
+
+	// UI Components
+	ui_search: 'Search...',
+	ui_select: 'Select...',
+	ui_no_results: 'Not found',
+	ui_month_prev: 'Previous month',
+	ui_month_next: 'Next month',
+	ui_increment: 'Increase',
+	ui_decrement: 'Decrease',
+	ui_search_country: 'Search country...'
 };
 
 export default en;

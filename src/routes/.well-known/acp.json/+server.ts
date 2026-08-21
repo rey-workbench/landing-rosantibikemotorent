@@ -8,18 +8,14 @@ export const GET: RequestHandler = async () => {
 		},
 		merchant: {
 			name: 'RosantiBike Motorent',
-			description: 'Professional motorcycle rental and delivery service in Malang & Batu, East Java',
+			description:
+				'Professional motorcycle rental and delivery service in Malang & Batu, East Java',
 			url: 'https://rosantibikemotorent.com'
 		},
 		api_base_url: 'https://api.rosantibikemotorent.com/api',
 		transports: ['http', 'https', 'rest'],
 		capabilities: {
-			services: [
-				'catalog_discovery',
-				'rental_booking',
-				'live_rate_lookup',
-				'delivery_service'
-			],
+			services: ['catalog_discovery', 'rental_booking', 'live_rate_lookup', 'delivery_service'],
 			currencies_supported: ['IDR'],
 			payment_methods_supported: ['qris', 'bank_transfer', 'cash_on_delivery']
 		},

@@ -7,7 +7,8 @@ export const GET: RequestHandler = async () => {
 			{
 				name: 'motorcycle-catalog-discovery',
 				type: 'skill-md',
-				description: 'Browse available motorcycle rental fleet, models, and daily pricing in Malang',
+				description:
+					'Browse available motorcycle rental fleet, models, and daily pricing in Malang',
 				url: 'https://rosantibikemotorent.com/llms.txt',
 				digest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
 			},

@@ -28,12 +28,7 @@ export const GET: RequestHandler = async () => {
 			id: 'rosantibike-malang',
 			url: 'https://rosantibikemotorent.com'
 		},
-		services: [
-			'motorcycle_rental',
-			'scooter_rental',
-			'vehicle_delivery',
-			'tourist_transportation'
-		],
+		services: ['motorcycle_rental', 'scooter_rental', 'vehicle_delivery', 'tourist_transportation'],
 		capabilities: [
 			'catalog_browsing',
 			'price_quotation',

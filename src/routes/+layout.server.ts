@@ -6,7 +6,8 @@ import { getMotorImage } from '$lib/utils/image';
 
 function motorCategory(merk: string, model: string, cc: number): string {
 	const name = `${merk} ${model}`.toLowerCase();
-	if (name.includes('pcx') || name.includes('nmax') || name.includes('aerox')) return 'Maxi Scooter';
+	if (name.includes('pcx') || name.includes('nmax') || name.includes('aerox'))
+		return 'Maxi Scooter';
 	if (name.includes('scoopy')) return 'Retro Scooter';
 	if (cc <= 115) return 'Standard Scooter';
 	if (cc <= 150) return 'Medium Scooter';

@@ -4,7 +4,8 @@ export const GET: RequestHandler = async () => {
 	const agentCard = {
 		schema_version: '0.1.0',
 		name: 'RosantiBike Motorent Agent',
-		description: 'Agentic commerce and autonomous motorcycle rental booking assistant for Malang & Batu.',
+		description:
+			'Agentic commerce and autonomous motorcycle rental booking assistant for Malang & Batu.',
 		url: 'https://rosantibikemotorent.com',
 		provider: {
 			name: 'RosantiBike Motorent',
