@@ -119,7 +119,7 @@
 					href={whatsappHref}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex items-center gap-1.5 text-apple-blue font-semibold hover:underline"
+					class="inline-flex items-center gap-1.5 text-[#0055a4] font-semibold hover:underline"
 				>
 					<span class="w-1.5 h-1.5 rounded-full bg-[#34c759]"></span>
 					<span>WhatsApp CS</span>

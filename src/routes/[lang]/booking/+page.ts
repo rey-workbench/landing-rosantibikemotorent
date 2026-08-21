@@ -93,8 +93,13 @@ export const load: PageLoad = async ({ url, fetch }) => {
 		);
 	} catch (e) {
 		if (import.meta.env.DEV) console.warn('Failed to fetch availability:', e);
-		const motorsResponse = await unitMotorService.getAvailable(fetch);
-		availableMotors = motorsResponse.data || [];
+		try {
+			const motorsResponse = await unitMotorService.getAvailable(fetch);
+			availableMotors = motorsResponse.data || [];
+		} catch (err) {
+			if (import.meta.env.DEV) console.error('Fallback fetch also failed:', err);
+			availableMotors = [];
+		}
 	}
 
 	const { selectedUnit, updatedMotors } = await resolveSelectedUnit(

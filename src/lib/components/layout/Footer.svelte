@@ -33,9 +33,9 @@
 		>
 			<!-- Col 1: About & Reviews -->
 			<div class="space-y-3">
-				<h3 class="font-semibold text-[#1d1d1f] text-[12px] tracking-tight">
+				<h2 class="font-semibold text-[#1d1d1f] text-[12px] tracking-tight">
 					{siteConfig.shortName}
-				</h3>
+				</h2>
 				<p class="leading-relaxed text-[12px] text-[#424245]">
 					{$LL.footer_about()}
 				</p>
@@ -84,9 +84,9 @@
 
 			<!-- Col 2: Jelajahi -->
 			<div>
-				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
+				<h2 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
 					{$LL.footer_explore() || 'Jelajahi'}
-				</h3>
+				</h2>
 				<ul class="space-y-2.5">
 					{#each [{ label: $LL.nav_home() || 'Home', href: `/${page.params.lang || $locale || 'id'}` }, { label: $LL.footer_catalog() || 'Katalog Motor', href: `/${page.params.lang || $locale || 'id'}/fleet` }, { label: $LL.footer_blog() || 'Blog', href: `/${page.params.lang || $locale || 'id'}/blog` }, { label: $LL.footer_procedure() || 'Cara Pesan', href: `/${page.params.lang || $locale || 'id'}/booking` }] as link}
 						<li>
@@ -104,9 +104,9 @@
 
 			<!-- Col 3: Layanan -->
 			<div>
-				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
+				<h2 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
 					{$LL.footer_services() || 'Layanan'}
-				</h3>
+				</h2>
 				<ul class="space-y-2.5 text-[#424245]">
 					{#each [$LL.footer_daily_rental() || 'Sewa Motor Harian & Mingguan', $LL.footer_delivery() || 'Gratis Antar Jemput Stasiun/Terminal', $LL.footer_equipment() || 'Gratis 2 Helm SNI & Jas Hujan', $LL.footer_insurance() || 'Unit Terawat & Surat Lengkap'] as service}
 						<li>
@@ -118,9 +118,9 @@
 
 			<!-- Col 4: Kantor & Kontak -->
 			<div>
-				<h3 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
+				<h2 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
 					{$LL.footer_office() || 'Kantor'}
-				</h3>
+				</h2>
 				<div class="space-y-2.5 text-[#424245]">
 					<p>{siteConfig.address}</p>
 					<p>
