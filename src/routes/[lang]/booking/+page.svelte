@@ -211,8 +211,9 @@
 			});
 
 			success = true;
+			document.cookie = `booking_session=${response.id}; path=/; max-age=300; SameSite=Lax`;
 			setTimeout(() => {
-				goto(`/${lang}/booking/success?id=${response.id}`);
+				goto(`/${lang}/booking/success`);
 			}, 2000);
 		} catch (err: any) {
 			formError =
