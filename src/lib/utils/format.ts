@@ -1,4 +1,3 @@
-
 export function stripHtml(content: string, limit: number = 140): string {
 	if (!content) return '';
 	// Strip HTML tags and markdown formatting symbols
@@ -11,4 +10,3 @@ export function stripHtml(content: string, limit: number = 140): string {
 	if (stripped.length <= limit) return stripped;
 	return stripped.substring(0, limit).trim() + '...';
 }
-

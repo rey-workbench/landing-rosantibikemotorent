@@ -176,7 +176,9 @@
 							</div>
 							<div class="flex items-center gap-2 text-xs text-[#6b6b70] mt-0.5">
 								{#if post.createdAt}
-									<time datetime={post.createdAt}>{$LL.format_date_short(new Date(post.createdAt))}</time>
+									<time datetime={post.createdAt}
+										>{$LL.format_date_short(new Date(post.createdAt))}</time
+									>
 									<span class="inline-block w-1 h-1 rounded-full bg-black/20"></span>
 								{/if}
 								<span>{post.readingTime}</span>

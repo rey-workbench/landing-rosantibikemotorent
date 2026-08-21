@@ -27,3 +27,11 @@ project.inlang/cache/
 .kiro/steering/lean-ctx.md
 /scratch
 *.mjs
+lh_blog_detail.json
+lh_blog.json
+lh_booking.json
+lh_faq.json
+lh_fleet_detail.json
+lh_fleet.json
+lh_home.json
+lh_summary_all.json

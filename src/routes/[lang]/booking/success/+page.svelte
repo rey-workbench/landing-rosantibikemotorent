@@ -86,11 +86,19 @@
 					</div>
 					<div class="flex justify-between items-center py-2.5 border-b border-black/5">
 						<span class="text-[#6b6b70]">{$LL.booking_start_date_label()}</span>
-						<span class="text-[#1d1d1f] font-medium">{transaksi.tanggalMulai ? `${$LL.format_date_long(new Date(transaksi.tanggalMulai))} • ${transaksi.jamMulai}` : '-'}</span>
+						<span class="text-[#1d1d1f] font-medium"
+							>{transaksi.tanggalMulai
+								? `${$LL.format_date_long(new Date(transaksi.tanggalMulai))} • ${transaksi.jamMulai}`
+								: '-'}</span
+						>
 					</div>
 					<div class="flex justify-between items-center py-2.5 border-b border-black/5">
 						<span class="text-[#6b6b70]">{$LL.booking_end_date_label()}</span>
-						<span class="text-[#1d1d1f] font-medium">{transaksi.tanggalSelesai ? `${$LL.format_date_long(new Date(transaksi.tanggalSelesai))} • ${transaksi.jamSelesai}` : '-'}</span>
+						<span class="text-[#1d1d1f] font-medium"
+							>{transaksi.tanggalSelesai
+								? `${$LL.format_date_long(new Date(transaksi.tanggalSelesai))} • ${transaksi.jamSelesai}`
+								: '-'}</span
+						>
 					</div>
 					{#if transaksi.jasHujan > 0}
 						<div class="flex justify-between items-center py-2.5 border-b border-black/5">

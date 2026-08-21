@@ -7,27 +7,27 @@ export const initFormatters: FormattersInitializer<Locales, Formatters> = (local
 	const formatters: Formatters = {
 		// Formatter untuk angka biasa (ribuan/desimal)
 		number: number(locale, { maximumFractionDigits: 0 }) as any,
-		
+
 		// Formatter khusus Rupiah (IDR)
-		currency: number(locale, { 
-			style: 'currency', 
-			currency: 'IDR', 
-			minimumFractionDigits: 0 
+		currency: number(locale, {
+			style: 'currency',
+			currency: 'IDR',
+			minimumFractionDigits: 0
 		}) as any,
-		
+
 		// Formatter untuk tanggal singkat (contoh: 21 Agu 2026)
-		dateShort: date(locale, { 
-			year: 'numeric', 
-			month: 'short', 
-			day: 'numeric' 
+		dateShort: date(locale, {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric'
 		}) as any,
-		
+
 		// Formatter untuk tanggal lengkap dengan hari (contoh: Jumat, 21 Agustus 2026)
-		dateLong: date(locale, { 
-			weekday: 'long', 
-			year: 'numeric', 
-			month: 'long', 
-			day: 'numeric' 
+		dateLong: date(locale, {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
 		}) as any
 	};
 
