@@ -15,6 +15,7 @@ export default defineConfig({
 		sourcemap: false,
 		chunkSizeWarningLimit: 1000,
 		rollupOptions: {
+			external: ['canvas', 'bufferutil', 'utf-8-validate'],
 			output: {
 				manualChunks: (id) => {
 					if (id.includes('node_modules')) {

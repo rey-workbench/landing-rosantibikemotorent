@@ -54,12 +54,13 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 		'Content-Security-Policy',
 		[
 			"default-src 'self'",
-			"script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com",
+			"script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com",
 			"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
 			"font-src 'self' https://fonts.gstatic.com",
 			"img-src 'self' data: https:",
 			"connect-src 'self' wss: https: https://cloudflareinsights.com",
 			"media-src 'self'",
+			"frame-src 'self' https://challenges.cloudflare.com",
 			"frame-ancestors 'none'"
 		].join('; ')
 	);
