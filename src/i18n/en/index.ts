@@ -296,10 +296,10 @@ const en: Translation = {
 	ui_search_country: 'Search country...',
 
 	// Formatters
-	format_currency: '{0: number|currency}',
-	format_number: '{0: number|number}',
-	format_date_short: '{0: Date|dateShort}',
-	format_date_long: '{0: Date|dateLong}'
+	format_currency: '{0|currency}',
+	format_number: '{0|number}',
+	format_date_short: '{0|dateShort}',
+	format_date_long: '{0|dateLong}'
 };
 
 export default en;
