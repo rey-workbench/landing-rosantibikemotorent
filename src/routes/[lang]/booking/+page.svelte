@@ -11,6 +11,7 @@
 	import Input from '$lib/components/ui/Input.svelte';
 	import PhoneInput from '$lib/components/ui/PhoneInput.svelte';
 	import StepIndicator from '$lib/components/ui/StepIndicator.svelte';
+	import PopupError from '$lib/components/ui/PopupError.svelte';
 	import { parsePhoneNumberFromString } from 'libphonenumber-js';
 	import LL from '$i18n/i18n-svelte.js';
 	import { SeoHead } from '$lib/components/seo';
@@ -253,10 +254,10 @@
 	}}
 />
 
-<main class="bg-white min-h-screen pt-20 md:pt-24 pb-24 px-4 sm:px-6 md:px-8">
+<main class="bg-white min-h-screen pt-16 md:pt-20 pb-16 px-4 sm:px-6 md:px-8">
 	<div class="max-w-3xl mx-auto">
 		<!-- Header (Exact Fleet / Rosantibike Typography) -->
-		<div class="mb-10 text-center">
+		<div class="mb-6 md:mb-8 text-center">
 			<h1
 				class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight"
 			>
@@ -299,33 +300,17 @@
 
 			<!-- Form Card -->
 			<div
-				class="bg-white border border-black/6 rounded-3xl p-6 sm:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
+				class="bg-white border border-black/6 rounded-3xl p-5 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
 			>
+				<!-- Fixed Popup Error Toast (Mobile Friendly) -->
 				{#if formError}
-					<div
-						class="bg-red-50 border border-red-200/80 rounded-2xl p-4 mb-6 flex items-center gap-3"
-					>
-						<svg
-							class="w-5 h-5 text-red-500 shrink-0"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							stroke-width="2"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-							/>
-						</svg>
-						<p class="text-red-700 text-xs sm:text-sm font-medium">{formError}</p>
-					</div>
+					<PopupError error={formError} onClose={() => (formError = '')} />
 				{/if}
 
 				<!-- Step 1: Data Diri -->
 				{#if currentStep === 0}
 					<div class="space-y-6 animate-fadeIn">
-						<div class="text-center mb-6">
+						<div class="text-center mb-4">
 							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">
 								{$LL.booking_step1_title()}
 							</h2>
@@ -355,7 +340,7 @@
 				<!-- Step 2: Pilih Motor (Visual Interactive Grid) -->
 				{#if currentStep === 1}
 					<div class="space-y-5 animate-fadeIn">
-						<div class="text-center mb-6">
+						<div class="text-center mb-4">
 							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">Pilih Motor</h2>
 							<p class="text-[#525257] text-xs sm:text-sm mt-1">
 								Pilih armada yang ingin Anda sewa
@@ -429,14 +414,14 @@
 				<!-- Step 3: Waktu Sewa & Aksesoris -->
 				{#if currentStep === 2}
 					<div class="space-y-6 animate-fadeIn">
-						<div class="text-center mb-6">
+						<div class="text-center mb-4">
 							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">
 								{$LL.booking_step3_title()}
 							</h2>
 							<p class="text-[#525257] text-xs sm:text-sm mt-1">{$LL.booking_step3_desc()}</p>
 						</div>
 
-						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
 							<Input
 								id="tanggal-mulai"
 								label={$LL.booking_start_date_label()}
@@ -471,7 +456,7 @@
 							/>
 						</div>
 
-						<div class="border-t border-black/8 pt-6">
+						<div class="border-t border-black/8 pt-4 sm:pt-5">
 							<div class="flex items-center justify-between mb-4">
 								<h4 class="text-xs font-semibold text-[#1d1d1f] uppercase tracking-wider">
 									{$LL.booking_accessories_label()}
@@ -574,7 +559,7 @@
 				<!-- Step 4: Konfirmasi & Rincian -->
 				{#if currentStep === 3}
 					<div class="space-y-6 animate-fadeIn">
-						<div class="text-center mb-6">
+						<div class="text-center mb-4">
 							<h2 class="text-lg sm:text-xl font-bold text-[#1d1d1f]">
 								{$LL.booking_step4_title()}
 							</h2>
@@ -630,16 +615,19 @@
 									<span class="text-[#525257]">{$LL.booking_whatsapp_field()}</span>
 									<span class="text-[#1d1d1f] font-medium">{formData.noWhatsapp}</span>
 								</div>
-								<div class="flex justify-between items-center">
-									<span class="text-[#525257]">{$LL.booking_date_field()}</span>
-									<span class="text-[#1d1d1f] font-medium">{$LL.format_date_long(new Date(formData.tanggalMulai))}</span
-									>
+								<div class="flex justify-between items-start">
+									<span class="text-[#525257] mt-0.5">{$LL.booking_start_date_label()}</span>
+									<div class="text-right">
+										<span class="text-[#1d1d1f] font-medium block">{$LL.format_date_long(new Date(formData.tanggalMulai))}</span>
+										<span class="text-[#6e6e73] text-[11px]">{formData.jamMulai} WIB</span>
+									</div>
 								</div>
-								<div class="flex justify-between items-center">
-									<span class="text-[#525257]">{$LL.booking_time_field()}</span>
-									<span class="text-[#1d1d1f] font-medium"
-										>{formData.jamMulai} - {formData.jamSelesai}</span
-									>
+								<div class="flex justify-between items-start">
+									<span class="text-[#525257] mt-0.5">{$LL.booking_end_date_label()}</span>
+									<div class="text-right">
+										<span class="text-[#1d1d1f] font-medium block">{$LL.format_date_long(new Date(formData.tanggalSelesai))}</span>
+										<span class="text-[#6e6e73] text-[11px]">{formData.jamSelesai} WIB</span>
+									</div>
 								</div>
 								{#if formData.jasHujan > 0 || formData.helm > 0}
 									<div class="border-t border-black/5 pt-2.5 mt-2.5">
@@ -768,11 +756,11 @@
 				{/if}
 
 				<!-- Navigation Buttons -->
-				<div class="flex gap-3 sm:gap-4 mt-8 pt-6 border-t border-black/6">
+				<div class="flex flex-col-reverse gap-3 mt-6 pt-5 border-t border-black/6">
 					{#if currentStep > 0}
-						<Button variant="outline" size="md" onclick={prevStep} className="flex-1">
+						<Button variant="outline" size="md" onclick={prevStep} fullWidth={true}>
 							<svg
-								class="w-4 h-4 mr-1.5"
+								class="w-4 h-4 mr-1.5 inline"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -785,10 +773,10 @@
 					{/if}
 
 					{#if currentStep < steps.length - 1}
-						<Button variant="primary" size="md" onclick={nextStep} className="flex-1">
+						<Button variant="primary" size="md" onclick={nextStep} fullWidth={true}>
 							{$LL.booking_next()}
 							<svg
-								class="w-4 h-4 ml-1.5"
+								class="w-4 h-4 ml-1.5 inline"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -804,7 +792,7 @@
 							onclick={handleSubmit}
 							loading={isSubmitting || isCalculating}
 							disabled={isSubmitting || isCalculating || !turnstileToken}
-							className="flex-1"
+							fullWidth={true}
 						>
 							<div class="flex items-center justify-center gap-2">
 								{#if isSubmitting || isCalculating}

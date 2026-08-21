@@ -11,7 +11,7 @@
 	let progressWidth = $derived(currentStep === 0 ? 0 : (currentStep / (steps.length - 1)) * 100);
 </script>
 
-<div class="w-full mb-10">
+<div class="w-full mb-6">
 	<div class="flex items-center justify-between relative px-2 sm:px-6">
 		<!-- Progress Line Background -->
 		<div
