@@ -758,16 +758,8 @@
 								<p class="text-[#525257] text-xs">{$LL.booking_calculating()}</p>
 							</div>
 						{/if}
-
-						<div class="mb-6 flex justify-center">
-							<TurnstileWidget 
-								sitekey="0x4AAAAAAEXvT8ehRVWOIPue"
-								onToken={(token) => (turnstileToken = token)}
-							/>
-						</div>
-
 						<!-- Note -->
-						<div class="bg-[#f5f5f7] rounded-2xl p-4 sm:p-5 flex gap-3.5 border border-black/5">
+						<div class="bg-[#f5f5f7] rounded-2xl p-4 sm:p-5 flex gap-3.5 border border-black/5 mb-6">
 							<svg
 								class="w-5 h-5 text-apple-blue shrink-0 mt-0.5"
 								fill="none"
@@ -787,6 +779,13 @@
 									{$LL.booking_note_desc()}
 								</p>
 							</div>
+						</div>
+
+						<div class="flex justify-center">
+							<TurnstileWidget 
+								sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+								onToken={(token) => (turnstileToken = token)}
+							/>
 						</div>
 					</div>
 				{/if}
