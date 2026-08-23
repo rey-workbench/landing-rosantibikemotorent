@@ -5,18 +5,31 @@
 	import FleetGrid from '$lib/components/landing/Fleet.svelte';
 	import Stats from '$lib/components/landing/Stats.svelte';
 	import Faq from '$lib/components/landing/Faq.svelte';
+	import RentalDetails from '$lib/components/landing/RentalDetails.svelte';
 	import { SeoHead } from '$lib/components/seo';
 	import { page } from '$app/state';
 	import { LL } from '$i18n/i18n-svelte';
-	import { buildFaqSchema, buildWebsiteSchema } from '$lib/seo/schema';
-	import { SITE_NAME } from '$lib/seo/types';
+	import { buildFaqSchema, buildVideoSchema, buildWebsiteSchema } from '$lib/seo/schema';
+	import { BASE_URL } from '$lib/seo/types';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-
-	const websiteSchema = $derived(buildWebsiteSchema());
+	const webSchema = $derived(buildWebsiteSchema());
+	const videoSchema = $derived(
+		buildVideoSchema({
+			name:
+				lang === 'en'
+					? 'Malang Motorcycle Rental - Rosantibike Motorent Hero Video'
+					: 'Sewa Motor Malang Murah & Premium - Rosantibike Motorent',
+			description: $LL.seo_description(),
+			thumbnailUrl: `${BASE_URL}/video/posters/hero.webp`,
+			contentUrl: `${BASE_URL}/video/hero-compressed.webm`,
+			uploadDate: '2025-07-19T08:00:00+07:00',
+			duration: 'PT30S'
+		})
+	);
 	const faqSchema = $derived(
 		buildFaqSchema(
 			lang === 'en'
@@ -24,7 +37,7 @@
 						{
 							question: 'How much does it cost to rent a motorcycle in Malang per day?',
 							answer:
-								'Our motorcycle rental rates start from IDR 60,000 per day (24 hours) for standard scooters up to IDR 150,000 for Maxi/Sport types. Prices vary depending on the motorcycle model and rental duration.'
+								'Our motorcycle rental rates start from IDR 80,000 per day (24 hours) for standard scooters up to IDR 150,000 for Maxi/Sport types. Prices vary depending on the motorcycle model and rental duration.'
 						},
 						{
 							question: 'What are the requirements for renting a motorcycle in Malang?',
@@ -82,11 +95,11 @@
 	{lang}
 	path="/"
 	meta={{
-		title: `${SITE_NAME} | ${$LL.hero_tagline()}`,
-		description: $LL.hero_tagline(),
+		title: $LL.seo_title(),
+		description: $LL.seo_description(),
 		ogType: 'website'
 	}}
-	schemas={[websiteSchema, faqSchema]}
+	schemas={[webSchema, faqSchema, videoSchema]}
 />
 
 <!-- Hero / video background -->
@@ -95,10 +108,11 @@
 </div>
 
 <!-- Content Overlap -->
-<div class="relative z-10 mt-[-100vh] bg-brand-background">
+<div class="relative z-10 bg-white">
 	<WhyChooseUs />
 	<AdventureMap />
 	<Stats />
 	<FleetGrid jenisMotors={data.featuredMotors} />
+	<RentalDetails {lang} />
 	<Faq {lang} />
 </div>

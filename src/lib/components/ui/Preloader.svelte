@@ -9,7 +9,7 @@
 
 	onMount(() => {
 		mounted = true;
-		
+
 		// Ensure initial load completes quickly
 		if (!loadingState.isLoaded) {
 			loadingState.progress = 100;

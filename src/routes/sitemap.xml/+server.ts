@@ -1,6 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { BASE_URL } from '$lib/seo/types';
-import { jenisMotorApi, blogApi } from '$lib/api';
+import { jenisMotorService, blogService } from '$lib/services';
+import { DEFAULTS } from '$lib/constants';
 
 interface SitemapUrl {
 	path: string;
@@ -13,7 +14,8 @@ const staticUrls: SitemapUrl[] = [
 	{ path: '', changefreq: 'daily', priority: 1.0 },
 	{ path: '/fleet', changefreq: 'weekly', priority: 0.9 },
 	{ path: '/blog', changefreq: 'weekly', priority: 0.8 },
-	{ path: '/booking', changefreq: 'monthly', priority: 0.7 }
+	{ path: '/booking', changefreq: 'monthly', priority: 0.7 },
+	{ path: '/faq', changefreq: 'monthly', priority: 0.7 }
 ];
 
 function generateUrlElement(url: SitemapUrl, isId: boolean): string {
@@ -36,7 +38,7 @@ function generateUrlElement(url: SitemapUrl, isId: boolean): string {
 export const GET: RequestHandler = async () => {
 	let dynamicUrls: SitemapUrl[] = [];
 	try {
-		const response = await jenisMotorApi.getAll();
+		const response = await jenisMotorService.getAll();
 		const jenisMotors = response.data || [];
 		dynamicUrls = jenisMotors.map((jenis: any): SitemapUrl => ({
 			path: `/fleet/${jenis.slug}`,
@@ -44,7 +46,10 @@ export const GET: RequestHandler = async () => {
 			priority: 0.8
 		}));
 
-		const blogResponse = await blogApi.getAll({ limit: 100, status: 'PUBLISHED' });
+		const blogResponse = await blogService.getAll({
+			limit: DEFAULTS.ALL_ITEMS_LIMIT,
+			status: 'PUBLISHED'
+		});
 		const blogs = blogResponse.data || [];
 		dynamicUrls.push(
 			...blogs.map((blog: any): SitemapUrl => ({

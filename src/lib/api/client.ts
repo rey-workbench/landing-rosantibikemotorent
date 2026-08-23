@@ -1,11 +1,14 @@
 import { browser } from '$app/environment';
+import { DEFAULTS } from '$lib/constants';
 
 let rawUrl = import.meta.env.VITE_API_URL;
 if (!rawUrl) {
 	if (browser) {
-		rawUrl = `${window.location.protocol}//${window.location.hostname}:3030/api`;
+		rawUrl = `${window.location.protocol}//${window.location.hostname}:${DEFAULTS.API_FALLBACK_PORT}/api`;
+	} else if (import.meta.env.DEV) {
+		rawUrl = `http://localhost:${DEFAULTS.API_FALLBACK_PORT}/api`;
 	} else {
-		rawUrl = 'http://localhost:3030/api';
+		rawUrl = 'https://api.rosantibikemotorent.com/api';
 	}
 }
 const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;
@@ -30,6 +33,11 @@ function buildHeadersAndBody(data?: any, customHeaders?: any) {
 		'Content-Type': 'application/json',
 		...(customHeaders || {})
 	};
+
+	// Provide an Origin header during SSR to pass backend CORS checks
+	if (!browser && !headers['Origin'] && !headers['origin']) {
+		headers['Origin'] = 'https://rosantibikemotorent.com';
+	}
 
 	let body = undefined;
 	if (data) {
@@ -63,27 +71,99 @@ async function parseResponse(response: Response) {
 }
 
 class ApiClient {
-	async request(method: string, url: string, data?: any, config: any = {}) {
-		const fetchUrl = buildUrl(url, config.params);
-		const { headers, body } = buildHeadersAndBody(data, config.headers);
-		const fetchFn: typeof fetch = config.customFetch ?? fetch;
+	private pendingGets = new Map<string, Promise<any>>();
+	private responseCache = new Map<string, { expiresAt: number; data: any; status: number }>();
 
-		try {
-			const response = await fetchFn(fetchUrl, {
-				method,
-				headers,
-				body
-			});
-			return await parseResponse(response);
-		} catch (error: any) {
-			if (browser) {
-				console.error(
-					'[API Error]',
-					error.response?.data?.userErrorMsg || error.response?.data?.message || error.message
-				);
+	private async performFetchOnce(
+		fetchFn: typeof fetch,
+		fetchUrl: string,
+		method: string,
+		headers: any,
+		body: any,
+		config: any
+	) {
+		const response = await fetchFn(fetchUrl, {
+			method,
+			headers,
+			body,
+			signal: config.signal
+		});
+		return await parseResponse(response);
+	}
+
+	private handleFetchError(error: any, attempts: number, maxAttempts: number) {
+		if (error.name === 'AbortError') throw error;
+		if (attempts >= maxAttempts) {
+			if (browser && import.meta.env.DEV) {
+				console.warn('[API Warning]', error.response?.status ?? 'network error');
 			}
 			throw error;
 		}
+	}
+
+	private async performFetch(
+		fetchFn: typeof fetch,
+		fetchUrl: string,
+		method: string,
+		headers: any,
+		body: any,
+		config: any
+	) {
+		let attempts = 0;
+		const maxAttempts = method === 'GET' ? DEFAULTS.REQUEST_MAX_ATTEMPTS : 1;
+		while (attempts < maxAttempts) {
+			attempts++;
+			try {
+				return await this.performFetchOnce(fetchFn, fetchUrl, method, headers, body, config);
+			} catch (error: any) {
+				this.handleFetchError(error, attempts, maxAttempts);
+				// Small delay before retry for GET requests
+				await new Promise((resolve) => setTimeout(resolve, DEFAULTS.REQUEST_RETRY_DELAY_MS));
+			}
+		}
+	}
+
+	async request(method: string, url: string, data?: any, config: any = {}) {
+		const fetchUrl = buildUrl(url, config.params);
+		const ttl = config.ttl ?? (method === 'GET' ? DEFAULTS.GET_TTL_MS : 0);
+		const useCache = method === 'GET' && ttl > 0;
+
+		if (useCache) {
+			const cached = this.responseCache.get(fetchUrl);
+			if (cached && cached.expiresAt > Date.now()) {
+				return { data: cached.data, status: cached.status };
+			}
+		}
+
+		if (method === 'GET') {
+			if (this.pendingGets.has(fetchUrl)) {
+				return this.pendingGets.get(fetchUrl);
+			}
+		}
+
+		const execute: () => Promise<any> = async () => {
+			const { headers, body } = buildHeadersAndBody(data, config.headers);
+			const fetchFn: typeof fetch = config.customFetch ?? fetch;
+			return this.performFetch(fetchFn, fetchUrl, method, headers, body, config);
+		};
+
+		if (method === 'GET') {
+			const promise = execute().finally(() => {
+				this.pendingGets.delete(fetchUrl);
+			});
+			this.pendingGets.set(fetchUrl, promise);
+			const result = await promise;
+			if (useCache && result) {
+				this.responseCache.set(fetchUrl, {
+					expiresAt: Date.now() + ttl,
+					data: result.data,
+					status: result.status
+				});
+			}
+			return result;
+		}
+
+		return execute();
 	}
 
 	get(url: string, config?: any) {
@@ -103,5 +183,5 @@ class ApiClient {
 	}
 }
 
-export const api = new ApiClient();
+const api = new ApiClient();
 export default api;

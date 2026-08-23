@@ -1,75 +1,27 @@
 import api from './client';
-import { API_ENDPOINTS } from '$lib/constants';
-import type { JenisMotor, UnitMotor, PaginationMeta } from '$lib/types';
-
-export interface ProcessedJenisMotor extends JenisMotor {
-	computed: {
-		minPrice: number;
-		hasAvailable: boolean;
-		availableCount: number;
-	};
-}
-
-function processJenis(jenis: any): ProcessedJenisMotor {
-	const availableUnits = (jenis.unitMotor || []) as UnitMotor[];
-	const hasAvailable = availableUnits.length > 0;
-	const availableCount = availableUnits.length;
-
-	let minPrice = 0;
-	if (availableUnits.length > 0) {
-		minPrice = Number(jenis.hargaSewa || 0);
-	}
-
-	return {
-		...jenis,
-		computed: {
-			minPrice,
-			hasAvailable,
-			availableCount
-		}
-	};
-}
+import { API_ENDPOINTS, DEFAULTS } from '$lib/constants';
+import type { JenisMotorFilter } from '$lib/schemas';
+import type { JenisMotor, PaginationMeta } from '$lib/types';
 
 export const jenisMotorApi = {
 	getAll: async (
-		filter?: {
-			page?: number;
-			limit?: number;
-			search?: string;
-			merk?: string;
-		},
+		filter: JenisMotorFilter = {},
 		customFetch?: typeof fetch
-	): Promise<{ data: ProcessedJenisMotor[]; meta: PaginationMeta }> => {
+	): Promise<{ data: JenisMotor[]; meta: PaginationMeta }> => {
 		const { data: body } = await api.get(API_ENDPOINTS.JENIS_MOTOR, {
 			params: filter,
-			customFetch
+			customFetch,
+			ttl: DEFAULTS.GET_TTL_MS
 		});
 		return {
-			data: (body.data || []).map(processJenis),
-			meta: body.meta
+			data: (body.data || []) as JenisMotor[],
+			meta: body.meta as PaginationMeta
 		};
 	},
-	getById: async (id: string, customFetch?: typeof fetch): Promise<ProcessedJenisMotor> => {
-		const { data: body } = await api.get(`${API_ENDPOINTS.JENIS_MOTOR}/${id}`, { customFetch });
-		return processJenis(body.data);
-	},
-	getBySlug: async (slug: string, customFetch?: typeof fetch): Promise<ProcessedJenisMotor> => {
+	getBySlug: async (slug: string, customFetch?: typeof fetch): Promise<JenisMotor> => {
 		const { data: body } = await api.get(`${API_ENDPOINTS.JENIS_MOTOR}/slug/${slug}`, {
 			customFetch
 		});
-		return processJenis(body.data);
-	},
-	getBrands: async (customFetch?: typeof fetch): Promise<{ id: string; merk: string }[]> => {
-		const { data: body } = await api.get(API_ENDPOINTS.JENIS_MOTOR, {
-			params: { limit: 1000 },
-			customFetch
-		});
-		const brands = new Map<string, string>();
-		for (const jenis of body.data || []) {
-			if (jenis.merk && !brands.has(jenis.merk)) {
-				brands.set(jenis.merk, jenis.id);
-			}
-		}
-		return Array.from(brands.entries()).map(([merk, id]) => ({ id, merk }));
+		return body.data;
 	}
 };

@@ -1,83 +1,41 @@
 <script lang="ts">
 	import { onMount, onDestroy, untrack } from 'svelte';
-	import { jenisMotorApi } from '$lib/api';
-	import type { JenisMotor } from '$lib/types';
-	import Input from '$lib/components/ui/Input.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import { fade, fly } from 'svelte/transition';
+	import { refreshAll } from '$app/navigation';
+	import { fly } from 'svelte/transition';
 	import { SeoHead } from '$lib/components/seo';
 	import LL from '$i18n/i18n-svelte.js';
 	import { page } from '$app/state';
 	import { locale } from '$i18n/i18n-svelte';
 	import { websocketService } from '$lib/services/websocket';
+	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
 
 	let { data } = $props();
 
 	let jenisMotors: any[] = $state(untrack(() => data.jenisMotors));
-	let brands: { id: string; merk: string }[] = $state(untrack(() => data.brands));
 
 	$effect(() => {
 		jenisMotors = data.jenisMotors;
-		brands = data.brands;
 	});
+
 	let loading = $state(false);
 	let error = $state('');
 	let unsubs: (() => void)[] = [];
 
-	let searchQuery = $state('');
-	let selectedBrand = $state('');
-	let priceRange = $state({ min: 0, max: 1000000 });
 	let lang = $derived((page.params.lang || $locale) as 'id' | 'en');
 	let currentUrl = $derived(page.url.href);
-
-	async function fetchFleet() {
-		loading = true;
-		try {
-			const response = await jenisMotorApi.getAll();
-			jenisMotors = response.data || [];
-		} catch (err: any) {
-			console.error('Failed to load fleet:', err);
-		} finally {
-			loading = false;
-		}
-	}
 
 	onMount(() => {
 		websocketService.connect();
 
-		const refresh = () => {
-			fetchFleet();
-		};
-
 		unsubs = [
-			websocketService.onTransactionUpdate(refresh),
-			websocketService.onUnitMotorUpdate(refresh)
+			websocketService.onTransactionUpdate(() => refreshAll()),
+			websocketService.onUnitMotorUpdate(() => refreshAll())
 		];
 	});
 
 	onDestroy(() => {
 		unsubs.forEach((unsub) => unsub());
 	});
-
-	let filteredMotors = $derived(
-		jenisMotors.filter((jenis) => {
-			const matchesSearch =
-				jenis.merk.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				jenis.model.toLowerCase().includes(searchQuery.toLowerCase());
-			const matchesBrand = !selectedBrand || jenis.merk === selectedBrand;
-			const matchesPrice =
-				jenis.computed.minPrice >= priceRange.min && jenis.computed.minPrice <= priceRange.max;
-			return matchesSearch && matchesBrand && matchesPrice;
-		})
-	);
-
-	function formatPrice(price: number): string {
-		return new Intl.NumberFormat('id-ID', {
-			style: 'currency',
-			currency: 'IDR',
-			minimumFractionDigits: 0
-		}).format(price);
-	}
 </script>
 
 <SeoHead
@@ -90,121 +48,139 @@
 	}}
 />
 
-<!-- Hero Section -->
-<section class="pt-32 pb-16 section-shell">
-	<div class="max-w-7xl mx-auto">
-		<!-- Header -->
-		<div class="mb-12">
-			<!-- M4 FIX: kicker demoted from h2 to p to preserve h1-first heading order -->
-			<p class="section-kicker mb-4">
-				<span class="kicker-line"></span>
-				{$LL.fleet_header_title()}
-				<span class="kicker-line"></span>
-			</p>
-			<h1 class="section-title">
-				{$LL.fleet_header_heading()} <br />
-				<span class="section-title-highlight">{$LL.fleet_header_heading_highlight()}</span>
-			</h1>
+<svelte:head>
+	{#if jenisMotors.length > 0 && getMotorImage(jenisMotors[0])}
+		<link rel="preload" as="image" href={getMotorImage(jenisMotors[0])} fetchpriority="high" />
+	{/if}
+</svelte:head>
+
+<!-- Chapternav (Sticky under main navbar) -->
+<div
+	class="sticky top-14 md:top-16 mt-14 md:mt-16 w-full bg-white/95 backdrop-blur-md z-40 border-b border-[#d2d2d7] transition-all shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+>
+	<div class="max-w-5xl mx-auto px-4 py-2.5 md:py-3 flex items-center relative">
+		<!-- Left Title (Desktop only to prevent mobile overlap) -->
+		<div
+			class="hidden md:block absolute left-4 z-10 text-[19px] md:text-[21px] font-semibold text-[#1d1d1f] tracking-tight bg-white/90 backdrop-blur-sm pr-4 py-1"
+		>
+			{$LL.fleet_title()}
 		</div>
 
-		<!-- Filter Section -->
-		<div class="relative z-20 surface-panel p-5 md:p-8 mb-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-			<div class="space-y-1">
-				<Input
-					id="search-motor"
-					label={$LL.fleet_filter_search_label()}
-					bind:value={searchQuery}
-					placeholder={$LL.fleet_filter_search_placeholder()}
-					icon="search"
-				/>
-			</div>
-
-			<div class="space-y-1">
-				<Input
-					id="brand-filter"
-					type="dropdown"
-					label={$LL.fleet_filter_brand_label()}
-					bind:value={selectedBrand}
-					options={[
-						{ value: '', label: $LL.fleet_filter_brand_all() },
-						...brands.map((b) => ({ value: b.merk, label: b.merk }))
-					]}
-					placeholder={$LL.fleet_filter_brand_all()}
-				/>
-			</div>
-
-			<div class="space-y-1">
-				<label
-					for="price-min"
-					class="block text-[10px] font-bold text-muted uppercase tracking-widest"
-					>{$LL.fleet_filter_price_label()}</label
+		<!-- Centered scrolling items -->
+		<div
+			class="flex-1 flex items-center md:justify-center justify-start gap-6 md:gap-8 overflow-x-auto no-scrollbar snap-x px-2 md:px-0 w-full"
+		>
+			{#each jenisMotors as motor}
+				<a
+					href="#{motor.slug}"
+					class="flex flex-col items-center justify-center gap-1.5 shrink-0 snap-start group min-w-14 py-1 opacity-80 hover:opacity-100 transition-opacity focus:outline-none"
+					style="text-decoration: none;"
 				>
-				<div class="flex items-center gap-2 mt-1">
-					<div class="flex-1">
-						<Input id="price-min" type="number" bind:value={priceRange.min} placeholder="Min" />
-						<div class="text-[10px] text-muted mt-1 ml-1">
-							{formatPrice(priceRange.min).replace(',00', '')}
-						</div>
+					<div class="h-9 w-14 flex items-center justify-center relative">
+						{#if getMotorImage(motor)}
+							<img
+								src={getMotorImage(motor)}
+								alt={`Sewa Motor ${motor.merk} ${motor.model} Malang - Rosantibike`}
+								data-fallback={getFallbackImage(motor)}
+								width="64"
+								height="36"
+								class="max-h-9 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+								onerror={handleImageError}
+							/>
+							<div
+								class="h-6 w-6 bg-[#f5f5f7] rounded-full items-center justify-center text-[8px] text-[#6b6b70] font-medium border border-black/5"
+								style="display: none;"
+							>
+								?
+							</div>
+						{:else}
+							<div
+								class="h-6 w-6 bg-[#f5f5f7] rounded-full flex items-center justify-center text-[8px] text-[#6b6b70] font-medium border border-black/5"
+							>
+								?
+							</div>
+						{/if}
 					</div>
-					<span class="text-[rgba(166,173,187,0.7)] font-bold mb-4">-</span>
-					<div class="flex-1">
-						<Input id="price-max" type="number" bind:value={priceRange.max} placeholder="Max" />
-						<div class="text-[10px] text-muted mt-1 ml-1">
-							{formatPrice(priceRange.max).replace(',00', '')}
-						</div>
-					</div>
-				</div>
-			</div>
+					<span class="text-[11px] font-medium text-[#1d1d1f] whitespace-nowrap text-center leading-tight"
+						>{motor.model}</span
+					>
+				</a>
+			{/each}
+		</div>
+	</div>
+</div>
+
+<main class="bg-white min-h-screen">
+	<!-- Jelajahi Jajarannya Section -->
+	<section class="max-w-5xl mx-auto px-4 pt-12 md:pt-14 pb-20">
+		<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 md:mb-10 gap-4">
+			<h1
+				class="text-[36px] md:text-[44px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight"
+			>
+				{$LL.fleet_explore_lineup()}
+			</h1>
+			<a
+				href="/{lang}/booking"
+				class="text-apple-blue font-medium hover:underline text-[15px] mb-2"
+			>
+				{$LL.fleet_compare_all()} &gt;
+			</a>
 		</div>
 
-		<!-- Main Grid (Updated for 2 columns on mobile) -->
 		{#if loading}
-			<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
-				{#each Array(8) as _}
-					<div class="aspect-4/5 surface-card animate-pulse"></div>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{#each Array(6) as _}
+					<div class="h-120 bg-[#f5f5f7] rounded-4xl animate-pulse"></div>
 				{/each}
 			</div>
 		{:else if error}
-			<div class="text-center py-24 surface-panel">
-				<h3 class="text-xl font-black text-brand-fg uppercase mb-4">
-					{$LL.fleet_error_load_title()}
-				</h3>
-				<Button size="sm" on:click={() => window.location.reload()}>{$LL.fleet_refresh()}</Button>
+			<div class="text-center py-20 text-[#6b6b70]">
+				{error}
 			</div>
-		{:else if filteredMotors.length > 0}
-			<!-- Updated Grid: grid-cols-2 on mobile -->
-			<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
-				{#each filteredMotors as jenis, i}
-					<a
-						href="/{lang}/fleet/{jenis.slug}"
-						class="group relative flex flex-col surface-card overflow-hidden"
-						in:fly={{ y: 20, duration: 500, delay: Math.min(i * 30, 120) }}
+		{:else if jenisMotors.length > 0}
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{#each jenisMotors as motor, i}
+					<div
+						id={motor.slug}
+						class="bg-white rounded-3xl flex flex-col text-center transition-transform hover:scale-[1.01] duration-500 ease-out scroll-mt-32 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-black/5 overflow-hidden"
+						in:fly={{
+							y: 30,
+							duration: 800,
+							delay: Math.min(i * 50, 300),
+							easing: (t) => 1 - Math.pow(1 - t, 4)
+						}}
 					>
-						<!-- Image -->
+						<!-- Product Image (Edge to edge) with fixed aspect ratio container -->
 						<div
-							class="relative aspect-4/3 md:aspect-3/2 overflow-hidden bg-(--brand-surface-soft)"
+							class="w-full aspect-video relative flex items-center justify-center overflow-hidden bg-[#f5f5f7]"
 						>
-							{#if jenis.gambar}
+							{#if getMotorImage(motor)}
 								<img
+									src={getMotorImage(motor)}
+									alt={`Sewa Motor ${motor.merk} ${motor.model} Malang - Rosantibike`}
+									data-fallback={getFallbackImage(motor)}
+									width="800"
+									height="450"
+									loading={i === 0 ? 'eager' : 'lazy'}
+									fetchpriority={i === 0 ? 'high' : 'auto'}
 									decoding="async"
-									src={jenis.gambar}
-									alt={`${jenis.merk} ${jenis.model}`}
-									loading="lazy"
-									width="400"
-									height="300"
-									class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+									class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+									onerror={handleImageError}
 								/>
-							{:else}
 								<div
-									class="w-full h-full flex items-center justify-center text-[rgba(166,173,187,0.56)]"
+									class="w-24 h-24 bg-black/5 rounded-full items-center justify-center text-black/20 absolute"
+									style="display:none;"
 								>
 									<svg
-										width="40"
-										height="40"
+										xmlns="http://www.w3.org/2000/svg"
+										width="32"
+										height="32"
 										viewBox="0 0 24 24"
 										fill="none"
 										stroke="currentColor"
-										stroke-width="1"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
 										><rect x="3" y="3" width="18" height="18" rx="2" /><circle
 											cx="8.5"
 											cy="8.5"
@@ -212,111 +188,128 @@
 										/><path d="m21 15-5-5L5 21" /></svg
 									>
 								</div>
+							{:else}
+								<div class="w-full aspect-video flex items-center justify-center">
+									<div
+										class="w-24 h-24 bg-black/5 rounded-full flex items-center justify-center text-black/20"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="32"
+											height="32"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											><rect x="3" y="3" width="18" height="18" rx="2" /><circle
+												cx="8.5"
+												cy="8.5"
+												r="1.5"
+											/><path d="m21 15-5-5L5 21" /></svg
+										>
+									</div>
+								</div>
+							{/if}
+						</div>
+
+						<!-- Typography & Content -->
+						<div class="flex flex-col items-center px-6 pt-8 pb-8 flex-1">
+							<p class="text-[12px] font-semibold tracking-widest text-[#525257] mb-2 uppercase">
+								{motor.merk}
+							</p>
+							<h2 class="text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-2 font-display">
+								{motor.model}
+							</h2>
+
+							{#if motor.computed.minPrice > 0}
+								<p class="text-[15px] text-[#1d1d1f] font-normal mb-8">
+									{$LL.fleet_start_from()}
+									{$LL.format_currency(motor.computed.minPrice)}{$LL.fleet_per_day()}
+								</p>
+							{:else}
+								<p class="text-[15px] text-[#86868b] font-normal mb-8">{$LL.fleet_contact_us()}</p>
 							{/if}
 
-							<!-- Status Badges -->
-							<div class="absolute top-2 left-2 md:top-4 md:left-4 flex flex-col gap-1">
-								{#if !jenis.computed.hasAvailable}
-									<span class="label-pill bg-red-500/80 text-white">
-										{$LL.fleet_status_habis()}
-									</span>
-								{:else}
-									<span
-										class="label-pill bg-green-500/20 border border-green-500/30 text-green-300"
-									>
-										{$LL.fleet_unit_ready({ count: jenis.computed.availableCount })}
-									</span>
-								{/if}
+							<!-- Authentic Apple Dual Buttons -->
+							<div
+								class="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-auto"
+							>
+								<a
+									href="/{lang}/booking?unit={motor.slug}"
+									aria-label="{$LL.fleet_order()} {motor.merk} {motor.model}"
+									class="px-5 py-2 bg-apple-blue text-white rounded-full text-[14px] font-medium hover:bg-[#0077ed] transition-colors shadow-xs"
+								>
+									{$LL.fleet_order()}
+								</a>
+								<a
+									href="/{lang}/fleet/{motor.slug}"
+									aria-label="{$LL.fleet_link_detail()} {motor.merk} {motor.model}"
+									class="px-5 py-2 border border-apple-blue text-apple-blue rounded-full text-[14px] font-medium hover:bg-apple-blue hover:text-white transition-all shadow-xs"
+								>
+									{$LL.fleet_link_detail()}
+								</a>
 							</div>
 						</div>
-
-						<!-- Content -->
-						<div class="p-4 md:p-6 flex-1 flex flex-col justify-between">
-							<div>
-								<p
-									class="text-[8px] md:text-[10px] font-black text-(--brand-highlight) uppercase tracking-widest mb-1"
-								>
-									{jenis.merk}
-								</p>
-								<h3
-									class="text-sm md:text-xl font-black text-brand-fg uppercase tracking-tighter leading-none group-hover:text-(--brand-highlight) transition-colors line-clamp-1"
-								>
-									{jenis.model}
-								</h3>
-							</div>
-
-							<div class="mt-4 flex flex-col gap-2">
-								<div class="flex items-baseline gap-1">
-									{#if jenis.computed.minPrice > 0}
-										<span class="text-sm md:text-xl font-black text-brand-fg uppercase">
-											{formatPrice(jenis.computed.minPrice).replace(',00', '').replace('Rp', 'Rp ')}
-										</span>
-										<span class="text-[8px] md:text-[10px] text-muted font-bold uppercase"
-											>{$LL.fleet_per_day()}</span
-										>
-									{:else}
-										<span class="text-xs font-black text-muted uppercase"
-											>{$LL.fleet_contact_us()}</span
-										>
-									{/if}
-								</div>
-
-								<!-- Desktop CTA arrow -->
-								<div
-									class="hidden md:flex items-center gap-2 text-brand-fg font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all"
-								>
-									<span>{$LL.fleet_link_detail()}</span>
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="3"
-										aria-hidden="true"
-										><line x1="5" y1="12" x2="19" y2="12"></line><polyline
-											points="12 5 19 12 12 19"
-										/></svg
-									>
-								</div>
-								<!-- H5 FIX: Mobile tap affordance -->
-								<div
-									class="flex md:hidden items-center gap-1 text-brand-fg/50 font-black text-[9px] uppercase tracking-widest mt-1"
-								>
-									<span>{$LL.fleet_link_detail()}</span>
-									<svg
-										width="8"
-										height="8"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="3"
-										aria-hidden="true"
-										><line x1="5" y1="12" x2="19" y2="12"></line><polyline
-											points="12 5 19 12 12 19"
-										/></svg
-									>
-								</div>
-							</div>
-						</div>
-					</a>
+					</div>
 				{/each}
 			</div>
 		{:else}
-			<div class="text-center py-24 surface-panel">
-				<h3 class="text-xl font-black text-brand-fg uppercase">{$LL.fleet_empty_search_title()}</h3>
-				<p class="text-muted mt-2 text-sm">{$LL.fleet_empty_search_desc()}</p>
+			<div class="text-center py-20 text-[#6b6b70] text-lg font-medium">
+				{$LL.fleet_empty_desc()}
 			</div>
 		{/if}
-	</div>
-</section>
+	</section>
+
+	<!-- Lihat lebih dekat Section -->
+	<section class="max-w-5xl mx-auto px-4 pb-24">
+		<h2
+			class="text-[40px] md:text-[48px] leading-[1.05] font-semibold text-[#1d1d1f] tracking-tight mb-10"
+		>
+			{$LL.fleet_look_closer()}
+		</h2>
+
+		<div
+			class="relative w-full h-125 md:h-160 bg-[#f5f5f7] rounded-4xl overflow-hidden flex flex-col justify-center items-center text-center p-8 group"
+		>
+			<!-- Cinematic Background -->
+			<div
+				class="absolute inset-0 bg-center bg-cover transition-transform duration-2000 ease-out group-hover:scale-105"
+				style="background-image: url('/images/[page]/look-closer.webp');"
+			></div>
+			<!-- Overlay gradient to make text readable -->
+			<div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-black/10"></div>
+
+			<!-- Content overlay -->
+			<div class="relative z-10 text-white mt-auto pb-12 w-full max-w-2xl">
+				<h3
+					class="text-3xl md:text-[48px] leading-[1.1] font-semibold mb-5 tracking-tight text-balance"
+				>
+					{@html $LL.fleet_experience_title()}
+				</h3>
+				<p
+					class="text-lg md:text-[21px] leading-relaxed font-medium text-white/90 mb-8 text-balance"
+				>
+					{$LL.fleet_experience_desc()}
+				</p>
+				<a
+					href="/{lang}/booking"
+					class="inline-block px-8 py-3.5 bg-white text-[#1d1d1f] rounded-full text-[15px] font-semibold hover:bg-gray-100 hover:scale-105 transition-all shadow-lg"
+				>
+					{$LL.nav_book_now()}
+				</a>
+			</div>
+		</div>
+	</section>
+</main>
 
 <style>
-	.line-clamp-1 {
-		display: -webkit-box;
-		-webkit-line-clamp: 1;
-		line-clamp: 1;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
 	}
 </style>

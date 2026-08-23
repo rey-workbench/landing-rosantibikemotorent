@@ -11,18 +11,27 @@ export default defineConfig({
 		viteCompression({ algorithm: 'gzip', ext: '.gz' })
 	],
 	build: {
+		cssCodeSplit: true,
+		sourcemap: false,
 		chunkSizeWarningLimit: 1000,
 		rollupOptions: {
+			external: ['canvas', 'bufferutil', 'utf-8-validate'],
 			output: {
 				manualChunks: (id) => {
 					if (id.includes('node_modules')) {
-						if (id.includes('svelte')) {
-							return 'vendor-svelte';
+						if (id.includes('isomorphic-dompurify')) {
+							return 'dompurify';
 						}
-						return 'vendor';
+						if (id.includes('socket.io-client') || id.includes('libphonenumber-js')) {
+							return 'vendor-heavy';
+						}
 					}
 				}
 			}
 		}
+	},
+	esbuild: {
+		// @ts-ignore
+		drop: ['console', 'debugger']
 	}
 });

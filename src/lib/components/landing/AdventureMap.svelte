@@ -1,13 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
 	import { LL } from '$i18n/i18n-svelte';
-	import { lazyVideo } from '$lib/actions/lazyVideo';
 
 	let scrollProgress = $state(0);
 	let containerRef = $state<HTMLElement>();
 	let activePanelIndex = $state(0);
-	let isMobile = $state(false);
 
 	const panels = $derived([
 		{
@@ -40,38 +37,51 @@
 	]);
 
 	let videoRefs = $state<HTMLVideoElement[]>([]);
+	let isVisible = $state(false);
+	let isSectionInView = $state(false);
 
 	$effect(() => {
 		activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
 
 		videoRefs.forEach((video, idx) => {
-			if (video) {
-				if (idx === activePanelIndex) {
-					if (video.paused) {
-						video.play().catch((err) => console.log('Video play failed:', err));
-					}
-				} else {
-					if (!video.paused) {
-						video.pause();
-					}
+			if (!video) return;
+			if (isSectionInView && idx === activePanelIndex) {
+				if (!video.src && panels[idx]) {
+					video.src = panels[idx].video;
 				}
+				if (video.paused) {
+					video.play().catch((err) => console.log('Video play failed:', err));
+				}
+			} else if (!video.paused) {
+				video.pause();
 			}
 		});
 	});
 
 	onMount(() => {
-		const checkMobile = () => {
-			isMobile = window.innerWidth < 768;
-		};
-		checkMobile();
-		window.addEventListener('resize', checkMobile);
+		let rafId: number | null = null;
 
-		const handleScroll = () => {
+		if (containerRef) {
+			const io = new IntersectionObserver(
+				(entries) => {
+					const entry = entries[0];
+					if (entry) {
+						isSectionInView = entry.isIntersecting;
+						if (entry.isIntersecting) {
+							isVisible = true;
+						}
+					}
+				},
+				{ rootMargin: '100px' }
+			);
+			io.observe(containerRef);
+		}
+
+		const updateProgress = () => {
 			if (!containerRef) return;
 			const rect = containerRef.getBoundingClientRect();
 			const viewportHeight = window.innerHeight;
 
-			// Only calculate progress if the container is currently visible in the viewport
 			if (rect.top <= 0 && rect.bottom >= viewportHeight) {
 				const totalHeight = rect.height - viewportHeight;
 				const raw = -rect.top / totalHeight;
@@ -81,14 +91,21 @@
 			} else if (rect.bottom < viewportHeight) {
 				scrollProgress = 0.999;
 			}
+			rafId = null;
 		};
 
-		window.addEventListener('scroll', handleScroll);
-		handleScroll();
+		const handleScroll = () => {
+			if (!rafId) {
+				rafId = requestAnimationFrame(updateProgress);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		updateProgress();
 
 		return () => {
+			if (rafId) cancelAnimationFrame(rafId);
 			window.removeEventListener('scroll', handleScroll);
-			window.removeEventListener('resize', checkMobile);
 		};
 	});
 </script>
@@ -96,7 +113,7 @@
 <div class="bg-brand-dark relative" bind:this={containerRef}>
 	<div class="relative" style="height: {panels.length * 100}vh">
 		<div class="absolute inset-0 flex flex-col pointer-events-none">
-			{#each panels as _, i}
+			{#each panels as _}
 				<div class="h-screen w-full snap-start"></div>
 			{/each}
 		</div>
@@ -105,29 +122,23 @@
 			class="sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row bg-black"
 			style="perspective: 1000px;"
 		>
-			<div
-				class="absolute top-0 left-0 w-full z-20 pointer-events-none mix-blend-difference text-white"
-			>
+			<div class="absolute top-0 left-0 w-full z-20 pointer-events-none text-white drop-shadow-lg">
 				<div
 					class="absolute top-20 md:top-28 left-1/2 -translate-x-1/2 text-center w-full px-4 pt-4"
 				>
-					<h2
-						class="text-[10px] md:text-sm font-bold text-blue-400 tracking-[0.2em] mb-2 md:mb-4 uppercase flex items-center justify-center gap-2"
+					<p
+						class="text-xs md:text-sm font-semibold tracking-wide text-white/80 uppercase mb-2 drop-shadow-md"
 					>
-						<span class="w-4 md:w-8 h-px bg-blue-400"></span>
 						{$LL.adventure_title()}
-						<span class="w-4 md:w-8 h-px bg-blue-400"></span>
-					</h2>
-					<h3
-						class="text-2xl md:text-5xl lg:text-7xl font-black text-white leading-[0.9] uppercase tracking-tighter"
+					</p>
+					<h2
+						class="text-3xl md:text-6xl font-semibold text-white leading-tight tracking-tight drop-shadow-xl"
 					>
 						{$LL.adventure_heading()} <br />
-						<span
-							class="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-300 to-gray-500"
-						>
+						<span class="text-white/70">
 							{$LL.adventure_heading_highlight()}
 						</span>
-					</h3>
+					</h2>
 				</div>
 			</div>
 			{#each panels as panel, i}
@@ -163,15 +174,17 @@
 					>
 						<video
 							bind:this={videoRefs[i]}
-							use:lazyVideo
-							preload="metadata"
-							poster={panel.video.replace('.mp4', '.jpg').replace('/video/', '/video/posters/')}
-							src={panel.video}
+							preload="none"
+							poster={isVisible
+								? panel.video.replace('.mp4', '.webp').replace('/video/', '/video/posters/')
+								: undefined}
 							class="w-full h-full object-cover"
 							muted
 							playsinline
 							loop
-						></video>
+						>
+							<track kind="captions" srclang="id" label="Bahasa Indonesia" default />
+						</video>
 						<div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
 					</div>
 
@@ -275,11 +288,7 @@
 			>
 				{#each panels as panel, i}
 					<button
-						class="group relative w-1.5 h-1.5 md:w-3 md:h-3 rounded-full transition-all duration-300"
-						style="
-							background: {i === activePanelIndex ? panel.accentColor : 'rgba(255,255,255,0.2)'};
-							transform: scale({i === activePanelIndex ? 1.5 : 1});
-						"
+						class="group relative flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full"
 						aria-label="Go to {panel.title}"
 						onclick={() => {
 							if (containerRef) {
@@ -289,9 +298,16 @@
 							}
 						}}
 					>
+						<span
+							class="block w-1.5 h-1.5 md:w-3 md:h-3 rounded-full transition-all duration-300"
+							style="
+								background: {i === activePanelIndex ? panel.accentColor : 'rgba(255,255,255,0.2)'};
+								transform: scale({i === activePanelIndex ? 1.5 : 1});
+							"
+						></span>
 						{#if i === activePanelIndex}
 							<span
-								class="absolute inset-0 rounded-full animate-ping"
+								class="absolute w-1.5 h-1.5 md:w-3 md:h-3 rounded-full animate-ping"
 								style="background: {panel.accentColor}40"
 							></span>
 						{/if}

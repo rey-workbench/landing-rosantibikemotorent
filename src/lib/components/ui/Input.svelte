@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fly, fade } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
+	import LL from '$i18n/i18n-svelte.js';
 
 	interface Props {
 		value?: string | number;
@@ -52,8 +53,7 @@
 
 	let isOpen = $state(false),
 		containerRef: HTMLElement | undefined = $state(),
-		searchTerm = $state(''),
-		inputRef: HTMLInputElement | undefined;
+		searchTerm = $state('');
 
 	// Date/Time State
 	let current = new Date();
@@ -74,9 +74,6 @@
 	];
 	const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
 	const mins = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
-
-
-
 
 	const select = (v: any) => {
 		value = v;
@@ -105,26 +102,29 @@
 		return () => document.removeEventListener('click', hide);
 	});
 	let actualId = $derived(id || `input-${Math.random().toString(36).slice(2, 11)}`);
-	let selectedLabel =
-		$derived(type === 'dropdown'
+	let selectedLabel = $derived(
+		type === 'dropdown'
 			? options.find((o) => o.value == value)?.label || ''
-			: value?.toString() || '');
-	let filteredOptions = $derived(options.filter((o) =>
-		o.label.toLowerCase().includes(searchTerm.toLowerCase())
-	));
-	let calendarDays = $derived((() => {
-		const start = new Date(view.year, view.month, 1).getDay();
-		const daysInMo = new Date(view.year, view.month + 1, 0).getDate();
-		const prevDaysInMo = new Date(view.year, view.month, 0).getDate();
-		return [
-			...Array.from({ length: start }, (_, i) => ({
-				d: prevDaysInMo - start + i + 1,
-				curr: false
-			})),
-			...Array.from({ length: daysInMo }, (_, i) => ({ d: i + 1, curr: true })),
-			...Array.from({ length: 42 - (start + daysInMo) }, (_, i) => ({ d: i + 1, curr: false }))
-		];
-	})());
+			: value?.toString() || ''
+	);
+	let filteredOptions = $derived(
+		options.filter((o) => o.label.toLowerCase().includes(searchTerm.toLowerCase()))
+	);
+	let calendarDays = $derived(
+		(() => {
+			const start = new Date(view.year, view.month, 1).getDay();
+			const daysInMo = new Date(view.year, view.month + 1, 0).getDate();
+			const prevDaysInMo = new Date(view.year, view.month, 0).getDate();
+			return [
+				...Array.from({ length: start }, (_, i) => ({
+					d: prevDaysInMo - start + i + 1,
+					curr: false
+				})),
+				...Array.from({ length: daysInMo }, (_, i) => ({ d: i + 1, curr: true })),
+				...Array.from({ length: 42 - (start + daysInMo) }, (_, i) => ({ d: i + 1, curr: false }))
+			];
+		})()
+	);
 </script>
 
 <div
@@ -133,9 +133,12 @@
 	style="z-index: {isOpen ? 1000 : 1}"
 >
 	{#if label}
-		<label for={actualId} class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">
+		<label
+			for={actualId}
+			class="block text-xs font-semibold uppercase tracking-wider text-[#1d1d1f] mb-1.5"
+		>
 			{label}
-			{#if required}<span class="text-red-500 ml-1">*</span>{/if}
+			{#if required}<span class="text-red-500 ml-0.5">*</span>{/if}
 		</label>
 	{/if}
 
@@ -146,16 +149,16 @@
 				type="button"
 				{disabled}
 				onclick={() => !disabled && ((isOpen = !isOpen), (searchTerm = ''))}
-				class="w-full bg-brand-surface-soft border border-brand-border rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-brand-surface-soft/80 hover:border-brand-border/80 focus-visible:focus-ring {error
+				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-left flex items-center justify-between gap-3 transition-all hover:bg-[#e8e8ed] hover:border-black/15 focus:ring-4 focus:ring-apple-blue/10 {error
 					? 'border-red-500'
 					: ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''} {isOpen
-					? 'border-brand-highlight bg-brand-highlight/5'
+					? 'border-apple-blue bg-white ring-4 ring-apple-blue/10'
 					: ''}"
 			>
 				<div class="flex items-center gap-3 truncate">
 					{#if icon !== 'none' && iconPaths[icon]}
 						<svg
-							class="text-brand-muted shrink-0"
+							class="text-[#6b6b70] shrink-0"
 							width="18"
 							height="18"
 							viewBox="0 0 24 24"
@@ -168,13 +171,13 @@
 							<path d={iconPaths[icon]} />
 						</svg>
 					{/if}
-					<span class="truncate {selectedLabel ? 'text-brand-fg' : 'text-brand-muted'}"
-						>{selectedLabel || placeholder || 'Pilih...'}</span
+					<span class="truncate {selectedLabel ? 'text-[#1d1d1f] font-medium' : 'text-[#6b6b70]'}"
+						>{selectedLabel || placeholder || $LL.ui_select()}</span
 					>
 				</div>
 				<svg
-					class="text-brand-muted shrink-0 transition-transform {isOpen
-						? 'rotate-180 text-brand-fg'
+					class="text-[#6b6b70] shrink-0 transition-transform duration-200 {isOpen
+						? 'rotate-180 text-[#1d1d1f]'
 						: ''}"
 					width="18"
 					height="18"
@@ -188,17 +191,17 @@
 			{#if isOpen}
 				<div
 					transition:fly={{ y: -10, duration: 200 }}
-					class="absolute left-0 w-full min-w-65 md:max-w-75 mt-2 bg-brand-surface border border-brand-border rounded-xl shadow-2xl overflow-hidden backdrop-blur-xl z-99999"
+					class="absolute left-0 w-full min-w-65 md:max-w-75 mt-2 bg-white border border-black/10 rounded-2xl shadow-xl overflow-hidden backdrop-blur-xl z-99999"
 				>
 					{#if type === 'dropdown'}
 						{#if searchable}
-							<div class="p-2 border-b border-brand-border">
+							<div class="p-2 border-b border-black/5">
 								<input
 									type="text"
 									bind:value={searchTerm}
-									placeholder="Cari..."
-									aria-label="Cari opsi"
-									class="w-full bg-brand-surface-soft border border-brand-border rounded-lg px-3 py-2 text-sm text-brand-fg focus-visible:focus-ring"
+									placeholder={$LL.ui_search()}
+									aria-label={$LL.ui_search()}
+									class="w-full bg-[#f5f5f7] border border-black/5 rounded-xl px-3 py-2 text-xs text-[#1d1d1f] focus:outline-none"
 									onclick={(e) => e.stopPropagation()}
 								/>
 							</div>
@@ -208,10 +211,10 @@
 								<button
 									type="button"
 									onclick={() => select(opt.value)}
-									class="w-full px-4 py-2.5 text-left text-sm flex items-center justify-between {opt.value ==
+									class="w-full px-4 py-2.5 text-left text-xs sm:text-sm flex items-center justify-between transition-colors {opt.value ==
 									value
-										? 'bg-brand-highlight/10 text-brand-highlight font-bold'
-										: 'text-brand-fg hover:bg-brand-surface-soft hover:text-brand-fg'}"
+										? 'bg-apple-blue/10 text-apple-blue font-semibold'
+										: 'text-[#1d1d1f] hover:bg-[#f5f5f7]'}"
 								>
 									<span>{opt.label}</span>
 									{#if opt.value == value}<svg
@@ -230,9 +233,12 @@
 							<div class="flex items-center justify-between mb-3 px-1">
 								<button
 									type="button"
-									onclick={(e) => { e.stopPropagation(); adjustMonth(-1); }}
-									class="p-1 hover:bg-brand-surface-soft rounded text-brand-fg"
-									aria-label="Bulan sebelumnya"
+									onclick={(e) => {
+										e.stopPropagation();
+										adjustMonth(-1);
+									}}
+									class="p-1 hover:bg-[#f5f5f7] rounded text-[#1d1d1f]"
+									aria-label={$LL.ui_month_prev()}
 									><svg
 										width="14"
 										height="14"
@@ -242,15 +248,18 @@
 										stroke-width="2"><polyline points="15 18 9 12 15 6" /></svg
 									></button
 								>
-								<div class="text-[10px] font-bold text-brand-fg uppercase tracking-[0.17em]">
+								<div class="text-[11px] font-semibold text-[#1d1d1f] uppercase tracking-wider">
 									{months[view.month]}
 									{view.year}
 								</div>
 								<button
 									type="button"
-									onclick={(e) => { e.stopPropagation(); adjustMonth(1); }}
-									class="p-1 hover:bg-brand-surface-soft rounded text-brand-fg"
-									aria-label="Bulan berikutnya"
+									onclick={(e) => {
+										e.stopPropagation();
+										adjustMonth(1);
+									}}
+									class="p-1 hover:bg-[#f5f5f7] rounded text-[#1d1d1f]"
+									aria-label={$LL.ui_month_next()}
 									><svg
 										width="14"
 										height="14"
@@ -263,7 +272,7 @@
 							</div>
 							<div class="grid grid-cols-7 gap-px mb-1">
 								{#each ['S', 'M', 'T', 'W', 'T', 'F', 'S'] as d}<div
-										class="text-[8px] font-bold text-brand-muted text-center"
+										class="text-[9px] font-semibold text-[#6b6b70] text-center"
 									>
 										{d}
 									</div>{/each}
@@ -274,41 +283,48 @@
 										type="button"
 										onclick={(e) => {
 											e.stopPropagation();
-											if (curr) select(`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`);
+											if (curr)
+												select(
+													`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
+												);
 										}}
-										class="aspect-square flex items-center justify-center text-[10px] rounded-md {curr
-											? 'text-brand-fg hover:bg-brand-surface-soft'
-											: 'text-brand-muted/30 pointer-events-none'} {curr &&
+										class="aspect-square flex items-center justify-center text-[11px] rounded-lg transition-colors {curr
+											? 'text-[#1d1d1f] hover:bg-[#f5f5f7]'
+											: 'text-[#6b6b70]/30 pointer-events-none'} {curr &&
 										value ===
 											`${view.year}-${(view.month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
-											? 'bg-brand-fg text-brand-surface! font-bold'
+											? 'bg-apple-blue text-white font-bold shadow-sm'
 											: ''}">{d}</button
 									>
 								{/each}
 							</div>
 						</div>
 					{:else if type === 'time'}
-						<div class="p-2 grid grid-cols-2 gap-2 h-48 uppercase font-bold tracking-[0.08em]">
+						<div class="p-2 grid grid-cols-2 gap-2 h-48 font-medium">
 							<div class="overflow-y-auto scrollbar-custom pr-1">
 								{#each hours as h}<button
 										onclick={(e) => {
 											e.stopPropagation();
 											select(`${h}:${value.toString().split(':')[1] || '00'}`);
 										}}
-										class="w-full py-1.5 text-[10px] rounded {value.toString().startsWith(h + ':')
-											? 'bg-brand-fg text-brand-surface'
-											: 'text-brand-muted hover:text-brand-fg'}">{h}</button
+										class="w-full py-1.5 text-xs rounded transition-colors {value
+											.toString()
+											.startsWith(h + ':')
+											? 'bg-apple-blue text-white font-semibold'
+											: 'text-[#6b6b70] hover:text-[#1d1d1f] hover:bg-[#f5f5f7]'}">{h}</button
 									>{/each}
 							</div>
-							<div class="overflow-y-auto scrollbar-custom pr-1 border-l border-brand-border pl-2">
+							<div class="overflow-y-auto scrollbar-custom pr-1 border-l border-black/5 pl-2">
 								{#each mins as m}<button
 										onclick={(e) => {
 											e.stopPropagation();
 											select(`${value.toString().split(':')[0] || '08'}:${m}`);
 										}}
-										class="w-full py-1.5 text-[10px] rounded {value.toString().endsWith(':' + m)
-											? 'bg-brand-fg text-brand-surface'
-											: 'text-brand-muted hover:text-brand-fg'}">{m}</button
+										class="w-full py-1.5 text-xs rounded transition-colors {value
+											.toString()
+											.endsWith(':' + m)
+											? 'bg-apple-blue text-white font-semibold'
+											: 'text-[#6b6b70] hover:text-[#1d1d1f] hover:bg-[#f5f5f7]'}">{m}</button
 									>{/each}
 							</div>
 						</div>
@@ -324,7 +340,7 @@
 				{required}
 				{disabled}
 				oninput={(e) => (value = e.currentTarget.value)}
-				class="w-full bg-brand-surface-soft border border-brand-border rounded-xl px-4 py-3 text-brand-fg placeholder-brand-muted/70 focus-visible:focus-ring focus:bg-brand-highlight/5 transition-all {type ===
+				class="w-full bg-[#f5f5f7] border border-black/8 rounded-xl px-4 py-3 text-xs sm:text-sm text-[#1d1d1f] focus:ring-4 focus:ring-apple-blue/10 focus:outline-none transition-all {type ===
 				'number'
 					? 'pr-12'
 					: ''} {error ? 'border-red-500' : ''}"
@@ -334,8 +350,8 @@
 					<button
 						type="button"
 						onclick={() => step(1)}
-						class="p-1 hover:text-brand-fg text-brand-muted"
-						aria-label="Tambah"
+						class="p-1 hover:text-[#1d1d1f] text-[#6b6b70]"
+						aria-label={$LL.ui_increment()}
 						><svg
 							width="12"
 							height="12"
@@ -348,8 +364,8 @@
 					<button
 						type="button"
 						onclick={() => step(-1)}
-						class="p-1 hover:text-brand-fg text-brand-muted"
-						aria-label="Kurangi"
+						class="p-1 hover:text-[#1d1d1f] text-[#6b6b70]"
+						aria-label={$LL.ui_decrement()}
 						><svg
 							width="12"
 							height="12"
@@ -363,10 +379,10 @@
 			{/if}
 		{/if}
 	</div>
-	{#if error}<p class="mt-1 text-[10px] text-red-500 uppercase font-bold tracking-wider">
+	{#if error}<p class="mt-1 text-[11px] text-red-500 font-medium">
 			{error}
 		</p>{/if}
-	{#if hint && !error}<p class="mt-1 text-[10px] text-muted">{hint}</p>{/if}
+	{#if hint && !error}<p class="mt-1 text-[11px] text-[#525257]">{hint}</p>{/if}
 </div>
 
 <style>

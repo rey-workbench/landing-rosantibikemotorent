@@ -7,47 +7,93 @@
 	}
 
 	let { className = '' }: Props = $props();
+
+	// Obfuscate email to prevent spam harvesting bots
+	const emailUser = 'hello';
+	const emailDomain = 'rosantibikemotorent.com';
+	const displayEmail = $derived(`${emailUser}&#64;${emailDomain}`);
+	const emailHref = $derived(`mailto:${emailUser}@${emailDomain}`);
 </script>
 
 <footer
-	class="bg-brand-background border-t border-[rgba(166,173,187,0.14)] pt-20 pb-10 {className}"
+	class="bg-[#f5f5f7] text-[#525257] text-[12px] pt-10 pb-12 border-t border-[#d2d2d7] {className}"
 >
-	<div class="max-w-7xl mx-auto px-6">
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-			<div class="space-y-6">
-				<h2 class="font-display text-[2rem] uppercase tracking-[0.03em] text-brand-fg">
+	<div class="max-w-5xl mx-auto px-4">
+		<!-- Disclaimer / Breadcrumb note (Apple Style) -->
+		<div class="text-[11px] text-[#525257] leading-relaxed pb-4 mb-6 border-b border-[#d2d2d7]">
+			<p>
+				Sewa motor harian, mingguan, dan bulanan terpercaya di Kota Malang, Batu, dan Bromo. Seluruh
+				unit terawat resmi dengan fasilitas helm SNI dan jas hujan gratis.
+			</p>
+		</div>
+
+		<!-- Main 4-Column Directory -->
+		<div
+			class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-[#d2d2d7]"
+		>
+			<!-- Col 1: About & Reviews -->
+			<div class="space-y-3">
+				<h2 class="font-semibold text-[#1d1d1f] text-[12px] tracking-tight">
 					{siteConfig.shortName}
 				</h2>
-				<p class="text-muted text-sm leading-relaxed max-w-xs">
+				<p class="leading-relaxed text-[12px] text-[#424245]">
 					{$LL.footer_about()}
 				</p>
-				<div class="flex gap-4">
-					{#each [{ name: 'Instagram', url: siteConfig.socials.instagram, icon: 'M16.7 3h-9.4C4.4 3 2 5.4 2 8.3v9.4c0 2.9 2.4 5.3 5.3 5.3h9.4c2.9 0 5.3-2.4 5.3-5.3V8.3c0-2.9-2.4-5.3-5.3-5.3zm-4.7 15c-3.1 0-5.7-2.5-5.7-5.7s2.5-5.7 5.7-5.7 5.7 2.5 5.7 5.7-2.6 5.7-5.7 5.7zm5.5-10.4c-.7 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2 1.2.5 1.2 1.2-.5 1.2-1.2 1.2z' }, { name: 'Facebook', url: siteConfig.socials.facebook, icon: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z' }] as social}
+				<div class="flex gap-3 pt-1">
+					{#each [{ name: 'Instagram', url: siteConfig.socials.instagram, icon: 'M16.7 3h-9.4C4.4 3 2 5.4 2 8.3v9.4c0 2.9 2.4 5.3 5.3 5.3h9.4c2.9 0 5.3-2.4 5.3-5.3V8.3c0-2.9-2.4-5.3-5.3-5.3zm-4.7 15c-3.1 0-5.7-2.5-5.7-5.7s2.5-5.7 5.7-5.7 5.7 2.5 5.7 5.7-2.6 5.7-5.7 5.7zm5.5-10.4c-.7 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2 1.2.5 1.2 1.2-.5 1.2-1.2 1.2z' }, { name: 'Facebook', url: siteConfig.socials.facebook, icon: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z' }, { name: 'X (Twitter)', url: siteConfig.socials.twitter, icon: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' }] as social}
 						<a
 							href={social.url}
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label={social.name}
-							class="w-10 h-10 rounded-xl surface-panel flex items-center justify-center text-muted hover:text-brand-fg hover:border-accent-soft transition-all duration-300"
+							class="text-[#525257] hover:text-[#1d1d1f] transition-colors"
 						>
-							<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+							<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
 								<path d={social.icon} />
 							</svg>
 						</a>
 					{/each}
 				</div>
+				<a
+					href="https://share.google/txOxHDzSGQxVfc1ql"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-[#d2d2d7] hover:border-black/30 transition-colors shadow-2xs"
+				>
+					<svg width="13" height="13" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+							fill="#4285F4"
+						/>
+						<path
+							d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+							fill="#34A853"
+						/>
+						<path
+							d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+							fill="#FBBC05"
+						/>
+						<path
+							d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+							fill="#EA4335"
+						/>
+					</svg>
+					<span class="font-medium text-[#1d1d1f] text-[11px]">5.0 on Google Reviews</span>
+				</a>
 			</div>
 
+			<!-- Col 2: Jelajahi -->
 			<div>
-				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
-					{$LL.footer_explore()}
-				</h3>
-				<ul class="space-y-4">
-					{#each [{ label: $LL.footer_home(), href: `/${page.params.lang || $locale}` }, { label: $LL.footer_catalog(), href: `/${page.params.lang || $locale}/fleet` }, { label: $LL.footer_blog(), href: `/${page.params.lang || $locale}/blog` }, { label: $LL.footer_procedure(), href: `/${page.params.lang || $locale}/booking` }] as link}
+				<h2 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
+					{$LL.footer_explore() || 'Jelajahi'}
+				</h2>
+				<ul class="space-y-2.5">
+					{#each [{ label: $LL.nav_home() || 'Home', href: `/${page.params.lang || $locale || 'id'}` }, { label: $LL.footer_catalog() || 'Katalog Motor', href: `/${page.params.lang || $locale || 'id'}/fleet` }, { label: $LL.footer_blog() || 'Blog', href: `/${page.params.lang || $locale || 'id'}/blog` }, { label: $LL.footer_procedure() || 'Cara Pesan', href: `/${page.params.lang || $locale || 'id'}/booking` }] as link}
 						<li>
 							<a
 								href={link.href}
-								class="text-muted hover:text-brand-fg hover:translate-x-1 transition-all duration-300 inline-block text-sm"
+								aria-label={link.label}
+								class="text-[#424245] hover:text-[#1d1d1f] hover:underline transition-colors"
 							>
 								{link.label}
 							</a>
@@ -56,120 +102,70 @@
 				</ul>
 			</div>
 
+			<!-- Col 3: Layanan -->
 			<div>
-				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
-					{$LL.footer_services()}
-				</h3>
-				<ul class="space-y-4">
-					{#each [$LL.footer_daily_rental(), $LL.footer_delivery(), $LL.footer_equipment(), $LL.footer_insurance()] as service}
-						<li class="flex items-center gap-3 text-muted text-sm">
-							<span class="w-1.5 h-1.5 rounded-full bg-(--brand-highlight)"></span>
+				<h2 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
+					{$LL.footer_services() || 'Layanan'}
+				</h2>
+				<ul class="space-y-2.5 text-[#424245]">
+					{#each [$LL.footer_daily_rental() || 'Sewa Motor Harian & Mingguan', $LL.footer_delivery() || 'Gratis Antar Jemput Stasiun/Terminal', $LL.footer_equipment() || 'Gratis 2 Helm SNI & Jas Hujan', $LL.footer_insurance() || 'Unit Terawat & Surat Lengkap'] as service}
+						<li>
 							{service}
 						</li>
 					{/each}
 				</ul>
 			</div>
 
+			<!-- Col 4: Kantor & Kontak -->
 			<div>
-				<h3 class="text-brand-fg font-bold uppercase tracking-[0.2em] text-xs mb-8">
-					{$LL.footer_office()}
-				</h3>
-				<div class="space-y-6">
-					<div class="flex items-start gap-4">
-						<div class="mt-1 text-(--brand-highlight)">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle
-									cx="12"
-									cy="10"
-									r="3"
-								/></svg
-							>
-						</div>
-						<p class="text-muted text-sm leading-relaxed">
-							{siteConfig.address}
-						</p>
-					</div>
-					<div class="flex items-center gap-4">
-						<div class="text-green-500">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><rect width="20" height="16" x="2" y="4" rx="2" /><path
-									d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
-								/></svg
-							>
-						</div>
-						<a
-							href="mailto:{siteConfig.email}"
-							class="text-muted hover:text-brand-fg transition-colors text-sm"
-						>
-							{siteConfig.email}
+				<h2 class="font-semibold text-[#1d1d1f] mb-3 text-[12px] tracking-tight">
+					{$LL.footer_office() || 'Kantor'}
+				</h2>
+				<div class="space-y-2.5 text-[#424245]">
+					<p>{siteConfig.address}</p>
+					<p>
+						<a href={emailHref} class="text-[#0066cc] hover:underline">
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+							{@html displayEmail}
 						</a>
-					</div>
-					<div class="flex items-center gap-4">
-						<div class="text-blue-400">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><path
-									d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-								/></svg
-							>
-						</div>
+					</p>
+					<p>
 						<a
 							href="https://wa.me/{siteConfig.whatsapp}"
-							class="text-muted hover:text-brand-fg transition-colors text-sm"
+							class="text-[#424245] hover:text-[#1d1d1f] hover:underline"
 						>
 							{siteConfig.phone}
 						</a>
-					</div>
+					</p>
 				</div>
 			</div>
 		</div>
 
+		<!-- Apple Bottom Bar -->
 		<div
-			class="pt-10 border-t border-[rgba(166,173,187,0.14)] flex flex-col md:flex-row justify-between items-center gap-6"
+			class="pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-[11px] text-[#525257]"
 		>
-			<div class="text-[11px] uppercase tracking-[0.2em] text-[rgba(166,173,187,0.68)] font-bold">
-				&copy; {new Date().getFullYear()}
-				{siteConfig.name}. {$LL.footer_all_rights()}
+			<div>
+				Copyright &copy; {new Date().getFullYear()}
+				{siteConfig.name}. {$LL.footer_all_rights() || 'Hak cipta dilindungi.'}
 			</div>
-			<div class="flex items-center gap-8">
+
+			<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
 				<a
-					href="/{page.params.lang || $locale}/privacy"
-					aria-label={$LL.footer_privacy()}
-					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-brand-fg transition-colors"
-					>{$LL.footer_privacy()}</a
+					href="/{page.params.lang || $locale || 'id'}/privacy"
+					class="hover:text-[#1d1d1f] hover:underline transition-colors"
 				>
+					{$LL.footer_privacy() || 'Kebijakan Privasi'}
+				</a>
+				<span>|</span>
 				<a
-					href="/{page.params.lang || $locale}/terms"
-					aria-label={$LL.footer_terms()}
-					class="text-[10px] uppercase tracking-[0.2em] text-muted hover:text-brand-fg transition-colors"
-					>{$LL.footer_terms()}</a
+					href="/{page.params.lang || $locale || 'id'}/terms"
+					class="hover:text-[#1d1d1f] hover:underline transition-colors"
 				>
+					{$LL.footer_terms() || 'Syarat & Ketentuan'}
+				</a>
+				<span>|</span>
+				<span class="text-[#1d1d1f] font-medium">Indonesia</span>
 			</div>
 		</div>
 	</div>

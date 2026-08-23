@@ -1,39 +1,127 @@
-import type { BreadcrumbItem, FaqItem, SupportedLocale } from './types';
+import type { BreadcrumbItem, FaqItem } from './types';
 import { BASE_URL, SITE_NAME } from './types';
+import { siteConfig } from '$lib/config';
 
-export function buildOrganizationSchema() {
+export interface FleetMotor {
+	name: string;
+	brand: string;
+	category: string;
+	description: string;
+	image: string;
+	price: string;
+}
+
+export function buildOrganizationSchema(fleet: FleetMotor[] = []) {
 	return {
 		'@context': 'https://schema.org',
-		'@type': 'AutoRental',
+		'@type': ['LocalBusiness', 'AutoRental'],
 		name: SITE_NAME,
 		alternateName: 'Rosantibike Motorent',
-		url: BASE_URL,
+		url: `${BASE_URL}/`,
 		logo: `${BASE_URL}/favicon.svg`,
+		image: `${BASE_URL}/logo.webp`,
+		telephone: siteConfig.phone,
 		description:
-			'Premium motorcycle rental service in Malang, East Java, Indonesia. Well-maintained units, 24/7 service, and free delivery to stations, terminals, and hotels.',
-		areaServed: { '@type': 'City', name: 'Malang' },
+			'Penyedia layanan sewa motor murah dan rental motor premium di Malang. Menyediakan armada PCX 150, Lexi 125, Vario 150, Vario 125, Scoopy, Beat Fi, dan Soul GT dengan fasilitas 2 helm dan jas hujan.',
+		email: siteConfig.email,
+		currenciesAccepted: 'IDR',
+		paymentAccepted: 'Cash, Bank Transfer, QRIS',
+		priceRange: 'Rp 80.000 - Rp 150.000',
+		areaServed: [
+			{
+				'@type': 'City',
+				name: 'Malang',
+				sameAs: 'https://www.wikidata.org/wiki/Q11025'
+			},
+			{
+				'@type': 'City',
+				name: 'Batu',
+				sameAs: 'https://www.wikidata.org/wiki/Q131346'
+			}
+		],
 		address: {
 			'@type': 'PostalAddress',
-			streetAddress: 'Jl. Bauksit No.90C',
+			streetAddress: siteConfig.address,
 			addressLocality: 'Malang',
-			addressRegion: 'East Java',
+			addressRegion: 'Jawa Timur',
 			postalCode: '65142',
 			addressCountry: 'ID'
 		},
 		contactPoint: {
 			'@type': 'ContactPoint',
-			telephone: '+62-811-3535-122',
+			telephone: siteConfig.phone,
 			contactType: 'customer service',
 			availableLanguage: ['Indonesian', 'English']
 		},
-		sameAs: ['https://www.instagram.com/rosantibike', 'https://share.google/txOxHDzSGQxVfc1ql'],
-		priceRange: '$$',
-		openingHoursSpecification: {
-			'@type': 'OpeningHoursSpecification',
-			dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-			opens: '07:30',
-			closes: '17:00'
-		}
+		sameAs: [
+			siteConfig.socials.facebook,
+			siteConfig.socials.instagram,
+			'https://share.google/txOxHDzSGQxVfc1ql',
+			'https://www.wikidata.org/wiki/Q11025',
+			'https://en.wikipedia.org/wiki/Malang'
+		],
+		knowsAbout: [
+			'Sewa Motor Malang',
+			'Rental Motor Malang',
+			'Rental Motor Stasiun Malang',
+			'Sewa Motor Bromo',
+			'Sewa Motor Kota Batu'
+		],
+		geo: {
+			'@type': 'GeoCoordinates',
+			latitude: -7.9463,
+			longitude: 112.6565
+		},
+		openingHoursSpecification: [
+			{
+				'@type': 'OpeningHoursSpecification',
+				dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+				opens: '06:00',
+				closes: '22:00'
+			}
+		],
+		...(fleet.length > 0 && {
+			hasOfferCatalog: {
+				'@type': 'OfferCatalog',
+				name: 'Katalog Sewa Motor Malang',
+				itemListElement: fleet.map((motor) => ({
+					'@type': 'Offer',
+					itemOffered: {
+						'@type': 'Product',
+						name: motor.name,
+						brand: { '@type': 'Brand', name: motor.brand },
+						category: motor.category,
+						description: motor.description,
+						image: motor.image,
+						offers: {
+							'@type': 'Offer',
+							price: motor.price,
+							priceCurrency: 'IDR',
+							availability: 'https://schema.org/InStock',
+							hasMerchantReturnPolicy: {
+								'@type': 'MerchantReturnPolicy',
+								applicableCountry: 'ID',
+								returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+								merchantReturnDays: 0
+							},
+							shippingDetails: {
+								'@type': 'OfferShippingDetails',
+								shippingDestination: {
+									'@type': 'DefinedRegion',
+									addressCountry: 'ID',
+									addressRegion: 'Jawa Timur'
+								},
+								shippingRate: {
+									'@type': 'MonetaryAmount',
+									value: 0,
+									currency: 'IDR'
+								}
+							}
+						}
+					}
+				}))
+			}
+		})
 	};
 }
 
@@ -71,8 +159,6 @@ export function buildProductSchema(params: {
 	currency?: string;
 	inStock?: boolean;
 	url: string;
-	ratingValue?: string;
-	reviewCount?: string;
 }) {
 	const {
 		name,
@@ -84,9 +170,7 @@ export function buildProductSchema(params: {
 		price,
 		currency = 'IDR',
 		inStock = true,
-		url,
-		ratingValue = '4.8',
-		reviewCount = '120'
+		url
 	} = params;
 
 	return {
@@ -104,8 +188,7 @@ export function buildProductSchema(params: {
 			priceCurrency: currency,
 			availability: `https://schema.org/${inStock ? 'InStock' : 'OutOfStock'}`,
 			url
-		},
-		aggregateRating: { '@type': 'AggregateRating', ratingValue, reviewCount }
+		}
 	};
 }
 
@@ -121,6 +204,28 @@ export function buildFaqSchema(faqs: FaqItem[]) {
 				text: faq.answer
 			}
 		}))
+	};
+}
+
+export function buildVideoSchema(params: {
+	name: string;
+	description: string;
+	thumbnailUrl: string;
+	contentUrl: string;
+	uploadDate: string;
+	duration?: string;
+}) {
+	const { name, description, thumbnailUrl, contentUrl, uploadDate, duration } = params;
+
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'VideoObject',
+		name,
+		description,
+		thumbnailUrl,
+		contentUrl,
+		uploadDate,
+		...(duration && { duration })
 	};
 }
 
@@ -149,18 +254,4 @@ export function buildArticleSchema(params: {
 		...(publishedTime && { datePublished: publishedTime }),
 		url
 	};
-}
-
-export function buildBreadcrumbItems(
-	lang: SupportedLocale,
-	pages: { name: string; path: string }[]
-): BreadcrumbItem[] {
-	return [
-		{ position: 1, name: 'Home', item: `${BASE_URL}/${lang}` },
-		...pages.map((page, index) => ({
-			position: index + 2,
-			name: page.name,
-			item: `${BASE_URL}/${lang}${page.path}`
-		}))
-	];
 }

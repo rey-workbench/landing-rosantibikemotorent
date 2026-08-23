@@ -21,12 +21,6 @@ export interface UnitMotor {
 	updatedAt: string;
 }
 
-export interface MotorStatusUpdate {
-	id: string;
-	platNomor: string;
-	message: string;
-}
-
 export interface UnitMotorUpdate {
 	action: 'create' | 'update' | 'delete';
 	data?: unknown;

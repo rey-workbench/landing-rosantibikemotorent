@@ -4,9 +4,9 @@
 	import { LL } from '$i18n/i18n-svelte';
 
 	const stats = $derived([
-		{ label: $LL.stats_customers(), value: 1500, suffix: '+' },
-		{ label: $LL.stats_units(), value: 50, suffix: '' },
-		{ label: $LL.stats_experience(), value: 5, suffix: '+' }
+		{ label: $LL.stats_customers(), value: 500, suffix: '+' },
+		{ label: $LL.stats_units(), value: 15, suffix: '+' },
+		{ label: $LL.stats_experience(), value: 3, suffix: '+' }
 	]);
 
 	let visible = $state(false);
@@ -31,6 +31,7 @@
 						spring2.set(stats[1].value);
 						spring3.set(stats[2].value);
 					}
+					observer.disconnect();
 				}
 			},
 			{ threshold: 0.2 }
@@ -44,47 +45,45 @@
 	});
 </script>
 
-<section
-	class="py-16 md:py-24 relative bg-brand-background overflow-hidden z-20"
-	bind:this={sectionRef}
->
-	<div class="absolute top-1/2 left-1/4 w-96 h-96 rounded-full pointer-events-none opacity-0"></div>
-
-	<div class="container mx-auto px-4 relative z-10">
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<section class="py-24 md:py-36 relative bg-[#f5f5f7] overflow-hidden z-20" bind:this={sectionRef}>
+	<div class="container mx-auto px-6 md:px-10 relative z-10 max-w-345">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+			<!-- Stat 1: Apple Clean Light Card -->
 			<div
-				class="group p-8 md:p-12 rounded-3xl bg-brand-surface border border-brand-border backdrop-blur-sm transition-all duration-500 hover:bg-brand-surface-soft hover:transform hover:-translate-y-2 text-center"
+				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xs"
 			>
 				<div
-					class="text-6xl md:text-8xl font-black text-brand-fg mb-4 tracking-tighter leading-none"
+					class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none font-display"
 				>
 					{Math.round($spring1)}{stats[0].suffix}
 				</div>
-				<div class="text-xs md:text-sm text-brand-muted uppercase tracking-[0.2em] font-bold">
+				<div class="text-sm md:text-base text-[#6e6e73] font-medium tracking-wide">
 					{stats[0].label}
 				</div>
 			</div>
+			<!-- Stat 2: Apple Pro Pitch Black Card -->
 			<div
-				class="group p-8 md:p-12 rounded-3xl bg-brand-surface border border-brand-border backdrop-blur-sm transition-all duration-500 hover:bg-brand-surface-soft hover:transform hover:-translate-y-2 text-center"
+				class="p-10 md:p-14 rounded-3xl bg-brand-dark text-white transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xl"
 			>
 				<div
-					class="text-6xl md:text-8xl font-black text-brand-fg mb-4 tracking-tighter leading-none"
+					class="text-6xl md:text-8xl font-bold text-[#f5f5f7] mb-3 tracking-tight leading-none font-display"
 				>
 					{Math.round($spring2)}{stats[1].suffix}
 				</div>
-				<div class="text-xs md:text-sm text-brand-muted uppercase tracking-[0.2em] font-bold">
+				<div class="text-sm md:text-base text-[#86868b] font-medium tracking-wide">
 					{stats[1].label}
 				</div>
 			</div>
+			<!-- Stat 3: Apple Clean Light Card -->
 			<div
-				class="group p-8 md:p-12 rounded-3xl bg-brand-surface border border-brand-border backdrop-blur-sm transition-all duration-500 hover:bg-brand-surface-soft hover:transform hover:-translate-y-2 text-center"
+				class="p-10 md:p-14 rounded-3xl bg-white border border-black/5 transition-all duration-300 hover:scale-[1.02] text-center flex flex-col justify-center min-h-75 shadow-xs"
 			>
 				<div
-					class="text-6xl md:text-8xl font-black text-brand-fg mb-4 tracking-tighter leading-none"
+					class="text-6xl md:text-8xl font-bold text-[#1d1d1f] mb-3 tracking-tight leading-none font-display"
 				>
 					{Math.round($spring3)}{stats[2].suffix}
 				</div>
-				<div class="text-xs md:text-sm text-brand-muted uppercase tracking-[0.2em] font-bold">
+				<div class="text-sm md:text-base text-[#6e6e73] font-medium tracking-wide">
 					{stats[2].label}
 				</div>
 			</div>

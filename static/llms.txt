@@ -1,0 +1,48 @@
+# Rosantibike Motorent
+
+> Rosantibike Motorent adalah penyedia layanan rental dan sewa motor profesional di Kota Malang dan Batu, Jawa Timur, Indonesia. Menyediakan berbagai tipe motor matic, manual, dan trail dengan fasilitas helm SNI, jas hujan, dan layanan antar-jemput stasiun/terminal/hotel.
+
+- [Full Documentation for AI & LLMs](https://rosantibikemotorent.com/llms-full.txt): Panduan armada lengkap, harga live real-time, syarat sewa, dan FAQ.
+
+## Halaman Utama & Pemesanan (ID)
+
+- [Beranda / Home](https://rosantibikemotorent.com/id): Halaman utama layanan sewa motor Malang.
+- [Katalog Armada Motor](https://rosantibikemotorent.com/id/fleet): Seluruh daftar pilihan unit motor dan tarif rental harian/mingguan.
+- [Formulir Booking Online](https://rosantibikemotorent.com/id/booking): Pemesanan rental motor secara langsung dengan pemilihan tanggal sewa dan lokasi penyerahan unit.
+- [FAQ & Pertanyaan Umum](https://rosantibikemotorent.com/id/faq): Tanya jawab lengkap tentang syarat, harga, dan layanan antar jemput.
+- [Blog & Artikel Wisata](https://rosantibikemotorent.com/id/blog): Daftar artikel, panduan wisata Malang & Bromo, serta tips berkendara.
+
+### Detail Armada Motor (ID)
+- [Honda Beat](https://rosantibikemotorent.com/id/fleet/honda-beat-fi): Motor matic hemat bahan bakar (Rp 100.000/hari).
+- [Honda Scoopy](https://rosantibikemotorent.com/id/fleet/honda-scoopy): Motor matic retro stylish (Rp 100.000/hari).
+- [Honda Vario 125](https://rosantibikemotorent.com/id/fleet/honda-vario-125): Motor matic bertenaga dan nyaman (Rp 120.000/hari).
+- [Honda Vario 150](https://rosantibikemotorent.com/id/fleet/honda-vario-150): Motor matic bertenaga 150cc (Rp 120.000/hari).
+- [Yamaha Lexi](https://rosantibikemotorent.com/id/fleet/yamaha-lexi): Motor matic maxi nyaman (Rp 125.000/hari).
+- [Honda PCX](https://rosantibikemotorent.com/id/fleet/honda-pcx): Motor matic premium (Rp 150.000/hari).
+- [Yamaha Soul GT](https://rosantibikemotorent.com/id/fleet/yamaha-soul-gt): Motor matic ekonomis (Rp 80.000/hari).
+
+### Artikel & Panduan Wisata (ID)
+- [Panduan Memilih Motor untuk Pemula](https://rosantibikemotorent.com/id/blog/panduan-memilih-motor-untuk-pemula): Tips memilih motor yang tepat untuk wisata di Malang dan Batu.
+- [Panduan Sewa Sepeda Elektrik](https://rosantibikemotorent.com/id/blog/panduan-menyewa-sepeda-elektrik): Informasi sewa sepeda listrik.
+- [Tips Merawat Motor Musim Hujan](https://rosantibikemotorent.com/id/blog/tips-merawat-motor-musim-hujan): Panduan keselamatan berkendara saat musim hujan.
+
+## Main Pages & Booking (EN)
+
+- [Home (EN)](https://rosantibikemotorent.com/en): Motorcycle rental service in Malang & Batu.
+- [Fleet (EN)](https://rosantibikemotorent.com/en/fleet): Complete motorcycle catalogue and daily rental rates.
+- [Booking (EN)](https://rosantibikemotorent.com/en/booking): Online motorcycle reservation form.
+- [FAQ (EN)](https://rosantibikemotorent.com/en/faq): Frequently asked questions about pricing, requirements, and pickup services.
+- [Blog (EN)](https://rosantibikemotorent.com/en/blog): Malang & Mount Bromo travel guides.
+
+### Motorcycle Fleet (EN)
+- [Honda Beat](https://rosantibikemotorent.com/en/fleet/honda-beat-fi): Fuel-efficient automatic scooter.
+- [Honda Scoopy](https://rosantibikemotorent.com/en/fleet/honda-scoopy): Stylish retro automatic scooter.
+- [Honda Vario 125](https://rosantibikemotorent.com/en/fleet/honda-vario-125): Powerful and comfortable automatic scooter.
+- [Honda PCX](https://rosantibikemotorent.com/en/fleet/honda-pcx): Premium automatic scooter.
+
+## Informasi Kontak & Operasional
+
+- **Website Resmi:** https://rosantibikemotorent.com
+- **WhatsApp:** [+62 823-2152-313](https://wa.me/628232152313)
+- **Email:** hello@rosantibikemotorent.com
+- **Alamat:** Jl. Bauksit No.90C, Malang, Jawa Timur 65142

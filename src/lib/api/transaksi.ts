@@ -1,76 +1,20 @@
 import api from './client';
 import { API_ENDPOINTS } from '$lib/constants';
-import type { Transaksi, PaginationMeta, PriceCalculation } from '$lib/types';
-import { formatDate } from '$lib/utils/format';
+import type { CreateTransaksiDto, CalculatePriceDto } from '$lib/schemas';
+import type { Transaksi, PriceCalculation } from '$lib/types';
 
-export interface CreateTransaksiDto {
-	namaPenyewa: string;
-	noWhatsapp: string;
-	unitId?: string;
-	jenisId?: string;
-	tanggalMulai: string;
-	tanggalSelesai: string;
-	jamMulai: string;
-	jamSelesai: string;
-	jasHujan?: number;
-	helm?: number;
-}
-
-export interface CalculatePriceDto {
-	unitId?: string;
-	jenisId?: string;
-	tanggalMulai: string;
-	tanggalSelesai: string;
-	jamMulai: string;
-	jamSelesai: string;
-	jasHujan?: number;
-	helm?: number;
-}
-
-export interface ProcessedTransaksi extends Transaksi {
-	formatted: {
-		mulai: string;
-		selesai: string;
-	};
-}
-
-function processTransaksi(t: any): ProcessedTransaksi {
-	return {
-		...t,
-		formatted: {
-			mulai: `${formatDate(t.tanggalMulai, 'full')} • ${t.jamMulai}`,
-			selesai: `${formatDate(t.tanggalSelesai, 'full')} • ${t.jamSelesai}`
-		}
-	};
+interface TransaksiWithQris extends Transaksi {
+	qrisBase64?: string;
 }
 
 export const transaksiApi = {
-	create: async (
-		transaksi: CreateTransaksiDto
-	): Promise<ProcessedTransaksi & { qrisBase64?: string }> => {
-		const { data: body } = await api.post(API_ENDPOINTS.TRANSAKSI, transaksi);
-		return {
-			...processTransaksi(body.data),
-			qrisBase64: body.data.qrisBase64
-		};
+	create: async (payload: CreateTransaksiDto): Promise<TransaksiWithQris> => {
+		const { data: body } = await api.post(API_ENDPOINTS.TRANSAKSI, payload);
+		return body.data;
 	},
-	getById: async (id: string): Promise<ProcessedTransaksi & { qrisBase64?: string }> => {
+	getById: async (id: string): Promise<TransaksiWithQris> => {
 		const { data: body } = await api.get(`${API_ENDPOINTS.TRANSAKSI}/${id}`);
-		return {
-			...processTransaksi(body.data),
-			qrisBase64: body.data.qrisBase64
-		};
-	},
-	searchByPhone: async (
-		noWhatsapp: string
-	): Promise<{ data: ProcessedTransaksi[]; meta: PaginationMeta }> => {
-		const { data: body } = await api.get(`${API_ENDPOINTS.TRANSAKSI}/search`, {
-			params: { noHP: noWhatsapp }
-		});
-		return {
-			data: (body.data || []).map(processTransaksi),
-			meta: body.meta
-		};
+		return body.data;
 	},
 	calculatePrice: async (params: CalculatePriceDto): Promise<PriceCalculation> => {
 		const { data: body } = await api.post(`${API_ENDPOINTS.TRANSAKSI}/calculate-price`, params);

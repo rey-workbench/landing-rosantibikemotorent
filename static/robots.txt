@@ -1,7 +1,15 @@
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
+# Rosantibike Motorent - robots.txt
+# https://rosantibikemotorent.com
+
 User-agent: *
 Allow: /
 
-# Explicitly allow AI search & crawler bots for AEO citations
+# Block booking success page (contains customer booking receipt)
+Disallow: /*/booking/success
+
+# AI & Search Assistant Crawlers (Search & Citation Enabled)
 User-agent: GPTBot
 Allow: /
 
@@ -23,8 +31,8 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-# Block generic scraping bots that do not contribute to citations (optional)
-User-agent: CCBot
-Disallow: /
+# Sitemap
+Sitemap: https://rosantibikemotorent.com/sitemap.xml
 
-Sitemap: https://rosantibike.com/sitemap.xml
+# Crawl-delay for polite crawling
+Crawl-delay: 1

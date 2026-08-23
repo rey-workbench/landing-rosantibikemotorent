@@ -7,6 +7,7 @@ const config = {
 			$lib: 'src/lib',
 			$i18n: 'src/i18n'
 		},
+		inlineStyleThreshold: Infinity,
 		adapter: adapter()
 	}
 };

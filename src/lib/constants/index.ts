@@ -1,14 +1,3 @@
-export const STATUS_TRANSAKSI = {
-	PENDING_DP: 'PENDING_DP',
-	PENDING: 'PENDING',
-	DP_DIBAYAR: 'DP_DIBAYAR',
-	LUNAS: 'LUNAS',
-	AKTIF: 'AKTIF',
-	BATAL: 'BATAL',
-	SELESAI: 'SELESAI',
-	OVERDUE: 'OVERDUE'
-} as const;
-
 export const API_ENDPOINTS = {
 	JENIS_MOTOR: '/jenis-motor',
 	UNIT_MOTOR: '/unit-motor',
@@ -16,12 +5,23 @@ export const API_ENDPOINTS = {
 	BLOG: '/blog'
 } as const;
 
-export const PAGINATION = {
-	DEFAULT_PAGE: 1,
-	DEFAULT_LIMIT: 10,
-	MAX_LIMIT: 100
-} as const;
-
-export const WEBSOCKET_URL = {
-	REALTIME: '/realtime'
+export const DEFAULTS = {
+	// HTTP client
+	GET_TTL_MS: 30_000,
+	REQUEST_MAX_ATTEMPTS: 2,
+	REQUEST_RETRY_DELAY_MS: 300,
+	API_FALLBACK_PORT: 3030,
+	// WebSocket
+	WS_RECONNECTION_ATTEMPTS: 2,
+	WS_RECONNECTION_DELAY_MS: 3000,
+	WS_TIMEOUT_MS: 5000,
+	// Pagination / limits
+	FLEET_FEATURED_LIMIT: 4,
+	FLEET_LIST_LIMIT: 100,
+	FLEET_BRANDS_LIMIT: 1000,
+	BLOG_PAGE_SIZE: 9,
+	ALL_ITEMS_LIMIT: 100,
+	// Booking
+	RENTAL_START_TIME: '08:00',
+	RENTAL_END_TIME: '08:00'
 } as const;

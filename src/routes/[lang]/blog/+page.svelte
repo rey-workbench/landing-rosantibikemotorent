@@ -1,26 +1,28 @@
 <script lang="ts">
-	import { blogApi } from '$lib/api';
+	import { untrack } from 'svelte';
+	import { blogService } from '$lib/services';
+	import { DEFAULTS } from '$lib/constants';
 	import type { BlogTag } from '$lib/types';
-	import Input from '$lib/components/ui/Input.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
-	import { LL } from '$i18n/i18n-svelte';
 	import { page } from '$app/state';
 	import { SeoHead } from '$lib/components/seo';
+	import LL from '$i18n/i18n-svelte.js';
+	import { optimizeImageUrl } from '$lib/utils/image';
 
 	let { data } = $props();
 
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 	const currentUrl = $derived(page.url.href);
 
-	let posts = $state<any[]>([]);
-	let tags = $state<BlogTag[]>([]);
+	let posts = $state<any[]>(untrack(() => data.initialPosts || []));
+	let tags = $state<BlogTag[]>(untrack(() => data.tags || []));
 	let loading = $state(false);
 	let error = $state('');
 	let searchQuery = $state('');
 	let selectedTagId = $state('');
 	let currentPage = $state(1);
-	let totalPages = $state(1);
+	let totalPages = $state<number>(untrack(() => data.initialMeta?.totalPages || 1));
 
 	$effect(() => {
 		posts = data.initialPosts || [];
@@ -28,21 +30,12 @@
 		totalPages = data.initialMeta?.totalPages || 1;
 	});
 
-	// Editorial layout mappings
-	const featuredPost = $derived(
-		currentPage === 1 && searchQuery === '' && selectedTagId === '' && posts.length > 0
-			? posts[0]
-			: null
-	);
-	const listPosts = $derived(
-		currentPage === 1 && searchQuery === '' && selectedTagId === '' && posts.length > 1
-			? posts.slice(1, 4)
-			: []
-	);
-	const displayPosts = $derived(
-		featuredPost && posts.length > 4
-			? posts.slice(4) // Skip the featured + list items on page 1 with no filters
-			: posts
+	// Compact Editorial Layout Mappings
+	const isDefaultView = $derived(currentPage === 1 && searchQuery === '' && selectedTagId === '');
+	const featuredPost = $derived(isDefaultView && posts.length > 0 ? posts[0] : null);
+	const listPosts = $derived(isDefaultView && posts.length > 1 ? posts.slice(1, 4) : []);
+	const morePosts = $derived(
+		isDefaultView && posts.length > 4 ? posts.slice(4) : !isDefaultView ? posts : []
 	);
 
 	async function loadPosts() {
@@ -50,9 +43,9 @@
 		error = '';
 
 		try {
-			const response = await blogApi.getAll({
+			const response = await blogService.getAll({
 				page: currentPage,
-				limit: 9,
+				limit: DEFAULTS.BLOG_PAGE_SIZE,
 				search: searchQuery,
 				tagId: selectedTagId || undefined
 			});
@@ -88,206 +81,220 @@
 	}}
 />
 
-<!-- Hero Section -->
-<section class="pt-32 pb-16 px-4 md:px-10">
-	<div class="max-w-7xl mx-auto">
-		<!-- Header -->
-		<div class="mb-12">
-			<h2
-				class="text-sm font-bold text-blue-500 tracking-[0.2em] mb-4 uppercase flex items-center gap-2"
-			>
-				<span class="w-8 h-px bg-blue-500"></span>
-				{$LL.blog_title()}
-				<span class="w-8 h-px bg-blue-500"></span>
-			</h2>
-			<h1
-				class="text-4xl md:text-6xl lg:text-7xl font-black text-brand-fg uppercase tracking-tighter leading-none"
-			>
-				{$LL.blog_heading()} <br />
-				<span
-					class="text-transparent bg-clip-text bg-linear-to-r from-brand-fg via-brand-fg to-brand-fg/50"
-					>{$LL.blog_heading_highlight()}</span
-				>
-			</h1>
-			<p class="text-brand-muted mt-6 max-w-xl text-lg">
-				{$LL.blog_subtitle()}
-			</p>
-		</div>
+<svelte:head>
+	{#if featuredPost && (featuredPost.featuredImage || featuredPost.thumbnail)}
+		<link
+			rel="preload"
+			as="image"
+			href={optimizeImageUrl(featuredPost.featuredImage || featuredPost.thumbnail, 800)}
+			fetchpriority="high"
+		/>
+	{/if}
+</svelte:head>
 
-		<!-- Filter Section -->
-		<div class="relative z-20 glass-surface rounded-2xl p-6 mb-12 flex flex-col md:flex-row gap-6">
-			<!-- Search -->
-			<div class="flex-1">
-				<Input
-					id="search-blog"
-					label={$LL.blog_search_label()}
-					bind:value={searchQuery}
-					placeholder={$LL.blog_search_placeholder()}
-					icon="search"
-					oninput={handleSearch}
-				/>
+<main class="bg-white min-h-screen">
+	<!-- Hero / Header Section (Exact Fleet Style) -->
+	<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-20 md:pt-24 pb-6">
+		<div
+			class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 gap-4 pb-6 border-b border-[#d2d2d7]"
+		>
+			<div>
+				<h1
+					class="text-[36px] md:text-[44px] leading-[1.05] font-semibold font-display text-[#1d1d1f] tracking-tight"
+				>
+					{$LL.blog_heading()}
+					{$LL.blog_heading_highlight()}
+				</h1>
+				<p class="text-[15px] text-[#6b6b70] font-normal mt-2 max-w-lg leading-relaxed">
+					{$LL.blog_subtitle()}
+				</p>
 			</div>
 
-			<!-- Tags Filter -->
-			<div class="flex-2 min-w-0">
-				<label for="tag-filter" class="block text-sm text-brand-muted mb-2 uppercase tracking-wider"
-					>{$LL.blog_filter_label()}</label
-				>
-				<div class="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-none max-w-full">
-					<button
-						onclick={() => selectTag('')}
-						class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer {selectedTagId ===
-						''
-							? 'bg-brand-fg text-brand-surface'
-							: 'bg-brand-surface text-brand-fg border border-brand-border hover:border-gray-500'}"
+			<!-- Search Input -->
+			<div class="w-full md:w-72 shrink-0 mb-1">
+				<div class="relative flex items-center">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						class="absolute left-3.5 text-[#6b6b70]/60 pointer-events-none"
 					>
-						{$LL.blog_filter_all()}
-					</button>
-					{#each tags as tag}
-						<button
-							onclick={() => selectTag(tag.id)}
-							class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer {selectedTagId ===
-							tag.id
-								? 'bg-blue-600 text-white'
-								: 'bg-brand-surface text-brand-fg border border-brand-border hover:border-gray-500'}"
-						>
-							{tag.nama}
-						</button>
-					{/each}
+						<circle cx="11" cy="11" r="8"></circle>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+					</svg>
+					<input
+						type="text"
+						id="search-blog"
+						bind:value={searchQuery}
+						placeholder={$LL.blog_search_placeholder()}
+						oninput={handleSearch}
+						class="w-full h-9 pl-9 pr-4 bg-[#f5f5f7] border border-black/5 rounded-full text-xs text-[#1d1d1f] focus:outline-none transition-all"
+					/>
 				</div>
 			</div>
 		</div>
 
-		<!-- Blog Content -->
+		<!-- Category Filter Strip -->
+		<div
+			class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-4 scrollbar-none border-b border-black/5 mb-8"
+		>
+			<button
+				onclick={() => selectTag('')}
+				class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId ===
+				''
+					? 'bg-[#1d1d1f] text-white shadow-xs'
+					: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
+			>
+				{$LL.blog_filter_all()}
+			</button>
+			{#each tags as tag}
+				<button
+					onclick={() => selectTag(tag.id)}
+					class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer {selectedTagId ===
+					tag.id
+						? 'bg-apple-blue text-white shadow-xs'
+						: 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]'}"
+				>
+					{tag.nama}
+				</button>
+			{/each}
+		</div>
+
+		<!-- Blog Body Content -->
 		{#if loading}
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 				{#each Array(6) as _}
-					<div class="animate-pulse flex flex-col gap-4">
-						<div class="aspect-16/10 bg-brand-surface rounded-3xl"></div>
-						<div class="h-6 bg-brand-surface rounded-full w-3/4"></div>
-						<div class="h-4 bg-brand-surface rounded-full w-full"></div>
+					<div class="animate-pulse flex flex-col gap-2.5">
+						<div class="aspect-16/10 bg-[#f5f5f7] rounded-xl"></div>
+						<div class="h-3.5 bg-[#f5f5f7] rounded-full w-2/3"></div>
+						<div class="h-2.5 bg-[#f5f5f7] rounded-full w-full"></div>
 					</div>
 				{/each}
 			</div>
 		{:else if error}
 			<div
-				class="text-center py-20 glass-surface rounded-3xl flex flex-col items-center justify-center"
+				class="text-center py-12 bg-[#f5f5f7] rounded-2xl border border-black/5 p-6 flex flex-col items-center justify-center"
 			>
-				<div class="mb-4 text-red-500">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="56"
-						height="56"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-						<line x1="12" y1="9" x2="12" y2="13" />
-						<line x1="12" y1="17" x2="12.01" y2="17" />
-					</svg>
-				</div>
-				<h3 class="text-2xl font-bold text-brand-fg mb-2">{$LL.blog_error_title()}</h3>
-				<p class="text-brand-muted mb-8">{error}</p>
-				<Button on:click={loadPosts} variant="secondary">{$LL.blog_try_again()}</Button>
+				<h3 class="text-base font-bold text-[#1d1d1f] mb-1">{$LL.blog_error_title()}</h3>
+				<p class="text-xs text-[#6b6b70] mb-4">{error}</p>
+				<Button onclick={loadPosts} variant="secondary" size="sm">
+					{$LL.blog_try_again()}
+				</Button>
 			</div>
 		{:else if posts.length > 0}
-			<!-- Dwinawan-inspired Editorial Layout for Latest Stories (Page 1 only) -->
+			<!-- Featured Post Split Layout (Page 1 default view) -->
 			{#if featuredPost}
-				<div class="mb-16" in:fade={{ duration: 600 }}>
-					<!-- Section Header -->
-					<div class="mb-8 border-b border-brand-border/40 pb-4 flex justify-between items-center">
-						<h3 class="font-display text-2xl uppercase tracking-wider text-brand-fg">
-							Latest Stories
-						</h3>
+				<div class="mb-10" in:fade={{ duration: 400 }}>
+					<div class="mb-4 pb-2 border-b border-black/5 flex justify-between items-center">
+						<h2 class="font-bold text-sm sm:text-base text-[#1d1d1f]">Cerita Utama</h2>
 					</div>
 
-					<!-- Split Layout -->
-					<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-						<!-- Big Featured Card (Left Side) -->
+					<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+						<!-- Big Featured Card (Left 7 Cols) -->
 						<div class="lg:col-span-7 flex flex-col">
 							<a href="/{lang}/blog/{featuredPost.slug}" class="group block">
-								<div class="aspect-16/10 rounded-3xl overflow-hidden bg-gray-800 relative mb-6">
+								<div
+									class="aspect-16/10 rounded-2xl overflow-hidden bg-[#f5f5f7] relative mb-3.5 border border-black/5 shadow-sm"
+								>
 									{#if featuredPost.featuredImage || featuredPost.thumbnail}
 										<img
-											loading="lazy"
+											loading="eager"
+											fetchpriority="high"
 											decoding="async"
-											src={featuredPost.featuredImage || featuredPost.thumbnail}
+											src={optimizeImageUrl(
+												featuredPost.featuredImage || featuredPost.thumbnail,
+												800
+											)}
 											alt={featuredPost.judul}
-											class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
+											class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
 										/>
 									{/if}
-									<div
-										class="absolute inset-0 bg-linear-to-t from-gray-900/60 via-transparent to-transparent"
-									></div>
-								</div>
-								<div class="flex items-center gap-2 mb-3">
-									{#if featuredPost.tags && featuredPost.tags.length > 0}
-										<span class="text-xs font-black text-blue-500 uppercase tracking-widest">
-											{featuredPost.tags[0].nama}
-										</span>
+									{#if featuredPost.kategori}
+										<div class="absolute top-3 left-3">
+											<span
+												class="px-2.5 py-0.5 bg-white/90 backdrop-blur-md rounded-full text-[11px] font-semibold text-[#1d1d1f] shadow-2xs border border-black/5"
+											>
+												{featuredPost.kategori.nama}
+											</span>
+										</div>
 									{/if}
-									<span class="text-xs text-brand-muted/40 font-light">/</span>
-									<span class="text-xs text-brand-muted">{featuredPost.readingTime}</span>
 								</div>
-								<h2
-									class="text-2xl md:text-3xl font-black text-brand-fg mb-4 group-hover:text-blue-500 transition-colors leading-tight"
+
+								<div class="flex items-center gap-2 text-[11px] text-[#6b6b70] mb-1.5 font-normal">
+									{#if featuredPost.createdAt}
+										<time datetime={featuredPost.createdAt}
+											>{$LL.format_date_short(new Date(featuredPost.createdAt))}</time
+										>
+										<span class="w-1 h-1 rounded-full bg-black/20"></span>
+									{/if}
+									<span>{featuredPost.readingTime}</span>
+								</div>
+
+								<h3
+									class="text-lg sm:text-xl font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors leading-tight font-display mb-1.5"
 								>
 									{featuredPost.judul}
-								</h2>
-								<p class="text-brand-muted text-sm leading-relaxed mb-4 line-clamp-3">
+								</h3>
+
+								<p
+									class="text-xs sm:text-[13px] text-[#6b6b70] leading-relaxed line-clamp-2 font-normal mb-2"
+								>
 									{featuredPost.excerpt}
 								</p>
-								{#if featuredPost.formattedDate && featuredPost.formattedDate !== '-'}
-									<span class="text-xs text-brand-muted font-semibold"
-										>{featuredPost.formattedDate}</span
-									>
-								{/if}
+
+								<span
+									class="text-xs font-semibold text-apple-blue inline-flex items-center gap-1 group-hover:gap-1.5 transition-all"
+								>
+									{$LL.blog_read_more()} →
+								</span>
 							</a>
 						</div>
 
-						<!-- Vertical Story List (Right Side) -->
-						<div class="lg:col-span-5 flex flex-col gap-6 justify-between">
+						<!-- Vertical Story List (Right 5 Cols) -->
+						<div class="lg:col-span-5 flex flex-col gap-3.5">
 							{#each listPosts as post}
 								<a
 									href="/{lang}/blog/{post.slug}"
-									class="group flex gap-5 items-center border-b border-brand-border/40 pb-6 last:border-0 last:pb-0"
+									class="group flex gap-3.5 items-center p-2.5 rounded-xl transition-all duration-200 hover:bg-[#f5f5f7] border border-transparent hover:border-black/5"
 								>
 									<div
-										class="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-gray-800 shrink-0 relative"
+										class="w-20 h-20 sm:w-22 sm:h-22 rounded-xl overflow-hidden bg-[#f5f5f7] shrink-0 border border-black/5 relative"
 									>
 										{#if post.featuredImage || post.thumbnail}
 											<img
 												loading="lazy"
 												decoding="async"
-												src={post.featuredImage || post.thumbnail}
+												src={optimizeImageUrl(post.featuredImage || post.thumbnail, 300)}
 												alt={post.judul}
-												class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+												class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
 											/>
 										{/if}
 									</div>
 									<div class="flex-1 min-w-0">
-										<div class="flex items-center gap-2 mb-1.5">
-											{#if post.tags && post.tags.length > 0}
-												<span class="text-[10px] font-black text-blue-500 uppercase tracking-widest"
-													>{post.tags[0].nama}</span
+										<div class="flex items-center gap-2 text-[10px] text-[#6b6b70] mb-1">
+											{#if post.kategori}
+												<span class="font-semibold text-apple-blue uppercase"
+													>{post.kategori.nama}</span
 												>
+												<span class="w-0.5 h-0.5 rounded-full bg-black/30"></span>
 											{/if}
-											<span class="text-[10px] text-brand-muted/40 font-light">/</span>
-											<span class="text-[10px] text-brand-muted">{post.readingTime}</span>
+											<span>{post.readingTime}</span>
 										</div>
 										<h3
-											class="text-sm md:text-base font-extrabold text-brand-fg group-hover:text-blue-500 transition-colors line-clamp-2 leading-snug"
+											class="text-xs sm:text-[13px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display"
 										>
 											{post.judul}
 										</h3>
-										{#if post.formattedDate && post.formattedDate !== '-'}
-											<span class="text-[10px] text-brand-muted mt-2 block"
-												>{post.formattedDate}</span
+										{#if post.createdAt}
+											<div
+												class="flex items-center gap-1.5 shrink-0 text-[10px] text-[#6b6b70] mt-1"
 											>
+												{$LL.format_date_short(new Date(post.createdAt))}
+											</div>
 										{/if}
 									</div>
 								</a>
@@ -297,238 +304,196 @@
 				</div>
 			{/if}
 
-			{#if displayPosts.length > 0}
-				<!-- Grid Title -->
-				{#if featuredPost}
-					<div class="mb-8 border-b border-brand-border/40 pb-4">
-						<h3 class="font-display text-2xl uppercase tracking-wider text-brand-fg">
-							More Stories
-						</h3>
-					</div>
-				{/if}
+			<!-- More Stories Grid (Compact 3 Columns) -->
+			{#if morePosts.length > 0}
+				<div class="mt-4">
+					{#if featuredPost}
+						<div class="mb-4 pb-2 border-b border-black/5">
+							<h2 class="font-bold text-sm sm:text-base text-[#1d1d1f]">Artikel Lainnya</h2>
+						</div>
+					{/if}
 
-				<!-- Blog Post Grid -->
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{#each displayPosts as post, i}
-						<a
-							href="/{lang}/blog/{post.slug}"
-							class="group glass-surface rounded-4xl overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-brand-highlight/20"
-							in:fly={{ y: 20, duration: 600, delay: i * 50 }}
-						>
-							<!-- Image -->
-							<div class="aspect-16/10 overflow-hidden bg-gray-800 relative">
-								{#if post.featuredImage || post.thumbnail}
-									<img
-										loading="lazy"
-										decoding="async"
-										src={post.featuredImage || post.thumbnail}
-										alt={post.judul}
-										class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-									/>
-								{:else}
-									<div class="w-full h-full flex items-center justify-center text-gray-600">
+					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+						{#each morePosts as post, i}
+							<a
+								href="/{lang}/blog/{post.slug}"
+								class="group flex flex-col bg-white rounded-xl border border-black/6 overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(0,0,0,0.05)] hover:border-black/12"
+								in:fly={{ y: 15, duration: 400, delay: i * 30 }}
+							>
+								<!-- Image Container -->
+								<div class="aspect-16/10 overflow-hidden bg-[#f5f5f7] relative">
+									{#if post.featuredImage || post.thumbnail}
+										<img
+											loading="lazy"
+											decoding="async"
+											src={optimizeImageUrl(post.featuredImage || post.thumbnail, 500)}
+											alt={post.judul}
+											class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
+										/>
+									{:else}
+										<div class="w-full h-full flex items-center justify-center text-[#6b6b70]/40">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="24"
+												height="24"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="1.5"
+											>
+												<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+												<circle cx="8.5" cy="8.5" r="1.5"></circle>
+												<polyline points="21 15 16 10 5 21"></polyline>
+											</svg>
+										</div>
+									{/if}
+
+									{#if post.kategori}
+										<div class="absolute top-2.5 left-2.5">
+											<span
+												class="px-2 py-0.5 bg-white/90 backdrop-blur-md rounded-full text-[9px] font-semibold text-[#1d1d1f] shadow-sm border border-black/5"
+											>
+												{post.kategori.nama}
+											</span>
+										</div>
+									{/if}
+								</div>
+
+								<!-- Card Body -->
+								<div class="p-4 flex-1 flex flex-col justify-between">
+									<div>
+										<div
+											class="flex items-center gap-1.5 text-[10px] text-[#6b6b70] mb-1.5 font-normal"
+										>
+											{#if post.createdAt}
+												<time datetime={post.createdAt}
+													>{$LL.format_date_short(new Date(post.createdAt))}</time
+												>
+												<span class="w-0.5 h-0.5 rounded-full bg-black/20"></span>
+											{/if}
+											<span>{post.readingTime}</span>
+										</div>
+
+										<h3
+											class="text-sm sm:text-[15px] font-bold text-[#1d1d1f] group-hover:text-apple-blue transition-colors line-clamp-2 leading-snug font-display mb-1"
+										>
+											{post.judul}
+										</h3>
+
+										<p
+											class="text-[11px] sm:text-xs text-[#6b6b70] line-clamp-2 leading-relaxed font-normal"
+										>
+											{post.excerpt}
+										</p>
+									</div>
+
+									<div
+										class="mt-3 pt-2.5 border-t border-black/5 flex items-center justify-between text-[11px] font-medium text-apple-blue"
+									>
+										<span>{$LL.blog_read_more()}</span>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
-											width="32"
-											height="32"
+											width="12"
+											height="12"
 											viewBox="0 0 24 24"
 											fill="none"
 											stroke="currentColor"
-											stroke-width="1.5"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle
-												cx="8.5"
-												cy="8.5"
-												r="1.5"
-											></circle><polyline points="21 15 16 10 5 21"></polyline></svg
+											stroke-width="2"
+											class="transition-transform group-hover:translate-x-1"
 										>
+											<path d="M5 12h14M12 5l7 7-7 7" />
+										</svg>
 									</div>
-								{/if}
-								<div
-									class="absolute inset-0 bg-linear-to-t from-gray-950/70 via-transparent to-transparent"
-								></div>
-
-								<!-- Date & Reading Time Badge -->
-								<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
-									{#if post.formattedDate && post.formattedDate !== '-'}
-										<span
-											class="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[9px] font-bold text-white uppercase tracking-wider"
-										>
-											{post.formattedDate}
-										</span>
-									{:else}
-										<div></div>
-									{/if}
-									<span
-										class="px-2.5 py-0.5 bg-black/60 backdrop-blur-md rounded-full text-[9px] font-bold text-white/80 tracking-wide"
-									>
-										{post.readingTime}
-									</span>
 								</div>
-							</div>
-
-							<!-- Content -->
-							<div class="p-6 flex-1 flex flex-col">
-								<!-- Tags -->
-								{#if post.tags && post.tags.length > 0}
-									<div class="flex flex-wrap gap-2 mb-3">
-										{#each post.tags.slice(0, 2) as tag}
-											<span class="text-[10px] font-black text-blue-500 uppercase tracking-widest">
-												{tag.nama}
-											</span>
-										{/each}
-									</div>
-								{/if}
-
-								<h3
-									class="text-lg font-extrabold text-brand-fg mb-3 group-hover:text-blue-500 transition-colors line-clamp-2 leading-snug"
-								>
-									{post.judul}
-								</h3>
-
-								<p class="text-brand-muted text-xs md:text-sm mb-6 line-clamp-3 leading-relaxed">
-									{post.excerpt}
-								</p>
-
-								<div
-									class="mt-auto flex items-center gap-2 text-brand-fg font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all"
-								>
-									<span>{$LL.blog_read_more()}</span>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="14"
-										height="14"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2.5"
-										><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
-										></polyline></svg
-									>
-								</div>
-							</div>
-						</a>
-					{/each}
-				</div>
-			{/if}
-
-			<!-- Pagination -->
-			{#if totalPages > 1}
-				<div class="flex justify-center items-center gap-4 mt-16">
-					<button
-						aria-label="Previous page"
-						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-brand-fg disabled:opacity-20 hover:border-blue-500 transition-all cursor-pointer"
-						disabled={currentPage === 1}
-						onclick={() => {
-							currentPage--;
-							loadPosts();
-						}}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"
-							></polyline></svg
-						>
-					</button>
-
-					<div class="flex gap-2">
-						{#each Array(totalPages) as _, i}
-							<button
-								onclick={() => {
-									currentPage = i + 1;
-									loadPosts();
-								}}
-								class="w-10 h-10 flex items-center justify-center rounded-xl text-sm font-bold transition-all cursor-pointer {currentPage ===
-								i + 1
-									? 'bg-blue-600 text-white'
-									: 'bg-brand-surface text-gray-500 border border-brand-border hover:border-blue-500 hover:text-blue-500'}"
-							>
-								{i + 1}
-							</button>
+							</a>
 						{/each}
 					</div>
-
-					<button
-						aria-label="Next page"
-						class="p-3 rounded-xl bg-brand-surface border border-brand-border text-brand-fg disabled:opacity-20 hover:border-blue-500 transition-all cursor-pointer"
-						disabled={currentPage === totalPages}
-						onclick={() => {
-							currentPage++;
-							loadPosts();
-						}}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
-							></polyline></svg
-						>
-					</button>
 				</div>
 			{/if}
 		{:else}
 			<div
-				class="text-center py-20 glass-surface rounded-3xl flex flex-col items-center justify-center"
+				class="text-center py-14 bg-[#f5f5f7] rounded-2xl border border-black/5 p-6 flex flex-col items-center justify-center"
 			>
-				<div class="mb-4 text-brand-muted">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="56"
-						height="56"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-						<path d="M14 2v4a2 2 0 0 0 2 2h4" />
-						<circle cx="11.5" cy="14.5" r="2.5" />
-						<path d="M13.3 16.3 16 19" />
-					</svg>
-				</div>
-				<h3 class="text-2xl font-bold text-brand-fg mb-2">{$LL.blog_empty_title()}</h3>
-				<p class="text-brand-muted mb-8">{$LL.blog_empty_desc()}</p>
+				<h3 class="text-base font-bold text-[#1d1d1f] mb-1">{$LL.blog_empty_title()}</h3>
+				<p class="text-xs text-[#6b6b70] mb-4">{$LL.blog_empty_desc()}</p>
 				<Button
-					on:click={() => {
+					onclick={() => {
 						searchQuery = '';
 						selectedTagId = '';
 						loadPosts();
 					}}
-					variant="secondary">{$LL.blog_reset_filter()}</Button
+					variant="primary"
+					size="sm"
 				>
+					{$LL.blog_reset_filter()}
+				</Button>
 			</div>
 		{/if}
-	</div>
-</section>
 
-<style>
-	.line-clamp-2 {
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
+		<!-- Pagination -->
+		{#if totalPages > 1}
+			<div class="flex justify-center items-center gap-3 mt-12">
+				<button
+					aria-label="Previous page"
+					class="p-2.5 rounded-full bg-[#f5f5f7] border border-black/5 text-[#1d1d1f] disabled:opacity-30 hover:bg-[#e8e8ed] transition-all cursor-pointer"
+					disabled={currentPage === 1}
+					onclick={() => {
+						currentPage--;
+						loadPosts();
+					}}
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M15 18l-6-6 6-6" />
+					</svg>
+				</button>
 
-	.line-clamp-3 {
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-</style>
+				<div class="flex gap-1.5">
+					{#each Array(totalPages) as _, i}
+						<button
+							onclick={() => {
+								currentPage = i + 1;
+								loadPosts();
+							}}
+							class="w-8 h-8 flex items-center justify-center rounded-full text-xs font-medium transition-all cursor-pointer {currentPage ===
+							i + 1
+								? 'bg-[#1d1d1f] text-white shadow-sm'
+								: 'bg-[#f5f5f7] text-[#6b6b70] hover:bg-[#e8e8ed] hover:text-[#1d1d1f]'}"
+						>
+							{i + 1}
+						</button>
+					{/each}
+				</div>
+
+				<button
+					aria-label="Next page"
+					class="p-2.5 rounded-full bg-[#f5f5f7] border border-black/5 text-[#1d1d1f] disabled:opacity-30 hover:bg-[#e8e8ed] transition-all cursor-pointer"
+					disabled={currentPage === totalPages}
+					onclick={() => {
+						currentPage++;
+						loadPosts();
+					}}
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M9 18l6-6-6-6" />
+					</svg>
+				</button>
+			</div>
+		{/if}
+	</section>
+</main>

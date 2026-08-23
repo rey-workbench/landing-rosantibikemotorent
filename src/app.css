@@ -2,14 +2,42 @@
 @plugin "@tailwindcss/typography";
 
 /* ----------------------------------------------------
+   0. LOCAL SELF-HOSTED FONTS (@font-face)
+   ---------------------------------------------------- */
+@font-face {
+	font-family: 'Outfit';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('/fonts/QGYvz_MVcBeNP4NJtEtq.woff2') format('woff2');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('/fonts/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2') format('woff2');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ----------------------------------------------------
    1. TAILWIND THEME CONFIGURATION
    ---------------------------------------------------- */
 @theme {
-	--font-sans: 'Sora', 'Outfit', sans-serif;
-	--font-display: 'Bebas Neue', 'Anton', 'Impact', sans-serif;
+	--font-sans:
+		'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+		sans-serif;
+	--font-display:
+		'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
 	/* Color mappings to CSS Custom Properties (Tokens) */
-	--color-brand-dark: #050505;
+	--color-brand-dark: #000000;
 	--color-brand-background: var(--brand-bg);
 	--color-brand-bg: var(--brand-bg);
 	--color-brand-foreground: var(--brand-fg);
@@ -19,50 +47,52 @@
 	--color-brand-border: var(--brand-border);
 	--color-brand-accent: var(--brand-accent);
 	--color-brand-muted: var(--brand-muted);
-	--color-brand-highlight: var(--brand-highlight);
+	--color-apple-blue: #0071e3;
+	--color-apple-link: #2997ff;
 }
 
 /* ----------------------------------------------------
-   2. DESIGN TOKENS (LIGHT MODE / DEFAULT)
+   2. DESIGN TOKENS (LIGHT MODE / DEFAULT - APPLE STYLE)
    ---------------------------------------------------- */
 :root {
-	/* Core Colors */
-	--brand-bg: #f9fafb;
-	--brand-fg: #111827;
+	/* Core Colors - Apple Light Theme */
+	--brand-bg: #f5f5f7;
+	--brand-fg: #1d1d1f;
 	--brand-surface: #ffffff;
-	--brand-surface-soft: #f3f4f6;
-	--brand-border: #e5e7eb;
-	--brand-accent: #050505;
-	--brand-muted: #6b7280;
-	--brand-highlight: #2563eb;
+	--brand-surface-soft: #e8e8ed;
+	--brand-border: #d2d2d7;
+	--brand-accent: #000000;
+	--brand-muted: #59595e;
+	--brand-highlight: #0071e3;
 
 	/* Background RGB channels for overlays */
-	--background-start-rgb: 249, 250, 251;
-	--background-end-rgb: 243, 244, 246;
+	--background-start-rgb: 245, 245, 247;
+	--background-end-rgb: 245, 245, 247;
 
 	/* Transitions & Radius */
-	--ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
-	--radius-panel: 1.5rem;
-	--radius-card: 2rem;
+	--ease-luxury: cubic-bezier(0.28, 0.11, 0.32, 1);
+	--radius-panel: 1.25rem;
+	--radius-card: 1.5rem;
 }
 
 /* ----------------------------------------------------
-   3. DESIGN TOKENS (DARK MODE SINKRON)
+   3. DESIGN TOKENS (DARK MODE SINKRON - APPLE DARK STYLE)
    ---------------------------------------------------- */
 :root[data-theme='dark'] {
-	/* Core Colors */
-	--brand-bg: #050505;
-	--brand-fg: #ffffff;
-	--brand-surface: #111317;
-	--brand-surface-soft: #171a20;
-	--brand-border: #2d313a;
+	/* Core Colors - Apple Dark Theme */
+	--brand-bg: #000000;
+	--brand-fg: #f5f5f7;
+	--brand-surface: #161617;
+	--brand-surface-soft: #1d1d1f;
+	--brand-border: #333336;
 	--brand-accent: #ffffff;
-	--brand-muted: #a6adbb;
-	--brand-highlight: #6ca0ff;
+	/* Keep lighter gray in dark mode: #6b6b70 would drop below 4.5:1 on black */
+	--brand-muted: #86868b;
+	--brand-highlight: #2997ff;
 
 	/* Background RGB channels for overlays */
-	--background-start-rgb: 6, 7, 10;
-	--background-end-rgb: 6, 7, 10;
+	--background-start-rgb: 0, 0, 0;
+	--background-end-rgb: 0, 0, 0;
 }
 
 /* ----------------------------------------------------
@@ -83,6 +113,15 @@
 		transition:
 			background 0.3s ease,
 			color 0.3s ease;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: var(--font-display);
 	}
 
 	a {
@@ -268,4 +307,160 @@ html.lenis {
 .scrollbar-none {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+}
+
+/* ----------------------------------------------------
+   9. GLOBAL RICH ARTICLE & MARKDOWN STYLES (MEDIUM & APPLE EDITORIAL)
+   ---------------------------------------------------- */
+.article-content {
+	color: #242426;
+	line-height: 1.85;
+	font-size: 1.15rem;
+	letter-spacing: -0.003em;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+	color: #1d1d1f;
+	font-family: var(--font-display);
+	font-weight: 700;
+	letter-spacing: -0.025em;
+}
+
+.article-content h2 {
+	font-size: 1.85rem;
+	margin: 3.5rem 0 1.25rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	line-height: 1.25;
+}
+
+.article-content h3 {
+	font-size: 1.35rem;
+	margin: 2.75rem 0 1rem;
+	line-height: 1.35;
+}
+
+.article-content p {
+	margin-bottom: 1.75rem;
+	color: #2c2c2e;
+	line-height: 1.85;
+}
+
+.article-content strong {
+	color: #1d1d1f;
+	font-weight: 600;
+}
+
+.article-content hr {
+	border: 0;
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+	margin: 3.5rem 0;
+}
+
+.article-content a {
+	color: #0071e3 !important;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	transition: color 0.15s ease;
+}
+
+.article-content a:hover {
+	color: #0077ed !important;
+}
+
+.article-content img {
+	border-radius: 1.5rem;
+	margin: 3rem 0;
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+	width: 100%;
+}
+
+.article-content blockquote {
+	border-left: 3.5px solid #0071e3;
+	padding: 1.25rem 1.75rem;
+	background: #fbfbfd;
+	border-radius: 0 1rem 1rem 0;
+	margin: 2.75rem 0;
+	color: #1d1d1f;
+	font-style: normal;
+	border-top: 1px solid rgba(0, 0, 0, 0.04);
+	border-right: 1px solid rgba(0, 0, 0, 0.04);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* Responsive Apple-Style Tables */
+.article-content table {
+	width: 100%;
+	margin: 2.5rem 0;
+	border-collapse: separate;
+	border-spacing: 0;
+	border-radius: 1rem;
+	overflow: hidden;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	background: white;
+	font-size: 0.95rem;
+	box-shadow: 0 2px 14px rgba(0, 0, 0, 0.03);
+	display: table;
+}
+
+.article-content th {
+	background: #f5f5f7;
+	color: #1d1d1f;
+	font-weight: 600;
+	text-align: left;
+	padding: 1rem 1.25rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	font-family: var(--font-display);
+	font-size: 0.9rem;
+	letter-spacing: 0.01em;
+}
+
+.article-content td {
+	padding: 1rem 1.25rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	color: #333336;
+	vertical-align: top;
+	line-height: 1.6;
+}
+
+.article-content tr:last-child td {
+	border-bottom: none;
+}
+
+.article-content tr:hover td {
+	background: #fafafc;
+}
+
+/* Pure Editorial Lists (Medium & Apple Style - Clean & Flowing) */
+.article-content ul {
+	list-style-type: disc;
+	margin: 1.75rem 0 2.25rem;
+	padding-left: 1.75rem;
+}
+
+.article-content ol {
+	list-style-type: decimal;
+	margin: 1.75rem 0 2.25rem;
+	padding-left: 1.75rem;
+}
+
+.article-content li {
+	margin-bottom: 0.95rem;
+	color: #2c2c2e;
+	line-height: 1.85;
+	padding-left: 0.25rem;
+}
+
+.article-content li::marker {
+	color: #0071e3;
+	font-weight: 600;
+}
+
+.article-content li strong {
+	color: #1d1d1f;
+	font-weight: 600;
 }
