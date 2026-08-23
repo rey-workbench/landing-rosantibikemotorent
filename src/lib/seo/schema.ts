@@ -2,15 +2,6 @@ import type { BreadcrumbItem, FaqItem } from './types';
 import { BASE_URL, SITE_NAME } from './types';
 import { siteConfig } from '$lib/config';
 
-export function buildWebsiteSchema() {
-	return {
-		'@context': 'https://schema.org',
-		'@type': 'WebSite',
-		name: SITE_NAME,
-		url: `${BASE_URL}/`
-	};
-}
-
 export interface FleetMotor {
 	name: string;
 	brand: string;
@@ -131,6 +122,16 @@ export function buildOrganizationSchema(fleet: FleetMotor[] = []) {
 				}))
 			}
 		})
+	};
+}
+
+export function buildWebsiteSchema() {
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: SITE_NAME,
+		alternateName: 'Rosantibike',
+		url: BASE_URL
 	};
 }
 
