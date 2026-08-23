@@ -7,7 +7,7 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { LL } from '$i18n/i18n-svelte';
 	import { buildProductSchema, buildBreadcrumbSchema } from '$lib/seo/schema';
-	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
+	import { getMotorImage, handleImageError } from '$lib/utils/image';
 
 	let { data } = $props();
 	let motor = $state(untrack(() => data.motor));
@@ -149,7 +149,6 @@
 								width="800"
 								height="600"
 								src={getMotorImage(jenis)}
-								data-fallback={getFallbackImage(jenis)}
 								onerror={handleImageError}
 								alt={`Sewa Motor ${jenis.merk} ${jenis.model} Malang - Rosantibike`}
 								class="w-full h-full object-cover mix-blend-multiply"

@@ -55,8 +55,7 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 		: "connect-src 'self' wss: https: https://cloudflareinsights.com";
 
 	const headers: Record<string, string> = {
-		'Content-Security-Policy':
-			`default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; ${connectSrc}; media-src 'self'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'`,
+		'Content-Security-Policy': `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; ${connectSrc}; media-src 'self'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'`,
 		'X-Frame-Options': 'DENY',
 		'X-Content-Type-Options': 'nosniff',
 		'Referrer-Policy': 'strict-origin-when-cross-origin',

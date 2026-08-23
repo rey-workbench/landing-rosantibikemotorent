@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { jenisMotorService } from '$lib/services';
 	import { DEFAULTS } from '$lib/constants';
-	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
+	import { getMotorImage, handleImageError } from '$lib/utils/image';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { page } from '$app/state';
 
@@ -68,7 +68,6 @@
 						<img
 							src={getMotorImage(jenis)}
 							alt={`Sewa Motor ${jenis.merk} ${jenis.model} Malang - Rosantibike`}
-							data-fallback={getFallbackImage(jenis)}
 							onerror={handleImageError}
 							loading="lazy"
 							decoding="async"

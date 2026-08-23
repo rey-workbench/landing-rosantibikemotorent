@@ -15,7 +15,7 @@
 	import { parsePhoneNumberFromString } from 'libphonenumber-js';
 	import LL from '$i18n/i18n-svelte.js';
 	import { SeoHead } from '$lib/components/seo';
-	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
+	import { getMotorImage, handleImageError } from '$lib/utils/image';
 
 	let { data } = $props();
 
@@ -480,7 +480,6 @@
 											{#if getMotorImage(jenis)}
 												<img
 													src={getMotorImage(jenis)}
-													data-fallback={getFallbackImage(jenis)}
 													onerror={handleImageError}
 													alt={jenis?.model}
 													width="80"

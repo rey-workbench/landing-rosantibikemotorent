@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/cdn/:path*",
+      "destination": "https://res.cloudinary.com/dxuxgut2c/image/upload/:path*"
+    }
+  ]
+}

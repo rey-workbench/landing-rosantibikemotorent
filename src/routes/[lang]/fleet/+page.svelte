@@ -7,7 +7,7 @@
 	import { page } from '$app/state';
 	import { locale } from '$i18n/i18n-svelte';
 	import { websocketService } from '$lib/services/websocket';
-	import { getFallbackImage, getMotorImage, handleImageError } from '$lib/utils/image';
+	import { getMotorImage, handleImageError } from '$lib/utils/image';
 
 	let { data } = $props();
 
@@ -81,7 +81,6 @@
 							<img
 								src={getMotorImage(motor)}
 								alt={`Sewa Motor ${motor.merk} ${motor.model} Malang - Rosantibike`}
-								data-fallback={getFallbackImage(motor)}
 								width="64"
 								height="36"
 								class="max-h-9 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
@@ -101,7 +100,8 @@
 							</div>
 						{/if}
 					</div>
-					<span class="text-[11px] font-medium text-[#1d1d1f] whitespace-nowrap text-center leading-tight"
+					<span
+						class="text-[11px] font-medium text-[#1d1d1f] whitespace-nowrap text-center leading-tight"
 						>{motor.model}</span
 					>
 				</a>
@@ -158,7 +158,6 @@
 								<img
 									src={getMotorImage(motor)}
 									alt={`Sewa Motor ${motor.merk} ${motor.model} Malang - Rosantibike`}
-									data-fallback={getFallbackImage(motor)}
 									width="800"
 									height="450"
 									loading={i === 0 ? 'eager' : 'lazy'}
