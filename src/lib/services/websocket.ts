@@ -2,6 +2,14 @@ import { websocketClient } from '$lib/api';
 import { browser } from '$app/environment';
 import type { UnitMotorUpdate } from '$lib/types';
 
+const WS_CHANNELS = {
+	UNIT_MOTOR_UPDATE: 'unit-motor:update',
+	TRANSAKSI_CREATED: 'transaksi-created',
+	TRANSAKSI_UPDATED: 'transaksi-updated',
+	TRANSAKSI_DELETED: 'transaksi-deleted',
+	TRANSAKSI_SELESAI: 'transaksi-selesai'
+} as const;
+
 type UnitMotorUpdateHandler = (data: UnitMotorUpdate) => void;
 type TransactionUpdateHandler = (data: any) => void;
 
@@ -35,15 +43,15 @@ class WebSocketService {
 	}
 
 	private setupEventListeners(): void {
-		websocketClient.on('unit-motor:update', (data: UnitMotorUpdate) => {
+		websocketClient.on(WS_CHANNELS.UNIT_MOTOR_UPDATE, (data: UnitMotorUpdate) => {
 			this.unitMotorUpdateHandlers.forEach((handler) => handler(data));
 		});
 
 		const transactionEvents = [
-			'transaksi-created',
-			'transaksi-updated',
-			'transaksi-deleted',
-			'transaksi-selesai'
+			WS_CHANNELS.TRANSAKSI_CREATED,
+			WS_CHANNELS.TRANSAKSI_UPDATED,
+			WS_CHANNELS.TRANSAKSI_DELETED,
+			WS_CHANNELS.TRANSAKSI_SELESAI
 		];
 
 		transactionEvents.forEach((event) => {
