@@ -5,6 +5,8 @@
 	import Faq from '$lib/components/landing/Faq.svelte';
 	import { buildBreadcrumbSchema } from '$lib/seo/schema';
 
+	let { data } = $props();
+
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 	const isEn = $derived(lang === 'en');
 	const currentUrl = $derived(page.url.href);
@@ -24,6 +26,7 @@
 	const faqData = $derived(
 		isEn
 			? [
+					// EN: hardcoded (knowledge base belum mendukung bahasa Inggris)
 					{
 						question: 'How much does it cost to rent a motorcycle in Malang per day?',
 						answer:
@@ -50,9 +53,11 @@
 							"Of course. Every motorcycle rental includes 2 clean SNI-certified helmets and 2 raincoats (poncho or set) for your safety and comfort while riding in Malang's rainy weather."
 					}
 				]
-			: [
-					{
-						question: 'Berapa harga sewa motor di Malang per hari?',
+			: data.faqKnowledge.length > 0
+				? data.faqKnowledge
+				: [
+						{
+							question: 'Berapa harga sewa motor di Malang per hari?',
 						answer:
 							'Harga sewa motor kami mulai dari Rp 60.000 per hari (24 jam) untuk motor matic standar, hingga Rp 150.000 untuk tipe Maxi/Sport. Harga bervariasi tergantung tipe motor dan durasi sewa.'
 					},

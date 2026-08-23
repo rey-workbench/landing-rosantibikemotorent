@@ -4,10 +4,10 @@ import type { UnitMotorUpdate } from '$lib/types';
 
 const WS_CHANNELS = {
 	UNIT_MOTOR_UPDATE: 'unit-motor:update',
-	TRANSAKSI_CREATED: 'transaksi-created',
-	TRANSAKSI_UPDATED: 'transaksi-updated',
-	TRANSAKSI_DELETED: 'transaksi-deleted',
-	TRANSAKSI_SELESAI: 'transaksi-selesai'
+	TRANSAKSI_CREATED: 'transaksi:created',
+	TRANSAKSI_UPDATED: 'transaksi:updated',
+	TRANSAKSI_DELETED: 'transaksi:deleted',
+	TRANSAKSI_SELESAI: 'transaksi:selesai'
 } as const;
 
 type UnitMotorUpdateHandler = (data: UnitMotorUpdate) => void;
