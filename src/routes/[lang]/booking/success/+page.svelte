@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { page } from '$app/state';
-	import { siteConfig } from '$lib/config';
-	import { LL } from '$i18n/i18n-svelte';
-	import { SeoHead } from '$lib/components/seo';
-	import Button from '$lib/components/ui/Button.svelte';
+import { page } from '$app/state';
+import { LL } from '$i18n/i18n-svelte';
+import { SeoHead } from '$lib/components/seo';
+import Button from '$lib/components/ui/Button.svelte';
+import { siteConfig } from '$lib/config';
 
-	let { data } = $props();
-	let transaksi = $derived(data.transaksi);
-	let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-	let currentUrl = $derived(page.url.href);
+let { data } = $props();
+let transaksi = $derived(data.transaksi);
+let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+let currentUrl = $derived(page.url.href);
 </script>
 
 <SeoHead

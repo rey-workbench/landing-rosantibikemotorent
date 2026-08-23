@@ -1,75 +1,75 @@
 <script lang="ts">
-	import '../app.css';
-	import { onMount, onDestroy } from 'svelte';
-	import Navbar from '$lib/components/layout/Navbar.svelte';
-	import Footer from '$lib/components/layout/Footer.svelte';
-	import Preloader from '$lib/components/ui/Preloader.svelte';
-	import { setLocale } from '$i18n/i18n-svelte';
-	import type { Locales } from '$i18n/i18n-types';
+import '../app.css';
+import { onDestroy, onMount } from 'svelte';
+import { setLocale } from '$i18n/i18n-svelte';
+import type { Locales } from '$i18n/i18n-types';
+import Footer from '$lib/components/layout/Footer.svelte';
+import Navbar from '$lib/components/layout/Navbar.svelte';
+import Preloader from '$lib/components/ui/Preloader.svelte';
 
-	let { data, children } = $props();
-	let layoutData = $derived(data as { lang?: Locales; organizationSchema?: object });
+let { data, children } = $props();
+let layoutData = $derived(data as { lang?: Locales; organizationSchema?: object });
 
-	$effect(() => {
-		if (layoutData.lang) {
-			setLocale(layoutData.lang);
-		}
-	});
-
-	let lenisInstance: { destroy: () => void } | null = null;
-
-	async function initLenis() {
-		// Lenis smooth scroll khusus desktop (abaikan untuk reduced-motion & layar sentuh)
-		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-		if (window.matchMedia('(pointer: coarse)').matches) return;
-
-		const { default: Lenis } = await import('lenis');
-		lenisInstance = new Lenis({
-			duration: 1.2,
-			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-			orientation: 'vertical',
-			smoothWheel: true,
-			touchMultiplier: 2,
-			autoRaf: true
-		});
+$effect(() => {
+	if (layoutData.lang) {
+		setLocale(layoutData.lang);
 	}
+});
 
-	function initWebMcp() {
-		// Registrasi WebMCP tool untuk browser AI Agents
-		if (typeof window === 'undefined' || !('modelContext' in navigator)) return;
+let lenisInstance: { destroy: () => void } | null = null;
 
-		try {
-			const mc = (navigator as any).modelContext;
-			if (typeof mc?.registerTool === 'function') {
-				mc.registerTool({
-					name: 'searchMotorcycles',
-					description:
-						'Search available rental motorcycles in Malang by brand, price, or transmission.',
-					inputSchema: {
-						type: 'object',
-						properties: {
-							query: { type: 'string', description: 'Motorcycle model or keywords' }
-						}
-					},
-					execute: async ({ query }: { query?: string }) => {
-						window.location.href = `/id/fleet${query ? `?search=${encodeURIComponent(query)}` : ''}`;
-						return { status: 'navigating_to_fleet' };
+async function initLenis() {
+	// Lenis smooth scroll khusus desktop (abaikan untuk reduced-motion & layar sentuh)
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+	if (window.matchMedia('(pointer: coarse)').matches) return;
+
+	const { default: Lenis } = await import('lenis');
+	lenisInstance = new Lenis({
+		duration: 1.2,
+		easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
+		orientation: 'vertical',
+		smoothWheel: true,
+		touchMultiplier: 2,
+		autoRaf: true
+	});
+}
+
+function initWebMcp() {
+	// Registrasi WebMCP tool untuk browser AI Agents
+	if (typeof window === 'undefined' || !('modelContext' in navigator)) return;
+
+	try {
+		const mc = (navigator as any).modelContext;
+		if (typeof mc?.registerTool === 'function') {
+			mc.registerTool({
+				name: 'searchMotorcycles',
+				description:
+					'Search available rental motorcycles in Malang by brand, price, or transmission.',
+				inputSchema: {
+					type: 'object',
+					properties: {
+						query: { type: 'string', description: 'Motorcycle model or keywords' }
 					}
-				});
-			}
-		} catch {
-			// Lewati tanpa error jika browser tidak mendukung WebMCP
+				},
+				execute: async ({ query }: { query?: string }) => {
+					window.location.href = `/id/fleet${query ? `?search=${encodeURIComponent(query)}` : ''}`;
+					return { status: 'navigating_to_fleet' };
+				}
+			});
 		}
+	} catch {
+		// Lewati tanpa error jika browser tidak mendukung WebMCP
 	}
+}
 
-	onMount(() => {
-		initLenis();
-		initWebMcp();
-	});
+onMount(() => {
+	initLenis();
+	initWebMcp();
+});
 
-	onDestroy(() => {
-		lenisInstance?.destroy();
-	});
+onDestroy(() => {
+	lenisInstance?.destroy();
+});
 </script>
 
 <svelte:head>

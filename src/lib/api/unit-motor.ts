@@ -1,7 +1,7 @@
-import api from './client';
 import { API_ENDPOINTS, DEFAULTS } from '$lib/constants';
 import type { AvailabilityParams } from '$lib/schemas';
-import type { UnitMotor, PaginationMeta } from '$lib/types';
+import type { PaginationMeta, UnitMotor } from '$lib/types';
+import api from './client';
 
 export const unitMotorApi = {
 	getAvailable: async (

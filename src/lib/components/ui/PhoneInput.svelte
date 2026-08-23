@@ -1,200 +1,194 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { fly } from 'svelte/transition';
-	import {
-		parsePhoneNumberFromString,
-		getCountries,
-		getCountryCallingCode
-	} from 'libphonenumber-js';
-	import LL from '$i18n/i18n-svelte.js';
+import { getCountries, getCountryCallingCode, parsePhoneNumberFromString } from 'libphonenumber-js';
+import { onMount } from 'svelte';
+import { fly } from 'svelte/transition';
+import LL from '$i18n/i18n-svelte.js';
 
-	interface Props {
-		value?: string;
-		label?: string;
-		placeholder?: string;
-		id?: string;
-		error?: string;
-		hint?: string;
-		required?: boolean;
-		disabled?: boolean;
-		className?: string;
-		includeCountryCode?: boolean;
-		onchange?: (value: string) => void;
-	}
+interface Props {
+	value?: string;
+	label?: string;
+	placeholder?: string;
+	id?: string;
+	error?: string;
+	hint?: string;
+	required?: boolean;
+	disabled?: boolean;
+	className?: string;
+	includeCountryCode?: boolean;
+	onchange?: (value: string) => void;
+}
 
-	let {
-		value = $bindable(''),
-		label = '',
-		placeholder = '812 3456 7890',
-		id = '',
-		error = '',
-		hint = '',
-		required = false,
-		disabled = false,
-		className = '',
-		includeCountryCode = true,
-		onchange
-	}: Props = $props();
+let {
+	value = $bindable(''),
+	label = '',
+	placeholder = '812 3456 7890',
+	id = '',
+	error = '',
+	hint = '',
+	required = false,
+	disabled = false,
+	className = '',
+	includeCountryCode = true,
+	onchange
+}: Props = $props();
 
-	let actualId = $derived(id || `phone-${Math.random().toString(36).slice(2, 11)}`);
+let actualId = $derived(id || `phone-${Math.random().toString(36).slice(2, 11)}`);
 
-	let isOpen = $state(false);
-	let containerRef: HTMLElement | undefined = $state();
-	let searchTerm = $state('');
+let isOpen = $state(false);
+let containerRef: HTMLElement | undefined = $state();
+let searchTerm = $state('');
 
-	const countries = getCountries();
-	const countryData: { code: string; name: string; callingCode: string; flag: string }[] = countries
-		.map((code) => {
-			try {
-				return {
-					code,
-					name: new Intl.DisplayNames(['id'], { type: 'region' }).of(code) || code,
-					callingCode: getCountryCallingCode(code),
-					flag: getFlag(code)
-				};
-			} catch {
-				return null;
-			}
-		})
-		.filter(Boolean)
-		.sort((a, b) => (a!.name < b!.name ? -1 : 1)) as typeof countryData;
-
-	let selectedCountry: (typeof countryData)[0] = $state(
-		countryData.find((c) => c.code === 'ID') || countryData[0]
-	);
-	let displayValue = $state('');
-
-	function getFlag(code: string): string {
-		const codePoints = code
-			.toUpperCase()
-			.split('')
-			.map((char) => 127397 + char.charCodeAt(0));
-		return String.fromCodePoint(...codePoints);
-	}
-
-	function selectCountry(country: (typeof countryData)[0]) {
-		selectedCountry = country;
-		isOpen = false;
-		searchTerm = '';
-		updateValue();
-	}
-
-	function normalizeInternationalInput(input: string): string {
-		const trimmed = input.trim();
-		if (trimmed.startsWith('00')) return `+${trimmed.slice(2)}`;
-		return trimmed;
-	}
-
-	function updateValue() {
-		const raw = displayValue.trim();
-		if (!raw) {
-			value = '';
-			onchange?.(value);
-			return;
-		}
-
+const countries = getCountries();
+const countryData: { code: string; name: string; callingCode: string; flag: string }[] = countries
+	.map((code) => {
 		try {
-			const parsed =
-				raw.startsWith('+') || raw.startsWith('00')
-					? parsePhoneNumberFromString(normalizeInternationalInput(raw))
-					: parsePhoneNumberFromString(raw, selectedCountry.code as any);
-
-			if (parsed?.country) {
-				const matchedCountry = countryData.find((c) => c.code === parsed.country);
-				if (matchedCountry) selectedCountry = matchedCountry;
-			}
-
-			if (parsed?.number) {
-				value = includeCountryCode
-					? parsed.number
-					: parsed.nationalNumber || raw.replace(/\D/g, '');
-			} else {
-				const digits = raw.replace(/\D/g, '');
-				value = includeCountryCode ? `+${selectedCountry.callingCode}${digits}` : digits;
-			}
+			return {
+				code,
+				name: new Intl.DisplayNames(['id'], { type: 'region' }).of(code) || code,
+				callingCode: getCountryCallingCode(code),
+				flag: getFlag(code)
+			};
 		} catch {
-			const digits = raw.replace(/\D/g, '');
-			value = includeCountryCode ? `+${selectedCountry.callingCode}${digits}` : digits;
+			return null;
 		}
+	})
+	.filter(Boolean)
+	.sort((a, b) => (a!.name < b!.name ? -1 : 1)) as typeof countryData;
+
+let selectedCountry: (typeof countryData)[0] = $state(
+	countryData.find((c) => c.code === 'ID') || countryData[0]
+);
+let displayValue = $state('');
+
+function getFlag(code: string): string {
+	const codePoints = code
+		.toUpperCase()
+		.split('')
+		.map((char) => 127397 + char.charCodeAt(0));
+	return String.fromCodePoint(...codePoints);
+}
+
+function selectCountry(country: (typeof countryData)[0]) {
+	selectedCountry = country;
+	isOpen = false;
+	searchTerm = '';
+	updateValue();
+}
+
+function normalizeInternationalInput(input: string): string {
+	const trimmed = input.trim();
+	if (trimmed.startsWith('00')) return `+${trimmed.slice(2)}`;
+	return trimmed;
+}
+
+function updateValue() {
+	const raw = displayValue.trim();
+	if (!raw) {
+		value = '';
 		onchange?.(value);
+		return;
 	}
 
-	function handleInput(e: Event) {
-		const target = e.target as HTMLInputElement;
-		const raw = target.value;
-
-		if (!raw) {
-			displayValue = '';
-			updateValue();
-			return;
-		}
-
-		if (raw.startsWith('+') || raw.startsWith('00')) {
-			const parsed = parsePhoneNumberFromString(normalizeInternationalInput(raw));
-			if (parsed?.country) {
-				const matchedCountry = countryData.find((c) => c.code === parsed.country);
-				if (matchedCountry) selectedCountry = matchedCountry;
-			}
-
-			displayValue = parsed?.nationalNumber || raw.replace(/\D/g, '');
-			updateValue();
-			return;
-		}
-
-		displayValue = raw.replace(/\D/g, '');
-		updateValue();
-	}
-
-	function openDropdown() {
-		if (!disabled) {
-			isOpen = true;
-			searchTerm = '';
-		}
-	}
-
-	onMount(() => {
-		parseInitialValue();
-
-		const hide = (e: MouseEvent) => {
-			if (containerRef && !containerRef.contains(e.target as Node)) {
-				isOpen = false;
-			}
-		};
-		document.addEventListener('click', hide);
-		return () => document.removeEventListener('click', hide);
-	});
-
-	function parseInitialValue() {
-		if (!value) {
-			displayValue = '';
-			return;
-		}
-
-		const normalized = normalizeInternationalInput(value);
-		const parsed = parsePhoneNumberFromString(normalized);
+	try {
+		const parsed =
+			raw.startsWith('+') || raw.startsWith('00')
+				? parsePhoneNumberFromString(normalizeInternationalInput(raw))
+				: parsePhoneNumberFromString(raw, selectedCountry.code as any);
 
 		if (parsed?.country) {
 			const matchedCountry = countryData.find((c) => c.code === parsed.country);
 			if (matchedCountry) selectedCountry = matchedCountry;
-			displayValue = parsed.nationalNumber || value.replace(/\D/g, '');
-			return;
 		}
 
-		displayValue = value.replace(/\D/g, '');
+		if (parsed?.number) {
+			value = includeCountryCode ? parsed.number : parsed.nationalNumber || raw.replace(/\D/g, '');
+		} else {
+			const digits = raw.replace(/\D/g, '');
+			value = includeCountryCode ? `+${selectedCountry.callingCode}${digits}` : digits;
+		}
+	} catch {
+		const digits = raw.replace(/\D/g, '');
+		value = includeCountryCode ? `+${selectedCountry.callingCode}${digits}` : digits;
 	}
+	onchange?.(value);
+}
 
-	function handleBlur() {
+function handleInput(e: Event) {
+	const target = e.target as HTMLInputElement;
+	const raw = target.value;
+
+	if (!raw) {
+		displayValue = '';
 		updateValue();
+		return;
 	}
 
-	let filteredCountries = $derived(
-		countryData.filter(
-			(c) =>
-				c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-				c.callingCode.includes(searchTerm) ||
-				c.code.toLowerCase().includes(searchTerm.toLowerCase())
-		)
-	);
+	if (raw.startsWith('+') || raw.startsWith('00')) {
+		const parsed = parsePhoneNumberFromString(normalizeInternationalInput(raw));
+		if (parsed?.country) {
+			const matchedCountry = countryData.find((c) => c.code === parsed.country);
+			if (matchedCountry) selectedCountry = matchedCountry;
+		}
+
+		displayValue = parsed?.nationalNumber || raw.replace(/\D/g, '');
+		updateValue();
+		return;
+	}
+
+	displayValue = raw.replace(/\D/g, '');
+	updateValue();
+}
+
+function openDropdown() {
+	if (!disabled) {
+		isOpen = true;
+		searchTerm = '';
+	}
+}
+
+onMount(() => {
+	parseInitialValue();
+
+	const hide = (e: MouseEvent) => {
+		if (containerRef && !containerRef.contains(e.target as Node)) {
+			isOpen = false;
+		}
+	};
+	document.addEventListener('click', hide);
+	return () => document.removeEventListener('click', hide);
+});
+
+function parseInitialValue() {
+	if (!value) {
+		displayValue = '';
+		return;
+	}
+
+	const normalized = normalizeInternationalInput(value);
+	const parsed = parsePhoneNumberFromString(normalized);
+
+	if (parsed?.country) {
+		const matchedCountry = countryData.find((c) => c.code === parsed.country);
+		if (matchedCountry) selectedCountry = matchedCountry;
+		displayValue = parsed.nationalNumber || value.replace(/\D/g, '');
+		return;
+	}
+
+	displayValue = value.replace(/\D/g, '');
+}
+
+function handleBlur() {
+	updateValue();
+}
+
+let filteredCountries = $derived(
+	countryData.filter(
+		(c) =>
+			c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			c.callingCode.includes(searchTerm) ||
+			c.code.toLowerCase().includes(searchTerm.toLowerCase())
+	)
+);
 </script>
 
 <div

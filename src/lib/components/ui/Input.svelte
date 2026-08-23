@@ -1,130 +1,128 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { fly } from 'svelte/transition';
-	import LL from '$i18n/i18n-svelte.js';
+import { onMount } from 'svelte';
+import { fly } from 'svelte/transition';
+import LL from '$i18n/i18n-svelte.js';
 
-	interface Props {
-		value?: string | number;
-		placeholder?: string;
-		label?: string;
-		id?: string;
-		error?: string;
-		className?: string;
-		type?: 'text' | 'number' | 'date' | 'time' | 'tel' | 'email' | 'dropdown';
-		required?: boolean;
-		disabled?: boolean;
-		searchable?: boolean;
-		options?: { value: string | number; label: string }[];
-		icon?: 'search' | 'user' | 'phone' | 'email' | 'calendar' | 'clock' | 'none';
-		hint?: string;
-		onchange?: (value: string | number) => void;
-		oninput?: (value: string | number) => void;
+interface Props {
+	value?: string | number;
+	placeholder?: string;
+	label?: string;
+	id?: string;
+	error?: string;
+	className?: string;
+	type?: 'text' | 'number' | 'date' | 'time' | 'tel' | 'email' | 'dropdown';
+	required?: boolean;
+	disabled?: boolean;
+	searchable?: boolean;
+	options?: { value: string | number; label: string }[];
+	icon?: 'search' | 'user' | 'phone' | 'email' | 'calendar' | 'clock' | 'none';
+	hint?: string;
+	onchange?: (value: string | number) => void;
+	oninput?: (value: string | number) => void;
+}
+
+let {
+	value = $bindable(''),
+	placeholder = '',
+	label = '',
+	id = '',
+	error = '',
+	className = '',
+	type = 'text',
+	required = false,
+	disabled = false,
+	searchable = true,
+	options = [],
+	icon = 'none',
+	hint = '',
+	onchange,
+	oninput
+}: Props = $props();
+
+const iconPaths = {
+	search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+	user: 'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 11a4 4 0 100-8 4 4 0 000 8z',
+	phone:
+		'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z',
+	email:
+		'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6',
+	calendar:
+		'M19 4H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z M16 2v4 M8 2v4 M3 10h18',
+	clock: 'M12 22a10 10 0 100-20 10 10 0 000 20z M12 6v6l4 2'
+};
+
+let isOpen = $state(false),
+	containerRef: HTMLElement | undefined = $state(),
+	searchTerm = $state('');
+
+// Date/Time State
+let current = new Date();
+let view = $state({ month: current.getMonth(), year: current.getFullYear() });
+const months = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December'
+];
+const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
+const mins = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
+
+const select = (v: any) => {
+	value = v;
+	isOpen = false;
+	onchange?.(value);
+};
+const adjustMonth = (d: number) => {
+	view.month += d;
+	if (view.month > 11) {
+		view.month = 0;
+		view.year++;
+	} else if (view.month < 0) {
+		view.month = 11;
+		view.year--;
 	}
+};
+const step = (d: number) => {
+	value = Number(value) + d;
+	oninput?.(value);
+};
 
-	let {
-		value = $bindable(''),
-		placeholder = '',
-		label = '',
-		id = '',
-		error = '',
-		className = '',
-		type = 'text',
-		required = false,
-		disabled = false,
-		searchable = true,
-		options = [],
-		icon = 'none',
-		hint = '',
-		onchange,
-		oninput
-	}: Props = $props();
-
-	const iconPaths = {
-		search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
-		user: 'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 11a4 4 0 100-8 4 4 0 000 8z',
-		phone:
-			'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z',
-		email:
-			'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6',
-		calendar:
-			'M19 4H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z M16 2v4 M8 2v4 M3 10h18',
-		clock: 'M12 22a10 10 0 100-20 10 10 0 000 20z M12 6v6l4 2'
-	};
-
-	let isOpen = $state(false),
-		containerRef: HTMLElement | undefined = $state(),
-		searchTerm = $state('');
-
-	// Date/Time State
-	let current = new Date();
-	let view = $state({ month: current.getMonth(), year: current.getFullYear() });
-	const months = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December'
-	];
-	const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
-	const mins = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
-
-	const select = (v: any) => {
-		value = v;
-		isOpen = false;
-		onchange?.(value);
-	};
-	const adjustMonth = (d: number) => {
-		view.month += d;
-		if (view.month > 11) {
-			view.month = 0;
-			view.year++;
-		} else if (view.month < 0) {
-			view.month = 11;
-			view.year--;
-		}
-	};
-	const step = (d: number) => {
-		value = Number(value) + d;
-		oninput?.(value);
-	};
-
-	onMount(() => {
-		const hide = (e: MouseEvent) =>
-			containerRef && !containerRef.contains(e.target as Node) && (isOpen = false);
-		document.addEventListener('click', hide);
-		return () => document.removeEventListener('click', hide);
-	});
-	let actualId = $derived(id || `input-${Math.random().toString(36).slice(2, 11)}`);
-	let selectedLabel = $derived(
-		type === 'dropdown'
-			? options.find((o) => o.value == value)?.label || ''
-			: value?.toString() || ''
-	);
-	let filteredOptions = $derived(
-		options.filter((o) => o.label.toLowerCase().includes(searchTerm.toLowerCase()))
-	);
-	let calendarDays = $derived(
-		(() => {
-			const start = new Date(view.year, view.month, 1).getDay();
-			const daysInMo = new Date(view.year, view.month + 1, 0).getDate();
-			const prevDaysInMo = new Date(view.year, view.month, 0).getDate();
-			return [
-				...Array.from({ length: start }, (_, i) => ({
-					d: prevDaysInMo - start + i + 1,
-					curr: false
-				})),
-				...Array.from({ length: daysInMo }, (_, i) => ({ d: i + 1, curr: true })),
-				...Array.from({ length: 42 - (start + daysInMo) }, (_, i) => ({ d: i + 1, curr: false }))
-			];
-		})()
-	);
+onMount(() => {
+	const hide = (e: MouseEvent) =>
+		containerRef && !containerRef.contains(e.target as Node) && (isOpen = false);
+	document.addEventListener('click', hide);
+	return () => document.removeEventListener('click', hide);
+});
+let actualId = $derived(id || `input-${Math.random().toString(36).slice(2, 11)}`);
+let selectedLabel = $derived(
+	type === 'dropdown' ? options.find((o) => String(o.value) === String(value))?.label || '' : value?.toString() || ''
+);
+let filteredOptions = $derived(
+	options.filter((o) => o.label.toLowerCase().includes(searchTerm.toLowerCase()))
+);
+let calendarDays = $derived(
+	(() => {
+		const start = new Date(view.year, view.month, 1).getDay();
+		const daysInMo = new Date(view.year, view.month + 1, 0).getDate();
+		const prevDaysInMo = new Date(view.year, view.month, 0).getDate();
+		return [
+			...Array.from({ length: start }, (_, i) => ({
+				d: prevDaysInMo - start + i + 1,
+				curr: false
+			})),
+			...Array.from({ length: daysInMo }, (_, i) => ({ d: i + 1, curr: true })),
+			...Array.from({ length: 42 - (start + daysInMo) }, (_, i) => ({ d: i + 1, curr: false }))
+		];
+	})()
+);
 </script>
 
 <div

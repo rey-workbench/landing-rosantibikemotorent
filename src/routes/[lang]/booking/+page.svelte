@@ -1,236 +1,236 @@
 <script lang="ts">
-	import { onMount, onDestroy, untrack } from 'svelte';
-	import { slide } from 'svelte/transition';
-	import { goto, refreshAll } from '$app/navigation';
-	import { page } from '$app/state';
-	import { transaksiService } from '$lib/services';
-	import { DEFAULTS } from '$lib/constants';
-	import { websocketService } from '$lib/services/websocket';
-	import type { UnitMotor, PriceCalculation } from '$lib/types';
-	import TurnstileWidget from '$lib/components/ui/TurnstileWidget.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import Input from '$lib/components/ui/Input.svelte';
-	import PhoneInput from '$lib/components/ui/PhoneInput.svelte';
-	import PopupError from '$lib/components/ui/PopupError.svelte';
-	import { parsePhoneNumberFromString } from 'libphonenumber-js';
-	import LL from '$i18n/i18n-svelte.js';
-	import { SeoHead } from '$lib/components/seo';
-	import { getMotorImage, handleImageError } from '$lib/utils/image';
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { onDestroy, onMount, untrack } from 'svelte';
+import { slide } from 'svelte/transition';
+import { goto, refreshAll } from '$app/navigation';
+import { page } from '$app/state';
+import LL from '$i18n/i18n-svelte.js';
+import { SeoHead } from '$lib/components/seo';
+import Button from '$lib/components/ui/Button.svelte';
+import Input from '$lib/components/ui/Input.svelte';
+import PhoneInput from '$lib/components/ui/PhoneInput.svelte';
+import PopupError from '$lib/components/ui/PopupError.svelte';
+import TurnstileWidget from '$lib/components/ui/TurnstileWidget.svelte';
+import { DEFAULTS } from '$lib/constants';
+import { transaksiService } from '$lib/services';
+import { websocketService } from '$lib/services/websocket';
+import type { PriceCalculation, UnitMotor } from '$lib/types';
+import { getMotorImage, handleImageError } from '$lib/utils/image';
 
-	let { data } = $props();
+let { data } = $props();
 
-	let turnstileToken = $state('');
+let turnstileToken = $state('');
 
-	// State
-	let availableMotors = $state<UnitMotor[]>(
-		untrack(() => (data.availableMotors || []) as UnitMotor[])
-	);
+// State
+let availableMotors = $state<UnitMotor[]>(
+	untrack(() => (data.availableMotors || []) as UnitMotor[])
+);
 
-	let uniqueMotors = $derived.by(() => {
-		const seen = new Set<string>();
-		return availableMotors.filter((m) => {
-			if (!m.jenisId || seen.has(m.jenisId)) return false;
-			seen.add(m.jenisId);
-			return true;
+let uniqueMotors = $derived.by(() => {
+	const seen = new Set<string>();
+	return availableMotors.filter((m) => {
+		if (!m.jenisId || seen.has(m.jenisId)) return false;
+		seen.add(m.jenisId);
+		return true;
+	});
+});
+
+let selectedUnit = $derived.by(() => {
+	if (formData.unitId) {
+		return availableMotors.find((m) => m.id === formData.unitId) || null;
+	}
+	if (formData.jenisId) {
+		return availableMotors.find((m) => m.jenisId === formData.jenisId) || null;
+	}
+	return null;
+});
+
+let unsubs: (() => void)[] = [];
+
+$effect(() => {
+	if (data.availableMotors) {
+		availableMotors = data.availableMotors as UnitMotor[];
+	}
+});
+
+let currentStep = $state(0);
+let maxCompletedStep = $state(0);
+
+// Form State
+let formData = $state({
+	namaPenyewa: '',
+	noWhatsapp: '',
+	unitId: untrack(() => (data.selectedUnitFromUrl as any)?.id || ''),
+	jenisId: untrack(() => (data.selectedUnitFromUrl as any)?.jenisId || ''),
+	tanggalMulai: untrack(() => (data.defaultDates as any).mulai),
+	tanggalSelesai: untrack(() => (data.defaultDates as any).selesai),
+	jamMulai: DEFAULTS.RENTAL_START_TIME,
+	jamSelesai: DEFAULTS.RENTAL_END_TIME,
+	jasHujan: 0,
+	helm: 0
+});
+
+let priceBreakdown: PriceCalculation | null = $state(null);
+let isCalculating = $state(false);
+let isSubmitting = $state(false);
+let formError = $state('');
+let success = $state(false);
+
+onMount(async () => {
+	if (data.selectedUnitFromUrl) {
+		handleCalculatePrice();
+	}
+
+	websocketService.connect();
+	unsubs = [
+		websocketService.onTransactionUpdate(() => refreshAll()),
+		websocketService.onUnitMotorUpdate(() => refreshAll())
+	];
+});
+
+function updateDateParams() {
+	if (!formData.tanggalMulai || !formData.tanggalSelesai) return;
+	const url = new URL(page.url);
+	url.searchParams.set('mulai', formData.tanggalMulai);
+	url.searchParams.set('selesai', formData.tanggalSelesai);
+	goto(url, { keepFocus: true, noScroll: true, replaceState: true });
+}
+
+function handleDateChange() {
+	updateDateParams();
+	handleCalculatePrice();
+}
+
+onDestroy(() => {
+	for (const unsub of unsubs) {
+		unsub();
+	}
+});
+
+async function handleCalculatePrice() {
+	if (!formData.unitId && !formData.jenisId) return;
+	if (!formData.tanggalMulai || !formData.tanggalSelesai) return;
+
+	if (isCalculating) return;
+
+	isCalculating = true;
+	formError = '';
+
+	try {
+		const result = await transaksiService.calculatePrice({
+			unitId: formData.unitId || undefined,
+			jenisId: formData.jenisId || undefined,
+			tanggalMulai: formData.tanggalMulai,
+			tanggalSelesai: formData.tanggalSelesai,
+			jamMulai: formData.jamMulai,
+			jamSelesai: formData.jamSelesai,
+			jasHujan: Number(formData.jasHujan),
+			helm: Number(formData.helm)
 		});
-	});
-
-	let selectedUnit = $derived.by(() => {
-		if (formData.unitId) {
-			return availableMotors.find((m) => m.id === formData.unitId) || null;
-		}
-		if (formData.jenisId) {
-			return availableMotors.find((m) => m.jenisId === formData.jenisId) || null;
-		}
-		return null;
-	});
-
-	let unsubs: (() => void)[] = [];
-
-	$effect(() => {
-		if (data.availableMotors) {
-			availableMotors = data.availableMotors as UnitMotor[];
-		}
-	});
-
-	let currentStep = $state(0);
-	let maxCompletedStep = $state(0);
-
-	// Form State
-	let formData = $state({
-		namaPenyewa: '',
-		noWhatsapp: '',
-		unitId: untrack(() => (data.selectedUnitFromUrl as any)?.id || ''),
-		jenisId: untrack(() => (data.selectedUnitFromUrl as any)?.jenisId || ''),
-		tanggalMulai: untrack(() => (data.defaultDates as any).mulai),
-		tanggalSelesai: untrack(() => (data.defaultDates as any).selesai),
-		jamMulai: DEFAULTS.RENTAL_START_TIME,
-		jamSelesai: DEFAULTS.RENTAL_END_TIME,
-		jasHujan: 0,
-		helm: 0
-	});
-
-	let priceBreakdown: PriceCalculation | null = $state(null);
-	let isCalculating = $state(false);
-	let isSubmitting = $state(false);
-	let formError = $state('');
-	let success = $state(false);
-
-	onMount(async () => {
-		if (data.selectedUnitFromUrl) {
-			handleCalculatePrice();
-		}
-
-		websocketService.connect();
-		unsubs = [
-			websocketService.onTransactionUpdate(() => refreshAll()),
-			websocketService.onUnitMotorUpdate(() => refreshAll())
-		];
-	});
-
-	function updateDateParams() {
-		if (!formData.tanggalMulai || !formData.tanggalSelesai) return;
-		const url = new URL(page.url);
-		url.searchParams.set('mulai', formData.tanggalMulai);
-		url.searchParams.set('selesai', formData.tanggalSelesai);
-		goto(url, { keepFocus: true, noScroll: true, replaceState: true });
+		priceBreakdown = result;
+	} catch (err: any) {
+		console.error('Price calculation failed:', err);
+		formError =
+			err?.response?.data?.userErrorMsg ||
+			err?.response?.data?.message ||
+			$LL.booking_error_price_calc();
+		priceBreakdown = null;
+	} finally {
+		isCalculating = false;
 	}
+}
 
-	function handleDateChange() {
-		updateDateParams();
-		handleCalculatePrice();
+function validateStep(step: number): string | null {
+	switch (step) {
+		case 0:
+			if (!formData.namaPenyewa.trim()) return $LL.booking_error_name_required();
+			if (!formData.noWhatsapp.trim()) return $LL.booking_error_whatsapp_required();
+			if (!isValidWhatsapp(formData.noWhatsapp)) return $LL.booking_error_whatsapp_invalid();
+			return null;
+		case 1:
+			if (!formData.jenisId && !formData.unitId) return $LL.booking_error_motor_required();
+			return null;
+		case 2:
+			if (!formData.tanggalMulai) return $LL.booking_error_start_date_required();
+			if (!formData.tanggalSelesai) return $LL.booking_error_end_date_required();
+			if (formData.tanggalSelesai < formData.tanggalMulai) return $LL.booking_error_date_invalid();
+			return null;
+		default:
+			return null;
 	}
+}
 
-	onDestroy(() => {
-		unsubs.forEach((unsub) => unsub());
-	});
+function isValidWhatsapp(input: string): boolean {
+	const value = input.trim();
+	if (!value) return false;
 
-	async function handleCalculatePrice() {
-		if (!formData.unitId && !formData.jenisId) return;
-		if (!formData.tanggalMulai || !formData.tanggalSelesai) return;
-
-		if (isCalculating) return;
-
-		isCalculating = true;
-		formError = '';
-
-		try {
-			const result = await transaksiService.calculatePrice({
-				unitId: formData.unitId || undefined,
-				jenisId: formData.jenisId || undefined,
-				tanggalMulai: formData.tanggalMulai,
-				tanggalSelesai: formData.tanggalSelesai,
-				jamMulai: formData.jamMulai,
-				jamSelesai: formData.jamSelesai,
-				jasHujan: Number(formData.jasHujan),
-				helm: Number(formData.helm)
-			});
-			priceBreakdown = result;
-		} catch (err: any) {
-			console.error('Price calculation failed:', err);
-			formError =
-				err?.response?.data?.userErrorMsg ||
-				err?.response?.data?.message ||
-				$LL.booking_error_price_calc();
-			priceBreakdown = null;
-		} finally {
-			isCalculating = false;
-		}
+	try {
+		const normalized = value.startsWith('00') ? `+${value.slice(2)}` : value;
+		// Pass 'ID' as default country code so local numbers like 0812... can be parsed
+		const parsed = parsePhoneNumberFromString(normalized, 'ID');
+		return !!parsed?.isValid();
+	} catch {
+		return false;
 	}
+}
 
-	function validateStep(step: number): string | null {
-		switch (step) {
-			case 0:
-				if (!formData.namaPenyewa.trim()) return $LL.booking_error_name_required();
-				if (!formData.noWhatsapp.trim()) return $LL.booking_error_whatsapp_required();
-				if (!isValidWhatsapp(formData.noWhatsapp)) return $LL.booking_error_whatsapp_invalid();
-				return null;
-			case 1:
-				if (!formData.jenisId && !formData.unitId) return $LL.booking_error_motor_required();
-				return null;
-			case 2:
-				if (!formData.tanggalMulai) return $LL.booking_error_start_date_required();
-				if (!formData.tanggalSelesai) return $LL.booking_error_end_date_required();
-				if (formData.tanggalSelesai < formData.tanggalMulai)
-					return $LL.booking_error_date_invalid();
-				return null;
+async function handleSubmit() {
+	isSubmitting = true;
+	formError = '';
+
+	try {
+		const response = await transaksiService.create({
+			namaPenyewa: formData.namaPenyewa,
+			noWhatsapp: formData.noWhatsapp,
+			unitId: formData.unitId || undefined,
+			jenisId: formData.jenisId || undefined,
+			tanggalMulai: formData.tanggalMulai,
+			tanggalSelesai: formData.tanggalSelesai,
+			jamMulai: formData.jamMulai,
+			jamSelesai: formData.jamSelesai,
+			jasHujan: formData.jasHujan,
+			helm: formData.helm,
+			turnstileToken
+		});
+
+		success = true;
+		document.cookie = `booking_session=${response.id}; path=/; max-age=300; SameSite=Lax`;
+		setTimeout(() => {
+			goto(`/${lang}/booking/success`);
+		}, 2000);
+	} catch (err: any) {
+		const errorCode = err?.response?.data?.errorCode;
+		const backendErrorMsg = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
+
+		switch (errorCode) {
+			case 'ERR_ACTIVE_BOOKING_EXISTS':
+				formError = $LL.booking_error_active_exists();
+				break;
+			case 'ERR_BOOKING_OVERLAP':
+				formError = $LL.booking_error_overlap();
+				break;
+			case 'ERR_MODEL_FULLY_BOOKED':
+				formError = $LL.booking_error_fully_booked();
+				break;
+			case 'ERR_TURNSTILE_FAILED':
+				formError = $LL.booking_error_turnstile_failed();
+				break;
 			default:
-				return null;
+				formError = backendErrorMsg || $LL.booking_error_create();
 		}
+	} finally {
+		isSubmitting = false;
 	}
+}
 
-	function isValidWhatsapp(input: string): boolean {
-		const value = input.trim();
-		if (!value) return false;
+function handleMotorSelect(jenisId: string) {
+	formData.jenisId = jenisId;
+	formData.unitId = '';
+	handleCalculatePrice();
+}
 
-		try {
-			const normalized = value.startsWith('00') ? `+${value.slice(2)}` : value;
-			// Pass 'ID' as default country code so local numbers like 0812... can be parsed
-			const parsed = parsePhoneNumberFromString(normalized, 'ID');
-			return !!parsed?.isValid();
-		} catch {
-			return false;
-		}
-	}
-
-	async function handleSubmit() {
-		isSubmitting = true;
-		formError = '';
-
-		try {
-			const response = await transaksiService.create({
-				namaPenyewa: formData.namaPenyewa,
-				noWhatsapp: formData.noWhatsapp,
-				unitId: formData.unitId || undefined,
-				jenisId: formData.jenisId || undefined,
-				tanggalMulai: formData.tanggalMulai,
-				tanggalSelesai: formData.tanggalSelesai,
-				jamMulai: formData.jamMulai,
-				jamSelesai: formData.jamSelesai,
-				jasHujan: formData.jasHujan,
-				helm: formData.helm,
-				turnstileToken
-			});
-
-			success = true;
-			document.cookie = `booking_session=${response.id}; path=/; max-age=300; SameSite=Lax`;
-			setTimeout(() => {
-				goto(`/${lang}/booking/success`);
-			}, 2000);
-		} catch (err: any) {
-			const errorCode = err?.response?.data?.errorCode;
-			const backendErrorMsg =
-				err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
-
-			switch (errorCode) {
-				case 'ERR_ACTIVE_BOOKING_EXISTS':
-					formError = $LL.booking_error_active_exists();
-					break;
-				case 'ERR_BOOKING_OVERLAP':
-					formError = $LL.booking_error_overlap();
-					break;
-				case 'ERR_MODEL_FULLY_BOOKED':
-					formError = $LL.booking_error_fully_booked();
-					break;
-				case 'ERR_TURNSTILE_FAILED':
-					formError = $LL.booking_error_turnstile_failed();
-					break;
-				default:
-					formError = backendErrorMsg || $LL.booking_error_create();
-			}
-		} finally {
-			isSubmitting = false;
-		}
-	}
-
-	function handleMotorSelect(jenisId: string) {
-		formData.jenisId = jenisId;
-		formData.unitId = '';
-		handleCalculatePrice();
-	}
-
-	let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-	let currentUrl = $derived(page.url.href);
+let lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+let currentUrl = $derived(page.url.href);
 </script>
 
 <SeoHead

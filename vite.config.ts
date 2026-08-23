@@ -1,6 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
 import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
@@ -31,7 +31,6 @@ export default defineConfig({
 		}
 	},
 	esbuild: {
-		// @ts-ignore
 		drop: ['console', 'debugger']
 	}
 });

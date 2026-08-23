@@ -1,77 +1,79 @@
 <script lang="ts">
-	import { onMount, onDestroy, untrack } from 'svelte';
-	import { refreshAll, goto } from '$app/navigation';
-	import { websocketService } from '$lib/services/websocket';
-	import { page as pageStore } from '$app/state';
-	import Button from '$lib/components/ui/Button.svelte';
-	import { SeoHead } from '$lib/components/seo';
-	import { LL } from '$i18n/i18n-svelte';
-	import { buildProductSchema, buildBreadcrumbSchema } from '$lib/seo/schema';
-	import { getMotorImage, handleImageError } from '$lib/utils/image';
+import { onDestroy, onMount, untrack } from 'svelte';
+import { goto, refreshAll } from '$app/navigation';
+import { page as pageStore } from '$app/state';
+import { LL } from '$i18n/i18n-svelte';
+import { SeoHead } from '$lib/components/seo';
+import Button from '$lib/components/ui/Button.svelte';
+import { buildBreadcrumbSchema, buildProductSchema } from '$lib/seo/schema';
+import { websocketService } from '$lib/services/websocket';
+import { getMotorImage, handleImageError } from '$lib/utils/image';
 
-	let { data } = $props();
-	let motor = $state(untrack(() => data.motor));
+let { data } = $props();
+let motor = $state(untrack(() => data.motor));
 
-	$effect(() => {
-		motor = data.motor;
-	});
+$effect(() => {
+	motor = data.motor;
+});
 
-	let unsubs: (() => void)[] = [];
+let unsubs: (() => void)[] = [];
 
-	let jenis = $derived(motor?.jenisMotor);
-	let displayPrice = $derived(jenis?.hargaSewa || 0);
-	let lang = $derived((pageStore.params.lang || 'id') as 'id' | 'en');
-	let currentUrl = $derived(pageStore.url.href);
+let jenis = $derived(motor?.jenisMotor);
+let displayPrice = $derived(jenis?.hargaSewa || 0);
+let lang = $derived((pageStore.params.lang || 'id') as 'id' | 'en');
+let currentUrl = $derived(pageStore.url.href);
 
-	onMount(() => {
-		websocketService.connect();
+onMount(() => {
+	websocketService.connect();
 
-		unsubs = [
-			websocketService.onTransactionUpdate(() => refreshAll()),
-			websocketService.onUnitMotorUpdate(() => refreshAll())
-		];
-	});
+	unsubs = [
+		websocketService.onTransactionUpdate(() => refreshAll()),
+		websocketService.onUnitMotorUpdate(() => refreshAll())
+	];
+});
 
-	onDestroy(() => {
-		unsubs.forEach((unsub: () => void) => unsub());
-	});
-
-	function handleBooking() {
-		if (motor) {
-			goto(`/${lang}/booking?unitId=${motor.id}`);
-		}
+onDestroy(() => {
+	for (const unsub of unsubs) {
+		unsub();
 	}
+});
 
-	let productSchema = $derived(
-		motor && jenis
-			? buildProductSchema({
-					name: `${jenis.merk} ${jenis.model}`,
-					description: $LL.fleet_detail_description({
-						merk: jenis.merk,
-						model: jenis.model,
-						cc: jenis.cc
-					}),
-					brand: jenis.merk,
-					image: getMotorImage(jenis) || jenis.gambar,
-					sku: motor.id || '',
-					price: displayPrice,
-					inStock: true,
-					url: currentUrl
-				})
-			: null
-	);
+function handleBooking() {
+	if (motor) {
+		goto(`/${lang}/booking?unitId=${motor.id}`);
+	}
+}
 
-	let breadcrumbSchema = $derived(
-		motor && jenis
-			? buildBreadcrumbSchema([
-					{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
-					{ position: 2, name: 'Fleet', item: `https://rosantibikemotorent.com/${lang}/fleet` },
-					{ position: 3, name: `${jenis.merk} ${jenis.model}`, item: currentUrl }
-				])
-			: null
-	);
+let productSchema = $derived(
+	motor && jenis
+		? buildProductSchema({
+				name: `${jenis.merk} ${jenis.model}`,
+				description: $LL.fleet_detail_description({
+					merk: jenis.merk,
+					model: jenis.model,
+					cc: jenis.cc
+				}),
+				brand: jenis.merk,
+				image: getMotorImage(jenis) || jenis.gambar,
+				sku: motor.id || '',
+				price: displayPrice,
+				inStock: true,
+				url: currentUrl
+			})
+		: null
+);
 
-	let schemas = $derived([productSchema, breadcrumbSchema].filter(Boolean) as object[]);
+let breadcrumbSchema = $derived(
+	motor && jenis
+		? buildBreadcrumbSchema([
+				{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
+				{ position: 2, name: 'Fleet', item: `https://rosantibikemotorent.com/${lang}/fleet` },
+				{ position: 3, name: `${jenis.merk} ${jenis.model}`, item: currentUrl }
+			])
+		: null
+);
+
+let schemas = $derived([productSchema, breadcrumbSchema].filter(Boolean) as object[]);
 </script>
 
 {#if motor && jenis}

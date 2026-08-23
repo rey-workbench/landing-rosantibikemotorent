@@ -1,5 +1,5 @@
-import { blogService } from '$lib/services';
 import { error } from '@sveltejs/kit';
+import { blogService } from '$lib/services';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params, fetch }) => {

@@ -1,7 +1,7 @@
-import api from './client';
 import { API_ENDPOINTS, DEFAULTS } from '$lib/constants';
 import type { JenisMotorFilter } from '$lib/schemas';
 import type { JenisMotor, PaginationMeta } from '$lib/types';
+import api from './client';
 
 export const jenisMotorApi = {
 	getAll: async (

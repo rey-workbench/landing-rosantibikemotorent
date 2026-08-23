@@ -1,7 +1,7 @@
-import api from './client';
 import { API_ENDPOINTS, DEFAULTS } from '$lib/constants';
 import type { BlogFilter } from '$lib/schemas';
 import type { BlogPost, BlogTag, PaginationMeta } from '$lib/types';
+import api from './client';
 
 export const blogApi = {
 	getAll: async (

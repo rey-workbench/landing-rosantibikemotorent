@@ -1,3 +1,3 @@
-export * from './transaksi';
-export * from './motor';
 export * from './blog';
+export * from './motor';
+export * from './transaksi';

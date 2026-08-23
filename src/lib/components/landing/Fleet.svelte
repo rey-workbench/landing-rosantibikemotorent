@@ -1,36 +1,36 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { jenisMotorService } from '$lib/services';
-	import { DEFAULTS } from '$lib/constants';
-	import { getMotorImage, handleImageError } from '$lib/utils/image';
-	import { LL, locale } from '$i18n/i18n-svelte';
-	import { page } from '$app/state';
+import { onMount } from 'svelte';
+import { page } from '$app/state';
+import { LL, locale } from '$i18n/i18n-svelte';
+import { DEFAULTS } from '$lib/constants';
+import { jenisMotorService } from '$lib/services';
+import { getMotorImage, handleImageError } from '$lib/utils/image';
 
-	let { jenisMotors = $bindable([]) } = $props();
-	let lang = $derived(page.params.lang || $locale);
-	let loading = $state(jenisMotors.length === 0);
-	let error = $state('');
+let { jenisMotors = $bindable([]) } = $props();
+let lang = $derived(page.params.lang || $locale);
+let loading = $state(jenisMotors.length === 0);
+let error = $state('');
 
-	async function fetchFleet() {
-		try {
-			const response = await jenisMotorService.getAll({ limit: DEFAULTS.FLEET_FEATURED_LIMIT });
-			jenisMotors = response.data || [];
-		} catch (err) {
-			error = err instanceof Error ? err.message : $LL.fleet_error();
-			console.error('Failed to load fleet:', err);
-		} finally {
-			loading = false;
-		}
+async function fetchFleet() {
+	try {
+		const response = await jenisMotorService.getAll({ limit: DEFAULTS.FLEET_FEATURED_LIMIT });
+		jenisMotors = response.data || [];
+	} catch (err) {
+		error = err instanceof Error ? err.message : $LL.fleet_error();
+		console.error('Failed to load fleet:', err);
+	} finally {
+		loading = false;
 	}
+}
 
-	onMount(() => {
-		// Only fetch if not already pre-loaded from SSR
-		if (jenisMotors.length === 0) {
-			fetchFleet();
-		} else {
-			loading = false;
-		}
-	});
+onMount(() => {
+	// Only fetch if not already pre-loaded from SSR
+	if (jenisMotors.length === 0) {
+		fetchFleet();
+	} else {
+		loading = false;
+	}
+});
 </script>
 
 <section id="fleet" class="py-20 md:py-28 bg-[#f5f5f7]">

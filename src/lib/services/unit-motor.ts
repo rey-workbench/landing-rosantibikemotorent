@@ -1,6 +1,6 @@
 import { unitMotorApi } from '$lib/api';
-import { AvailabilityParamsSchema, type AvailabilityParams } from '$lib/schemas';
-import type { UnitMotor, PaginationMeta } from '$lib/types';
+import { type AvailabilityParams, AvailabilityParamsSchema } from '$lib/schemas';
+import type { PaginationMeta, UnitMotor } from '$lib/types';
 
 export const unitMotorService = {
 	getAvailable: async (

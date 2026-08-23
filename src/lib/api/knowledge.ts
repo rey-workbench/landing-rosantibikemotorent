@@ -1,5 +1,5 @@
-import api from './client';
 import { DEFAULTS } from '$lib/constants';
+import api from './client';
 
 export interface FaqItem {
 	question: string;

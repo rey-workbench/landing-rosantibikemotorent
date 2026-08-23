@@ -12,6 +12,6 @@ const { locale, LL, setLocale } = initI18nSvelte<
 	Formatters
 >(loadedLocales, loadedFormatters);
 
-export { locale, LL, setLocale };
+export { LL, locale, setLocale };
 
 export default LL;

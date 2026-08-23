@@ -1,5 +1,5 @@
 import { blogApi } from '$lib/api';
-import { BlogFilterSchema, type BlogFilter } from '$lib/schemas';
+import { type BlogFilter, BlogFilterSchema } from '$lib/schemas';
 import type { BlogPost, BlogTag, PaginationMeta } from '$lib/types';
 import { stripHtml } from '$lib/utils/format';
 

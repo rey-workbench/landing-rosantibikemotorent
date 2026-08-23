@@ -1,5 +1,5 @@
-import { jenisMotorService } from '$lib/services';
 import { DEFAULTS } from '$lib/constants';
+import { jenisMotorService } from '$lib/services';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch }) => {

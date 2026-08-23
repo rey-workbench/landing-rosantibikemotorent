@@ -1,74 +1,74 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
-	import { blogService } from '$lib/services';
-	import { DEFAULTS } from '$lib/constants';
-	import type { BlogTag } from '$lib/types';
-	import Button from '$lib/components/ui/Button.svelte';
-	import { fade, fly } from 'svelte/transition';
-	import { page } from '$app/state';
-	import { SeoHead } from '$lib/components/seo';
-	import LL from '$i18n/i18n-svelte.js';
-	import { optimizeImageUrl } from '$lib/utils/image';
+import { untrack } from 'svelte';
+import { fade, fly } from 'svelte/transition';
+import { page } from '$app/state';
+import LL from '$i18n/i18n-svelte.js';
+import { SeoHead } from '$lib/components/seo';
+import Button from '$lib/components/ui/Button.svelte';
+import { DEFAULTS } from '$lib/constants';
+import { blogService } from '$lib/services';
+import type { BlogTag } from '$lib/types';
+import { optimizeImageUrl } from '$lib/utils/image';
 
-	let { data } = $props();
+let { data } = $props();
 
-	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-	const currentUrl = $derived(page.url.href);
+const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+const currentUrl = $derived(page.url.href);
 
-	let posts = $state<any[]>(untrack(() => data.initialPosts || []));
-	let tags = $state<BlogTag[]>(untrack(() => data.tags || []));
-	let loading = $state(false);
-	let error = $state('');
-	let searchQuery = $state('');
-	let selectedTagId = $state('');
-	let currentPage = $state(1);
-	let totalPages = $state<number>(untrack(() => data.initialMeta?.totalPages || 1));
+let posts = $state<any[]>(untrack(() => data.initialPosts || []));
+let tags = $state<BlogTag[]>(untrack(() => data.tags || []));
+let loading = $state(false);
+let error = $state('');
+let searchQuery = $state('');
+let selectedTagId = $state('');
+let currentPage = $state(1);
+let totalPages = $state<number>(untrack(() => data.initialMeta?.totalPages || 1));
 
-	$effect(() => {
-		posts = data.initialPosts || [];
-		tags = data.tags || [];
-		totalPages = data.initialMeta?.totalPages || 1;
-	});
+$effect(() => {
+	posts = data.initialPosts || [];
+	tags = data.tags || [];
+	totalPages = data.initialMeta?.totalPages || 1;
+});
 
-	// Compact Editorial Layout Mappings
-	const isDefaultView = $derived(currentPage === 1 && searchQuery === '' && selectedTagId === '');
-	const featuredPost = $derived(isDefaultView && posts.length > 0 ? posts[0] : null);
-	const listPosts = $derived(isDefaultView && posts.length > 1 ? posts.slice(1, 4) : []);
-	const morePosts = $derived(
-		isDefaultView && posts.length > 4 ? posts.slice(4) : !isDefaultView ? posts : []
-	);
+// Compact Editorial Layout Mappings
+const isDefaultView = $derived(currentPage === 1 && searchQuery === '' && selectedTagId === '');
+const featuredPost = $derived(isDefaultView && posts.length > 0 ? posts[0] : null);
+const listPosts = $derived(isDefaultView && posts.length > 1 ? posts.slice(1, 4) : []);
+const morePosts = $derived(
+	isDefaultView && posts.length > 4 ? posts.slice(4) : !isDefaultView ? posts : []
+);
 
-	async function loadPosts() {
-		loading = true;
-		error = '';
+async function loadPosts() {
+	loading = true;
+	error = '';
 
-		try {
-			const response = await blogService.getAll({
-				page: currentPage,
-				limit: DEFAULTS.BLOG_PAGE_SIZE,
-				search: searchQuery,
-				tagId: selectedTagId || undefined
-			});
+	try {
+		const response = await blogService.getAll({
+			page: currentPage,
+			limit: DEFAULTS.BLOG_PAGE_SIZE,
+			search: searchQuery,
+			tagId: selectedTagId || undefined
+		});
 
-			posts = response.data || [];
-			totalPages = response.meta?.totalPages || 1;
-		} catch (err: any) {
-			error = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
-		} finally {
-			loading = false;
-		}
+		posts = response.data || [];
+		totalPages = response.meta?.totalPages || 1;
+	} catch (err: any) {
+		error = err?.response?.data?.userErrorMsg || err?.response?.data?.message || '';
+	} finally {
+		loading = false;
 	}
+}
 
-	function handleSearch() {
-		currentPage = 1;
-		loadPosts();
-	}
+function handleSearch() {
+	currentPage = 1;
+	loadPosts();
+}
 
-	function selectTag(id: string) {
-		selectedTagId = selectedTagId === id ? '' : id;
-		currentPage = 1;
-		loadPosts();
-	}
+function selectTag(id: string) {
+	selectedTagId = selectedTagId === id ? '' : id;
+	currentPage = 1;
+	loadPosts();
+}
 </script>
 
 <SeoHead

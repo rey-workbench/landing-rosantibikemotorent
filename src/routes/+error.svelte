@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { page } from '$app/state';
-	import { siteConfig } from '$lib/config';
-	import { locale } from '$i18n/i18n-svelte';
+import { page } from '$app/state';
+import { locale } from '$i18n/i18n-svelte';
+import { siteConfig } from '$lib/config';
 
-	const lang = $derived((page.params.lang || $locale || 'id') as 'id' | 'en');
-	const isEn = $derived(lang === 'en');
+const lang = $derived((page.params.lang || $locale || 'id') as 'id' | 'en');
+const isEn = $derived(lang === 'en');
 
-	let status = $derived(page.status || 404);
-	let is404 = $derived(status === 404);
+let status = $derived(page.status || 404);
+let is404 = $derived(status === 404);
 
-	const whatsappHref = $derived(
-		`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
-			isEn
-				? 'Hello Rosantibike, I need help with motorcycle rental in Malang.'
-				: 'Halo Rosantibike, saya butuh bantuan sewa motor di Malang.'
-		)}`
-	);
+const whatsappHref = $derived(
+	`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
+		isEn
+			? 'Hello Rosantibike, I need help with motorcycle rental in Malang.'
+			: 'Halo Rosantibike, saya butuh bantuan sewa motor di Malang.'
+	)}`
+);
 </script>
 
 <svelte:head>

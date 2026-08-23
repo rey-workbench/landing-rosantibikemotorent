@@ -1,41 +1,43 @@
 <script lang="ts">
-	import { onMount, onDestroy, untrack } from 'svelte';
-	import { refreshAll } from '$app/navigation';
-	import { fly } from 'svelte/transition';
-	import { SeoHead } from '$lib/components/seo';
-	import LL from '$i18n/i18n-svelte.js';
-	import { page } from '$app/state';
-	import { locale } from '$i18n/i18n-svelte';
-	import { websocketService } from '$lib/services/websocket';
-	import { getMotorImage, handleImageError } from '$lib/utils/image';
+import { onDestroy, onMount, untrack } from 'svelte';
+import { fly } from 'svelte/transition';
+import { refreshAll } from '$app/navigation';
+import { page } from '$app/state';
+import { locale } from '$i18n/i18n-svelte';
+import LL from '$i18n/i18n-svelte.js';
+import { SeoHead } from '$lib/components/seo';
+import { websocketService } from '$lib/services/websocket';
+import { getMotorImage, handleImageError } from '$lib/utils/image';
 
-	let { data } = $props();
+let { data } = $props();
 
-	let jenisMotors: any[] = $state(untrack(() => data.jenisMotors));
+let jenisMotors: any[] = $state(untrack(() => data.jenisMotors));
 
-	$effect(() => {
-		jenisMotors = data.jenisMotors;
-	});
+$effect(() => {
+	jenisMotors = data.jenisMotors;
+});
 
-	let loading = $state(false);
-	let error = $state('');
-	let unsubs: (() => void)[] = [];
+let loading = $state(false);
+let error = $state('');
+let unsubs: (() => void)[] = [];
 
-	let lang = $derived((page.params.lang || $locale) as 'id' | 'en');
-	let currentUrl = $derived(page.url.href);
+let lang = $derived((page.params.lang || $locale) as 'id' | 'en');
+let currentUrl = $derived(page.url.href);
 
-	onMount(() => {
-		websocketService.connect();
+onMount(() => {
+	websocketService.connect();
 
-		unsubs = [
-			websocketService.onTransactionUpdate(() => refreshAll()),
-			websocketService.onUnitMotorUpdate(() => refreshAll())
-		];
-	});
+	unsubs = [
+		websocketService.onTransactionUpdate(() => refreshAll()),
+		websocketService.onUnitMotorUpdate(() => refreshAll())
+	];
+});
 
-	onDestroy(() => {
-		unsubs.forEach((unsub) => unsub());
-	});
+onDestroy(() => {
+	for (const unsub of unsubs) {
+		unsub();
+	}
+});
 </script>
 
 <SeoHead

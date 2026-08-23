@@ -1,6 +1,6 @@
 import { jenisMotorApi } from '$lib/api';
-import { JenisMotorFilterSchema, type JenisMotorFilter } from '$lib/schemas';
 import { DEFAULTS } from '$lib/constants';
+import { type JenisMotorFilter, JenisMotorFilterSchema } from '$lib/schemas';
 import type { JenisMotor, PaginationMeta } from '$lib/types';
 
 interface ProcessedJenisMotor extends JenisMotor {

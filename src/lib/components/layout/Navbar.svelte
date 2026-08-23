@@ -1,112 +1,112 @@
 <script lang="ts">
-	import { fade, slide, fly } from 'svelte/transition';
-	import { onMount } from 'svelte';
-	import { LL, locale } from '$i18n/i18n-svelte';
-	import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
-	import { page } from '$app/state';
-	import { jenisMotorService } from '$lib/services';
-	import { DEFAULTS } from '$lib/constants';
+import { onMount } from 'svelte';
+import { fade, fly, slide } from 'svelte/transition';
+import { page } from '$app/state';
+import { LL, locale } from '$i18n/i18n-svelte';
+import { DEFAULTS } from '$lib/constants';
+import { jenisMotorService } from '$lib/services';
+import LanguageSwitcher from '../ui/LanguageSwitcher.svelte';
 
-	let isOpen = $state(false);
-	let isScrolled = $state(false);
-	let hoveredNavId = $state<string | null>(null);
-	let mobileActiveMenuId = $state<string | null>(null);
-	let motorGroups = $state<{ title: string; links: { label: string; href: string }[] }[]>([]);
-	let motorGroupsPromise: Promise<void> | null = null;
+let isOpen = $state(false);
+let isScrolled = $state(false);
+let hoveredNavId = $state<string | null>(null);
+let mobileActiveMenuId = $state<string | null>(null);
+let motorGroups = $state<{ title: string; links: { label: string; href: string }[] }[]>([]);
+let motorGroupsPromise: Promise<void> | null = null;
 
-	function ensureMotorGroups() {
-		if (motorGroupsPromise) return;
-		motorGroupsPromise = jenisMotorService
-			.getAll({ limit: DEFAULTS.FLEET_LIST_LIMIT })
-			.then((response) => {
-				const motors = response.data || [];
-				const groups = new Map<string, { label: string; href: string }[]>();
+function ensureMotorGroups() {
+	if (motorGroupsPromise) return;
+	motorGroupsPromise = jenisMotorService
+		.getAll({ limit: DEFAULTS.FLEET_LIST_LIMIT })
+		.then((response) => {
+			const motors = response.data || [];
+			const groups = new Map<string, { label: string; href: string }[]>();
 
-				for (const m of motors) {
-					if (!groups.has(m.merk)) {
-						groups.set(m.merk, []);
-					}
-					groups.get(m.merk)!.push({
-						label: `${m.merk} ${m.model}`,
-						href: `/${page.params.lang || $locale}/fleet/${m.slug}`
-					});
+			for (const m of motors) {
+				if (!groups.has(m.merk)) {
+					groups.set(m.merk, []);
 				}
+				groups.get(m.merk)!.push({
+					label: `${m.merk} ${m.model}`,
+					href: `/${page.params.lang || $locale}/fleet/${m.slug}`
+				});
+			}
 
-				motorGroups = Array.from(groups.entries()).map(([merk, links]) => ({
-					title: merk,
-					links
-				}));
-			})
-			.catch((err) => {
-				console.error(err);
-				motorGroupsPromise = null;
-			});
+			motorGroups = Array.from(groups.entries()).map(([merk, links]) => ({
+				title: merk,
+				links
+			}));
+		})
+		.catch((err) => {
+			console.error(err);
+			motorGroupsPromise = null;
+		});
+}
+
+const isHomepage = $derived(
+	page.url.pathname === '/' ||
+		page.url.pathname === '/id' ||
+		page.url.pathname === '/en' ||
+		page.url.pathname === '/id/' ||
+		page.url.pathname === '/en/'
+);
+
+// Navbar is light if scrolled, not homepage, menu open, or mega menu open
+const isLight = $derived(isScrolled || !isHomepage || hoveredNavId !== null || isOpen);
+
+const navItems = $derived([
+	{ id: 'home', label: $LL.nav_home(), href: `/${page.params.lang || $locale}` },
+	{
+		id: 'fleet',
+		label: $LL.nav_fleet(),
+		href: `/${page.params.lang || $locale}/fleet`,
+		children: [
+			{
+				title: $LL.nav_mega_explore_fleet(),
+				links: [
+					{ label: $LL.nav_mega_all_motorcycles(), href: `/${page.params.lang || $locale}/fleet` }
+				]
+			},
+			...motorGroups,
+			{
+				title: $LL.nav_mega_other_services(),
+				links: [
+					{ label: $LL.nav_mega_customer_support(), href: `/${page.params.lang || $locale}/faq` },
+					{ label: $LL.nav_mega_riding_gear(), href: `/${page.params.lang || $locale}/faq` }
+				]
+			}
+		]
+	},
+	{ id: 'blog', label: $LL.nav_blog(), href: `/${page.params.lang || $locale}/blog` },
+	{
+		id: 'booking',
+		label: $LL.nav_booking(),
+		href: `/${page.params.lang || $locale}/booking`,
+		children: [
+			{
+				title: $LL.nav_mega_rental_info(),
+				links: [
+					{ label: $LL.nav_mega_how_to_order(), href: `/${page.params.lang || $locale}/booking` },
+					{ label: $LL.nav_mega_terms(), href: `/${page.params.lang || $locale}/terms` },
+					{ label: $LL.nav_mega_faq(), href: `/${page.params.lang || $locale}/faq` }
+				]
+			}
+		]
 	}
+]);
 
-	const isHomepage = $derived(
-		page.url.pathname === '/' ||
-			page.url.pathname === '/id' ||
-			page.url.pathname === '/en' ||
-			page.url.pathname === '/id/' ||
-			page.url.pathname === '/en/'
-	);
+onMount(() => {
+	const handleScroll = () => {
+		isScrolled = window.scrollY > 10;
+	};
+	window.addEventListener('scroll', handleScroll);
+	handleScroll(); // check initially
 
-	// Navbar is light if scrolled, not homepage, menu open, or mega menu open
-	const isLight = $derived(isScrolled || !isHomepage || hoveredNavId !== null || isOpen);
+	return () => window.removeEventListener('scroll', handleScroll);
+});
 
-	const navItems = $derived([
-		{ id: 'home', label: $LL.nav_home(), href: `/${page.params.lang || $locale}` },
-		{
-			id: 'fleet',
-			label: $LL.nav_fleet(),
-			href: `/${page.params.lang || $locale}/fleet`,
-			children: [
-				{
-					title: $LL.nav_mega_explore_fleet(),
-					links: [
-						{ label: $LL.nav_mega_all_motorcycles(), href: `/${page.params.lang || $locale}/fleet` }
-					]
-				},
-				...motorGroups,
-				{
-					title: $LL.nav_mega_other_services(),
-					links: [
-						{ label: $LL.nav_mega_customer_support(), href: `/${page.params.lang || $locale}/faq` },
-						{ label: $LL.nav_mega_riding_gear(), href: `/${page.params.lang || $locale}/faq` }
-					]
-				}
-			]
-		},
-		{ id: 'blog', label: $LL.nav_blog(), href: `/${page.params.lang || $locale}/blog` },
-		{
-			id: 'booking',
-			label: $LL.nav_booking(),
-			href: `/${page.params.lang || $locale}/booking`,
-			children: [
-				{
-					title: $LL.nav_mega_rental_info(),
-					links: [
-						{ label: $LL.nav_mega_how_to_order(), href: `/${page.params.lang || $locale}/booking` },
-						{ label: $LL.nav_mega_terms(), href: `/${page.params.lang || $locale}/terms` },
-						{ label: $LL.nav_mega_faq(), href: `/${page.params.lang || $locale}/faq` }
-					]
-				}
-			]
-		}
-	]);
-
-	onMount(() => {
-		const handleScroll = () => {
-			isScrolled = window.scrollY > 10;
-		};
-		window.addEventListener('scroll', handleScroll);
-		handleScroll(); // check initially
-
-		return () => window.removeEventListener('scroll', handleScroll);
-	});
-
-	let hoveredItemData = $derived(navItems.find((i) => i.id === hoveredNavId));
-	let mobileActiveItemData = $derived(navItems.find((i) => i.id === mobileActiveMenuId));
+let hoveredItemData = $derived(navItems.find((i) => i.id === hoveredNavId));
+let mobileActiveItemData = $derived(navItems.find((i) => i.id === mobileActiveMenuId));
 </script>
 
 <nav

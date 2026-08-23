@@ -1,10 +1,10 @@
 <script>
-	import { LL } from '$i18n/i18n-svelte';
-	import { siteConfig } from '$lib/config';
+import { LL } from '$i18n/i18n-svelte';
+import { siteConfig } from '$lib/config';
 
-	const whatsappHref = $derived(
-		`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('Halo, saya tertarik untuk menyewa motor.')}`
-	);
+const whatsappHref = $derived(
+	`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('Halo, saya tertarik untuk menyewa motor.')}`
+);
 </script>
 
 <div

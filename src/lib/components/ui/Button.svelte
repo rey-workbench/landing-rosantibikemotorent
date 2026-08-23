@@ -1,62 +1,62 @@
 <script lang="ts">
-	interface Props {
-		type?: 'button' | 'submit' | 'reset';
-		variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'glass';
-		size?: 'sm' | 'md' | 'lg' | 'icon';
-		disabled?: boolean;
-		loading?: boolean;
-		href?: string | undefined;
-		fullWidth?: boolean;
-		className?: string;
-		onclick?: (e: MouseEvent) => void;
-		children?: import('svelte').Snippet;
-		[key: string]: any;
-	}
+interface Props {
+	type?: 'button' | 'submit' | 'reset';
+	variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'glass';
+	size?: 'sm' | 'md' | 'lg' | 'icon';
+	disabled?: boolean;
+	loading?: boolean;
+	href?: string | undefined;
+	fullWidth?: boolean;
+	className?: string;
+	onclick?: (e: MouseEvent) => void;
+	children?: import('svelte').Snippet;
+	[key: string]: any;
+}
 
-	let {
-		type = 'button',
-		variant = 'primary',
-		size = 'md',
-		disabled = false,
-		loading = false,
-		href = undefined,
-		fullWidth = false,
-		className = '',
-		children,
-		onclick,
-		...rest
-	}: Props = $props();
+let {
+	type = 'button',
+	variant = 'primary',
+	size = 'md',
+	disabled = false,
+	loading = false,
+	href = undefined,
+	fullWidth = false,
+	className = '',
+	children,
+	onclick,
+	...rest
+}: Props = $props();
 
-	// Styling base
-	const baseStyles =
-		'inline-flex items-center justify-center font-semibold uppercase tracking-[0.18em] transition-all duration-300 ease-(--ease-luxury) focus-visible:focus-ring disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none';
+// Styling base
+const baseStyles =
+	'inline-flex items-center justify-center font-semibold uppercase tracking-[0.18em] transition-all duration-300 ease-(--ease-luxury) focus-visible:focus-ring disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none';
 
-	// Variants
-	const variants = {
-		primary:
-			'bg-brand-fg text-brand-surface border border-transparent hover:opacity-90 hover:-translate-y-0.5',
-		secondary:
-			'surface-panel text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft',
-		outline:
-			'bg-transparent text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft',
-		ghost: 'bg-transparent text-brand-muted hover:text-brand-fg hover:bg-brand-surface-soft',
-		glass:
-			'bg-white/10 text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft'
-	};
+// Variants
+const variants = {
+	primary:
+		'bg-brand-fg text-brand-surface border border-transparent hover:opacity-90 hover:-translate-y-0.5',
+	secondary:
+		'surface-panel text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft',
+	outline:
+		'bg-transparent text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft',
+	ghost: 'bg-transparent text-brand-muted hover:text-brand-fg hover:bg-brand-surface-soft',
+	glass:
+		'bg-white/10 text-brand-fg border border-brand-border hover:border-brand-accent hover:bg-brand-surface-soft'
+};
 
-	// Sizes
-	const sizes = {
-		sm: 'text-[0.68rem] px-4 py-2 rounded-xl',
-		md: 'text-[0.74rem] px-6 py-3 rounded-2xl',
-		lg: 'text-[0.82rem] px-8 py-4 rounded-[1.35rem]',
-		icon: 'p-3 rounded-xl'
-	};
+// Sizes
+const sizes = {
+	sm: 'text-[0.68rem] px-4 py-2 rounded-xl',
+	md: 'text-[0.74rem] px-6 py-3 rounded-2xl',
+	lg: 'text-[0.82rem] px-8 py-4 rounded-[1.35rem]',
+	icon: 'p-3 rounded-xl'
+};
 
-	let classes = $derived(
-		[baseStyles, variants[variant], sizes[size], fullWidth ? 'w-full' : '', className]
-			.filter(Boolean)
-			.join(' ')
-	);
+let classes = $derived(
+	[baseStyles, variants[variant], sizes[size], fullWidth ? 'w-full' : '', className]
+		.filter(Boolean)
+		.join(' ')
+);
 </script>
 
 {#if href}

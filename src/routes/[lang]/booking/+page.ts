@@ -27,7 +27,7 @@ async function resolveBySlug(
 	urlUnitSlug: string,
 	fetch: typeof window.fetch
 ): Promise<any> {
-	let selectedUnit =
+	const selectedUnit =
 		availableMotors.find(
 			(m: any) => m.jenisMotor?.slug === urlUnitSlug || m.jenis?.slug === urlUnitSlug
 		) || null;

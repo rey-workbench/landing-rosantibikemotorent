@@ -1,9 +1,9 @@
-import { sequence } from '@sveltejs/kit/hooks';
 import type { Handle, RequestEvent } from '@sveltejs/kit';
-import { dev } from '$app/environment';
-import { detectLocale, isLocale } from '$i18n/i18n-util';
+import { sequence } from '@sveltejs/kit/hooks';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors';
+import { dev } from '$app/environment';
 import type { Locales } from '$i18n/i18n-types';
+import { detectLocale, isLocale } from '$i18n/i18n-util';
 
 const getLocale = (event: RequestEvent): Locales => {
 	const segment = event.url.pathname.split('/')[1];

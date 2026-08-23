@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { BASE_URL } from '$lib/seo/types';
-import { jenisMotorService, blogService } from '$lib/services';
 import { DEFAULTS } from '$lib/constants';
+import { BASE_URL } from '$lib/seo/types';
+import { blogService, jenisMotorService } from '$lib/services';
 
 export const GET: RequestHandler = async () => {
 	const baseUrl = BASE_URL || 'https://rosantibikemotorent.com';

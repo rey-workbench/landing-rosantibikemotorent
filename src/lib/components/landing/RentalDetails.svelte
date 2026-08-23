@@ -1,44 +1,45 @@
 <script lang="ts">
-	import { LL } from '$i18n/i18n-svelte';
-	let { lang: _lang }: { lang?: string } = $props();
+import { LL } from '$i18n/i18n-svelte';
 
-	// Split requirements list by semicolon
-	const reqList = $derived($LL.details_reqs_list().split(';'));
+let { lang: _lang }: { lang?: string } = $props();
 
-	const pricingMatrix = $derived([
-		{
-			type: 'Yamaha Soul GT',
-			capacity: '125 cc',
-			rate: 'Rp 80.000',
-			route: $LL.route_city()
-		},
-		{
-			type: 'Honda Vario 150',
-			capacity: '150 cc',
-			rate: 'Rp 120.000',
-			route: $LL.route_all()
-		},
-		{
-			type: 'Yamaha Lexi',
-			capacity: '125 cc',
-			rate: 'Rp 125.000',
-			route: $LL.route_all()
-		},
-		{
-			type: 'Honda PCX 160',
-			capacity: '160 cc',
-			rate: 'Rp 150.000',
-			route: $LL.route_all()
-		}
-	]);
+// Split requirements list by semicolon
+const reqList = $derived($LL.details_reqs_list().split(';'));
 
-	const locations = $derived([
-		{ name: $LL.loc_stasiun_name(), desc: $LL.loc_stasiun_desc() },
-		{ name: $LL.loc_terminal_name(), desc: $LL.loc_terminal_desc() },
-		{ name: $LL.loc_ub_name(), desc: $LL.loc_ub_desc() },
-		{ name: $LL.loc_batu_name(), desc: $LL.loc_batu_desc() },
-		{ name: $LL.loc_bromo_name(), desc: $LL.loc_bromo_desc() }
-	]);
+const pricingMatrix = $derived([
+	{
+		type: 'Yamaha Soul GT',
+		capacity: '125 cc',
+		rate: 'Rp 80.000',
+		route: $LL.route_city()
+	},
+	{
+		type: 'Honda Vario 150',
+		capacity: '150 cc',
+		rate: 'Rp 120.000',
+		route: $LL.route_all()
+	},
+	{
+		type: 'Yamaha Lexi',
+		capacity: '125 cc',
+		rate: 'Rp 125.000',
+		route: $LL.route_all()
+	},
+	{
+		type: 'Honda PCX 160',
+		capacity: '160 cc',
+		rate: 'Rp 150.000',
+		route: $LL.route_all()
+	}
+]);
+
+const locations = $derived([
+	{ name: $LL.loc_stasiun_name(), desc: $LL.loc_stasiun_desc() },
+	{ name: $LL.loc_terminal_name(), desc: $LL.loc_terminal_desc() },
+	{ name: $LL.loc_ub_name(), desc: $LL.loc_ub_desc() },
+	{ name: $LL.loc_batu_name(), desc: $LL.loc_batu_desc() },
+	{ name: $LL.loc_bromo_name(), desc: $LL.loc_bromo_desc() }
+]);
 </script>
 
 <section class="py-24 md:py-36 relative bg-white z-20 border-t border-black/5">

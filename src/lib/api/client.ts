@@ -14,7 +14,7 @@ if (!rawUrl) {
 const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;
 
 function buildUrl(url: string, params?: any): string {
-	let fetchUrl = `${API_BASE_URL}${url}`;
+	const fetchUrl = `${API_BASE_URL}${url}`;
 	if (!params) return fetchUrl;
 
 	const searchParams = new URLSearchParams();
@@ -39,7 +39,7 @@ function buildHeadersAndBody(data?: any, customHeaders?: any) {
 		headers['Origin'] = 'https://rosantibikemotorent.com';
 	}
 
-	let body = undefined;
+	let body: BodyInit | undefined;
 	if (data) {
 		if (data instanceof FormData) {
 			delete headers['Content-Type'];

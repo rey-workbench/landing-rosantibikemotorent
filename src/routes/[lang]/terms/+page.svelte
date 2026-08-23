@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { SeoHead } from '$lib/components/seo';
-	import { page } from '$app/state';
+import { page } from '$app/state';
+import { SeoHead } from '$lib/components/seo';
 
-	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
 </script>
 
 <SeoHead

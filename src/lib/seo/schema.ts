@@ -1,6 +1,6 @@
+import { siteConfig } from '$lib/config';
 import type { BreadcrumbItem, FaqItem } from './types';
 import { BASE_URL, SITE_NAME } from './types';
-import { siteConfig } from '$lib/config';
 
 export interface FleetMotor {
 	name: string;

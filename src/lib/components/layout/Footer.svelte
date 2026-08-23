@@ -1,18 +1,19 @@
 <script lang="ts">
-	import { siteConfig } from '$lib/config';
-	import { LL, locale } from '$i18n/i18n-svelte';
-	import { page } from '$app/state';
-	interface Props {
-		className?: string;
-	}
+import { page } from '$app/state';
+import { LL, locale } from '$i18n/i18n-svelte';
+import { siteConfig } from '$lib/config';
 
-	let { className = '' }: Props = $props();
+interface Props {
+	className?: string;
+}
 
-	// Obfuscate email to prevent spam harvesting bots
-	const emailUser = 'hello';
-	const emailDomain = 'rosantibikemotorent.com';
-	const displayEmail = $derived(`${emailUser}&#64;${emailDomain}`);
-	const emailHref = $derived(`mailto:${emailUser}@${emailDomain}`);
+let { className = '' }: Props = $props();
+
+// Obfuscate email to prevent spam harvesting bots
+const emailUser = 'hello';
+const emailDomain = 'rosantibikemotorent.com';
+const displayEmail = $derived(`${emailUser}&#64;${emailDomain}`);
+const emailHref = $derived(`mailto:${emailUser}@${emailDomain}`);
 </script>
 
 <footer

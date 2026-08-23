@@ -1,41 +1,41 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { LL } from '$i18n/i18n-svelte';
+import { onMount } from 'svelte';
+import { LL } from '$i18n/i18n-svelte';
 
-	let videoRef = $state<HTMLVideoElement>();
-	let containerRef = $state<HTMLElement>();
-	let isPlaying = $state(false);
-	let isVisible = $state(false);
+let videoRef = $state<HTMLVideoElement>();
+let containerRef = $state<HTMLElement>();
+let isPlaying = $state(false);
+let isVisible = $state(false);
 
-	onMount(() => {
-		if (containerRef) {
-			const io = new IntersectionObserver(
-				(entries) => {
-					if (entries[0]?.isIntersecting) {
-						isVisible = true;
-						io.disconnect();
-					}
-				},
-				{ rootMargin: '300px' }
-			);
-			io.observe(containerRef);
-			return () => io.disconnect();
-		}
-	});
-
-	function togglePlay() {
-		if (!videoRef) return;
-		if (isPlaying) {
-			videoRef.pause();
-			isPlaying = false;
-		} else {
-			if (!videoRef.src) {
-				videoRef.src = '/video/whychooseus.mp4';
-			}
-			videoRef.play();
-			isPlaying = true;
-		}
+onMount(() => {
+	if (containerRef) {
+		const io = new IntersectionObserver(
+			(entries) => {
+				if (entries[0]?.isIntersecting) {
+					isVisible = true;
+					io.disconnect();
+				}
+			},
+			{ rootMargin: '300px' }
+		);
+		io.observe(containerRef);
+		return () => io.disconnect();
 	}
+});
+
+function togglePlay() {
+	if (!videoRef) return;
+	if (isPlaying) {
+		videoRef.pause();
+		isPlaying = false;
+	} else {
+		if (!videoRef.src) {
+			videoRef.src = '/video/whychooseus.mp4';
+		}
+		videoRef.play();
+		isPlaying = true;
+	}
+}
 </script>
 
 <div class="bg-white py-24 md:py-36" id="promotional-video" bind:this={containerRef}>

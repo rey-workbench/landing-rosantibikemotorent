@@ -1,8 +1,8 @@
-import type { LayoutServerLoad } from './$types';
+import { DEFAULTS } from '$lib/constants';
 import { buildOrganizationSchema, type FleetMotor } from '$lib/seo/schema';
 import { jenisMotorService } from '$lib/services';
-import { DEFAULTS } from '$lib/constants';
 import { getMotorImage } from '$lib/utils/image';
+import type { LayoutServerLoad } from './$types';
 
 function motorCategory(merk: string, model: string, cc: number): string {
 	const name = `${merk} ${model}`.toLowerCase();

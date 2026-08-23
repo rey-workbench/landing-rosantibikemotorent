@@ -1,5 +1,5 @@
-import { websocketClient } from '$lib/api';
 import { browser } from '$app/environment';
+import { websocketClient } from '$lib/api';
 import type { UnitMotorUpdate } from '$lib/types';
 
 const WS_CHANNELS = {
@@ -44,7 +44,9 @@ class WebSocketService {
 
 	private setupEventListeners(): void {
 		websocketClient.on(WS_CHANNELS.UNIT_MOTOR_UPDATE, (data: UnitMotorUpdate) => {
-			this.unitMotorUpdateHandlers.forEach((handler) => handler(data));
+			for (const handler of this.unitMotorUpdateHandlers) {
+				handler(data);
+			}
 		});
 
 		const transactionEvents = [
@@ -56,7 +58,9 @@ class WebSocketService {
 
 		transactionEvents.forEach((event) => {
 			websocketClient.on(event, (data) => {
-				this.transactionUpdateHandlers.forEach((handler) => handler({ event, data }));
+				for (const handler of this.transactionUpdateHandlers) {
+					handler({ event, data });
+				}
 			});
 		});
 	}

@@ -1,113 +1,113 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { LL } from '$i18n/i18n-svelte';
+import { onMount } from 'svelte';
+import { LL } from '$i18n/i18n-svelte';
 
-	let scrollProgress = $state(0);
-	let containerRef = $state<HTMLElement>();
-	let activePanelIndex = $state(0);
+let scrollProgress = $state(0);
+let containerRef = $state<HTMLElement>();
+let activePanelIndex = $state(0);
 
-	const panels = $derived([
-		{
-			id: 'nature',
-			title: $LL.adventure_nature(),
-			subtitle: $LL.adventure_nature_sub(),
-			description: $LL.adventure_nature_desc(),
-			video: '/video/ts.mp4',
-			accentColor: '#4ade80',
-			gradientFrom: 'from-emerald-900/60'
-		},
-		{
-			id: 'city',
-			title: $LL.adventure_city(),
-			subtitle: $LL.adventure_city_sub(),
-			description: $LL.adventure_city_desc(),
-			video: '/video/mbd.mp4',
-			accentColor: '#60a5fa',
-			gradientFrom: 'from-blue-900/60'
-		},
-		{
-			id: 'coast',
-			title: $LL.adventure_coast(),
-			subtitle: $LL.adventure_coast_sub(),
-			description: $LL.adventure_coast_desc(),
-			video: '/video/ptb.mp4',
-			accentColor: '#fb923c',
-			gradientFrom: 'from-orange-900/60'
-		}
-	]);
+const panels = $derived([
+	{
+		id: 'nature',
+		title: $LL.adventure_nature(),
+		subtitle: $LL.adventure_nature_sub(),
+		description: $LL.adventure_nature_desc(),
+		video: '/video/ts.mp4',
+		accentColor: '#4ade80',
+		gradientFrom: 'from-emerald-900/60'
+	},
+	{
+		id: 'city',
+		title: $LL.adventure_city(),
+		subtitle: $LL.adventure_city_sub(),
+		description: $LL.adventure_city_desc(),
+		video: '/video/mbd.mp4',
+		accentColor: '#60a5fa',
+		gradientFrom: 'from-blue-900/60'
+	},
+	{
+		id: 'coast',
+		title: $LL.adventure_coast(),
+		subtitle: $LL.adventure_coast_sub(),
+		description: $LL.adventure_coast_desc(),
+		video: '/video/ptb.mp4',
+		accentColor: '#fb923c',
+		gradientFrom: 'from-orange-900/60'
+	}
+]);
 
-	let videoRefs = $state<HTMLVideoElement[]>([]);
-	let isVisible = $state(false);
-	let isSectionInView = $state(false);
+let videoRefs = $state<HTMLVideoElement[]>([]);
+let isVisible = $state(false);
+let isSectionInView = $state(false);
 
-	$effect(() => {
-		activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
+$effect(() => {
+	activePanelIndex = Math.min(panels.length - 1, Math.floor(scrollProgress * panels.length));
 
-		videoRefs.forEach((video, idx) => {
-			if (!video) return;
-			if (isSectionInView && idx === activePanelIndex) {
-				if (!video.src && panels[idx]) {
-					video.src = panels[idx].video;
-				}
-				if (video.paused) {
-					video.play().catch((err) => console.log('Video play failed:', err));
-				}
-			} else if (!video.paused) {
-				video.pause();
+	videoRefs.forEach((video, idx) => {
+		if (!video) return;
+		if (isSectionInView && idx === activePanelIndex) {
+			if (!video.src && panels[idx]) {
+				video.src = panels[idx].video;
 			}
-		});
+			if (video.paused) {
+				video.play().catch((err) => console.log('Video play failed:', err));
+			}
+		} else if (!video.paused) {
+			video.pause();
+		}
 	});
+});
 
-	onMount(() => {
-		let rafId: number | null = null;
+onMount(() => {
+	let rafId: number | null = null;
 
-		if (containerRef) {
-			const io = new IntersectionObserver(
-				(entries) => {
-					const entry = entries[0];
-					if (entry) {
-						isSectionInView = entry.isIntersecting;
-						if (entry.isIntersecting) {
-							isVisible = true;
-						}
+	if (containerRef) {
+		const io = new IntersectionObserver(
+			(entries) => {
+				const entry = entries[0];
+				if (entry) {
+					isSectionInView = entry.isIntersecting;
+					if (entry.isIntersecting) {
+						isVisible = true;
 					}
-				},
-				{ rootMargin: '100px' }
-			);
-			io.observe(containerRef);
+				}
+			},
+			{ rootMargin: '100px' }
+		);
+		io.observe(containerRef);
+	}
+
+	const updateProgress = () => {
+		if (!containerRef) return;
+		const rect = containerRef.getBoundingClientRect();
+		const viewportHeight = window.innerHeight;
+
+		if (rect.top <= 0 && rect.bottom >= viewportHeight) {
+			const totalHeight = rect.height - viewportHeight;
+			const raw = -rect.top / totalHeight;
+			scrollProgress = Math.max(0, Math.min(0.999, raw));
+		} else if (rect.top > 0) {
+			scrollProgress = 0;
+		} else if (rect.bottom < viewportHeight) {
+			scrollProgress = 0.999;
 		}
+		rafId = null;
+	};
 
-		const updateProgress = () => {
-			if (!containerRef) return;
-			const rect = containerRef.getBoundingClientRect();
-			const viewportHeight = window.innerHeight;
+	const handleScroll = () => {
+		if (!rafId) {
+			rafId = requestAnimationFrame(updateProgress);
+		}
+	};
 
-			if (rect.top <= 0 && rect.bottom >= viewportHeight) {
-				const totalHeight = rect.height - viewportHeight;
-				const raw = -rect.top / totalHeight;
-				scrollProgress = Math.max(0, Math.min(0.999, raw));
-			} else if (rect.top > 0) {
-				scrollProgress = 0;
-			} else if (rect.bottom < viewportHeight) {
-				scrollProgress = 0.999;
-			}
-			rafId = null;
-		};
+	window.addEventListener('scroll', handleScroll, { passive: true });
+	updateProgress();
 
-		const handleScroll = () => {
-			if (!rafId) {
-				rafId = requestAnimationFrame(updateProgress);
-			}
-		};
-
-		window.addEventListener('scroll', handleScroll, { passive: true });
-		updateProgress();
-
-		return () => {
-			if (rafId) cancelAnimationFrame(rafId);
-			window.removeEventListener('scroll', handleScroll);
-		};
-	});
+	return () => {
+		if (rafId) cancelAnimationFrame(rafId);
+		window.removeEventListener('scroll', handleScroll);
+	};
+});
 </script>
 
 <div class="bg-brand-dark relative" bind:this={containerRef}>

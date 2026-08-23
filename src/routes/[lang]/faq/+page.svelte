@@ -1,63 +1,63 @@
 <script lang="ts">
-	import { page } from '$app/state';
-	import { siteConfig } from '$lib/config';
-	import { SeoHead } from '$lib/components/seo';
-	import Faq from '$lib/components/landing/Faq.svelte';
-	import { buildBreadcrumbSchema } from '$lib/seo/schema';
+import { page } from '$app/state';
+import Faq from '$lib/components/landing/Faq.svelte';
+import { SeoHead } from '$lib/components/seo';
+import { siteConfig } from '$lib/config';
+import { buildBreadcrumbSchema } from '$lib/seo/schema';
 
-	let { data } = $props();
+let { data } = $props();
 
-	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-	const isEn = $derived(lang === 'en');
-	const currentUrl = $derived(page.url.href);
+const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+const isEn = $derived(lang === 'en');
+const currentUrl = $derived(page.url.href);
 
-	const title = $derived(
-		isEn
-			? 'Frequently Asked Questions (FAQ) - Malang Motorbike Rental | Rosantibike'
-			: 'FAQ & Tanya Jawab Sewa Motor Malang | Rosantibike Motorent'
-	);
+const title = $derived(
+	isEn
+		? 'Frequently Asked Questions (FAQ) - Malang Motorbike Rental | Rosantibike'
+		: 'FAQ & Tanya Jawab Sewa Motor Malang | Rosantibike Motorent'
+);
 
-	const description = $derived(
-		isEn
-			? 'Find answers to common questions about motorcycle rentals in Malang: prices, requirements, free delivery to Malang Station, helmets & raincoats included.'
-			: 'Pertanyaan seputar sewa motor di Malang: harga rental mulai 60rb, syarat KTP/SIM, fasilitas gratis 2 helm & jas hujan, serta gratis antar jemput Stasiun Malang.'
-	);
+const description = $derived(
+	isEn
+		? 'Find answers to common questions about motorcycle rentals in Malang: prices, requirements, free delivery to Malang Station, helmets & raincoats included.'
+		: 'Pertanyaan seputar sewa motor di Malang: harga rental mulai 60rb, syarat KTP/SIM, fasilitas gratis 2 helm & jas hujan, serta gratis antar jemput Stasiun Malang.'
+);
 
-	const faqData = $derived(
-		isEn
-			? [
-					// EN: hardcoded (knowledge base belum mendukung bahasa Inggris)
+const faqData = $derived(
+	isEn
+		? [
+				// EN: hardcoded (knowledge base belum mendukung bahasa Inggris)
+				{
+					question: 'How much does it cost to rent a motorcycle in Malang per day?',
+					answer:
+						'Our motorcycle rental rates start from IDR 60,000 per day (24 hours) for standard scooters up to IDR 150,000 for Maxi/Sport types. Prices vary depending on the motorcycle model and rental duration.'
+				},
+				{
+					question: 'What are the requirements for renting a motorcycle in Malang?',
+					answer:
+						"The main requirements are a valid ID card (e-KTP) and a valid driver's license (SIM C for Indonesian citizens). For foreign tourists, a valid Passport and a valid International Driving Permit (IDP) or license from your home country are required."
+				},
+				{
+					question: 'Do you provide motorcycle delivery and pickup services?',
+					answer:
+						'Yes! We provide free delivery and pickup services to Malang Train Station (Stasiun Malang), Arjosari Bus Terminal, and hotels in the central Malang City area.'
+				},
+				{
+					question: 'What is the minimum rental period?',
+					answer:
+						'The minimum rental period is 24 hours (1 day). We also offer weekly and monthly rentals with special discounted rates.'
+				},
+				{
+					question: 'Are helmets and raincoats included?',
+					answer:
+						"Of course. Every motorcycle rental includes 2 clean SNI-certified helmets and 2 raincoats (poncho or set) for your safety and comfort while riding in Malang's rainy weather."
+				}
+			]
+		: data.faqKnowledge.length > 0
+			? data.faqKnowledge
+			: [
 					{
-						question: 'How much does it cost to rent a motorcycle in Malang per day?',
-						answer:
-							'Our motorcycle rental rates start from IDR 60,000 per day (24 hours) for standard scooters up to IDR 150,000 for Maxi/Sport types. Prices vary depending on the motorcycle model and rental duration.'
-					},
-					{
-						question: 'What are the requirements for renting a motorcycle in Malang?',
-						answer:
-							"The main requirements are a valid ID card (e-KTP) and a valid driver's license (SIM C for Indonesian citizens). For foreign tourists, a valid Passport and a valid International Driving Permit (IDP) or license from your home country are required."
-					},
-					{
-						question: 'Do you provide motorcycle delivery and pickup services?',
-						answer:
-							'Yes! We provide free delivery and pickup services to Malang Train Station (Stasiun Malang), Arjosari Bus Terminal, and hotels in the central Malang City area.'
-					},
-					{
-						question: 'What is the minimum rental period?',
-						answer:
-							'The minimum rental period is 24 hours (1 day). We also offer weekly and monthly rentals with special discounted rates.'
-					},
-					{
-						question: 'Are helmets and raincoats included?',
-						answer:
-							"Of course. Every motorcycle rental includes 2 clean SNI-certified helmets and 2 raincoats (poncho or set) for your safety and comfort while riding in Malang's rainy weather."
-					}
-				]
-			: data.faqKnowledge.length > 0
-				? data.faqKnowledge
-				: [
-						{
-							question: 'Berapa harga sewa motor di Malang per hari?',
+						question: 'Berapa harga sewa motor di Malang per hari?',
 						answer:
 							'Harga sewa motor kami mulai dari Rp 60.000 per hari (24 jam) untuk motor matic standar, hingga Rp 150.000 untuk tipe Maxi/Sport. Harga bervariasi tergantung tipe motor dan durasi sewa.'
 					},
@@ -82,29 +82,29 @@
 							'Tentu. Setiap penyewaan motor sudah termasuk 2 helm SNI bersih dan 2 jas hujan model ponco atau setelan untuk kenyamanan Anda berkendara di Malang yang sering hujan.'
 					}
 				]
-	);
+);
 
-	const breadcrumbSchema = $derived(
-		buildBreadcrumbSchema([
-			{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
-			{ position: 2, name: 'FAQ', item: currentUrl }
-		])
-	);
+const breadcrumbSchema = $derived(
+	buildBreadcrumbSchema([
+		{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
+		{ position: 2, name: 'FAQ', item: currentUrl }
+	])
+);
 
-	const faqSchema = $derived({
-		'@context': 'https://schema.org',
-		'@type': 'FAQPage',
-		mainEntity: faqData.map((item) => ({
-			'@type': 'Question',
-			name: item.question,
-			acceptedAnswer: {
-				'@type': 'Answer',
-				text: item.answer
-			}
-		}))
-	});
+const faqSchema = $derived({
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqData.map((item) => ({
+		'@type': 'Question',
+		name: item.question,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: item.answer
+		}
+	}))
+});
 
-	const schemas = $derived([breadcrumbSchema, faqSchema]);
+const schemas = $derived([breadcrumbSchema, faqSchema]);
 </script>
 
 <SeoHead

@@ -1,5 +1,12 @@
 type StatusTransaksi =
-	'PENDING_DP' | 'PENDING' | 'DP_DIBAYAR' | 'LUNAS' | 'AKTIF' | 'BATAL' | 'SELESAI' | 'OVERDUE';
+	| 'PENDING_DP'
+	| 'PENDING'
+	| 'DP_DIBAYAR'
+	| 'LUNAS'
+	| 'AKTIF'
+	| 'BATAL'
+	| 'SELESAI'
+	| 'OVERDUE';
 
 export interface Transaksi {
 	id: string;

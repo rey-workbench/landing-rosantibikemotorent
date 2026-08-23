@@ -1,78 +1,78 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { page } from '$app/state';
-	import { fade } from 'svelte/transition';
-	import { LL } from '$i18n/i18n-svelte';
-	import { SeoHead } from '$lib/components/seo';
-	import { buildBreadcrumbSchema, buildArticleSchema } from '$lib/seo/schema';
-	import { optimizeImageUrl } from '$lib/utils/image';
-	import Button from '$lib/components/ui/Button.svelte';
-	import { marked } from 'marked';
-	import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from 'isomorphic-dompurify';
+import { marked } from 'marked';
+import { fade } from 'svelte/transition';
+import { browser } from '$app/environment';
+import { page } from '$app/state';
+import { LL } from '$i18n/i18n-svelte';
+import { SeoHead } from '$lib/components/seo';
+import Button from '$lib/components/ui/Button.svelte';
+import { buildArticleSchema, buildBreadcrumbSchema } from '$lib/seo/schema';
+import { optimizeImageUrl } from '$lib/utils/image';
 
-	let { data } = $props();
+let { data } = $props();
 
-	const post = $derived(data.post);
-	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-	const currentUrl = $derived(page.url.href);
+const post = $derived(data.post);
+const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
+const currentUrl = $derived(page.url.href);
 
-	let copied = $state(false);
+let copied = $state(false);
 
-	const renderedHtml = $derived.by(() => {
-		if (!post?.konten) return '';
-		try {
-			const rawParsed = marked.parse(post.konten, {
-				async: false,
-				breaks: true,
-				gfm: true
-			}) as string;
-			const purify = (DOMPurify as any)?.default || DOMPurify;
-			return typeof purify?.sanitize === 'function' ? purify.sanitize(rawParsed) : rawParsed;
-		} catch (e) {
-			return post.konten;
-		}
-	});
-
-	const breadcrumbSchema = $derived(
-		post
-			? buildBreadcrumbSchema([
-					{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
-					{ position: 2, name: 'Blog', item: `https://rosantibikemotorent.com/${lang}/blog` },
-					{ position: 3, name: post.judul || '', item: currentUrl }
-				])
-			: null
-	);
-
-	const articleSchema = $derived(
-		post
-			? buildArticleSchema({
-					title: post.judul,
-					description: post.metaDescription || post.judul,
-					image: post.featuredImage || post.thumbnail,
-					publishedTime: post.createdAt,
-					url: currentUrl
-				})
-			: null
-	);
-
-	const schemas = $derived([breadcrumbSchema, articleSchema].filter(Boolean) as object[]);
-
-	function getCurrentUrl(): string {
-		if (browser) {
-			return window.location.href;
-		}
-		return '';
+const renderedHtml = $derived.by(() => {
+	if (!post?.konten) return '';
+	try {
+		const rawParsed = marked.parse(post.konten, {
+			async: false,
+			breaks: true,
+			gfm: true
+		}) as string;
+		const purify = (DOMPurify as any)?.default || DOMPurify;
+		return typeof purify?.sanitize === 'function' ? purify.sanitize(rawParsed) : rawParsed;
+	} catch (e) {
+		return post.konten;
 	}
+});
 
-	function copyLink() {
-		if (browser) {
-			navigator.clipboard.writeText(window.location.href);
-			copied = true;
-			setTimeout(() => {
-				copied = false;
-			}, 2000);
-		}
+const breadcrumbSchema = $derived(
+	post
+		? buildBreadcrumbSchema([
+				{ position: 1, name: 'Home', item: `https://rosantibikemotorent.com/${lang}` },
+				{ position: 2, name: 'Blog', item: `https://rosantibikemotorent.com/${lang}/blog` },
+				{ position: 3, name: post.judul || '', item: currentUrl }
+			])
+		: null
+);
+
+const articleSchema = $derived(
+	post
+		? buildArticleSchema({
+				title: post.judul,
+				description: post.metaDescription || post.judul,
+				image: post.featuredImage || post.thumbnail,
+				publishedTime: post.createdAt,
+				url: currentUrl
+			})
+		: null
+);
+
+const schemas = $derived([breadcrumbSchema, articleSchema].filter(Boolean) as object[]);
+
+function getCurrentUrl(): string {
+	if (browser) {
+		return window.location.href;
 	}
+	return '';
+}
+
+function copyLink() {
+	if (browser) {
+		navigator.clipboard.writeText(window.location.href);
+		copied = true;
+		setTimeout(() => {
+			copied = false;
+		}, 2000);
+	}
+}
 </script>
 
 {#if post}

@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
+import { fly } from 'svelte/transition';
 
-	let {
-		error,
-		onClose
-	}: {
-		error: string;
-		onClose: () => void;
-	} = $props();
+let {
+	error,
+	onClose
+}: {
+	error: string;
+	onClose: () => void;
+} = $props();
 </script>
 
 <div

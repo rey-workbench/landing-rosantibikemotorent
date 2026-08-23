@@ -1,54 +1,54 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { loadingState } from '$lib/stores/loading.svelte';
-	import TextOverlay from './HeroOverlay.svelte';
+import { onMount } from 'svelte';
+import { loadingState } from '$lib/stores/loading.svelte';
+import TextOverlay from './HeroOverlay.svelte';
 
-	let videoRef = $state<HTMLVideoElement>();
-	let isDesktop = $state(true); // Default true for SSR, we will refine onMount
+let videoRef = $state<HTMLVideoElement>();
+let isDesktop = $state(true); // Default true for SSR, we will refine onMount
 
-	onMount(() => {
-		setTimeout(() => (loadingState.isLoaded = true), 1000);
+onMount(() => {
+	setTimeout(() => (loadingState.isLoaded = true), 1000);
 
-		// Only load video on tablet/desktop viewports
-		isDesktop = window.matchMedia('(min-width: 768px)').matches;
+	// Only load video on tablet/desktop viewports
+	isDesktop = window.matchMedia('(min-width: 768px)').matches;
 
-		const start = () => {
-			if (videoRef && isDesktop) {
-				if (!videoRef.src) {
-					videoRef.src = '/video/hero-compressed.webm';
-				}
-				if (videoRef.paused) {
-					videoRef.play().catch(() => {
-						/* autoplay blocked — poster stays visible */
-					});
+	const start = () => {
+		if (videoRef && isDesktop) {
+			if (!videoRef.src) {
+				videoRef.src = '/video/hero-compressed.webm';
+			}
+			if (videoRef.paused) {
+				videoRef.play().catch(() => {
+					/* autoplay blocked — poster stays visible */
+				});
+			}
+		}
+	};
+
+	// Never let the (large) hero video compete with initial page load:
+	// start it only after the page has loaded, and only while it is visible.
+	if (document.readyState === 'complete') {
+		start();
+	} else {
+		window.addEventListener('load', start, { once: true });
+	}
+
+	const io = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting) {
+					start();
+				} else if (videoRef && !videoRef.paused) {
+					videoRef.pause();
 				}
 			}
-		};
+		},
+		{ threshold: 0.05 }
+	);
+	if (videoRef) io.observe(videoRef);
 
-		// Never let the (large) hero video compete with initial page load:
-		// start it only after the page has loaded, and only while it is visible.
-		if (document.readyState === 'complete') {
-			start();
-		} else {
-			window.addEventListener('load', start, { once: true });
-		}
-
-		const io = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) {
-						start();
-					} else if (videoRef && !videoRef.paused) {
-						videoRef.pause();
-					}
-				}
-			},
-			{ threshold: 0.05 }
-		);
-		if (videoRef) io.observe(videoRef);
-
-		return () => io.disconnect();
-	});
+	return () => io.disconnect();
+});
 </script>
 
 <div class="relative h-svh w-full overflow-hidden bg-black">

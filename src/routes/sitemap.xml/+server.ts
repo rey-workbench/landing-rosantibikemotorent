@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { BASE_URL } from '$lib/seo/types';
-import { jenisMotorService, blogService } from '$lib/services';
 import { DEFAULTS } from '$lib/constants';
+import { BASE_URL } from '$lib/seo/types';
+import { blogService, jenisMotorService } from '$lib/services';
 
 interface SitemapUrl {
 	path: string;
@@ -40,11 +40,13 @@ export const GET: RequestHandler = async () => {
 	try {
 		const response = await jenisMotorService.getAll();
 		const jenisMotors = response.data || [];
-		dynamicUrls = jenisMotors.map((jenis: any): SitemapUrl => ({
-			path: `/fleet/${jenis.slug}`,
-			changefreq: 'weekly',
-			priority: 0.8
-		}));
+		dynamicUrls = jenisMotors.map(
+			(jenis: any): SitemapUrl => ({
+				path: `/fleet/${jenis.slug}`,
+				changefreq: 'weekly',
+				priority: 0.8
+			})
+		);
 
 		const blogResponse = await blogService.getAll({
 			limit: DEFAULTS.ALL_ITEMS_LIMIT,
@@ -52,12 +54,14 @@ export const GET: RequestHandler = async () => {
 		});
 		const blogs = blogResponse.data || [];
 		dynamicUrls.push(
-			...blogs.map((blog: any): SitemapUrl => ({
-				path: `/blog/${blog.slug}`,
-				changefreq: 'monthly',
-				priority: 0.6,
-				lastmod: blog.updatedAt ? new Date(blog.updatedAt).toISOString().split('T')[0] : undefined
-			}))
+			...blogs.map(
+				(blog: any): SitemapUrl => ({
+					path: `/blog/${blog.slug}`,
+					changefreq: 'monthly',
+					priority: 0.6,
+					lastmod: blog.updatedAt ? new Date(blog.updatedAt).toISOString().split('T')[0] : undefined
+				})
+			)
 		);
 	} catch (error) {
 		console.error('Failed to fetch dynamic routes for sitemap:', error);

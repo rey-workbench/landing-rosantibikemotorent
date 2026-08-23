@@ -3,7 +3,7 @@ export function stripHtml(content: string, limit: number = 140): string {
 	// Strip HTML tags and markdown formatting symbols
 	const stripped = content
 		.replace(/<[^>]*>/g, '')
-		.replace(/[#*`_~>|\[\]\(\)]/g, '')
+		.replace(/[#*`_~>|[\]()]/g, '')
 		.replace(/:\s*---\s*\|/g, '')
 		.replace(/\s+/g, ' ')
 		.trim();

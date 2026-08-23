@@ -1,37 +1,37 @@
 <script lang="ts">
-	import { loadingState } from '$lib/stores';
-	import { fade } from 'svelte/transition';
-	import { onMount } from 'svelte';
-	import { navigating } from '$app/state';
+import { onMount } from 'svelte';
+import { fade } from 'svelte/transition';
+import { navigating } from '$app/state';
+import { loadingState } from '$lib/stores';
 
-	let mounted = $state(false);
-	let progressInterval: ReturnType<typeof setInterval> | undefined;
+let mounted = $state(false);
+let progressInterval: ReturnType<typeof setInterval> | undefined;
 
-	onMount(() => {
-		mounted = true;
+onMount(() => {
+	mounted = true;
 
-		// Ensure initial load completes quickly
-		if (!loadingState.isLoaded) {
-			loadingState.progress = 100;
-			setTimeout(() => (loadingState.isLoaded = true), 200);
-		}
-	});
+	// Ensure initial load completes quickly
+	if (!loadingState.isLoaded) {
+		loadingState.progress = 100;
+		setTimeout(() => (loadingState.isLoaded = true), 200);
+	}
+});
 
-	// Listen to SvelteKit navigation state
-	$effect(() => {
-		if (navigating.to) {
-			loadingState.isLoaded = false;
-			loadingState.progress = 15;
-			clearInterval(progressInterval);
-			progressInterval = setInterval(() => {
-				loadingState.progress = loadingState.progress >= 90 ? 90 : loadingState.progress + 15;
-			}, 100);
-		} else if (mounted) {
-			loadingState.progress = 100;
-			clearInterval(progressInterval);
-			setTimeout(() => (loadingState.isLoaded = true), 300);
-		}
-	});
+// Listen to SvelteKit navigation state
+$effect(() => {
+	if (navigating.to) {
+		loadingState.isLoaded = false;
+		loadingState.progress = 15;
+		clearInterval(progressInterval);
+		progressInterval = setInterval(() => {
+			loadingState.progress = loadingState.progress >= 90 ? 90 : loadingState.progress + 15;
+		}, 100);
+	} else if (mounted) {
+		loadingState.progress = 100;
+		clearInterval(progressInterval);
+		setTimeout(() => (loadingState.isLoaded = true), 300);
+	}
+});
 </script>
 
 {#if !loadingState.isLoaded && mounted}
