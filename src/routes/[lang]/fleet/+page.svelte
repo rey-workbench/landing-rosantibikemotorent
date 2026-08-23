@@ -56,27 +56,27 @@
 
 <!-- Chapternav (Sticky under main navbar) -->
 <div
-	class="sticky top-14 md:top-16 mt-14 md:mt-16 w-full bg-white/90 backdrop-blur-md z-40 border-b border-[#d2d2d7] transition-all"
+	class="sticky top-14 md:top-16 mt-14 md:mt-16 w-full bg-white/95 backdrop-blur-md z-40 border-b border-[#d2d2d7] transition-all shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
 >
-	<div class="max-w-5xl mx-auto px-4 h-16 md:h-18 flex items-center relative overflow-hidden">
-		<!-- Left Title -->
+	<div class="max-w-5xl mx-auto px-4 py-2.5 md:py-3 flex items-center relative">
+		<!-- Left Title (Desktop only to prevent mobile overlap) -->
 		<div
-			class="absolute left-4 z-10 text-[19px] md:text-[21px] font-semibold text-[#1d1d1f] tracking-tight bg-white md:bg-transparent pr-4 py-2"
+			class="hidden md:block absolute left-4 z-10 text-[19px] md:text-[21px] font-semibold text-[#1d1d1f] tracking-tight bg-white/90 backdrop-blur-sm pr-4 py-1"
 		>
 			{$LL.fleet_title()}
 		</div>
 
 		<!-- Centered scrolling items -->
 		<div
-			class="flex-1 flex items-center md:justify-center justify-start gap-8 overflow-x-auto no-scrollbar snap-x pl-25 md:pl-0 h-full w-full"
+			class="flex-1 flex items-center md:justify-center justify-start gap-6 md:gap-8 overflow-x-auto no-scrollbar snap-x px-2 md:px-0 w-full"
 		>
 			{#each jenisMotors as motor}
 				<a
 					href="#{motor.slug}"
-					class="flex flex-col items-center justify-end gap-1.5 shrink-0 snap-start group min-w-13.5 opacity-80 hover:opacity-100 transition-opacity"
+					class="flex flex-col items-center justify-center gap-1.5 shrink-0 snap-start group min-w-14 py-1 opacity-80 hover:opacity-100 transition-opacity focus:outline-none"
 					style="text-decoration: none;"
 				>
-					<div class="h-9 flex items-end justify-center relative">
+					<div class="h-9 w-14 flex items-center justify-center relative">
 						{#if getMotorImage(motor)}
 							<img
 								src={getMotorImage(motor)}
@@ -84,7 +84,7 @@
 								data-fallback={getFallbackImage(motor)}
 								width="64"
 								height="36"
-								class="max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+								class="max-h-9 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
 								onerror={handleImageError}
 							/>
 							<div
@@ -101,7 +101,7 @@
 							</div>
 						{/if}
 					</div>
-					<span class="text-[11px] font-medium text-[#1d1d1f] whitespace-nowrap leading-none"
+					<span class="text-[11px] font-medium text-[#1d1d1f] whitespace-nowrap text-center leading-tight"
 						>{motor.model}</span
 					>
 				</a>

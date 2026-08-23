@@ -1,5 +1,6 @@
 import { sequence } from '@sveltejs/kit/hooks';
 import type { Handle, RequestEvent } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 import { detectLocale, isLocale } from '$i18n/i18n-util';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors';
 import type { Locales } from '$i18n/i18n-types';
@@ -49,19 +50,26 @@ const handleSecurity: Handle = async ({ event, resolve }) => {
 			: null;
 	if (cache) response.headers.set('Cache-Control', cache);
 
-	const headers = {
+	const connectSrc = dev
+		? "connect-src 'self' http: ws: wss: https: https://cloudflareinsights.com"
+		: "connect-src 'self' wss: https: https://cloudflareinsights.com";
+
+	const headers: Record<string, string> = {
 		'Content-Security-Policy':
-			"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' wss: https: https://cloudflareinsights.com; media-src 'self'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'",
+			`default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; ${connectSrc}; media-src 'self'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'`,
 		'X-Frame-Options': 'DENY',
 		'X-Content-Type-Options': 'nosniff',
 		'Referrer-Policy': 'strict-origin-when-cross-origin',
 		'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-		'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
 		'Cross-Origin-Opener-Policy': 'same-origin',
 		Vary: 'Accept',
 		'Content-Signal': 'search=yes, ai-input=yes, ai-train=no',
 		Link: '</llms.txt>; rel="describedby", </llms-full.txt>; rel="alternate"; type="text/markdown", </.well-known/api-catalog>; rel="service-desc"; type="application/linkset+json", </.well-known/oauth-protected-resource>; rel="oauth-protected-resource", </.well-known/ucp>; rel="ucp", </auth.md>; rel="authorisation"'
 	};
+
+	if (!dev) {
+		headers['Strict-Transport-Security'] = 'max-age=63072000; includeSubDomains; preload';
+	}
 	for (const [k, v] of Object.entries(headers)) response.headers.set(k, v);
 
 	return response;
