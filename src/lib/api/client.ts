@@ -154,8 +154,12 @@ class ApiClient {
 			this.pendingGets.set(fetchUrl, promise);
 			const result = await promise;
 			if (useCache && result) {
+				const now = Date.now();
+				for (const [k, v] of this.responseCache) {
+					if (v.expiresAt < now) this.responseCache.delete(k);
+				}
 				this.responseCache.set(fetchUrl, {
-					expiresAt: Date.now() + ttl,
+					expiresAt: now + ttl,
 					data: result.data,
 					status: result.status
 				});
