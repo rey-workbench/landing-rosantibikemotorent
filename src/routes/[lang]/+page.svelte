@@ -8,15 +8,15 @@
 	import { SeoHead } from '$lib/components/seo';
 	import { page } from '$app/state';
 	import { LL } from '$i18n/i18n-svelte';
-	import { buildFaqSchema, buildOrganizationSchema } from '$lib/seo/schema';
+	import { buildFaqSchema, buildWebsiteSchema } from '$lib/seo/schema';
+	import { SITE_NAME } from '$lib/seo/types';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
 	const lang = $derived((page.params.lang || 'id') as 'id' | 'en');
-	const currentUrl = $derived(page.url.href);
 
-	const orgSchema = $derived(buildOrganizationSchema());
+	const websiteSchema = $derived(buildWebsiteSchema());
 	const faqSchema = $derived(
 		buildFaqSchema(
 			lang === 'en'
@@ -82,11 +82,11 @@
 	{lang}
 	path="/"
 	meta={{
-		title: `${$LL.hero_title()} | ${$LL.hero_tagline()}`,
+		title: `${SITE_NAME} | ${$LL.hero_tagline()}`,
 		description: $LL.hero_tagline(),
 		ogType: 'website'
 	}}
-	schemas={[orgSchema, faqSchema]}
+	schemas={[websiteSchema, faqSchema]}
 />
 
 <!-- Hero / video background -->

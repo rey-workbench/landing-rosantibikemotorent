@@ -37,6 +37,16 @@ export function buildOrganizationSchema() {
 	};
 }
 
+export function buildWebsiteSchema() {
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: SITE_NAME,
+		alternateName: 'Rosantibike',
+		url: BASE_URL
+	};
+}
+
 export function buildBreadcrumbSchema(items: BreadcrumbItem[]) {
 	return {
 		'@context': 'https://schema.org',
