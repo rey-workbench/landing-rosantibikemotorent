@@ -15,9 +15,6 @@ importers:
 
   .:
     dependencies:
-      '@desource/phone-mask-svelte':
-        specifier: ^1.6.2
-        version: 1.6.2(svelte@5.56.10)
       flag-icons:
         specifier: ^7.5.0
         version: 7.5.0
@@ -186,14 +183,6 @@ packages:
   '@csstools/css-tokenizer@4.0.0':
     resolution: {integrity: sha512-QxULHAm7cNu72w97JUNCBFODFaXpbDg+dP8b/oWFAZ2MTRppA3U00Y2L1HqaS4J6yBqxwa/Y3nMBaxVKbB/NsA==}
     engines: {node: '>=20.19.0'}
-
-  '@desource/phone-mask-svelte@1.6.2':
-    resolution: {integrity: sha512-nHSWerindxT7wdXhg0mDrX7r1l7zR8smw+Tn/U1QCPrpg3IaSYVujORUPPQt2im1dw3EOcSSSeGbSAocz8QQdw==}
-    peerDependencies:
-      svelte: ^5.0.0
-
-  '@desource/phone-mask@1.6.2':
-    resolution: {integrity: sha512-xvn+ryhmYJwqAbe9LClUBnVD/HDbSw/a6eaBLugrOzB5Svmt9MUHNLdyWT942HcDWhOP6TXg/li9A1litD7DYA==}
 
   '@esbuild/aix-ppc64@0.28.2':
     resolution: {integrity: sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==}
@@ -1307,13 +1296,6 @@ snapshots:
       css-tree: 3.2.1
 
   '@csstools/css-tokenizer@4.0.0': {}
-
-  '@desource/phone-mask-svelte@1.6.2(svelte@5.56.10)':
-    dependencies:
-      '@desource/phone-mask': 1.6.2
-      svelte: 5.56.10
-
-  '@desource/phone-mask@1.6.2': {}
 
   '@esbuild/aix-ppc64@0.28.2':
     optional: true
