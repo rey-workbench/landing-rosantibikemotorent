@@ -15,6 +15,12 @@ importers:
 
   .:
     dependencies:
+      '@desource/phone-mask-svelte':
+        specifier: ^1.6.2
+        version: 1.6.2(svelte@5.56.10)
+      flag-icons:
+        specifier: ^7.5.0
+        version: 7.5.0
       isomorphic-dompurify:
         specifier: ^3.22.0
         version: 3.22.0
@@ -180,6 +186,14 @@ packages:
   '@csstools/css-tokenizer@4.0.0':
     resolution: {integrity: sha512-QxULHAm7cNu72w97JUNCBFODFaXpbDg+dP8b/oWFAZ2MTRppA3U00Y2L1HqaS4J6yBqxwa/Y3nMBaxVKbB/NsA==}
     engines: {node: '>=20.19.0'}
+
+  '@desource/phone-mask-svelte@1.6.2':
+    resolution: {integrity: sha512-nHSWerindxT7wdXhg0mDrX7r1l7zR8smw+Tn/U1QCPrpg3IaSYVujORUPPQt2im1dw3EOcSSSeGbSAocz8QQdw==}
+    peerDependencies:
+      svelte: ^5.0.0
+
+  '@desource/phone-mask@1.6.2':
+    resolution: {integrity: sha512-xvn+ryhmYJwqAbe9LClUBnVD/HDbSw/a6eaBLugrOzB5Svmt9MUHNLdyWT942HcDWhOP6TXg/li9A1litD7DYA==}
 
   '@esbuild/aix-ppc64@0.28.2':
     resolution: {integrity: sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==}
@@ -794,6 +808,9 @@ packages:
       picomatch:
         optional: true
 
+  flag-icons@7.5.0:
+    resolution: {integrity: sha512-kd+MNXviFIg5hijH766tt+3x76ele1AXlo4zDdCxIvqWZhKt4T83bOtxUOOMlTx/EcFdUMH5yvQgYlFh1EqqFg==}
+
   fs-extra@10.1.0:
     resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
     engines: {node: '>=12'}
@@ -1291,6 +1308,13 @@ snapshots:
 
   '@csstools/css-tokenizer@4.0.0': {}
 
+  '@desource/phone-mask-svelte@1.6.2(svelte@5.56.10)':
+    dependencies:
+      '@desource/phone-mask': 1.6.2
+      svelte: 5.56.10
+
+  '@desource/phone-mask@1.6.2': {}
+
   '@esbuild/aix-ppc64@0.28.2':
     optional: true
 
@@ -1727,6 +1751,8 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.5):
     optionalDependencies:
       picomatch: 4.0.5
+
+  flag-icons@7.5.0: {}
 
   fs-extra@10.1.0:
     dependencies:
