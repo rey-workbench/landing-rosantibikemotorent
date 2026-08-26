@@ -1,5 +1,5 @@
 <script lang="ts">
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 import { onDestroy, onMount, untrack } from 'svelte';
 import { slide } from 'svelte/transition';
 import { goto, refreshAll } from '$app/navigation';
@@ -82,10 +82,7 @@ onMount(async () => {
 	}
 
 	websocketService.connect();
-	unsubs = [
-		websocketService.onTransactionUpdate(() => refreshAll()),
-		websocketService.onUnitMotorUpdate(() => refreshAll())
-	];
+	unsubs = [websocketService.onUnitMotorUpdate(() => refreshAll())];
 });
 
 function updateDateParams() {

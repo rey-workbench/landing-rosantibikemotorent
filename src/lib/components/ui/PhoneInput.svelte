@@ -1,5 +1,5 @@
 <script lang="ts">
-import { AsYouType, getCountries, getCountryCallingCode, parsePhoneNumberFromString } from 'libphonenumber-js';
+import { AsYouType, getCountries, getCountryCallingCode, parsePhoneNumberFromString } from 'libphonenumber-js/min';
 import { onMount } from 'svelte';
 import { fly } from 'svelte/transition';
 import 'flag-icons/css/flag-icons.min.css';

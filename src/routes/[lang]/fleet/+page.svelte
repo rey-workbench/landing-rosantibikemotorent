@@ -27,10 +27,7 @@ let currentUrl = $derived(page.url.href);
 onMount(() => {
 	websocketService.connect();
 
-	unsubs = [
-		websocketService.onTransactionUpdate(() => refreshAll()),
-		websocketService.onUnitMotorUpdate(() => refreshAll())
-	];
+	unsubs = [websocketService.onUnitMotorUpdate(() => refreshAll())];
 });
 
 onDestroy(() => {

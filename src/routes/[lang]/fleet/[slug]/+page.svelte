@@ -26,10 +26,7 @@ let currentUrl = $derived(pageStore.url.href);
 onMount(() => {
 	websocketService.connect();
 
-	unsubs = [
-		websocketService.onTransactionUpdate(() => refreshAll()),
-		websocketService.onUnitMotorUpdate(() => refreshAll())
-	];
+	unsubs = [websocketService.onUnitMotorUpdate(() => refreshAll())];
 });
 
 onDestroy(() => {
